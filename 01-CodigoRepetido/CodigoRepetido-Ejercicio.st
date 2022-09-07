@@ -21,11 +21,26 @@ TestCase subclass: #CustomerBookTest
 	poolDictionaries: ''
 	category: 'CodigoRepetido-Ejercicio'!
 
-!CustomerBookTest methodsFor: 'auxiliar' stamp: 'grm 9/6/2022 21:41:42'!
-assertThat: aCustomerBook hasActiveCustomers: aNumberOfActiveCustomers hasSuspendedCustomers: aNumberOfSuspendedCustomers hasCustomers: aNumberOfCustomers
+!CustomerBookTest methodsFor: 'auxiliar' stamp: 'grm 9/7/2022 12:07:32'!
+assertThat: aCustomerBook hasActiveCustomers: aNumberOfActiveCustomers
 	self assert: aNumberOfActiveCustomers equals: aCustomerBook numberOfActiveCustomers.
-	self assert: aNumberOfSuspendedCustomers equals: aCustomerBook numberOfSuspendedCustomers.
+	! !
+
+!CustomerBookTest methodsFor: 'auxiliar' stamp: 'grm 9/7/2022 12:10:32'!
+assertThat: aCustomerBook hasActiveCustomers: aNumberOfActiveCustomers hasSuspendedCustomers: aNumberOfSuspendedCustomers hasCustomers: aNumberOfCustomers
+	self assertThat: aCustomerBook hasActiveCustomers: aNumberOfActiveCustomers .
+	self assertThat: aCustomerBook hasSuspendedCustomers: aNumberOfSuspendedCustomers .
+	self assertThat: aCustomerBook hasCustomers: aNumberOfCustomers .
+	! !
+
+!CustomerBookTest methodsFor: 'auxiliar' stamp: 'grm 9/7/2022 12:10:04'!
+assertThat: aCustomerBook hasCustomers: aNumberOfCustomers
 	self assert: aNumberOfCustomers equals: aCustomerBook numberOfCustomers.
+	! !
+
+!CustomerBookTest methodsFor: 'auxiliar' stamp: 'grm 9/7/2022 12:09:01'!
+assertThat: aCustomerBook hasSuspendedCustomers: aNumberOfSuspendedCustomers
+	self assert: aNumberOfSuspendedCustomers equals: aCustomerBook numberOfSuspendedCustomers.
 	! !
 
 !CustomerBookTest methodsFor: 'auxiliar' stamp: 'grm 9/6/2022 21:51:09'!
@@ -93,7 +108,7 @@ test03CanNotAddACustomerWithEmptyName
 			self assert: anError messageText = CustomerBook customerCanNotBeEmptyErrorMessage.
 			self assert: customerBook isEmpty ]! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/6/2022 21:50:32'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/7/2022 12:12:41'!
 test04CanNotRemoveAnInvalidCustomer
 	
 	| customerBook johnLennon |
@@ -104,7 +119,7 @@ test04CanNotRemoveAnInvalidCustomer
 	self shouldThrowException: [ customerBook removeCustomerNamed: 'Paul McCartney']
 		withException: NotFound 
 		andAssert: [ :anError | 
-			self assert: customerBook numberOfCustomers = 1.
+			self assertThat: customerBook hasCustomers: 1.
 			self assert: (customerBook includesCustomerNamed: johnLennon) ]
 ! !
 
@@ -151,7 +166,7 @@ test06RemovingASuspendedCustomerShouldRemoveItFromCustomerBook
 	
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/6/2022 22:01:11'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/7/2022 12:12:21'!
 test07CanNotSuspendAnInvalidCustomer
 	
 	| customerBook johnLennon |
@@ -162,11 +177,11 @@ test07CanNotSuspendAnInvalidCustomer
 	self shouldThrowException: [ customerBook suspendCustomerNamed: 'George Harrison' ]
 		withException: CantSuspend
 		andAssert: [ :anError | 
-			self assert: customerBook numberOfCustomers = 1.
+			self assertThat: customerBook hasCustomers: 1.
 			self assert: (customerBook includesCustomerNamed: johnLennon) ].
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/6/2022 22:06:04'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/7/2022 12:11:17'!
 test08CanNotSuspendAnAlreadySuspendedCustomer
 	
 	| customerBook johnLennon |
@@ -177,7 +192,7 @@ test08CanNotSuspendAnAlreadySuspendedCustomer
 	self shouldThrowException: [ customerBook suspendCustomerNamed: johnLennon. ]
 		withException: CantSuspend
 		andAssert: [ :anError | 
-			self assert: customerBook numberOfCustomers = 1.
+			self assertThat: customerBook hasCustomers: 1.
 			self assert: (customerBook includesCustomerNamed: johnLennon) ].
 ! !
 
