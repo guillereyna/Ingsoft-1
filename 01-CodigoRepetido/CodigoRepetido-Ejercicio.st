@@ -21,153 +21,164 @@ TestCase subclass: #CustomerBookTest
 	poolDictionaries: ''
 	category: 'CodigoRepetido-Ejercicio'!
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/5/2022 21:48:21'!
-measureExecutionTime: aBlockClosure
-	| millisecondsBeforeRunning millisecondsAfterRunning |
-		
-	millisecondsBeforeRunning := Time millisecondClockValue * millisecond.
-	aBlockClosure value .
-	millisecondsAfterRunning := Time millisecondClockValue * millisecond.
-	
-	^millisecondsAfterRunning - millisecondsBeforeRunning ! !
+!CustomerBookTest methodsFor: 'auxiliar' stamp: 'grm 9/6/2022 21:41:42'!
+assertThat: aCustomerBook hasActiveCustomers: aNumberOfActiveCustomers hasSuspendedCustomers: aNumberOfSuspendedCustomers hasCustomers: aNumberOfCustomers
+	self assert: aNumberOfActiveCustomers equals: aCustomerBook numberOfActiveCustomers.
+	self assert: aNumberOfSuspendedCustomers equals: aCustomerBook numberOfSuspendedCustomers.
+	self assert: aNumberOfCustomers equals: aCustomerBook numberOfCustomers.
+	! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/5/2022 21:58:07'!
-shouldTakeLessThan: aBlockClosure seconds: maxTime! !
+!CustomerBookTest methodsFor: 'auxiliar' stamp: 'grm 9/6/2022 21:51:09'!
+createCustomerBookAndAddAndSuspendCustomer: aCustomerName
+	|customerBook|
+	customerBook := self createCustomerBookAndAddCustomer: aCustomerName .
+	customerBook suspendCustomerNamed: aCustomerName.
+	^customerBook
+! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/5/2022 21:49:35'!
+!CustomerBookTest methodsFor: 'auxiliar' stamp: 'grm 9/6/2022 21:47:46'!
+createCustomerBookAndAddCustomer: aCustomerName
+	|customerBook|
+	customerBook := CustomerBook new.
+	customerBook addCustomerNamed: aCustomerName.
+	^customerBook
+! !
+
+!CustomerBookTest methodsFor: 'auxiliar' stamp: 'grm 9/6/2022 21:13:35'!
+shouldThrowException: aBlockClosure withException: anException andAssert: anErrorHandler
+
+	[aBlockClosure value.
+	self fail] 
+		on: anException 
+		do: anErrorHandler! !
+
+
+!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/6/2022 20:27:00'!
 test01AddingCustomerShouldNotTakeMoreThan50Milliseconds
 
 	| customerBook executionTime |
 	
 	customerBook := CustomerBook new.
 	
-	executionTime := self measureExecutionTime: [customerBook addCustomerNamed: 'John Lennon'.].
+	executionTime := [customerBook addCustomerNamed: 'John Lennon'.] millisecondsToRun .
 	
 	self assert: executionTime < (50 * millisecond)
 	
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/5/2022 21:54:47'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/6/2022 21:49:40'!
 test02RemovingCustomerShouldNotTakeMoreThan100Milliseconds
 
 	| customerBook paulMcCartney executionTime |
-	
-	customerBook := CustomerBook new.
 	paulMcCartney := 'Paul McCartney'.
 	
-	customerBook addCustomerNamed: paulMcCartney.
+	customerBook := self createCustomerBookAndAddCustomer: paulMcCartney .
 	  
-	executionTime := self measureExecutionTime: [customerBook removeCustomerNamed: paulMcCartney.].
+	executionTime := [customerBook removeCustomerNamed: paulMcCartney.] millisecondsToRun .
 		
 	self assert: executionTime < (100 * millisecond)
 	
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'HernanWilkinson 5/9/2012 18:12'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/6/2022 21:13:35'!
 test03CanNotAddACustomerWithEmptyName 
 
 	| customerBook |
 			
 	customerBook := CustomerBook new.
 
-	[ customerBook addCustomerNamed: ''.
-	self fail ]
-		on: Error 
-		do: [ :anError | 
+	self shouldThrowException: [ customerBook addCustomerNamed: '' ]
+		withException: Error 
+		andAssert: [ :anError | 
 			self assert: anError messageText = CustomerBook customerCanNotBeEmptyErrorMessage.
 			self assert: customerBook isEmpty ]! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'HAW 8/28/2017 08:57:25'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/6/2022 21:50:32'!
 test04CanNotRemoveAnInvalidCustomer
 	
 	| customerBook johnLennon |
-			
-	customerBook := CustomerBook new.
 	johnLennon := 'John Lennon'.
-	customerBook addCustomerNamed: johnLennon.
+			
+	customerBook := self createCustomerBookAndAddCustomer: johnLennon .
 	
-	[ customerBook removeCustomerNamed: 'Paul McCartney'.
-	self fail ]
-		on: NotFound 
-		do: [ :anError | 
+	self shouldThrowException: [ customerBook removeCustomerNamed: 'Paul McCartney']
+		withException: NotFound 
+		andAssert: [ :anError | 
 			self assert: customerBook numberOfCustomers = 1.
 			self assert: (customerBook includesCustomerNamed: johnLennon) ]
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'NR 4/3/2019 10:50:25'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/6/2022 21:52:46'!
 test05SuspendingACustomerShouldNotRemoveItFromCustomerBook
 
-	| customerBook paulMcCartney|
-	
-	customerBook := CustomerBook new.
+	| customerBook paulMcCartney |
+
 	paulMcCartney := 'Paul McCartney'.
 	
-	customerBook addCustomerNamed: paulMcCartney.
-	customerBook suspendCustomerNamed: paulMcCartney.
+	customerBook := self createCustomerBookAndAddAndSuspendCustomer: paulMcCartney .
 	
-	self assert: 0 equals: customerBook numberOfActiveCustomers.
-	self assert: 1 equals: customerBook numberOfSuspendedCustomers.
-	self assert: 1 equals: customerBook numberOfCustomers.
+	self assertThat: customerBook
+		hasActiveCustomers: 0
+		hasSuspendedCustomers: 1 
+		hasCustomers: 1.
+
 	self assert: (customerBook includesCustomerNamed: paulMcCartney).
+	
 	
 
 	
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'NR 4/3/2019 10:50:28'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/6/2022 21:53:07'!
 test06RemovingASuspendedCustomerShouldRemoveItFromCustomerBook
 
 	| customerBook paulMcCartney|
 	
-	customerBook := CustomerBook new.
 	paulMcCartney := 'Paul McCartney'.
 	
-	customerBook addCustomerNamed: paulMcCartney.
-	customerBook suspendCustomerNamed: paulMcCartney.
+	customerBook := self createCustomerBookAndAddAndSuspendCustomer: paulMcCartney.
+	
 	customerBook removeCustomerNamed: paulMcCartney.
 	
-	self assert: 0 equals: customerBook numberOfActiveCustomers.
-	self assert: 0 equals: customerBook numberOfSuspendedCustomers.
-	self assert: 0 equals: customerBook numberOfCustomers.
+	self assertThat: customerBook
+		hasActiveCustomers: 0
+		hasSuspendedCustomers: 0 
+		hasCustomers: 0.
+
 	self deny: (customerBook includesCustomerNamed: paulMcCartney).
 
 
 	
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'NR 9/17/2020 06:03:47'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/6/2022 22:01:11'!
 test07CanNotSuspendAnInvalidCustomer
 	
 	| customerBook johnLennon |
-			
-	customerBook := CustomerBook new.
 	johnLennon := 'John Lennon'.
-	customerBook addCustomerNamed: johnLennon.
 	
-	[ customerBook suspendCustomerNamed: 'George Harrison'.
-	self fail ]
-		on: CantSuspend 
-		do: [ :anError | 
+	customerBook := self createCustomerBookAndAddCustomer: johnLennon .
+	
+	self shouldThrowException: [ customerBook suspendCustomerNamed: 'George Harrison' ]
+		withException: CantSuspend
+		andAssert: [ :anError | 
 			self assert: customerBook numberOfCustomers = 1.
-			self assert: (customerBook includesCustomerNamed: johnLennon) ]
+			self assert: (customerBook includesCustomerNamed: johnLennon) ].
 ! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'NR 9/19/2018 17:57:11'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'grm 9/6/2022 22:06:04'!
 test08CanNotSuspendAnAlreadySuspendedCustomer
 	
 	| customerBook johnLennon |
-			
-	customerBook := CustomerBook new.
 	johnLennon := 'John Lennon'.
-	customerBook addCustomerNamed: johnLennon.
-	customerBook suspendCustomerNamed: johnLennon.
+
+	customerBook := self createCustomerBookAndAddAndSuspendCustomer: johnLennon .
 	
-	[ customerBook suspendCustomerNamed: johnLennon.
-	self fail ]
-		on: CantSuspend 
-		do: [ :anError | 
+	self shouldThrowException: [ customerBook suspendCustomerNamed: johnLennon. ]
+		withException: CantSuspend
+		andAssert: [ :anError | 
 			self assert: customerBook numberOfCustomers = 1.
-			self assert: (customerBook includesCustomerNamed: johnLennon) ]
+			self assert: (customerBook includesCustomerNamed: johnLennon) ].
 ! !
 
 
