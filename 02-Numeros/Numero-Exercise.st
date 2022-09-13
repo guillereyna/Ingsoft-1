@@ -378,15 +378,17 @@ Numero subclass: #Entero
 	
 	^ anAdder addEntero: self.! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'NR 9/23/2018 23:40:37'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'mss 9/13/2022 16:19:31'!
 - aSubtrahend 
-	
-	^ self class with: value - aSubtrahend integerValue.! !
+	(aSubtrahend isKindOf: self class) ifTrue: [^self class with: value - aSubtrahend integerValue.].
+	(aSubtrahend isKindOf: Fraccion) ifTrue:[^Fraccion with: (self * aSubtrahend denominator) - aSubtrahend numerator over: aSubtrahend denominator.].! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 23:14'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'mss 9/13/2022 15:54:44'!
 / aDivisor 
+	^aDivisor dividesEntero: self.
 	
-	^Fraccion with: self over: aDivisor! !
+"	(aDivisor isKindOf: self class) ifTrue: [	^Fraccion with: self over: aDivisor.].
+	(aDivisor isKindOf: Fraccion) ifTrue: [^Fraccion with: self * aDivisor denominator over: aDivisor numerator]."! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 21:55'!
 // aDivisor 
@@ -400,6 +402,14 @@ addEntero: anEnteroAdder
 !Entero methodsFor: 'arithmetic operations' stamp: 'mss 9/12/2022 21:15:02'!
 addFraccion: aFraccionAdder
 	^aFraccionAdder class with: value * aFraccionAdder denominator + aFraccionAdder numerator over: aFraccionAdder denominator! !
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'mss 9/13/2022 15:52:48'!
+dividesEntero: anEnteroDividend 
+	^Fraccion with: anEnteroDividend over: self.! !
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'mss 9/13/2022 16:09:33'!
+dividesFraction: aFractionDividend 
+	^Fraccion with: aFractionDividend numerator over: self * aFractionDividend denominator.! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'HAW 9/24/2018 08:47:50'!
 fibonacci
@@ -435,6 +445,10 @@ multiplyByFraccion: aFraccionMultiplier
 	^ self * aFraccionMultiplier numerator / aFraccionMultiplier denominator.
 	
 	! !
+
+!Entero methodsFor: 'arithmetic operations' stamp: 'mss 9/13/2022 16:24:56'!
+substractItToEntero: anEntero 
+	^Entero with: anEntero integerValue - value.! !
 
 
 !Entero methodsFor: 'comparing' stamp: 'HernanWilkinson 5/7/2016 21:01'!
@@ -543,10 +557,11 @@ Numero subclass: #Fraccion
 	^newNumerator / newDenominator 
 ! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 23:14'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'mss 9/13/2022 16:08:08'!
 / aDivisor 
-	
-	^(numerator * aDivisor denominator) / (denominator * aDivisor numerator)! !
+	^aDivisor dividesFraction: self.
+	"(aDivisor isKindOf: self class) ifTrue: [^(numerator * aDivisor denominator) / (denominator * aDivisor numerator)].
+	(aDivisor isKindOf: Entero) ifTrue:[^Fraccion with: numerator over: aDivisor * denominator]."! !
 
 !Fraccion methodsFor: 'arithmetic operations' stamp: 'mss 9/12/2022 20:56:49'!
 addEntero: anEnteroAdder
@@ -572,6 +587,18 @@ addFraccion: aFraccionAdder
 	newDenominator := denominator * anAdder denominator.
 	
 	^newNumerator / newDenominator "! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'mss 9/13/2022 15:41:23'!
+divideByEntero: anEnteroDivisor
+	^Fraccion with: self * anEnteroDivisor denominator over: anEnteroDivisor numerator! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'mss 9/13/2022 15:56:18'!
+dividesEntero: anEnteroDividend
+	^Fraccion with: anEnteroDividend * denominator over: numerator.! !
+
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'mss 9/13/2022 16:05:06'!
+dividesFraction: aFractionDividend
+	^Fraccion with: aFractionDividend numerator * denominator over: numerator * aFractionDividend denominator.! !
 
 !Fraccion methodsFor: 'arithmetic operations' stamp: 'mss 9/12/2022 21:41:24'!
 multiplyByEntero: anEnteroMultiplier 
