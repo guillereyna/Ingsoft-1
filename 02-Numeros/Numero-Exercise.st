@@ -397,23 +397,13 @@ addFraccion: aFraccionAdder
 dividesEntero: anEnteroDividend 
 	^Fraccion with: anEnteroDividend over: self.! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'grm 9/13/2022 20:47:16'!
-dividesFraction: aFractionDividend 
+!Entero methodsFor: 'arithmetic operations' stamp: 'grm 9/14/2022 19:30:02'!
+dividesFraccion: aFractionDividend 
 	^aFractionDividend numerator / (self * aFractionDividend denominator).! !
 
-!Entero methodsFor: 'arithmetic operations' stamp: 'grm 9/14/2022 19:03:33'!
+!Entero methodsFor: 'arithmetic operations' stamp: 'grm 9/14/2022 19:27:15'!
 fibonacci
 	self subclassResponsibility.
-	"| one two |
-	"
-	"
-	one := Entero with: 1.
-	two := Entero with: 2."
-	"
-	self isNegative ifTrue: [self error: Entero negativeFibonacciErrorDescription ].	
-	(self isZero or: [self isOne]) ifTrue: [^one].
-	"
-	"^ (self - one) fibonacci + (self - two) fibonacci"
 		! !
 
 !Entero methodsFor: 'arithmetic operations' stamp: 'HernanWilkinson 5/7/2016 21:00'!
@@ -451,10 +441,9 @@ hash
 	^value hash! !
 
 
-!Entero methodsFor: 'initialization' stamp: 'grm 9/14/2022 19:14:41'!
+!Entero methodsFor: 'initialization' stamp: 'grm 9/14/2022 19:31:01'!
 initalizeWith: aValue 
-	value := aValue.
-	"self subclassResponsibility."! !
+	value := aValue.! !
 
 
 !Entero methodsFor: 'value' stamp: 'HernanWilkinson 5/7/2016 21:02'!
@@ -575,21 +564,13 @@ Numero subclass: #Fraccion
 + anAdder 
 	^anAdder addFraccion: self.! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'grm 9/13/2022 20:59:49'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'grm 9/14/2022 19:27:46'!
 - aSubtrahend
-	^aSubtrahend substractItToFraccion: self.
-	"| newNumerator newDenominator |
-	(aSubtrahend isKindOf: self class) ifTrue: [
-	newNumerator := (numerator * aSubtrahend denominator) - (denominator * aSubtrahend numerator).
-	newDenominator := denominator * aSubtrahend denominator.
-	
-	^newNumerator / newDenominator .].
-	(aSubtrahend isKindOf: Entero) ifTrue: [^numerator - (aSubtrahend * denominator) / denominator.]."
-! !
+	^aSubtrahend substractItToFraccion: self.! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'grm 9/13/2022 20:47:56'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'grm 9/14/2022 19:29:42'!
 / aDivisor 
-	^aDivisor dividesFraction: self.! !
+	^aDivisor dividesFraccion: self.! !
 
 !Fraccion methodsFor: 'arithmetic operations' stamp: 'mss 9/12/2022 20:56:49'!
 addEntero: anEnteroAdder
@@ -607,8 +588,8 @@ addFraccion: aFraccionAdder
 dividesEntero: anEnteroDividend
 	^anEnteroDividend * denominator / numerator.! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'grm 9/13/2022 20:39:22'!
-dividesFraction: aFractionDividend
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'grm 9/14/2022 19:29:13'!
+dividesFraccion: aFractionDividend
 	^aFractionDividend numerator * denominator / (numerator * aFractionDividend denominator).! !
 
 !Fraccion methodsFor: 'arithmetic operations' stamp: 'grm 9/13/2022 20:48:16'!
@@ -626,17 +607,14 @@ substractItToEntero: anEnteroMinuend
 	^anEnteroMinuend * denominator - numerator / denominator.
 ! !
 
-!Fraccion methodsFor: 'arithmetic operations' stamp: 'grm 9/13/2022 21:01:34'!
+!Fraccion methodsFor: 'arithmetic operations' stamp: 'grm 9/14/2022 19:28:06'!
 substractItToFraccion: aFraccionMinuend
 	
 	| newNumerator newDenominator |
 	newNumerator := (aFraccionMinuend numerator * denominator) - (aFraccionMinuend denominator * numerator).
 	newDenominator := aFraccionMinuend denominator * denominator.
 	
-	^newNumerator / newDenominator .
-	"
-	(aSubtrahend isKindOf: Entero) ifTrue: [^numerator - (aSubtrahend * denominator) / denominator.]."
-! !
+	^newNumerator / newDenominator .! !
 
 
 !Fraccion methodsFor: 'comparing' stamp: 'HernanWilkinson 5/7/2016 20:42'!
