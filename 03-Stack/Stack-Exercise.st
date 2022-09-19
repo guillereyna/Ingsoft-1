@@ -262,7 +262,26 @@ Object subclass: #SentenceFinderByPrefix
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'grm 9/19/2022 02:23:53'!
+!SentenceFinderByPrefix methodsFor: 'initialization' stamp: 'MSS 9/19/2022 00:31:17'!
+initializeWith: anOrderedCollection
+	stack := OOStack new initialize .
+	anOrderedCollection do: [:sentence | stack push: sentence.].
+	! !
+
+
+!SentenceFinderByPrefix methodsFor: 'private' stamp: 'MSS 9/19/2022 01:14:06'!
+showStack
+	^stack
+	! !
+
+
+!SentenceFinderByPrefix methodsFor: 'operations' stamp: 'grm 9/18/2022 19:28:40'!
+addSentence: aStringSentence
+	stack push: aStringSentence.
+	! !
+
+
+!SentenceFinderByPrefix methodsFor: 'comparing' stamp: 'grm 9/19/2022 02:23:53'!
 = aSentenceFinder
 	|otherStack result|
 	result := true.
@@ -271,15 +290,11 @@ Object subclass: #SentenceFinderByPrefix
 	^result.
 	! !
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'grm 9/18/2022 19:28:40'!
-addSentence: aStringSentence
-	stack push: aStringSentence.
-	! !
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'grm 9/19/2022 02:07:24'!
+!SentenceFinderByPrefix methodsFor: 'accessing' stamp: 'MSS 9/19/2022 15:46:43'!
 find: aPrefixString
 	|backupCollection collectionOfAllSentencesWithPrefix|
-	aPrefixString isEmpty ifTrue:[self error: self class prefixCannotBeEmptyError].
+	aPrefixString isEmpty ifTrue:[self error: self class prefixCannotBeEmptyError]."los colaboradores no son del mismo dominio aca"
 	collectionOfAllSentencesWithPrefix  := OrderedCollection new.
 	
 	backupCollection := OrderedCollection new.
@@ -288,17 +303,6 @@ find: aPrefixString
 							ifTrue:[collectionOfAllSentencesWithPrefix addLast: backupCollection first.]].
 	backupCollection do: [:sentence| stack push: sentence].
 	^collectionOfAllSentencesWithPrefix .
-	! !
-
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'MSS 9/19/2022 00:31:17'!
-initializeWith: anOrderedCollection
-	stack := OOStack new initialize .
-	anOrderedCollection do: [:sentence | stack push: sentence.].
-	! !
-
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'MSS 9/19/2022 01:14:06'!
-showStack
-	^stack
 	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
