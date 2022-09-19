@@ -144,7 +144,7 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'grm 9/18/2022 19:45:00'!
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MSS 9/19/2022 00:25:19'!
 test01FindReturnsSingleSentenceWithPrefix
 	| sentencesStartingWithWint wSentences wSentenceFinder |
 	wSentences := OrderedCollection with: 'winter is coming' 
@@ -152,19 +152,36 @@ test01FindReturnsSingleSentenceWithPrefix
 									with: 'The winds of Winter'
 									with: 'Winter is here'.
 	wSentenceFinder := SentenceFinderByPrefix with: wSentences.
-	sentencesStartingWithWint := OrderedCollection with: 'Winter is here.'.
+	sentencesStartingWithWint := OrderedCollection with: 'Winter is here'.
 	self assert: (wSentenceFinder find: 'Wint') = sentencesStartingWithWint.! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'grm 9/18/2022 19:44:20'!
-test02EmptyReturnsEmptyCollection
-	| sentencesStartingWithWint wSentences wSentenceFinder |
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MSS 9/19/2022 01:07:12'!
+test02EmptyPrefixRaisesError
+	self 
+		should: [ |  wSentenceFinder |
+				wSentenceFinder := SentenceFinderByPrefix with: (OrderedCollection with: 'hello').
+				(wSentenceFinder find: 'Wint') = OrderedCollection new. ]
+		raise: Error
+		withExceptionDo: [ :anError | self assert: anError messageText equals: SentenceFinderByPrefix prefixCannotBeEmptyError ]! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MSS 9/19/2022 00:45:04'!
+test03EmptyFinderReturnsEmptyCollection
+	| wSentences wSentenceFinder |
+	wSentences := OrderedCollection new.
+	wSentenceFinder := SentenceFinderByPrefix with: wSentences.
+	self assert: (wSentenceFinder find: 'Wint') = OrderedCollection new.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'MSS 9/19/2022 01:14:40'!
+test04StackIsPreservedAfterFind
+	| originalStack wSentences wSentenceFinder |
 	wSentences := OrderedCollection with: 'winter is coming' 
 									with: 'winning is everything'
 									with: 'The winds of Winter'
 									with: 'Winter is here'.
 	wSentenceFinder := SentenceFinderByPrefix with: wSentences.
-	sentencesStartingWithWint := OrderedCollection with: 'Winter is here.'.
-	self assert: (wSentenceFinder find: 'Wint') = sentencesStartingWithWint.! !
+	originalStack  := wSentenceFinder showStack. "pregunta: es correcto que el finder tenga este metodo solo para testear? y si lo ponemos en private?"
+	wSentenceFinder find: 'Wint'.
+	self assert: (wSentenceFinder showStack = originalStack) .! !
 
 
 !classDefinition: #OOStack category: 'Stack-Exercise'!
@@ -239,9 +256,42 @@ addSentence: aStringSentence
 	stack push: aStringSentence.
 	! !
 
-!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'grm 9/18/2022 18:57:19'!
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'MSS 9/19/2022 00:57:42'!
 find: aPrefixString
+	|backupStack collectionOfAllSentencesWithPrefix|
+	aPrefixString isEmpty ifTrue:[self error: self class prefixCannotBeEmptyError].
+	collectionOfAllSentencesWithPrefix  := OrderedCollection new.
+	backupStack := OOStack new.
+	[stack isEmpty] whileFalse: [backupStack push: stack pop.
+						   (backupStack top beginsWith: aPrefixString) ifTrue:[collectionOfAllSentencesWithPrefix addLast: backupStack top.]].
+	[backupStack isEmpty] whileFalse: [stack push: backupStack pop.].
+	^collectionOfAllSentencesWithPrefix .
 	! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'MSS 9/19/2022 00:31:17'!
+initializeWith: anOrderedCollection
+	stack := OOStack new initialize .
+	anOrderedCollection do: [:sentence | stack push: sentence.].
+	! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'MSS 9/19/2022 01:14:06'!
+showStack
+	^stack
+	! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'SentenceFinderByPrefix class' category: 'Stack-Exercise'!
+SentenceFinderByPrefix class
+	instanceVariableNames: ''!
+
+!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'MSS 9/19/2022 00:58:33'!
+prefixCannotBeEmptyError
+	^'Prefix cannot be empty!!'! !
+
+!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'MSS 9/19/2022 00:40:37'!
+with: anOrderedCollection 
+	^self new initializeWith: anOrderedCollection.! !
 
 
 !classDefinition: #StackBase category: 'Stack-Exercise'!
