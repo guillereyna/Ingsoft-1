@@ -194,6 +194,54 @@ test05FindReturnsMultipleSentencesWithPrefix
 	sentencesStartingWithwin := OrderedCollection with: 'winning is everything' with: 'winter is coming'.
 	self assert: (wSentenceFinder find: 'win') = sentencesStartingWithwin.! !
 
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MSS 9/19/2022 16:55:48'!
+test06EqualSignRestoresSentences
+	|col1 sf1 sf2|
+	col1 := OrderedCollection with:'first sentence' with:'second' with:'another sentence'.
+	
+	sf1 := SentenceFinderByPrefix with: col1.
+	sf2 := SentenceFinderByPrefix with: col1.
+	
+	sf1 = sf2.
+	
+	self assert: sf1 showStack size = 3.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MSS 9/19/2022 16:56:42'!
+test06EqualSignWorks
+	|col1 sf1 sf2|
+	col1 := OrderedCollection with:'first sentence' with:'second' with:'another sentence'.
+	
+	sf1 := SentenceFinderByPrefix with: col1.
+	sf2 := SentenceFinderByPrefix with: col1.
+	
+	
+	
+	self assert: (sf1 = sf2).! !
+
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MSS 9/19/2022 16:56:14'!
+test07EqualSignRestoresSentences
+	|col1 sf1 sf2|
+	col1 := OrderedCollection with:'first sentence' with:'second' with:'another sentence'.
+	
+	sf1 := SentenceFinderByPrefix with: col1.
+	sf2 := SentenceFinderByPrefix with: col1.
+	
+	sf1 = sf2.
+	
+	self assert: sf1 showStack size = 3.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'tests' stamp: 'MSS 9/19/2022 16:57:11'!
+test08EqualSignWorksWithEmptySentenceFinder
+	|col1 sf1 sf2|
+	col1 := OrderedCollection new.
+	
+	sf1 := SentenceFinderByPrefix with: col1.
+	sf2 := SentenceFinderByPrefix with: col1.
+	
+	
+	
+	self assert: (sf1 = sf2).! !
+
 
 !classDefinition: #OOStack category: 'Stack-Exercise'!
 Object subclass: #OOStack
@@ -269,6 +317,18 @@ initializeWith: anOrderedCollection
 	! !
 
 
+!SentenceFinderByPrefix methodsFor: 'private' stamp: 'MSS 9/19/2022 16:34:35'!
+lookFor: aPrefixString within: aStackOfSentences andIfItIsPrefixInsertSentenceIn: prefixedSentencesCollection
+	| backupCollection |
+	
+	backupCollection := OrderedCollection new.
+	[stack isEmpty] whileFalse: [backupCollection addFirst: stack pop.
+						   (backupCollection first beginsWith: aPrefixString)
+							ifTrue:[prefixedSentencesCollection addLast: backupCollection first.]].
+	backupCollection do: [:sentence| stack push: sentence].
+	^prefixedSentencesCollection .
+	! !
+
 !SentenceFinderByPrefix methodsFor: 'private' stamp: 'MSS 9/19/2022 01:14:06'!
 showStack
 	^stack
@@ -281,29 +341,38 @@ addSentence: aStringSentence
 	! !
 
 
-!SentenceFinderByPrefix methodsFor: 'comparing' stamp: 'grm 9/19/2022 02:23:53'!
+!SentenceFinderByPrefix methodsFor: 'comparing' stamp: 'MSS 9/19/2022 16:50:07'!
 = aSentenceFinder
-	|otherStack result|
+	|otherStack result backupStackSelf backupStackParameter|
+	backupStackSelf := OOStack new.
+	backupStackParameter := OOStack new.
 	result := true.
 	otherStack := aSentenceFinder showStack.
-	[stack isEmpty] whileFalse: [result := result and: [stack pop = otherStack pop].].
+	[stack isEmpty] whileFalse: [result := result and: [(backupStackSelf push: stack pop). (backupStackParameter push: otherStack pop). backupStackSelf top = backupStackParameter top].].
+	stack := backupStackSelf.
+	otherStack := backupStackParameter .
 	^result.
 	! !
 
 
-!SentenceFinderByPrefix methodsFor: 'accessing' stamp: 'MSS 9/19/2022 15:46:43'!
+!SentenceFinderByPrefix methodsFor: 'accessing' stamp: 'MSS 9/19/2022 16:22:58'!
+checkNotEmpty: aPrefixString
+
+	^ aPrefixString isEmpty ifTrue:[self error: self class prefixCannotBeEmptyError]. ! !
+
+!SentenceFinderByPrefix methodsFor: 'accessing' stamp: 'MSS 9/19/2022 16:37:19'!
 find: aPrefixString
-	|backupCollection collectionOfAllSentencesWithPrefix|
-	aPrefixString isEmpty ifTrue:[self error: self class prefixCannotBeEmptyError]."los colaboradores no son del mismo dominio aca"
+	|collectionOfAllSentencesWithPrefix|
+	
+	self checkNotEmpty: aPrefixString.
+	
 	collectionOfAllSentencesWithPrefix  := OrderedCollection new.
 	
-	backupCollection := OrderedCollection new.
-	[stack isEmpty] whileFalse: [backupCollection addFirst: stack pop.
-						   (backupCollection first beginsWith: aPrefixString)
-							ifTrue:[collectionOfAllSentencesWithPrefix addLast: backupCollection first.]].
-	backupCollection do: [:sentence| stack push: sentence].
+	self lookFor: aPrefixString within: stack andIfItIsPrefixInsertSentenceIn: collectionOfAllSentencesWithPrefix.
+
 	^collectionOfAllSentencesWithPrefix .
-	! !
+	
+! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
