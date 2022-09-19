@@ -144,13 +144,76 @@ TestCase subclass: #SentenceFinderByPrefixTest
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'grm 9/18/2022 19:45:00'!
+test01FindReturnsSingleSentenceWithPrefix
+	| sentencesStartingWithWint wSentences wSentenceFinder |
+	wSentences := OrderedCollection with: 'winter is coming' 
+									with: 'winning is everything'
+									with: 'The winds of Winter'
+									with: 'Winter is here'.
+	wSentenceFinder := SentenceFinderByPrefix with: wSentences.
+	sentencesStartingWithWint := OrderedCollection with: 'Winter is here.'.
+	self assert: (wSentenceFinder find: 'Wint') = sentencesStartingWithWint.! !
+
+!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'grm 9/18/2022 19:44:20'!
+test02EmptyReturnsEmptyCollection
+	| sentencesStartingWithWint wSentences wSentenceFinder |
+	wSentences := OrderedCollection with: 'winter is coming' 
+									with: 'winning is everything'
+									with: 'The winds of Winter'
+									with: 'Winter is here'.
+	wSentenceFinder := SentenceFinderByPrefix with: wSentences.
+	sentencesStartingWithWint := OrderedCollection with: 'Winter is here.'.
+	self assert: (wSentenceFinder find: 'Wint') = sentencesStartingWithWint.! !
+
 
 !classDefinition: #OOStack category: 'Stack-Exercise'!
 Object subclass: #OOStack
-	instanceVariableNames: ''
+	instanceVariableNames: 'topElement size'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
+
+!OOStack methodsFor: 'accessing' stamp: 'grm 9/18/2022 17:12:31'!
+isEmpty
+	^topElement isBase.! !
+
+!OOStack methodsFor: 'accessing' stamp: 'grm 9/18/2022 17:22:42'!
+size
+	^size.! !
+
+
+!OOStack methodsFor: 'private' stamp: 'grm 9/18/2022 17:45:39'!
+newTopElement: aStackElement
+	topElement := aStackElement.
+	size := size - 1.! !
+
+
+!OOStack methodsFor: 'operations' stamp: 'grm 9/18/2022 17:47:22'!
+pop
+	^topElement popFromStack: self.
+	"| oldTop |
+	oldTop := topElement returnValue.
+	topElement := topElement next.
+	size := size - 1.
+	^oldTop."! !
+
+!OOStack methodsFor: 'operations' stamp: 'grm 9/18/2022 17:26:38'!
+push: aValue
+	topElement := StackElement new initializeWith: aValue withNext: topElement.
+	size := size + 1.
+	
+	! !
+
+!OOStack methodsFor: 'operations' stamp: 'grm 9/18/2022 17:19:33'!
+top
+	^topElement returnValue.! !
+
+
+!OOStack methodsFor: 'initialization' stamp: 'grm 9/18/2022 17:27:16'!
+initialize
+	topElement := StackBase new.
+	size := 0.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -166,7 +229,70 @@ stackEmptyErrorDescription
 
 !classDefinition: #SentenceFinderByPrefix category: 'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
+	instanceVariableNames: 'stack'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'grm 9/18/2022 19:28:40'!
+addSentence: aStringSentence
+	stack push: aStringSentence.
+	! !
+
+!SentenceFinderByPrefix methodsFor: 'as yet unclassified' stamp: 'grm 9/18/2022 18:57:19'!
+find: aPrefixString
+	! !
+
+
+!classDefinition: #StackBase category: 'Stack-Exercise'!
+Object subclass: #StackBase
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
+
+!StackBase methodsFor: 'private' stamp: 'grm 9/18/2022 17:58:38'!
+popFromStack: aStack
+	self error: OOStack stackEmptyErrorDescription.! !
+
+!StackBase methodsFor: 'private' stamp: 'grm 9/18/2022 17:09:45'!
+returnValue
+	self error: OOStack stackEmptyErrorDescription.! !
+
+
+!StackBase methodsFor: 'testing' stamp: 'grm 9/18/2022 17:12:44'!
+isBase
+	^true.! !
+
+
+!classDefinition: #StackElement category: 'Stack-Exercise'!
+Object subclass: #StackElement
+	instanceVariableNames: 'next value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!StackElement methodsFor: 'testing' stamp: 'grm 9/18/2022 17:12:56'!
+isBase
+	^false.! !
+
+
+!StackElement methodsFor: 'accessing' stamp: 'grm 9/18/2022 17:16:13'!
+next
+	^next! !
+
+
+!StackElement methodsFor: 'private' stamp: 'grm 9/18/2022 17:47:44'!
+popFromStack: aStack
+	aStack newTopElement: next.
+	^value.! !
+
+!StackElement methodsFor: 'private' stamp: 'grm 9/18/2022 17:10:42'!
+returnValue
+	^value.! !
+
+
+!StackElement methodsFor: 'initialization' stamp: 'grm 9/18/2022 17:08:11'!
+initializeWith: aValue withNext: aNextStackElement
+	value := aValue.
+	next := aNextStackElement.! !
