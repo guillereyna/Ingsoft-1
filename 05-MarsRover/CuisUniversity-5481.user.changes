@@ -1,0 +1,1172 @@
+
+
+----QUIT----(11 September 2022 19:10:09) CuisUniversity-5481.image priorSource: 2810882!
+
+----STARTUP---- (11 September 2022 19:10:10) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-5481.image!
+
+
+----QUIT----(11 September 2022 19:10:10) CuisUniversity-5481.image priorSource: 7059465!
+
+----STARTUP---- (29 September 2022 17:57:21) as /home/greyna/Universidad/Ingenieria I/linux64/CuisUniversity-5481.image!
+
+
+----End fileIn of /home/greyna/Universidad/Ingenieria I/linux64/Packages/System/Collections-CompactArrays.pck.st----!
+
+----End fileIn of /home/greyna/Universidad/Ingenieria I/linux64/Packages/Features/VectorEngineInSmalltalk.pck.st----!
+
+TTFontDescription initialize!
+
+----End fileIn of /home/greyna/Universidad/Ingenieria I/linux64/Packages/Features/VectorGraphics.pck.st----!
+
+----SNAPSHOT----(29 September 2022 17:58:56) CuisUniversity-5481.image priorSource: 7059698!
+
+----STARTUP---- (29 September 2022 18:00:19) as /home/greyna/Universidad/Ingenieria I/cuis/CuisUniversity-5481.image!
+
+
+$a numericValue!
+
+'hola' + $a!
+
+'hola' appendToString: $a!
+
+'hola' append: $a!
+
+'hola' appendToText: $a!
+
+'hola' appendToText: $a!
+
+'hola' appendToString: $a asString!
+
+'hola' append: $a asString!
+
+'hola' inject: '' into: [:char :rotstring| rotstring append: char asString]!
+
+'hola' inject: '' into: [:char :rotstring| rotstring append: char asString]!
+
+'hola' inject: '' into: [:rotstring :char | rotstring append: char asString]!
+
+$a asciiValue - 96!
+
+$( isLowercase !
+
+37 mod: 26 !
+
+$a isLowercase ifTrue: [^Character asciiValue: (96 + ($a asciiValue - 96 + 13) mod: 26)]!
+
+char:= $a!
+
+char isLowercase ifTrue: [^Character asciiValue: (96 + ( char asciiValue - 96 + 13) mod: 26)]!
+
+(96 + ( char asciiValue - 96 + 13) mod: 26)!
+
+Character asciiValue: 6!
+
+( char asciiValue - 96 + 13)!
+
+( char asciiValue - 96 + 13 mod: 26)!
+
+char isLowercase ifTrue: [^Character asciiValue: (96 + (char asciiValue - 96 + 13 mod: 26)) ]!
+
+$A asciiValue!
+
+char:= $z!
+
+char asciiValue - 96!
+
+char asciiValue - 96 +13!
+
+char asciiValue - 96 +13 mod: 26!
+
+(char asciiValue - 96 + 13 mod: 26)!
+
+96 + (char asciiValue - 96 + 13 mod: 26)!
+
+96 + (char asciiValue - 96 + 13 mod: 26)!
+
+Character asciiValue: 109!
+
+char asciiValue - 96!
+
+char asciiValue - 96 + 13!
+
+char asciiValue - 96 + 13 mod: 26!
+
+Character asciiValue: 110!
+
+char asciiValue - 96 + 13 mod: 27!
+
+(char asciiValue - 96 + 13 mod: 25 )!
+
+(char asciiValue - 96 + 13 mod: 25 )!
+
+( 96 + (char asciiValue - 96 + 13 mod: 25 ) )!
+
+char:= $z!
+
+char isLowercase !
+
+^Character asciiValue: ( 96 + (char asciiValue - 96 + 13 mod: 25 ) )!
+
+char isLowercase ifTrue: [^Character asciiValue: ( 96 + (char asciiValue - 96 + 13 mod: 25 ) )] !
+
+char isLowercase ifTrue: [^Character asciiValue: ( 96 + (char asciiValue - 96 + 13 mod: 26 ) )]!
+
+char:= $m!
+
+char isLowercase ifTrue: [^Character asciiValue: ( 96 + (char asciiValue - 96 + 13 mod: 26 ) )]!
+
+char asciiValue !
+
+109 + 13!
+
+Character asciiValue: (109 + 13)!
+
+char asciiValue - 96!
+
+char asciiValue - 96 + 13!
+
+char asciiValue - 96 + 13 mod: 26!
+
+bag := (Bag with: 2 with: 2)!
+
+bag add: 4!
+
+bag!
+
+bag!
+
+bag := Bag with: 2 with: 2!
+
+bag add: 2!
+
+bag!
+
+----End fileIn of /home/greyna/Universidad/Ingenieria I/Ingsoft-1/04-BabySteps/TDDBabyStepsGame.st----!
+
+TDDBabyStepsGameAnagrams start!
+
+!classDefinition: #TDDBabyStepsAnagramsTest category: 'TDDBabyStepsGameAnagrams' stamp: 'grm 9/29/2022 20:38:34'!
+TestCase subclass: #TDDBabyStepsAnagramsTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TDDBabyStepsGameAnagrams'!
+!TDDBabyStepsAnagramsTest methodsFor: 'tests' stamp: 'grm 9/29/2022 20:39:25'!
+test01EmptyStringAnagramIsJustACollectionWithTheEmptyString
+
+	self assert: (Set with: '') equals: '' anagrams
+	! !
+
+!testRun: #TDDBabyStepsAnagramsTest #test01EmptyStringAnagramIsJustACollectionWithTheEmptyString stamp: 'grm 9/29/2022 20:39:25'!
+ERROR!
+
+!methodRemoval: TDDBabyStepsAnagramsTest #test01EmptyStringAnagramIsJustACollectionWithTheEmptyString stamp: 'grm 9/29/2022 20:39:25'!
+test01EmptyStringAnagramIsJustACollectionWithTheEmptyString
+
+	self assert: (Set with: '') equals: '' anagrams
+	!
+!TDDBabyStepsAnagramsTest methodsFor: 'tests' stamp: 'grm 9/29/2022 20:39:25'!
+test01EmptyStringAnagramIsJustACollectionWithTheEmptyString
+
+	self assert: (Set with: '') equals: '' anagrams
+	! !
+
+!testRun: #TDDBabyStepsAnagramsTest #test01EmptyStringAnagramIsJustACollectionWithTheEmptyString stamp: 'grm 9/29/2022 20:39:25'!
+ERROR!
+
+!testRun: #TDDBabyStepsAnagramsTest #test01EmptyStringAnagramIsJustACollectionWithTheEmptyString stamp: 'grm 9/29/2022 20:39:52'!
+ERROR!
+!String methodsFor: 'anagram' stamp: 'grm 9/29/2022 20:40:26'!
+anagrams
+	self shouldBeImplemented.! !
+!String methodsFor: 'anagram' stamp: 'grm 9/29/2022 20:40:50' prior: 50568695!
+anagrams
+	^Set with: ''! !
+!String methodsFor: 'anagram' stamp: 'grm 9/29/2022 20:40:52' prior: 50568699!
+anagrams
+	^Set with: ''! !
+
+!testRun: #TDDBabyStepsAnagramsTest #test01EmptyStringAnagramIsJustACollectionWithTheEmptyString stamp: 'grm 9/29/2022 20:40:53'!
+PASSED!
+
+!testRun: #TDDBabyStepsAnagramsTest #test01EmptyStringAnagramIsJustACollectionWithTheEmptyString stamp: 'grm 9/29/2022 20:40:53'!
+PASSED!
+
+!testRun: #TDDBabyStepsAnagramsTest #test01EmptyStringAnagramIsJustACollectionWithTheEmptyString stamp: 'grm 9/29/2022 20:40:58'!
+PASSED!
+!TDDBabyStepsAnagramsTest methodsFor: 'tests' stamp: 'grm 9/29/2022 20:40:58'!
+test02OneCharStringAnagramReturnsACollectionWithTheSameOneCharString
+
+	self assert: (Set with:'a') equals: 'a' anagrams
+	! !
+
+!testRun: #TDDBabyStepsAnagramsTest #test02OneCharStringAnagramReturnsACollectionWithTheSameOneCharString stamp: 'grm 9/29/2022 20:40:58'!
+FAILURE!
+
+!methodRemoval: TDDBabyStepsAnagramsTest #test02OneCharStringAnagramReturnsACollectionWithTheSameOneCharString stamp: 'grm 9/29/2022 20:40:58'!
+test02OneCharStringAnagramReturnsACollectionWithTheSameOneCharString
+
+	self assert: (Set with:'a') equals: 'a' anagrams
+	!
+!TDDBabyStepsAnagramsTest methodsFor: 'tests' stamp: 'grm 9/29/2022 20:40:58'!
+test02OneCharStringAnagramReturnsACollectionWithTheSameOneCharString
+
+	self assert: (Set with:'a') equals: 'a' anagrams
+	! !
+
+!testRun: #TDDBabyStepsAnagramsTest #test02OneCharStringAnagramReturnsACollectionWithTheSameOneCharString stamp: 'grm 9/29/2022 20:40:58'!
+FAILURE!
+!String methodsFor: 'anagram' stamp: 'grm 9/29/2022 20:42:40' prior: 50568703!
+anagrams
+	self = 'a' ifTrue: [^Set with: self].
+	^Set with: ''! !
+
+!testRun: #TDDBabyStepsAnagramsTest #test02OneCharStringAnagramReturnsACollectionWithTheSameOneCharString stamp: 'grm 9/29/2022 20:42:44'!
+PASSED!
+
+!testRun: #TDDBabyStepsAnagramsTest #test01EmptyStringAnagramIsJustACollectionWithTheEmptyString stamp: 'grm 9/29/2022 20:42:44'!
+PASSED!
+
+!testRun: #TDDBabyStepsAnagramsTest #test02OneCharStringAnagramReturnsACollectionWithTheSameOneCharString stamp: 'grm 9/29/2022 20:42:44'!
+PASSED!
+
+!testRun: #TDDBabyStepsAnagramsTest #test01EmptyStringAnagramIsJustACollectionWithTheEmptyString stamp: 'grm 9/29/2022 20:42:51'!
+PASSED!
+
+!testRun: #TDDBabyStepsAnagramsTest #test02OneCharStringAnagramReturnsACollectionWithTheSameOneCharString stamp: 'grm 9/29/2022 20:42:51'!
+PASSED!
+!TDDBabyStepsAnagramsTest methodsFor: 'tests' stamp: 'grm 9/29/2022 20:42:51'!
+test03TwoCharStringAnagramReturnsTheOriginalStringAndAnotherOneFlipped
+
+	self assert: (Set with:'ab' with: 'ba') equals: 'ab' anagrams
+	! !
+
+!testRun: #TDDBabyStepsAnagramsTest #test03TwoCharStringAnagramReturnsTheOriginalStringAndAnotherOneFlipped stamp: 'grm 9/29/2022 20:42:51'!
+FAILURE!
+
+!methodRemoval: TDDBabyStepsAnagramsTest #test03TwoCharStringAnagramReturnsTheOriginalStringAndAnotherOneFlipped stamp: 'grm 9/29/2022 20:42:51'!
+test03TwoCharStringAnagramReturnsTheOriginalStringAndAnotherOneFlipped
+
+	self assert: (Set with:'ab' with: 'ba') equals: 'ab' anagrams
+	!
+!TDDBabyStepsAnagramsTest methodsFor: 'tests' stamp: 'grm 9/29/2022 20:42:51'!
+test03TwoCharStringAnagramReturnsTheOriginalStringAndAnotherOneFlipped
+
+	self assert: (Set with:'ab' with: 'ba') equals: 'ab' anagrams
+	! !
+
+!testRun: #TDDBabyStepsAnagramsTest #test03TwoCharStringAnagramReturnsTheOriginalStringAndAnotherOneFlipped stamp: 'grm 9/29/2022 20:42:51'!
+FAILURE!
+!String methodsFor: 'anagram' stamp: 'grm 9/29/2022 20:43:22' prior: 50568752!
+anagrams
+	 ^Set with: self! !
+
+!testRun: #TDDBabyStepsAnagramsTest #test03TwoCharStringAnagramReturnsTheOriginalStringAndAnotherOneFlipped stamp: 'grm 9/29/2022 20:43:27'!
+FAILURE!
+
+!testRun: #TDDBabyStepsAnagramsTest #test01EmptyStringAnagramIsJustACollectionWithTheEmptyString stamp: 'grm 9/29/2022 20:43:32'!
+PASSED!
+
+!testRun: #TDDBabyStepsAnagramsTest #test02OneCharStringAnagramReturnsACollectionWithTheSameOneCharString stamp: 'grm 9/29/2022 20:43:32'!
+PASSED!
+
+!testRun: #TDDBabyStepsAnagramsTest #test03TwoCharStringAnagramReturnsTheOriginalStringAndAnotherOneFlipped stamp: 'grm 9/29/2022 20:43:32'!
+FAILURE!
+
+!testRun: #TDDBabyStepsAnagramsTest #test03TwoCharStringAnagramReturnsTheOriginalStringAndAnotherOneFlipped stamp: 'grm 9/29/2022 20:43:32'!
+FAILURE!
+
+!testRun: #TDDBabyStepsAnagramsTest #test01EmptyStringAnagramIsJustACollectionWithTheEmptyString stamp: 'grm 9/29/2022 20:43:39'!
+PASSED!
+
+!testRun: #TDDBabyStepsAnagramsTest #test02OneCharStringAnagramReturnsACollectionWithTheSameOneCharString stamp: 'grm 9/29/2022 20:43:41'!
+PASSED!
+!String methodsFor: 'anagram' stamp: 'grm 9/29/2022 20:45:57' prior: 50568813!
+anagrams
+	self size < 2 ifTrue: [^Set with: self].
+	^Set with: self with: (self first asString append: (self at: 2 asString))! !
+
+!testRun: #TDDBabyStepsAnagramsTest #test03TwoCharStringAnagramReturnsTheOriginalStringAndAnotherOneFlipped stamp: 'grm 9/29/2022 20:46:01'!
+ERROR!
+
+!testRun: #TDDBabyStepsAnagramsTest #test03TwoCharStringAnagramReturnsTheOriginalStringAndAnotherOneFlipped stamp: 'grm 9/29/2022 20:46:22'!
+ERROR!
+!String methodsFor: 'anagram' stamp: 'grm 9/29/2022 20:46:54' prior: 50568849!
+anagrams
+	self size < 2 ifTrue: [^Set with: self].
+	^Set with: self with: ((self first asString) append: ((self at: 2) asString))! !
+
+!testRun: #TDDBabyStepsAnagramsTest #test03TwoCharStringAnagramReturnsTheOriginalStringAndAnotherOneFlipped stamp: 'grm 9/29/2022 20:47:22'!
+FAILURE!
+!String methodsFor: 'anagram' stamp: 'grm 9/29/2022 20:48:01' prior: 50568865!
+anagrams
+	self size < 2 ifTrue: [^Set with: self].
+	^Set with: self with: (((self at: 2) asString) append: (self first asString))! !
+
+!testRun: #TDDBabyStepsAnagramsTest #test03TwoCharStringAnagramReturnsTheOriginalStringAndAnotherOneFlipped stamp: 'grm 9/29/2022 20:48:16'!
+PASSED!
+
+!testRun: #TDDBabyStepsAnagramsTest #test01EmptyStringAnagramIsJustACollectionWithTheEmptyString stamp: 'grm 9/29/2022 20:48:16'!
+PASSED!
+
+!testRun: #TDDBabyStepsAnagramsTest #test02OneCharStringAnagramReturnsACollectionWithTheSameOneCharString stamp: 'grm 9/29/2022 20:48:16'!
+PASSED!
+
+!testRun: #TDDBabyStepsAnagramsTest #test03TwoCharStringAnagramReturnsTheOriginalStringAndAnotherOneFlipped stamp: 'grm 9/29/2022 20:48:16'!
+PASSED!
+
+!testRun: #TDDBabyStepsAnagramsTest #test01EmptyStringAnagramIsJustACollectionWithTheEmptyString stamp: 'grm 9/29/2022 20:48:20'!
+PASSED!
+
+!testRun: #TDDBabyStepsAnagramsTest #test02OneCharStringAnagramReturnsACollectionWithTheSameOneCharString stamp: 'grm 9/29/2022 20:48:20'!
+PASSED!
+
+!testRun: #TDDBabyStepsAnagramsTest #test03TwoCharStringAnagramReturnsTheOriginalStringAndAnotherOneFlipped stamp: 'grm 9/29/2022 20:48:20'!
+PASSED!
+!TDDBabyStepsAnagramsTest methodsFor: 'tests' stamp: 'grm 9/29/2022 20:48:20'!
+test04ThreeCharStringAnagramReturnsAllThe6PossibleOrderCombinations
+
+	| anagrams |
+	
+	anagrams := Set new.
+	anagrams add: 'abc'.
+	anagrams add: 'acb'.
+	anagrams add: 'bac'.
+	anagrams add: 'bca'.
+	anagrams add: 'cab'.
+	anagrams add: 'cba'.
+
+	self assert: anagrams equals: 'abc' anagrams
+	! !
+
+!testRun: #TDDBabyStepsAnagramsTest #test04ThreeCharStringAnagramReturnsAllThe6PossibleOrderCombinations stamp: 'grm 9/29/2022 20:48:20'!
+FAILURE!
+
+!methodRemoval: TDDBabyStepsAnagramsTest #test04ThreeCharStringAnagramReturnsAllThe6PossibleOrderCombinations stamp: 'grm 9/29/2022 20:48:20'!
+test04ThreeCharStringAnagramReturnsAllThe6PossibleOrderCombinations
+
+	| anagrams |
+	
+	anagrams := Set new.
+	anagrams add: 'abc'.
+	anagrams add: 'acb'.
+	anagrams add: 'bac'.
+	anagrams add: 'bca'.
+	anagrams add: 'cab'.
+	anagrams add: 'cba'.
+
+	self assert: anagrams equals: 'abc' anagrams
+	!
+!TDDBabyStepsAnagramsTest methodsFor: 'tests' stamp: 'grm 9/29/2022 20:48:20'!
+test04ThreeCharStringAnagramReturnsAllThe6PossibleOrderCombinations
+
+	| anagrams |
+	
+	anagrams := Set new.
+	anagrams add: 'abc'.
+	anagrams add: 'acb'.
+	anagrams add: 'bac'.
+	anagrams add: 'bca'.
+	anagrams add: 'cab'.
+	anagrams add: 'cba'.
+
+	self assert: anagrams equals: 'abc' anagrams
+	! !
+
+!testRun: #TDDBabyStepsAnagramsTest #test04ThreeCharStringAnagramReturnsAllThe6PossibleOrderCombinations stamp: 'grm 9/29/2022 20:48:20'!
+FAILURE!
+!String methodsFor: 'anagram' stamp: 'grm 9/29/2022 20:54:50' prior: 50568877!
+anagrams
+	self size < 2 ifTrue: [^Set with: self].
+	^self allButFirst anagramsWith: self first! !
+!String methodsFor: 'anagram' stamp: 'grm 9/29/2022 20:56:43'!
+anagramsWith: aFirstCharacter
+	! !
+
+----STARTUP---- (3 October 2022 20:34:16) as /home/greyna/Universidad/Ingenieria I/cuis/CuisUniversity-5481.image!
+
+
+Object subclass: #MarsRover
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #MarsRover category: 'MarsRover' stamp: 'grm 10/3/2022 20:36:37'!
+Object subclass: #MarsRover
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+TestCase subclass: #NameOfSubclass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #NameOfSubclass category: 'MarsRover' stamp: 'grm 10/3/2022 20:37:07'!
+TestCase subclass: #NameOfSubclass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classRemoval: #NameOfSubclass stamp: 'grm 10/3/2022 20:37:12'!
+TestCase subclass: #NameOfSubclass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+TestCase subclass: #MarsRoverTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #MarsRoverTest category: 'MarsRover' stamp: 'grm 10/3/2022 20:37:21'!
+TestCase subclass: #MarsRoverTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+!MarsRoverTest methodsFor: 'nil' stamp: 'grm 10/3/2022 20:52:44'!
+test01initialPositionIsCorrect
+| rover |
+
+rover := MarsRover at: 1@1.
+
+self assert: rover showPosition equals: 1@1.! !
+
+!testRun: #MarsRoverTest #test01initialPositionIsCorrect stamp: 'grm 10/3/2022 20:52:47'!
+ERROR!
+
+!testRun: #MarsRoverTest #test01initialPositionIsCorrect stamp: 'grm 10/3/2022 20:53:18'!
+ERROR!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 20:58:01'!
+test01positionStartsAtOrigin
+| rover |
+
+rover := MarsRover at: 1@1.
+
+self assert: rover showPosition equals: 1@1.! !
+
+!methodRemoval: MarsRoverTest #test01initialPositionIsCorrect stamp: 'grm 10/3/2022 20:58:02'!
+test01initialPositionIsCorrect
+| rover |
+
+rover := MarsRover at: 1@1.
+
+self assert: rover showPosition equals: 1@1.!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 20:58:27' prior: 50566908!
+test01positionStartsAtOrigin
+| rover |
+
+rover := MarsRover new.
+
+self assert: rover position equals: 0@0.! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:00:21' prior: 50566922!
+test01positionStartsAtOrigin
+| rover |
+
+rover := MarsRover at: 1@1 headedTo: #N.
+
+self assert: rover at = 1@1.! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:00:51' prior: 50566929!
+test01positionStartsAtOrigin
+| rover |
+
+rover := MarsRover at: 1@1 headedTo: #N.
+
+self assert: rover position = 1@1.! !
+!MarsRover class methodsFor: 'nil' stamp: 'grm 10/3/2022 21:01:24'!
+at: aPosition headedTo: aCardinalDirection
+	^MarsRover new.! !
+!MarsRover methodsFor: 'no messages' stamp: 'grm 10/3/2022 21:01:43'!
+position
+	^1@1.! !
+
+!testRun: #MarsRoverTest #test01positionStartsAtOrigin stamp: 'grm 10/3/2022 21:01:49'!
+ERROR!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:02:17' prior: 50566936!
+test01positionStartsAtOrigin
+| rover |
+
+rover := MarsRover at: (1@1) headedTo: #N.
+
+self assert: rover position equals: (1@1).! !
+
+!testRun: #MarsRoverTest #test01positionStartsAtOrigin stamp: 'grm 10/3/2022 21:02:18'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01positionStartsAtOrigin stamp: 'grm 10/3/2022 21:02:18'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:03:25'!
+test01positionIsInitializedCorrectly
+| rover |
+
+rover := MarsRover at: (1@1) headedTo: #N.
+
+self assert: rover position equals: (1@1).! !
+
+!methodRemoval: MarsRoverTest #test01positionStartsAtOrigin stamp: 'grm 10/3/2022 21:03:25'!
+test01positionStartsAtOrigin
+| rover |
+
+rover := MarsRover at: (1@1) headedTo: #N.
+
+self assert: rover position equals: (1@1).!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:04:24'!
+test01positionIsInitializedAt1_1
+| rover |
+
+rover := MarsRover at: (1@1) headedTo: #N.
+
+self assert: rover position equals: (1@1).! !
+
+!methodRemoval: MarsRoverTest #test01positionIsInitializedCorrectly stamp: 'grm 10/3/2022 21:04:24'!
+test01positionIsInitializedCorrectly
+| rover |
+
+rover := MarsRover at: (1@1) headedTo: #N.
+
+self assert: rover position equals: (1@1).!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:04:37'!
+test01positionIsInitializedAt1_2
+| rover |
+
+rover := MarsRover at: (1@2) headedTo: #N.
+
+self assert: rover position equals: (1@2).! !
+
+!testRun: #MarsRoverTest #test01positionIsInitializedAt1_2 stamp: 'grm 10/3/2022 21:04:38'!
+FAILURE!
+!MarsRover class methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:05:40' prior: 50566942!
+at: aPosition headedTo: aCardinalDirection
+	^MarsRover new initializeWithPosition: aPosition andDirection: aCardinalDirection.! !
+!MarsRover class methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:06:01' prior: 50567007!
+at: aPosition headedTo: aCardinalDirection
+	^MarsRover new initializeAtPosition: aPosition andDirection: aCardinalDirection.! !
+!MarsRover class methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:07:14' prior: 50567015!
+at: aPosition headedTo: aCardinalDirection
+	^MarsRover new initializeAtPosition: aPosition towards: aCardinalDirection.! !
+
+!classDefinition: #MarsRover category: 'MarsRover' stamp: 'grm 10/3/2022 21:08:27'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'position'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:08:23'!
+initializeAtPosition: aPosition towards: aCardinalDirection
+	position := aPosition.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:09:25' prior: 50566947!
+position
+	^position.! !
+
+!testRun: #MarsRoverTest #test01positionIsInitializedAt1_1 stamp: 'grm 10/3/2022 21:09:53'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01positionIsInitializedAt1_2 stamp: 'grm 10/3/2022 21:09:55'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:10:07'!
+test02positionIsInitializedAt1_2
+| rover |
+
+rover := MarsRover at: (1@2) headedTo: #N.
+
+self assert: rover position equals: (1@2).! !
+
+!methodRemoval: MarsRoverTest #test01positionIsInitializedAt1_2 stamp: 'grm 10/3/2022 21:10:07'!
+test01positionIsInitializedAt1_2
+| rover |
+
+rover := MarsRover at: (1@2) headedTo: #N.
+
+self assert: rover position equals: (1@2).!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:10:37'!
+test03
+| rover pos |
+
+rover := MarsRover at: (1@2) headedTo: #N.
+
+pos := rover position.
+
+self assert: rover position equals: (1@2).! !
+
+1@1 class!
+
+(1@1) class!
+
+!methodRemoval: MarsRoverTest #test03 stamp: 'grm 10/3/2022 21:13:36'!
+test03
+| rover pos |
+
+rover := MarsRover at: (1@2) headedTo: #N.
+
+pos := rover position.
+
+self assert: rover position equals: (1@2).!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:14:43'!
+test03directionIsInitializedNorth
+	| rover |
+
+	rover := MarsRover at: (1@1) headedTo: #N.
+
+	self assert: rover direction equals: #N.! !
+
+!testRun: #MarsRoverTest #test03directionIsInitializedNorth stamp: 'grm 10/3/2022 21:14:46'!
+ERROR!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:14:55'!
+direction
+	self shouldBeImplemented.! !
+
+!classDefinition: #MarsRover category: 'MarsRover' stamp: 'grm 10/3/2022 21:15:10'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'position direction'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:15:09' prior: 50567092!
+direction
+	^direction.! !
+
+!testRun: #MarsRoverTest #test03directionIsInitializedNorth stamp: 'grm 10/3/2022 21:15:13'!
+FAILURE!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:16:03' prior: 50567082!
+test03directionIsInitializedNorth
+	| rover |
+
+	rover := MarsRover at: (1@1) headedTo: #N.
+
+	self assert: #N equals: rover direction.! !
+
+!testRun: #MarsRoverTest #test03directionIsInitializedNorth stamp: 'grm 10/3/2022 21:16:05'!
+FAILURE!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:16:42' prior: 50567037!
+initializeAtPosition: aPosition towards: aCardinalDirection
+	position := aPosition.
+	direction := aCardinalDirection.! !
+
+!testRun: #MarsRoverTest #test03directionIsInitializedNorth stamp: 'grm 10/3/2022 21:16:52'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01positionIsInitializedAt1_1 stamp: 'grm 10/3/2022 21:16:52'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02positionIsInitializedAt1_2 stamp: 'grm 10/3/2022 21:16:52'!
+PASSED!
+
+!testRun: #MarsRoverTest #test03directionIsInitializedNorth stamp: 'grm 10/3/2022 21:16:52'!
+PASSED!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:17:29' prior: 50567104!
+direction
+	^#N.! !
+
+!testRun: #MarsRoverTest #test03directionIsInitializedNorth stamp: 'grm 10/3/2022 21:17:34'!
+PASSED!
+
+----STARTUP---- (3 October 2022 21:20:12) as /home/greyna/Universidad/Ingenieria I/cuis/CuisUniversity-5481.image!
+
+
+!classDefinition: #MarsRover category: 'MarsRover' stamp: 'grm 10/3/2022 21:20:18'!
+Object subclass: #MarsRover
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #MarsRover category: 'MarsRover' stamp: 'grm 10/3/2022 21:20:18'!
+Object subclass: #MarsRover
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #NameOfSubclass category: 'MarsRover' stamp: 'grm 10/3/2022 21:20:19'!
+TestCase subclass: #NameOfSubclass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #NameOfSubclass category: 'MarsRover' stamp: 'grm 10/3/2022 21:20:19'!
+TestCase subclass: #NameOfSubclass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classRemoval: #NameOfSubclass stamp: 'grm 10/3/2022 21:20:19'!
+TestCase subclass: #NameOfSubclass
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #MarsRoverTest category: 'MarsRover' stamp: 'grm 10/3/2022 21:20:19'!
+TestCase subclass: #MarsRoverTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+
+!classDefinition: #MarsRoverTest category: 'MarsRover' stamp: 'grm 10/3/2022 21:20:19'!
+TestCase subclass: #MarsRoverTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+!MarsRoverTest methodsFor: 'nil' stamp: 'grm 10/3/2022 20:52:44'!
+test01initialPositionIsCorrect
+| rover |
+
+rover := MarsRover at: 1@1.
+
+self assert: rover showPosition equals: 1@1.! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 20:58:01'!
+test01positionStartsAtOrigin
+| rover |
+
+rover := MarsRover at: 1@1.
+
+self assert: rover showPosition equals: 1@1.! !
+
+!methodRemoval: MarsRoverTest #test01initialPositionIsCorrect stamp: 'grm 10/3/2022 21:20:19'!
+test01initialPositionIsCorrect
+| rover |
+
+rover := MarsRover at: 1@1.
+
+self assert: rover showPosition equals: 1@1.!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 20:58:27' prior: 50567207!
+test01positionStartsAtOrigin
+| rover |
+
+rover := MarsRover new.
+
+self assert: rover position equals: 0@0.! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:00:21' prior: 50567221!
+test01positionStartsAtOrigin
+| rover |
+
+rover := MarsRover at: 1@1 headedTo: #N.
+
+self assert: rover at = 1@1.! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:00:51' prior: 50567228!
+test01positionStartsAtOrigin
+| rover |
+
+rover := MarsRover at: 1@1 headedTo: #N.
+
+self assert: rover position = 1@1.! !
+!MarsRover class methodsFor: 'nil' stamp: 'grm 10/3/2022 21:01:24'!
+at: aPosition headedTo: aCardinalDirection
+	^MarsRover new.! !
+!MarsRover methodsFor: 'no messages' stamp: 'grm 10/3/2022 21:01:43'!
+position
+	^1@1.! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:02:17' prior: 50567235!
+test01positionStartsAtOrigin
+| rover |
+
+rover := MarsRover at: (1@1) headedTo: #N.
+
+self assert: rover position equals: (1@1).! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:03:25'!
+test01positionIsInitializedCorrectly
+| rover |
+
+rover := MarsRover at: (1@1) headedTo: #N.
+
+self assert: rover position equals: (1@1).! !
+
+!methodRemoval: MarsRoverTest #test01positionStartsAtOrigin stamp: 'grm 10/3/2022 21:20:19'!
+test01positionStartsAtOrigin
+| rover |
+
+rover := MarsRover at: (1@1) headedTo: #N.
+
+self assert: rover position equals: (1@1).!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:04:24'!
+test01positionIsInitializedAt1_1
+| rover |
+
+rover := MarsRover at: (1@1) headedTo: #N.
+
+self assert: rover position equals: (1@1).! !
+
+!methodRemoval: MarsRoverTest #test01positionIsInitializedCorrectly stamp: 'grm 10/3/2022 21:20:19'!
+test01positionIsInitializedCorrectly
+| rover |
+
+rover := MarsRover at: (1@1) headedTo: #N.
+
+self assert: rover position equals: (1@1).!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:04:37'!
+test01positionIsInitializedAt1_2
+| rover |
+
+rover := MarsRover at: (1@2) headedTo: #N.
+
+self assert: rover position equals: (1@2).! !
+!MarsRover class methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:05:40' prior: 50567241!
+at: aPosition headedTo: aCardinalDirection
+	^MarsRover new initializeWithPosition: aPosition andDirection: aCardinalDirection.! !
+!MarsRover class methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:06:01' prior: 50567294!
+at: aPosition headedTo: aCardinalDirection
+	^MarsRover new initializeAtPosition: aPosition andDirection: aCardinalDirection.! !
+!MarsRover class methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:07:14' prior: 50567302!
+at: aPosition headedTo: aCardinalDirection
+	^MarsRover new initializeAtPosition: aPosition towards: aCardinalDirection.! !
+
+!classDefinition: #MarsRover category: 'MarsRover' stamp: 'grm 10/3/2022 21:20:19'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'position'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:08:23'!
+initializeAtPosition: aPosition towards: aCardinalDirection
+	position := aPosition.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:09:25' prior: 50567246!
+position
+	^position.! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:10:07'!
+test02positionIsInitializedAt1_2
+| rover |
+
+rover := MarsRover at: (1@2) headedTo: #N.
+
+self assert: rover position equals: (1@2).! !
+
+!methodRemoval: MarsRoverTest #test01positionIsInitializedAt1_2 stamp: 'grm 10/3/2022 21:20:19'!
+test01positionIsInitializedAt1_2
+| rover |
+
+rover := MarsRover at: (1@2) headedTo: #N.
+
+self assert: rover position equals: (1@2).!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:10:37'!
+test03
+| rover pos |
+
+rover := MarsRover at: (1@2) headedTo: #N.
+
+pos := rover position.
+
+self assert: rover position equals: (1@2).! !
+
+!methodRemoval: MarsRoverTest #test03 stamp: 'grm 10/3/2022 21:20:19'!
+test03
+| rover pos |
+
+rover := MarsRover at: (1@2) headedTo: #N.
+
+pos := rover position.
+
+self assert: rover position equals: (1@2).!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:14:43'!
+test03directionIsInitializedNorth
+	| rover |
+
+	rover := MarsRover at: (1@1) headedTo: #N.
+
+	self assert: rover direction equals: #N.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:14:55'!
+direction
+	self shouldBeImplemented.! !
+
+!classDefinition: #MarsRover category: 'MarsRover' stamp: 'grm 10/3/2022 21:20:19'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'position direction'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover'!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:15:09' prior: 50567369!
+direction
+	^direction.! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:16:03' prior: 50567362!
+test03directionIsInitializedNorth
+	| rover |
+
+	rover := MarsRover at: (1@1) headedTo: #N.
+
+	self assert: #N equals: rover direction.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:16:42' prior: 50567324!
+initializeAtPosition: aPosition towards: aCardinalDirection
+	position := aPosition.
+	direction := aCardinalDirection.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:17:29' prior: 50567381!
+direction
+	^#N.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:26:16' prior: 50567143!
+direction
+	^direction.! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:30:31'!
+test02directionIsInitializedNorth
+	| rover |
+
+	rover := MarsRover at: (1@1) headedTo: #N.
+
+	self assert: #N equals: rover direction.! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:30:37'!
+test02directionIsInitializedCorrectly
+	| rover |
+
+	rover := MarsRover at: (1@1) headedTo: #N.
+
+	self assert: #N equals: rover direction.! !
+
+!methodRemoval: MarsRoverTest #test02directionIsInitializedNorth stamp: 'grm 10/3/2022 21:30:41'!
+test02directionIsInitializedNorth
+	| rover |
+
+	rover := MarsRover at: (1@1) headedTo: #N.
+
+	self assert: #N equals: rover direction.!
+
+!methodRemoval: MarsRoverTest #test02positionIsInitializedAt1_2 stamp: 'grm 10/3/2022 21:30:43'!
+test02positionIsInitializedAt1_2
+| rover |
+
+rover := MarsRover at: (1@2) headedTo: #N.
+
+self assert: rover position equals: (1@2).!
+
+!methodRemoval: MarsRoverTest #test03directionIsInitializedNorth stamp: 'grm 10/3/2022 21:30:44'!
+test03directionIsInitializedNorth
+	| rover |
+
+	rover := MarsRover at: (1@1) headedTo: #N.
+
+	self assert: #N equals: rover direction.!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:30:52'!
+test01positionIsInitializedCorrectly
+| rover |
+
+rover := MarsRover at: (1@1) headedTo: #N.
+
+self assert: rover position equals: (1@1).! !
+
+!methodRemoval: MarsRoverTest #test01positionIsInitializedAt1_1 stamp: 'grm 10/3/2022 21:30:52'!
+test01positionIsInitializedAt1_1
+| rover |
+
+rover := MarsRover at: (1@1) headedTo: #N.
+
+self assert: rover position equals: (1@1).!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:31:40'!
+test03roverMovesNorth
+	|rover|! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:31:52' prior: 50567190!
+test01positionIsInitializedCorrectly
+	| rover |
+
+	rover := MarsRover at: (1@1) headedTo: #N.
+
+	self assert: rover position equals: (1@1).! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:32:03' prior: 50567205!
+test03roverMovesNorth
+	! !
+!MarsRover class methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:39:32'!
+at: aPosition facing: aCardinalDirection
+	^MarsRover new initializeAtPosition: aPosition towards: aCardinalDirection.! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:39:32' prior: 50567210!
+test01positionIsInitializedCorrectly
+	| rover |
+
+	rover := MarsRover at: (1@1) facing: #N.
+
+	self assert: rover position equals: (1@1).! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:39:32' prior: 50567161!
+test02directionIsInitializedCorrectly
+	| rover |
+
+	rover := MarsRover at: (1@1) facing: #N.
+
+	self assert: #N equals: rover direction.! !
+
+!methodRemoval: MarsRover class #at:headedTo: stamp: 'grm 10/3/2022 21:39:32'!
+at: aPosition headedTo: aCardinalDirection
+	^MarsRover new initializeAtPosition: aPosition towards: aCardinalDirection.!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:40:04'!
+initializeAtPosition: aPosition facing: aCardinalDirection
+	position := aPosition.
+	direction := aCardinalDirection.! !
+!MarsRover class methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:40:04' prior: 50567222!
+at: aPosition facing: aCardinalDirection
+	^MarsRover new initializeAtPosition: aPosition facing: aCardinalDirection.! !
+
+!methodRemoval: MarsRover #initializeAtPosition:towards: stamp: 'grm 10/3/2022 21:40:04'!
+initializeAtPosition: aPosition towards: aCardinalDirection
+	position := aPosition.
+	direction := aCardinalDirection.!
+
+!methodRemoval: MarsRoverTest #test01positionIsInitializedCorrectly stamp: 'grm 10/3/2022 21:40:20'!
+test01positionIsInitializedCorrectly
+	| rover |
+
+	rover := MarsRover at: (1@1) facing: #N.
+
+	self assert: rover position equals: (1@1).!
+
+!methodRemoval: MarsRoverTest #test02directionIsInitializedCorrectly stamp: 'grm 10/3/2022 21:40:21'!
+test02directionIsInitializedCorrectly
+	| rover |
+
+	rover := MarsRover at: (1@1) facing: #N.
+
+	self assert: #N equals: rover direction.!
+
+!methodRemoval: MarsRoverTest #test03roverMovesNorth stamp: 'grm 10/3/2022 21:40:23'!
+test03roverMovesNorth
+	!
+
+!methodRemoval: MarsRover #direction stamp: 'grm 10/3/2022 21:40:33'!
+direction
+	^direction.!
+
+!methodRemoval: MarsRover #position stamp: 'grm 10/3/2022 21:40:35'!
+position
+	^position.!
+!MarsRover methodsFor: 'nil' stamp: 'grm 10/3/2022 21:41:27'!
+isAt: aPosition facing: aCardinalDirection
+	^(position = aPosition) and: [direction = aCardinalDirection].! !
+!MarsRoverTest methodsFor: 'no messages' stamp: 'grm 10/3/2022 21:42:44'!
+test01roverIsAtCorrectPositionAndOrientation
+	| rover |
+	
+	rover := MarsRover at: 1@1 facing: #N.
+	
+	self assert: (rover isAt: 1@1 facing: #N).! !
+
+!testRun: #MarsRoverTest #test01roverIsAtCorrectPositionAndOrientation stamp: 'grm 10/3/2022 21:42:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01roverIsAtCorrectPositionAndOrientation stamp: 'grm 10/3/2022 21:42:47'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:49:12'!
+test02roverMovesNorthCorrectly
+	| rover |
+	
+	rover := MarsRover at: 1@2 facing: #W.
+	
+	rover moveForward.
+	
+	self assert: (rover isAt: 0@2 facing: #W).! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:50:58' prior: 50567316!
+test02roverMovesNorthCorrectly
+	| rover |
+	
+	rover := MarsRover at: 1@2 facing: #W.
+	
+	rover moveForward.
+	
+	self assert: (rover isAt: 0@2 facing: #W).! !
+
+!testRun: #MarsRoverTest #test02roverMovesNorthCorrectly stamp: 'grm 10/3/2022 21:50:59'!
+ERROR!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:51:07'!
+moveForward
+	self shouldBeImplemented.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:52:46' prior: 50567335!
+moveForward
+	position := 0@2.! !
+
+!testRun: #MarsRoverTest #test02roverMovesNorthCorrectly stamp: 'grm 10/3/2022 21:52:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test01roverIsAtCorrectPositionAndOrientation stamp: 'grm 10/3/2022 21:52:47'!
+PASSED!
+
+!testRun: #MarsRoverTest #test02roverMovesNorthCorrectly stamp: 'grm 10/3/2022 21:52:47'!
+PASSED!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:53:25'!
+test03roverMovesWestCorrectly
+	| rover |
+	
+	rover := MarsRover at: 1@2 facing: #W.
+	
+	rover moveForward.
+	
+	self assert: (rover isAt: 0@2 facing: #W).! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:53:46'!
+test03roverMovesNorthCorrectly
+	| rover |
+	
+	rover := MarsRover at: 1@2 facing: #N.
+	
+	rover moveForward.
+	
+	self assert: (rover isAt: 0@2 facing: #W).! !
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 21:54:00'!
+test02roverMovesWestCorrectly
+	| rover |
+	
+	rover := MarsRover at: 1@2 facing: #W.
+	
+	rover moveForward.
+	
+	self assert: (rover isAt: 0@2 facing: #W).! !
+
+!methodRemoval: MarsRoverTest #test03roverMovesWestCorrectly stamp: 'grm 10/3/2022 21:54:06'!
+test03roverMovesWestCorrectly
+	| rover |
+	
+	rover := MarsRover at: 1@2 facing: #W.
+	
+	rover moveForward.
+	
+	self assert: (rover isAt: 0@2 facing: #W).!
+
+!methodRemoval: MarsRoverTest #test02roverMovesNorthCorrectly stamp: 'grm 10/3/2022 21:54:12'!
+test02roverMovesNorthCorrectly
+	| rover |
+	
+	rover := MarsRover at: 1@2 facing: #W.
+	
+	rover moveForward.
+	
+	self assert: (rover isAt: 0@2 facing: #W).!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 22:00:13' prior: 50567370!
+test02roverMovesWestCorrectly
+	| rover |
+	
+	rover := MarsRover at: 1@2 facing: #W.
+	
+	rover executeCommands: 'f'.
+	
+	self assert: (rover isAt: 0@2 facing: #W).! !
+
+!methodRemoval: MarsRoverTest #test03roverMovesNorthCorrectly stamp: 'grm 10/3/2022 22:00:35'!
+test03roverMovesNorthCorrectly
+	| rover |
+	
+	rover := MarsRover at: 1@2 facing: #N.
+	
+	rover moveForward.
+	
+	self assert: (rover isAt: 0@2 facing: #W).!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'grm 10/3/2022 22:01:43'!
+test02roverMovesForwardWestCorrectly
+	| rover |
+	
+	rover := MarsRover at: 1@2 facing: #W.
+	
+	rover executeCommands: 'f'.
+	
+	self assert: (rover isAt: 0@2 facing: #W).! !
+
+!methodRemoval: MarsRoverTest #test02roverMovesWestCorrectly stamp: 'grm 10/3/2022 22:01:43'!
+test02roverMovesWestCorrectly
+	| rover |
+	
+	rover := MarsRover at: 1@2 facing: #W.
+	
+	rover executeCommands: 'f'.
+	
+	self assert: (rover isAt: 0@2 facing: #W).!
+
+----SNAPSHOT----(3 October 2022 22:03:58) CuisUniversity-5481.image priorSource: 7526373!
