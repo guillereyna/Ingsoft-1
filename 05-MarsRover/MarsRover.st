@@ -5,118 +5,176 @@ TestCase subclass: #MarsRoverTest
 	poolDictionaries: ''
 	category: 'MarsRover'!
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:20:34'!
-setUp
-! !
-
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:20:50'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/5/2022 23:59:23'!
 test01roverIsAtCorrectPositionAndOrientation
-	self testGenericMethod value: West new value:'' value:1@2 value:West new.! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: West new
+		executes: ''
+		endsAtPosition: 1@2
+		endsFacingDirection: West new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 22:47:40'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:00:57'!
 test02roverMovesForwardWestCorrectly
-	
-	self testGenericMethod value: West new value:'f' value:0@2 value:West new.! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: West new
+		executes: 'f'
+		endsAtPosition: 0@2
+		endsFacingDirection: West new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 22:52:03'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:01:36'!
 test03roverMovesForwardEastCorrectly
-	
-	self testGenericMethod value: East new value:'f' value:2@2 value:East new.! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: East new
+		executes: 'f'
+		endsAtPosition: 2@2
+		endsFacingDirection: East new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 22:52:47'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:02:45'!
 test04roverMovesForwardNorthCorrectly
-	
-	self testGenericMethod value: North new value:'f' value:1@3 value:North new.! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: North new
+		executes: 'f'
+		endsAtPosition: 1@3
+		endsFacingDirection: North new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 22:53:41'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:03:09'!
 test05roverMovesForwardSouthCorrectly
-	
-	self testGenericMethod value: South new value:'f' value:1@1 value:South new.! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: South new
+		executes: 'f'
+		endsAtPosition: 1@1
+		endsFacingDirection: South new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 22:55:53'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:03:40'!
 test06roverMovesBackwardsWestCorrectly
-	
-	self testGenericMethod value: West new value:'b' value:2@2 value:West new.! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: West new
+		executes: 'b'
+		endsAtPosition: 2@2
+		endsFacingDirection: West new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 22:57:13'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:05:10'!
 test07roverMovesBackwardsEastCorrectly
-	self testGenericMethod value: East new value:'b' value:0@2 value:East new.! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: East new
+		executes: 'b'
+		endsAtPosition: 0@2
+		endsFacingDirection: East new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 22:58:52'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:05:38'!
 test08roverMovesBackwardsNorthCorrectly
-	
-	self testGenericMethod value: North new value:'b' value:1@1 value:North new.! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: North new
+		executes: 'b'
+		endsAtPosition: 1@1
+		endsFacingDirection: North new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:01:47'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:06:36'!
 test09roverMovesBackwardsSouthCorrectly
-	
-	self testGenericMethod value: South new value:'b' value:1@3 value:South new.! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: South new
+		executes: 'b'
+		endsAtPosition: 1@3
+		endsFacingDirection: South new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:04:16'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:07:20'!
 test10roverTurnsLeftFacingWestCorrectly
-	
-	
-	self testGenericMethod value: West new value:'l' value:1@2 value:South new.! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: West new
+		executes: 'l'
+		endsAtPosition: 1@2
+		endsFacingDirection: South new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:08:37'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:07:59'!
 test11roverTurnsLeftFacingEastCorrectly
-	
-	self testGenericMethod value: East new value:'l' value:1@2 value:North new.! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: East new
+		executes: 'l'
+		endsAtPosition: 1@2
+		endsFacingDirection: North new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:10:29'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:08:33'!
 test12roverTurnsLeftFacingNorthCorrectly
-	
-	self testGenericMethod value: North new value:'l' value:1@2 value:West new.! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: North new
+		executes: 'l'
+		endsAtPosition: 1@2
+		endsFacingDirection: West new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:10:57'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:08:49'!
 test13roverTurnsLeftFacingSouthCorrectly
-	
-	self testGenericMethod value: South new value:'l' value:1@2 value:East new.! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: South new
+		executes: 'l'
+		endsAtPosition: 1@2
+		endsFacingDirection: East new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:11:27'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:09:23'!
 test14roverTurnsRightFacingSouthCorrectly
-	
-	self testGenericMethod value: South new value:'r' value:1@2 value:West new.! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: South new
+		executes: 'r'
+		endsAtPosition: 1@2
+		endsFacingDirection: West new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:11:53'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:09:50'!
 test15roverTurnsRightFacingNorthCorrectly
-	
-	self testGenericMethod value: North new value:'r' value:1@2 value:East new.! !
+		self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: North new
+		executes: 'r'
+		endsAtPosition: 1@2
+		endsFacingDirection: East new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:12:36'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:10:12'!
 test16roverTurnsRightFacingEastCorrectly
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: East new
+		executes: 'r'
+		endsAtPosition: 1@2
+		endsFacingDirection: South new.! !
 
-	self testGenericMethod value: East new value:'r' value:1@2 value:South new.! !
-
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:14:06'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:10:26'!
 test17roverTurnsRightFacingWestCorrectly
-	
-	self testGenericMethod value: West new value:'r' value:1@2 value:North new! !
+		self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: West new
+		executes: 'r'
+		endsAtPosition: 1@2
+		endsFacingDirection: North new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:14:47'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:10:40'!
 test18invalidCommandDoesNothing
-	self testGenericMethod value: West new value:'{' value:1@2 value:West new! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: West new
+		executes: '{'
+		endsAtPosition: 1@2
+		endsFacingDirection: West new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:18:11'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:11:08'!
 test19multipleValidCommandsWork
-	
-	self testGenericMethod value: West new value:'fflbrr' value:(-1)@3 value:North new! !
+		self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: West new
+		executes: 'fflbrr'
+		endsAtPosition: (-1)@3
+		endsFacingDirection: North new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:19:10'!
+!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/6/2022 00:11:56'!
 test20invalidCommandStopsExecution
-	self testGenericMethod value: West new value:'ffl?brr' value:(-1)@2 value:South new! !
+	self testRoverStartsAtPosition: 1@2
+		startsFacingDirection: West new
+		executes: 'ffl?brr'
+		endsAtPosition: (-1)@2
+		endsFacingDirection: South new.! !
 
 
-!MarsRoverTest methodsFor: 'genericTest' stamp: 'MSSW 10/5/2022 23:03:58'!
-testGenericMethod
-	^ [:initialOrientation :commands :finalPosition :finalOrientation | | rover |
-
-	rover := MarsRover at: 1@2 facing: initialOrientation.
+!MarsRoverTest methodsFor: 'internal' stamp: 'grm 10/6/2022 00:04:23'!
+testRoverStartsAtPosition: anInitialPosition startsFacingDirection: anInitialCardinalDirection executes: aCommandsString endsAtPosition: aFinalPositiion endsFacingDirection: aFinalCardinalDirection
+	| rover |
 	
-	rover executeCommands: commands.
+	rover := MarsRover at: anInitialPosition facing: anInitialCardinalDirection.
 	
-	self assert: (rover isAt: finalPosition facing: finalOrientation).
-	]! !
+	rover executeCommands: aCommandsString.
+	
+	self assert: (rover isAt: aFinalPositiion facing: aFinalCardinalDirection).! !
 
 
 !classDefinition: #CardinalDirection category: 'MarsRover'!
@@ -256,9 +314,9 @@ Object subclass: #MarsRover
 	poolDictionaries: ''
 	category: 'MarsRover'!
 
-!MarsRover methodsFor: 'controls' stamp: 'MSSW 10/5/2022 21:34:26'!
-executeCommands: aString 
-	aString do: [:char | [self executeSingleCommand: char] on: Error do: [^self] ].
+!MarsRover methodsFor: 'controls' stamp: 'grm 10/6/2022 00:12:56'!
+executeCommands: aCommandsString 
+	aCommandsString do: [:command | [self executeSingleCommand: command] on: Error do: [^self] ].
 	
 	! !
 
