@@ -1,230 +1,122 @@
 !classDefinition: #MarsRoverTest category: 'MarsRover'!
 TestCase subclass: #MarsRoverTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'north1 rover1 south1 east1 west1 rover2 rover1at1 rover1at2 rover1at1n rover1at2w testGeneric'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'MarsRover'!
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSS 10/5/2022 20:20:25'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:20:34'!
+setUp
+! !
+
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:20:50'!
 test01roverIsAtCorrectPositionAndOrientation
-	| rover north |
-	north := North new.
-	rover := MarsRover at: 1@1 facing: north.
-	
-	self assert: (rover isAt: 1@1 facing: north).! !
+	self testGenericMethod value: West new value:'' value:1@2 value:West new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSS 10/5/2022 20:21:46'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 22:47:40'!
 test02roverMovesForwardWestCorrectly
-	| rover west |
-	west := West new.
-	rover := MarsRover at: 1@2 facing: west.
 	
-	rover executeCommands: 'f'.
-	
-	self assert: (rover isAt: 0@2 facing: west).! !
+	self testGenericMethod value: West new value:'f' value:0@2 value:West new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSS 10/5/2022 20:22:41'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 22:52:03'!
 test03roverMovesForwardEastCorrectly
-	| rover east |
-	east := East new.
-	rover := MarsRover at: 1@2 facing: east.
 	
-	rover executeCommands: 'f'.
-	
-	self assert: (rover isAt: 2@2 facing: east).! !
+	self testGenericMethod value: East new value:'f' value:2@2 value:East new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSS 10/5/2022 20:26:42'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 22:52:47'!
 test04roverMovesForwardNorthCorrectly
-	| rover north |
-	north := North new.
-	rover := MarsRover at: 1@2 facing: north.
 	
-	rover executeCommands: 'f'.
-	
-	self assert: (rover isAt: 1@3 facing: north).! !
+	self testGenericMethod value: North new value:'f' value:1@3 value:North new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSS 10/5/2022 20:32:40'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 22:53:41'!
 test05roverMovesForwardSouthCorrectly
-	| rover south |
-	south := South new.
-	rover := MarsRover at: 1@2 facing: south.
 	
-	rover executeCommands: 'f'.
-	
-	self assert: (rover isAt: 1@1 facing: south).! !
+	self testGenericMethod value: South new value:'f' value:1@1 value:South new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSS 10/5/2022 20:35:18'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 22:55:53'!
 test06roverMovesBackwardsWestCorrectly
-	| rover west |
-	west := West new.
-	rover := MarsRover at: 3@5 facing: west.
 	
-	rover executeCommands: 'b'.
-	
-	self assert: (rover isAt: 4@5 facing: west).! !
+	self testGenericMethod value: West new value:'b' value:2@2 value:West new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSS 10/5/2022 20:41:03'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 22:57:13'!
 test07roverMovesBackwardsEastCorrectly
-	| rover cardinalPosition |
-	cardinalPosition := East new.
-	rover := MarsRover at: 3@5 facing: cardinalPosition.
-	
-	rover executeCommands: 'b'.
-	
-	self assert: (rover isAt: 2@5 facing: cardinalPosition).! !
+	self testGenericMethod value: East new value:'b' value:0@2 value:East new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSS 10/5/2022 20:41:58'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 22:58:52'!
 test08roverMovesBackwardsNorthCorrectly
-	| rover cardinalPosition |
-	cardinalPosition := North new.
-	rover := MarsRover at: 3@5 facing: cardinalPosition.
 	
-	rover executeCommands: 'b'.
-	
-	self assert: (rover isAt: 3@4 facing: cardinalPosition).! !
+	self testGenericMethod value: North new value:'b' value:1@1 value:North new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'MSS 10/5/2022 20:42:47'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:01:47'!
 test09roverMovesBackwardsSouthCorrectly
-	| rover cardinalPosition |
-	cardinalPosition := South new.
-	rover := MarsRover at: 3@5 facing: cardinalPosition.
 	
-	rover executeCommands: 'b'.
-	
-	self assert: (rover isAt: 3@6 facing: cardinalPosition).! !
+	self testGenericMethod value: South new value:'b' value:1@3 value:South new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/5/2022 20:48:55'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:04:16'!
 test10roverTurnsLeftFacingWestCorrectly
-	| rover initialCardinalDirection finalCardinalDirection |
-	initialCardinalDirection := West new.
-	finalCardinalDirection := South new.
 	
-	rover := MarsRover at: 3@5 facing: initialCardinalDirection.
 	
-	rover executeCommands: 'l'.
-	
-	self assert: (rover isAt: 3@5 facing: finalCardinalDirection).! !
+	self testGenericMethod value: West new value:'l' value:1@2 value:South new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/5/2022 20:55:21'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:08:37'!
 test11roverTurnsLeftFacingEastCorrectly
-	| rover initialCardinalDirection finalCardinalDirection |
-	initialCardinalDirection := East new.
-	finalCardinalDirection := North new.
 	
-	rover := MarsRover at: 3@5 facing: initialCardinalDirection.
-	
-	rover executeCommands: 'l'.
-	
-	self assert: (rover isAt: 3@5 facing: finalCardinalDirection).! !
+	self testGenericMethod value: East new value:'l' value:1@2 value:North new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/5/2022 20:56:29'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:10:29'!
 test12roverTurnsLeftFacingNorthCorrectly
-	| rover initialCardinalDirection finalCardinalDirection |
-	initialCardinalDirection := North new.
-	finalCardinalDirection := West new.
 	
-	rover := MarsRover at: 3@5 facing: initialCardinalDirection.
-	
-	rover executeCommands: 'l'.
-	
-	self assert: (rover isAt: 3@5 facing: finalCardinalDirection).! !
+	self testGenericMethod value: North new value:'l' value:1@2 value:West new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/5/2022 20:57:23'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:10:57'!
 test13roverTurnsLeftFacingSouthCorrectly
-	| rover initialCardinalDirection finalCardinalDirection |
-	initialCardinalDirection := South new.
-	finalCardinalDirection := East new.
 	
-	rover := MarsRover at: 3@5 facing: initialCardinalDirection.
-	
-	rover executeCommands: 'l'.
-	
-	self assert: (rover isAt: 3@5 facing: finalCardinalDirection).! !
+	self testGenericMethod value: South new value:'l' value:1@2 value:East new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/5/2022 20:58:40'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:11:27'!
 test14roverTurnsRightFacingSouthCorrectly
-	| rover initialCardinalDirection finalCardinalDirection |
-	initialCardinalDirection := South new.
-	finalCardinalDirection := West new.
 	
-	rover := MarsRover at: 3@5 facing: initialCardinalDirection.
-	
-	rover executeCommands: 'r'.
-	
-	self assert: (rover isAt: 3@5 facing: finalCardinalDirection).! !
+	self testGenericMethod value: South new value:'r' value:1@2 value:West new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/5/2022 21:00:19'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:11:53'!
 test15roverTurnsRightFacingNorthCorrectly
-	| rover initialCardinalDirection finalCardinalDirection |
-	initialCardinalDirection := North new.
-	finalCardinalDirection := East new.
 	
-	rover := MarsRover at: 3@5 facing: initialCardinalDirection.
-	
-	rover executeCommands: 'r'.
-	
-	self assert: (rover isAt: 3@5 facing: finalCardinalDirection).! !
+	self testGenericMethod value: North new value:'r' value:1@2 value:East new.! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/5/2022 21:00:56'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:12:36'!
 test16roverTurnsRightFacingEastCorrectly
-	| rover initialCardinalDirection finalCardinalDirection |
-	initialCardinalDirection := East new.
-	finalCardinalDirection := South new.
-	
-	rover := MarsRover at: 3@5 facing: initialCardinalDirection.
-	
-	rover executeCommands: 'r'.
-	
-	self assert: (rover isAt: 3@5 facing: finalCardinalDirection).! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/5/2022 21:01:26'!
+	self testGenericMethod value: East new value:'r' value:1@2 value:South new.! !
+
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:14:06'!
 test17roverTurnsRightFacingWestCorrectly
-	| rover initialCardinalDirection finalCardinalDirection |
-	initialCardinalDirection := West new.
-	finalCardinalDirection := North new.
 	
-	rover := MarsRover at: 3@5 facing: initialCardinalDirection.
-	
-	rover executeCommands: 'r'.
-	
-	self assert: (rover isAt: 3@5 facing: finalCardinalDirection).! !
+	self testGenericMethod value: West new value:'r' value:1@2 value:North new! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/5/2022 21:04:26'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:14:47'!
 test18invalidCommandDoesNothing
-	| rover initialCardinalDirection  |
-	initialCardinalDirection := West new.
-	
-	rover := MarsRover at: 3@5 facing: initialCardinalDirection.
-	
-	rover executeCommands: '{'.
-	
-	self assert: (rover isAt: 3@5 facing: initialCardinalDirection).! !
+	self testGenericMethod value: West new value:'{' value:1@2 value:West new! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/5/2022 21:14:50'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:18:11'!
 test19multipleValidCommandsWork
-	| rover initialCardinalDirection finalCardinalDirection  |
 	
-	initialCardinalDirection := West new.
-	finalCardinalDirection := North new.
-	
-	rover := MarsRover at: 3@5 facing: initialCardinalDirection.
-	
-	rover executeCommands: 'fflbrr'.
-	
-	self assert: (rover isAt: 1@6 facing: finalCardinalDirection).! !
+	self testGenericMethod value: West new value:'fflbrr' value:(-1)@3 value:North new! !
 
-!MarsRoverTest methodsFor: 'test' stamp: 'grm 10/5/2022 21:15:52'!
+!MarsRoverTest methodsFor: 'test' stamp: 'MSSW 10/5/2022 23:19:10'!
 test20invalidCommandStopsExecution
-	| rover initialCardinalDirection finalCardinalDirection  |
+	self testGenericMethod value: West new value:'ffl?brr' value:(-1)@2 value:South new! !
+
+
+!MarsRoverTest methodsFor: 'genericTest' stamp: 'MSSW 10/5/2022 23:03:58'!
+testGenericMethod
+	^ [:initialOrientation :commands :finalPosition :finalOrientation | | rover |
+
+	rover := MarsRover at: 1@2 facing: initialOrientation.
 	
-	initialCardinalDirection := West new.
-	finalCardinalDirection := South new.
+	rover executeCommands: commands.
 	
-	rover := MarsRover at: 3@5 facing: initialCardinalDirection.
-	
-	rover executeCommands: 'ffl?brr'.
-	
-	self assert: (rover isAt: 1@5 facing: finalCardinalDirection).! !
+	self assert: (rover isAt: finalPosition facing: finalOrientation).
+	]! !
 
 
 !classDefinition: #CardinalDirection category: 'MarsRover'!
