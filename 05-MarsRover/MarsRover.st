@@ -320,47 +320,6 @@ executeCommands: aCommandsString
 	
 	! !
 
-!MarsRover methodsFor: 'controls' stamp: 'MSSW 10/5/2022 21:32:11'!
-executeSingleCommand: aCommand 
-	(aCommand = $f) ifTrue:[^direction moveForward: self].
-	(aCommand = $b) ifTrue:[^direction moveBackward: self].
-	(aCommand = $l) ifTrue: [^direction turnLeft: self].
-	(aCommand = $r) ifTrue: [^direction turnRight: self].
-	self error: self class invalidCommandError.! !
-
-!MarsRover methodsFor: 'controls' stamp: 'MSS 10/5/2022 20:25:51'!
-moveEast
-	position := position x + 1@position y.! !
-
-!MarsRover methodsFor: 'controls' stamp: 'MSS 10/5/2022 20:30:22'!
-moveNorth
-	position := position x@(position y+1).! !
-
-!MarsRover methodsFor: 'controls' stamp: 'MSS 10/5/2022 20:33:47'!
-moveSouth
-	position := position x @ (position y - 1) .! !
-
-!MarsRover methodsFor: 'controls' stamp: 'MSS 10/5/2022 20:24:52'!
-moveWest
-	position := position x - 1@position y.
-	! !
-
-!MarsRover methodsFor: 'controls' stamp: 'grm 10/5/2022 20:58:08'!
-turnEast
-	direction := East new.! !
-
-!MarsRover methodsFor: 'controls' stamp: 'grm 10/5/2022 20:56:10'!
-turnNorth
-	direction := North new.! !
-
-!MarsRover methodsFor: 'controls' stamp: 'grm 10/5/2022 20:50:50'!
-turnSouth
-	direction := South new.! !
-
-!MarsRover methodsFor: 'controls' stamp: 'grm 10/5/2022 20:57:01'!
-turnWest
-	direction := West new.! !
-
 
 !MarsRover methodsFor: 'initialization' stamp: 'grm 10/3/2022 21:40:04'!
 initializeAtPosition: aPosition facing: aCardinalDirection
@@ -371,6 +330,48 @@ initializeAtPosition: aPosition facing: aCardinalDirection
 !MarsRover methodsFor: 'evaluating' stamp: 'grm 10/3/2022 21:41:27'!
 isAt: aPosition facing: aCardinalDirection
 	^(position = aPosition) and: [direction = aCardinalDirection].! !
+
+
+!MarsRover methodsFor: 'privateControls' stamp: 'MSSW 10/5/2022 21:32:11'!
+executeSingleCommand: aCommand 
+	(aCommand = $f) ifTrue:[^direction moveForward: self].
+	(aCommand = $b) ifTrue:[^direction moveBackward: self].
+	(aCommand = $l) ifTrue: [^direction turnLeft: self].
+	(aCommand = $r) ifTrue: [^direction turnRight: self].
+	self error: self class invalidCommandError.! !
+
+!MarsRover methodsFor: 'privateControls' stamp: 'MSS 10/5/2022 20:25:51'!
+moveEast
+	position := position x + 1@position y.! !
+
+!MarsRover methodsFor: 'privateControls' stamp: 'MSS 10/5/2022 20:30:22'!
+moveNorth
+	position := position x@(position y+1).! !
+
+!MarsRover methodsFor: 'privateControls' stamp: 'MSS 10/5/2022 20:33:47'!
+moveSouth
+	position := position x @ (position y - 1) .! !
+
+!MarsRover methodsFor: 'privateControls' stamp: 'MSS 10/5/2022 20:24:52'!
+moveWest
+	position := position x - 1@position y.
+	! !
+
+!MarsRover methodsFor: 'privateControls' stamp: 'grm 10/5/2022 20:58:08'!
+turnEast
+	direction := East new.! !
+
+!MarsRover methodsFor: 'privateControls' stamp: 'grm 10/5/2022 20:56:10'!
+turnNorth
+	direction := North new.! !
+
+!MarsRover methodsFor: 'privateControls' stamp: 'grm 10/5/2022 20:50:50'!
+turnSouth
+	direction := South new.! !
+
+!MarsRover methodsFor: 'privateControls' stamp: 'grm 10/5/2022 20:57:01'!
+turnWest
+	direction := West new.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
