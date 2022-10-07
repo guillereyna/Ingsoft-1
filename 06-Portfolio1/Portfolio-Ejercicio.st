@@ -1,3 +1,18 @@
+!classDefinition: #PortfolioTest category: 'Portfolio-Ejercicio'!
+TestCase subclass: #PortfolioTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'grm 10/6/2022 21:39:32'!
+test01
+	|portfolio|
+	portfolio := Portfolio new.
+	
+	self assert: (portfolio balance = 0).! !
+
+
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Ejercicio'!
 TestCase subclass: #ReceptiveAccountTest
 	instanceVariableNames: ''
@@ -96,6 +111,11 @@ Object subclass: #AccountTransaction
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
+!AccountTransaction methodsFor: 'value' stamp: 'grm 10/6/2022 20:58:56'!
+balance 
+
+	self subclassResponsibility ! !
+
 !AccountTransaction methodsFor: 'value' stamp: 'HernanWilkinson 9/12/2011 12:25'!
 value 
 
@@ -129,6 +149,11 @@ AccountTransaction subclass: #Deposit
 initializeFor: aValue
 
 	value := aValue ! !
+
+
+!Deposit methodsFor: 'balance' stamp: 'grm 10/6/2022 21:19:13'!
+affectsCurrentBalance: aBalance
+	^aBalance + self value! !
 
 
 !Deposit methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:38'!
@@ -166,16 +191,29 @@ value
 
 	^ value! !
 
+
+!Withdraw methodsFor: 'balance' stamp: 'grm 10/6/2022 21:15:56'!
+affectsCurrentBalance: aBalance 
+	^aBalance - self value.! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Withdraw class' category: 'Portfolio-Ejercicio'!
 Withdraw class
 	instanceVariableNames: ''!
 
-!Withdraw class methodsFor: 'instance creation' stamp: 'HernanWilkinson 7/13/2011 18:33'!
+!Withdraw class methodsFor: 'instance creation' stamp: 'grm 10/6/2022 20:55:54'!
 for: aValue
 
-	^ self new initializeFor: aValue ! !
+	^ self new initializeFor: aValue! !
+
+
+!classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
+Object subclass: #Portfolio
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
 
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
@@ -203,10 +241,9 @@ transactions
 	^ transactions copy! !
 
 
-!ReceptiveAccount methodsFor: 'balance' stamp: 'HAW 5/23/2019 15:19:32'!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'grm 10/6/2022 21:18:19'!
 balance
-
-	^transactions sum: [ :aTransaction | aTransaction value ] ifEmpty: [ 0 ]! !
+	^transactions inject: 0 into: [:aBalance :aTransaction | aTransaction affectsCurrentBalance: aBalance].! !
 
 
 !ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/17/2019 03:28:43'!
