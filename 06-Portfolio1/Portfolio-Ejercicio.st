@@ -5,12 +5,92 @@ TestCase subclass: #PortfolioTest
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'grm 10/6/2022 21:39:32'!
-test01
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/13/2022 20:08:13'!
+test01emptyPortfolioHasBalanceZero
 	|portfolio|
 	portfolio := Portfolio new.
 	
 	self assert: (portfolio balance = 0).! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/13/2022 20:15:33'!
+test02oneAccountAffectsPortfolioBalance
+	|portfolio |
+	portfolio := self portfolioWithOneAccount.
+	
+	self assert: (portfolio balance = 100).! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/13/2022 20:23:39'!
+test03nestedPortfolioAffectsBalance
+	|portfolio |
+	portfolio := self portfolioWithOnePortfolio .
+	
+	self assert: (portfolio balance = 200).! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/13/2022 21:34:46'!
+test04canDetectRepeatedAccount
+	| portfolio account |
+	portfolio := Portfolio new.
+	account := self accountWithOneTransaction .
+	
+	portfolio addPortfolioItem: account.
+	
+	self assert: (portfolio alreadyHas: account) .! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/13/2022 21:36:19'!
+test05canDetectRepeatedAccount
+	| portfolio account |
+	portfolio := Portfolio new.
+	account := self accountWithOneTransaction .
+	
+	self deny: (portfolio alreadyHas: account) .! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/13/2022 21:41:27'!
+test06cannotAddNonNestedAccountTwice
+	| portfolio account |
+	portfolio := Portfolio new.
+	account := self accountWithOneTransaction .
+	
+	[portfolio addPortfolioItem: account .
+	 portfolio addPortfolioItem: account .
+		] on: Error
+	  do: [:error | 
+				self assert: (error messageText = Portfolio cannotAddAccountTwiceErrorDescription).
+				self assert: (portfolio balance = 100).
+				^self].
+
+	self fail.! !
+
+
+!PortfolioTest methodsFor: 'internal' stamp: 'grm 10/13/2022 20:59:07'!
+accountWithOneTransaction
+	| account|
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	^account! !
+
+!PortfolioTest methodsFor: 'internal' stamp: 'grm 10/13/2022 20:59:23'!
+portfolioWithOneAccount
+	|portfolio account|
+	
+	portfolio := Portfolio new.
+	
+	account := self accountWithOneTransaction .
+	
+	portfolio addPortfolioItem: account.
+	
+	^portfolio! !
+
+!PortfolioTest methodsFor: 'internal' stamp: 'grm 10/13/2022 20:30:18'!
+portfolioWithOnePortfolio
+	|portfolio nestedPortfolio |
+	portfolio := self portfolioWithOneAccount .
+	nestedPortfolio := self portfolioWithOneAccount.
+	
+	portfolio addPortfolioItem: nestedPortfolio.
+	
+	^portfolio.! !
 
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Ejercicio'!
@@ -210,10 +290,39 @@ for: aValue
 
 !classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
 Object subclass: #Portfolio
-	instanceVariableNames: ''
+	instanceVariableNames: 'items'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
+
+!Portfolio methodsFor: 'balance' stamp: 'grm 10/13/2022 20:28:21'!
+balance
+	^items inject: 0 into: [:balance :item | balance + item balance].! !
+
+
+!Portfolio methodsFor: 'add' stamp: 'grm 10/13/2022 21:29:18'!
+addPortfolioItem: aPortfolioItem
+	(self alreadyHas: aPortfolioItem) ifTrue: [ Error signal: self class cannotAddAccountTwiceErrorDescription ].
+	items add: aPortfolioItem .! !
+
+!Portfolio methodsFor: 'add' stamp: 'grm 10/13/2022 21:25:42'!
+alreadyHas: aPortfolioItem
+	^items anySatisfy: [:item | item = aPortfolioItem ].! !
+
+
+!Portfolio methodsFor: 'initialization' stamp: 'grm 10/13/2022 20:30:37'!
+initialize
+	items := OrderedCollection new.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Portfolio class' category: 'Portfolio-Ejercicio'!
+Portfolio class
+	instanceVariableNames: ''!
+
+!Portfolio class methodsFor: 'error message' stamp: 'grm 10/13/2022 21:15:51'!
+cannotAddAccountTwiceErrorDescription
+	^'Portfolio cannot have repeated acccounts!!'! !
 
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
