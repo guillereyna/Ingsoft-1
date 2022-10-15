@@ -5,6 +5,25 @@ TestCase subclass: #PortfolioTest
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/15/2022 18:04:24'!
+XXXtest07cannotAddNestedAccountTwice
+	"| portfolio1 portfolio2 account |
+	portfolio1 := Portfolio new.
+	account := self accountWithOneTransaction .
+	portfolio1 addPortfolioItem: account .
+	
+	portfolio2 := Portfolio new.
+	portfolio2 addPortfolioItem: account.
+	
+	[portfolio1 addPortfolioItem: portfolio2 .
+		] on: Error
+	  do: [:error | 
+				self assert: (error messageText = Portfolio cannotAddAccountTwiceErrorDescription).
+				self assert: (portfolio1 balance = 100).
+				^self].
+
+	self fail."! !
+
 !PortfolioTest methodsFor: 'tests' stamp: 'grm 10/13/2022 20:08:13'!
 test01emptyPortfolioHasBalanceZero
 	|portfolio|
@@ -44,18 +63,39 @@ test05canDetectRepeatedAccount
 	
 	self deny: (portfolio alreadyHas: account) .! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/13/2022 21:41:27'!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/15/2022 17:54:54'!
 test06cannotAddNonNestedAccountTwice
 	| portfolio account |
 	portfolio := Portfolio new.
 	account := self accountWithOneTransaction .
+	portfolio addPortfolioItem: account .
 	
 	[portfolio addPortfolioItem: account .
-	 portfolio addPortfolioItem: account .
 		] on: Error
 	  do: [:error | 
 				self assert: (error messageText = Portfolio cannotAddAccountTwiceErrorDescription).
 				self assert: (portfolio balance = 100).
+				^self].
+
+	self fail.! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/15/2022 18:06:17'!
+test07cannotAddNestedAccountTwice
+	| portfolio1 portfolio2 account |
+	portfolio1 := Portfolio new.
+	account := self accountWithOneTransaction .
+
+	portfolio2 := Portfolio new.
+	portfolio2 addPortfolioItem: account .
+	
+	portfolio1 addPortfolioItem: portfolio2.
+	
+	
+	[portfolio1 addPortfolioItem: account.
+		] on: Error
+	  do: [:error | 
+				self assert: (error messageText = Portfolio cannotAddAccountTwiceErrorDescription).
+				self assert: (portfolio1 balance = 100).
 				^self].
 
 	self fail.! !
@@ -305,9 +345,9 @@ addPortfolioItem: aPortfolioItem
 	(self alreadyHas: aPortfolioItem) ifTrue: [ Error signal: self class cannotAddAccountTwiceErrorDescription ].
 	items add: aPortfolioItem .! !
 
-!Portfolio methodsFor: 'add' stamp: 'grm 10/13/2022 21:25:42'!
+!Portfolio methodsFor: 'add' stamp: 'grm 10/15/2022 17:56:57'!
 alreadyHas: aPortfolioItem
-	^items anySatisfy: [:item | item = aPortfolioItem ].! !
+	^items anySatisfy: [:item | item alreadyHas: aPortfolioItem ].! !
 
 
 !Portfolio methodsFor: 'initialization' stamp: 'grm 10/13/2022 20:30:37'!
@@ -337,6 +377,10 @@ initialize
 
 	transactions := OrderedCollection new.! !
 
+
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'grm 10/15/2022 17:57:41'!
+alreadyHas: aPortfolioItem
+	^self = aPortfolioItem.! !
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HernanWilkinson 7/13/2011 18:37'!
 register: aTransaction
