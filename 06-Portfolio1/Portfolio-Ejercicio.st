@@ -45,26 +45,26 @@ test03nestedPortfolioAffectsBalance
 	
 	self assert: (portfolio balance = 200).! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/13/2022 21:34:46'!
-test04canDetectRepeatedAccount
+!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/15/2022 19:36:06'!
+test04canDetectRepeatedChildAccount
 	| portfolio account |
 	portfolio := Portfolio new.
 	account := self accountWithOneTransaction .
 	
 	portfolio addPortfolioItem: account.
 	
-	self assert: (portfolio alreadyHas: account) .! !
+	self assert: (portfolio alreadyHasAccount: account) .! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/13/2022 21:36:19'!
-test05canDetectRepeatedAccount
+!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/15/2022 19:40:29'!
+test05notAddedChildAccountIsNotIncludedInPortfolio
 	| portfolio account |
 	portfolio := Portfolio new.
 	account := self accountWithOneTransaction .
 	
-	self deny: (portfolio alreadyHas: account) .! !
+	self deny: (portfolio alreadyHasAccount: account) .! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/15/2022 17:54:54'!
-test06cannotAddNonNestedAccountTwice
+!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/15/2022 19:35:15'!
+test06cannotAddNonNestedChildAccountTwice
 	| portfolio account |
 	portfolio := Portfolio new.
 	account := self accountWithOneTransaction .
@@ -79,23 +79,51 @@ test06cannotAddNonNestedAccountTwice
 
 	self fail.! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/15/2022 18:06:17'!
-test07cannotAddNestedAccountTwice
+!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/15/2022 19:35:24'!
+test07cannotAddNestedChildAccountTwice
 	| portfolio1 portfolio2 account |
 	portfolio1 := Portfolio new.
 	account := self accountWithOneTransaction .
-
 	portfolio2 := Portfolio new.
 	portfolio2 addPortfolioItem: account .
-	
 	portfolio1 addPortfolioItem: portfolio2.
-	
-	
 	[portfolio1 addPortfolioItem: account.
 		] on: Error
 	  do: [:error | 
 				self assert: (error messageText = Portfolio cannotAddAccountTwiceErrorDescription).
 				self assert: (portfolio1 balance = 100).
+				^self].
+
+	self fail.! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/15/2022 19:31:33'!
+test08cannotAddNonNestedChildPortfolioTwice
+	| portfolio1 portfolio2  |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio1 addPortfolioItem: portfolio2.
+	[portfolio1 addPortfolioItem: portfolio2.
+		] on: Error
+	  do: [:error | 
+				self assert: (error messageText = Portfolio cannotAddPortfolioTwiceErrorDescription).
+		
+				^self].
+
+	self fail.! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/15/2022 19:41:35'!
+test09cannotAddNestedDescendingPortfolioTwice
+	| portfolio1 portfolio2 portfolio3 |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new.
+	portfolio1 addPortfolioItem: portfolio2.
+	portfolio2 addPortfolioItem: portfolio3.
+	[portfolio1 addPortfolioItem: portfolio3.
+		] on: Error
+	  do: [:error | 
+				self assert: (error messageText = Portfolio cannotAddPortfolioTwiceErrorDescription).
+		
 				^self].
 
 	self fail.! !
@@ -328,31 +356,70 @@ for: aValue
 	^ self new initializeFor: aValue! !
 
 
+!classDefinition: #PortfolioItem category: 'Portfolio-Ejercicio'!
+Object subclass: #PortfolioItem
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!PortfolioItem methodsFor: 'balance' stamp: 'MSS 10/15/2022 19:17:34'!
+balance
+	self subclassResponsibility .! !
+
+
+!PortfolioItem methodsFor: 'initialization' stamp: 'MSS 10/15/2022 19:18:16'!
+initialize
+	self subclassResponsibility.! !
+
+
+!PortfolioItem methodsFor: 'validation' stamp: 'MSS 10/15/2022 19:17:12'!
+alreadyHasAccount: aPortfolioItem
+	self subclassResponsibility .! !
+
+!PortfolioItem methodsFor: 'validation' stamp: 'MSS 10/15/2022 19:17:27'!
+alreadyHasPortfolio: aPortfolioItem
+	self subclassResponsibility .! !
+
+!PortfolioItem methodsFor: 'validation' stamp: 'MSS 10/15/2022 19:17:58'!
+checkNotInto
+	self subclassResponsibility.! !
+
+
 !classDefinition: #Portfolio category: 'Portfolio-Ejercicio'!
-Object subclass: #Portfolio
+PortfolioItem subclass: #Portfolio
 	instanceVariableNames: 'items'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
+
+!Portfolio methodsFor: 'add' stamp: 'MSS 10/15/2022 19:10:57'!
+addPortfolioItem: aPortfolioItem
+	aPortfolioItem checkNotInto: self.
+	items add: aPortfolioItem .! !
+
 
 !Portfolio methodsFor: 'balance' stamp: 'grm 10/13/2022 20:28:21'!
 balance
 	^items inject: 0 into: [:balance :item | balance + item balance].! !
 
 
-!Portfolio methodsFor: 'add' stamp: 'grm 10/13/2022 21:29:18'!
-addPortfolioItem: aPortfolioItem
-	(self alreadyHas: aPortfolioItem) ifTrue: [ Error signal: self class cannotAddAccountTwiceErrorDescription ].
-	items add: aPortfolioItem .! !
-
-!Portfolio methodsFor: 'add' stamp: 'grm 10/15/2022 17:56:57'!
-alreadyHas: aPortfolioItem
-	^items anySatisfy: [:item | item alreadyHas: aPortfolioItem ].! !
-
-
 !Portfolio methodsFor: 'initialization' stamp: 'grm 10/13/2022 20:30:37'!
 initialize
 	items := OrderedCollection new.! !
+
+
+!Portfolio methodsFor: 'validation' stamp: 'MSS 10/15/2022 18:40:10'!
+alreadyHasAccount: aPortfolioItem
+	^items anySatisfy: [:item | item alreadyHasAccount: aPortfolioItem ].! !
+
+!Portfolio methodsFor: 'validation' stamp: 'MSS 10/15/2022 18:51:38'!
+alreadyHasPortfolio: aPortfolio 
+	^items anySatisfy: [:item | (item = aPortfolio) or: [item alreadyHasPortfolio: aPortfolio ]].! !
+
+!Portfolio methodsFor: 'validation' stamp: 'MSS 10/15/2022 18:44:31'!
+checkNotInto: aPortfolio 
+	(aPortfolio alreadyHasPortfolio: self) ifTrue: [ Error signal: aPortfolio class cannotAddPortfolioTwiceErrorDescription ]! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -364,13 +431,22 @@ Portfolio class
 cannotAddAccountTwiceErrorDescription
 	^'Portfolio cannot have repeated acccounts!!'! !
 
+!Portfolio class methodsFor: 'error message' stamp: 'MSS 10/15/2022 18:52:47'!
+cannotAddPortfolioTwiceErrorDescription
+	^'Cannot add porfolio twice'.! !
+
 
 !classDefinition: #ReceptiveAccount category: 'Portfolio-Ejercicio'!
-Object subclass: #ReceptiveAccount
+PortfolioItem subclass: #ReceptiveAccount
 	instanceVariableNames: 'transactions'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
+
+!ReceptiveAccount methodsFor: 'balance' stamp: 'grm 10/6/2022 21:18:19'!
+balance
+	^transactions inject: 0 into: [:aBalance :aTransaction | aTransaction affectsCurrentBalance: aBalance].! !
+
 
 !ReceptiveAccount methodsFor: 'initialization' stamp: 'NR 10/17/2019 15:06:56'!
 initialize
@@ -378,9 +454,11 @@ initialize
 	transactions := OrderedCollection new.! !
 
 
-!ReceptiveAccount methodsFor: 'transactions' stamp: 'grm 10/15/2022 17:57:41'!
-alreadyHas: aPortfolioItem
-	^self = aPortfolioItem.! !
+!ReceptiveAccount methodsFor: 'transactions' stamp: 'NR 10/17/2019 03:28:43'!
+hasRegistered: aTransaction
+
+	^ transactions includes: aTransaction 
+! !
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HernanWilkinson 7/13/2011 18:37'!
 register: aTransaction
@@ -394,13 +472,15 @@ transactions
 	^ transactions copy! !
 
 
-!ReceptiveAccount methodsFor: 'balance' stamp: 'grm 10/6/2022 21:18:19'!
-balance
-	^transactions inject: 0 into: [:aBalance :aTransaction | aTransaction affectsCurrentBalance: aBalance].! !
+!ReceptiveAccount methodsFor: 'validation' stamp: 'MSS 10/15/2022 18:40:40'!
+alreadyHasAccount: aPortfolioItem
+	^self = aPortfolioItem.! !
 
+!ReceptiveAccount methodsFor: 'validation' stamp: 'MSS 10/15/2022 18:46:59'!
+alreadyHasPortfolio: aPortfolioItem
+	^false.! !
 
-!ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/17/2019 03:28:43'!
-hasRegistered: aTransaction
-
-	^ transactions includes: aTransaction 
-! !
+!ReceptiveAccount methodsFor: 'validation' stamp: 'MSS 10/15/2022 18:44:06'!
+checkNotInto: aPortfolio
+	(aPortfolio alreadyHasAccount: self) ifTrue: [self error: aPortfolio class cannotAddAccountTwiceErrorDescription ].
+	! !
