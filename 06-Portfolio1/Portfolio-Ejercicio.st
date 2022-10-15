@@ -128,6 +128,67 @@ test09cannotAddNestedDescendingPortfolioTwice
 
 	self fail.! !
 
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/15/2022 20:10:00'!
+test10portfolioHasNonNestedRegisteredAccount
+	| portfolio account transaction |
+	portfolio := Portfolio new.
+	account := ReceptiveAccount new.
+	transaction := Deposit register: 100 on: account.
+	
+	portfolio addPortfolioItem: account.
+	
+	self assert: (portfolio hasRegistered: transaction).! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/15/2022 20:11:46'!
+test11portfolioHasNestedRegisteredAccount
+	| portfolio1 portfolio2 account transaction |
+	portfolio1 := Portfolio new.
+	
+	portfolio2 := Portfolio new.
+	account := ReceptiveAccount new.
+	transaction := Deposit register: 100 on: account.
+	portfolio2 addPortfolioItem: account.
+	
+	portfolio1 addPortfolioItem: portfolio2.
+	
+	self assert: (portfolio1 hasRegistered: transaction).! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/15/2022 20:24:11'!
+test12portfolioKnowsItsTransactions
+	| portfolio account transaction transactions |
+	
+	portfolio := Portfolio new.
+	account := ReceptiveAccount new.
+	transaction := Deposit register: 100 on: account.
+	portfolio addPortfolioItem: account.
+	
+	transactions := portfolio transactions.
+	
+	self assert: 1 equals: transactions size.
+	self assert: (transactions includes: transaction).! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/15/2022 20:27:20'!
+test13portfolioKnowsItsNestedTransactions
+	| portfolio1 portfolio2 account1 account2 transaction1 transaction2 transactions |
+	
+	portfolio1 := Portfolio new.
+	account1 := ReceptiveAccount new.
+	transaction1 := Withdraw register: 20 on: account1.
+	portfolio1 addPortfolioItem: account1.
+	
+	portfolio2 := Portfolio new.
+	account2 := ReceptiveAccount new.
+	transaction2 := Deposit register: 100 on: account2.
+	portfolio2 addPortfolioItem: account2.
+	
+	portfolio1 addPortfolioItem: portfolio2.
+	
+	transactions := portfolio1 transactions.
+	
+	self assert: 2 equals: transactions size.
+	self assert: (transactions includes: transaction1).
+	self assert: (transactions includes: transaction2).! !
+
 
 !PortfolioTest methodsFor: 'internal' stamp: 'grm 10/13/2022 20:59:07'!
 accountWithOneTransaction
@@ -373,6 +434,15 @@ initialize
 	self subclassResponsibility.! !
 
 
+!PortfolioItem methodsFor: 'transactions' stamp: 'grm 10/15/2022 20:07:07'!
+hasRegistered: anAccountTransaction
+	self subclassResponsibility.! !
+
+!PortfolioItem methodsFor: 'transactions' stamp: 'grm 10/15/2022 20:28:32'!
+transactions
+	self subclassResponsibility.! !
+
+
 !PortfolioItem methodsFor: 'validation' stamp: 'MSS 10/15/2022 19:17:12'!
 alreadyHasAccount: aPortfolioItem
 	self subclassResponsibility .! !
@@ -407,6 +477,18 @@ balance
 !Portfolio methodsFor: 'initialization' stamp: 'grm 10/13/2022 20:30:37'!
 initialize
 	items := OrderedCollection new.! !
+
+
+!Portfolio methodsFor: 'transactions' stamp: 'grm 10/15/2022 20:08:12'!
+hasRegistered: anAccountTransaction
+	^items anySatisfy: [:item | item hasRegistered: anAccountTransaction].! !
+
+!Portfolio methodsFor: 'transactions' stamp: 'grm 10/15/2022 20:23:32'!
+transactions
+	|transactions|
+	transactions := OrderedCollection new.
+	items do: [:item | transactions addAll: (item transactions)].
+	^transactions.! !
 
 
 !Portfolio methodsFor: 'validation' stamp: 'MSS 10/15/2022 18:40:10'!
