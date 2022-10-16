@@ -1406,3 +1406,1058 @@ FAILURE!
 FAILURE!
 
 ----SNAPSHOT----(16 October 2022 19:19:11) CuisUniversity-5481.image priorSource: 7100121!
+!Portfolio methodsFor: 'add' stamp: 'grm 10/16/2022 19:42:34' prior: 50554241!
+addPortfolioItem: aPortfolioItem
+	self checkNotInParents: aPortfolioItem.
+	"aPortfolioItem checkNotInto: self."
+	
+	items add: aPortfolioItem .
+	aPortfolioItem addParent: self.! !
+!Portfolio methodsFor: 'add' stamp: 'grm 10/16/2022 19:44:27'!
+checkNotInParents: aPortfolioItem
+	parents ifEmpty: [aPortfolioItem checkNotInto: self].
+	parents do: [:parent | parent checkNotInParents: aPortfolioItem].! !
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 19:44:39'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 19:44:39'!
+FAILURE!
+!Portfolio methodsFor: 'add' stamp: 'grm 10/16/2022 19:45:36' prior: 50554373!
+checkNotInParents: aPortfolioItem
+	parents ifEmpty: [aPortfolioItem checkNotInto: self].
+	parents do: [:portfolio | portfolio checkNotInParents: aPortfolioItem].! !
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 19:45:39'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 19:45:39'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 19:46:48'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 19:46:48'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 19:51:38'!
+FAILURE!
+
+|pom| pom := OrderedCollection new.!
+
+pom do: [^'hola']!
+
+|pom| !
+
+pom := OrderedCollection new.!
+
+pom do: [^'hola']!
+
+pom do: [^'hola']!
+
+pom do: [^'hola']!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 19:57:25'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 19:57:25'!
+FAILURE!
+
+pim := OrderedCollection new.!
+
+pim ifEmpty: [^'true']!
+
+pim add: 1!
+
+pim ifEmpty: [^'true']!
+
+pim ifEmpty: ['true']!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:07:03'!
+FAILURE!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/16/2022 20:10:31' prior: 50554040!
+test16
+	| portfolio1 portfolio2 account |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	
+	account := self accountWithOneTransaction .
+	
+	portfolio1 addPortfolioItem: account.
+	portfolio1 addPortfolioItem: portfolio2.
+	
+	[portfolio2 addPortfolioItem: account]
+	on: Error
+	do: [:error |
+			self assert: Portfolio cannotAddAccountTwiceErrorDescription equals: error messageText.
+			self assert: 100 equals: portfolio1 balance.
+		].
+	
+	self fail.! !
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:10:37'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:10:37'!
+FAILURE!
+
+	portfolio1 := Portfolio new.!
+
+	portfolio2 := Portfolio new.!
+
+	account := self accountWithOneTransaction .!
+
+	account := PortfolioTest accountWithOneTransaction .!
+
+	account := ReceptiveAccount new.!
+
+	Deposit register: 100 on: account.!
+
+	portfolio1 addPortfolioItem: account.!
+
+	portfolio1 addPortfolioItem: portfolio2.!
+
+	portfolio2 addPortfolioItem: account!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/16/2022 20:14:51' prior: 50554422!
+test16
+	| portfolio1 portfolio2 account |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	
+	account := self accountWithOneTransaction .
+	
+	portfolio1 addPortfolioItem: account.
+	portfolio1 addPortfolioItem: portfolio2.
+	
+	[portfolio2 addPortfolioItem: account]
+	on: Error
+	do: [:error |
+			self assert: (error messageText = Portfolio cannotAddAccountTwiceErrorDescription ).
+			self assert: 100 equals: portfolio1 balance.
+		].
+	
+	self fail.! !
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:14:52'!
+FAILURE!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/16/2022 20:15:20' prior: 50554456!
+test16
+	| portfolio1 portfolio2 account |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	
+	account := self accountWithOneTransaction .
+	
+	portfolio1 addPortfolioItem: account.
+	portfolio1 addPortfolioItem: portfolio2.
+	
+	[portfolio2 addPortfolioItem: account]
+	on: Error
+	do: [:error |
+			self assert: (error messageText = Portfolio cannotAddAccountTwiceErrorDescription ).
+		].
+	
+	self fail.! !
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:15:21'!
+FAILURE!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/16/2022 20:15:29' prior: 50554476!
+test16
+	| portfolio1 portfolio2 account |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	
+	account := self accountWithOneTransaction .
+	
+	portfolio1 addPortfolioItem: account.
+	portfolio1 addPortfolioItem: portfolio2.
+	
+	[portfolio2 addPortfolioItem: account]
+	on: Error
+	do: [:error |
+			self assert: (error messageText = Portfolio cannotAddAccountTwiceErrorDescription ).
+			self assert: 100 equals: portfolio1 balance.
+		].
+	
+	self fail.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/16/2022 20:15:50' prior: 50554494!
+test16
+	| portfolio1 portfolio2 account |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	
+	account := self accountWithOneTransaction .
+	
+	portfolio1 addPortfolioItem: account.
+	portfolio1 addPortfolioItem: portfolio2.
+	
+	[portfolio2 addPortfolioItem: account]
+	on: Error
+	do: [:error |
+			self assert: (error messageText = Portfolio cannotAddAccountTwiceErrorDescription ).
+			self assert: 100 equals: portfolio1 balance.
+			^self
+		].
+	
+	self fail.! !
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:15:51'!
+PASSED!
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:15:51'!
+FAILURE!
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:15:51'!
+FAILURE!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/16/2022 20:16:29' prior: 50554511!
+test16
+	| portfolio1 portfolio2 account |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	
+	account := self accountWithOneTransaction .
+	
+	portfolio1 addPortfolioItem: account.
+	portfolio1 addPortfolioItem: portfolio2.
+	
+	[portfolio2 addPortfolioItem: account.]
+	on: Error
+	do: [:error |
+			self assert: (error messageText = Portfolio cannotAddAccountTwiceErrorDescription ).
+			self assert: 100 equals: portfolio1 balance.
+			^self
+		].
+	
+	self fail.! !
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:16:30'!
+PASSED!
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:16:30'!
+FAILURE!
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:16:30'!
+FAILURE!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/16/2022 20:16:55' prior: 50554590!
+test16
+	| portfolio1 portfolio2 account |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	
+	account := self accountWithOneTransaction .
+	
+	portfolio1 addPortfolioItem: account.
+	portfolio1 addPortfolioItem: portfolio2.
+	
+	[portfolio2 addPortfolioItem: account.]
+	on: Error
+	do: [:error |
+			self assert: Portfolio cannotAddAccountTwiceErrorDescription equals: error messageText.
+			self assert: 100 equals: portfolio1 balance.
+			^self
+		].
+	
+	self fail.! !
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:16:56'!
+PASSED!
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:16:56'!
+FAILURE!
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:16:56'!
+FAILURE!
+
+	portfolio2 addPortfolioItem: account!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/16/2022 20:19:31' prior: 50554669!
+test16
+	| portfolio1 portfolio2 account |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	
+	account := self accountWithOneTransaction .
+	
+	portfolio1 addPortfolioItem: account.
+	portfolio1 addPortfolioItem: portfolio2.
+	
+	portfolio2 addPortfolioItem: account.
+	
+	"[portfolio2 addPortfolioItem: account.]
+	on: Error
+	do: [:error |
+			self assert: Portfolio cannotAddAccountTwiceErrorDescription equals: error messageText.
+			self assert: 100 equals: portfolio1 balance.
+			^self
+		]."
+	
+	self fail.! !
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:19:52'!
+ERROR!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/16/2022 20:20:28' prior: 50554750!
+test16
+	| portfolio1 portfolio2 account |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	
+	account := self accountWithOneTransaction .
+	
+	portfolio1 addPortfolioItem: account.
+	portfolio1 addPortfolioItem: portfolio2.
+	
+	[portfolio2 addPortfolioItem: account.]
+	on: Error
+	do: [:error |
+			self assert: Portfolio cannotAddAccountTwiceErrorDescription equals: error messageText.
+			self assert: 100 equals: portfolio1 balance.
+			^self
+		].
+	
+	self fail.! !
+
+!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'grm 10/16/2022 20:20:48'!
+PASSED!
+!Portfolio methodsFor: 'add' stamp: 'grm 10/16/2022 20:22:26' prior: 50554386!
+checkNotInParents: aPortfolioItem
+	parents ifEmpty: [ [aPortfolioItem checkNotInto: self] on: Error do: [:error | self error: error messageText.] ].
+	parents do: [:portfolio | portfolio checkNotInParents: aPortfolioItem].! !
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:22:44'!
+PASSED!
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:22:44'!
+FAILURE!
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:22:44'!
+FAILURE!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:22:50'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/16/2022 20:23:08' prior: 50553974!
+testXXX
+	"| portfolio1 portfolio2 account |
+	portfolio1 := Portfolio new.
+	account := self accountWithOneTransaction .
+	portfolio1 addPortfolioItem: account .
+	
+	portfolio2 := Portfolio new.
+	portfolio2 addPortfolioItem: account.
+	
+	[portfolio1 addPortfolioItem: portfolio2 .
+		] on: Error
+	  do: [:error | 
+				self assert: (error messageText = Portfolio cannotAddAccountTwiceErrorDescription).
+				self assert: (portfolio1 balance = 100).
+				^self].
+
+	self fail."! !
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:23:09'!
+PASSED!
+!Portfolio methodsFor: 'validation' stamp: 'grm 10/16/2022 20:26:03' prior: 50552707!
+checkNotInto: aPortfolio 
+	^aPortfolio alreadyHasPortfolio: self! !
+!Portfolio methodsFor: 'add' stamp: 'grm 10/16/2022 20:27:41' prior: 50554793!
+checkNotInParents: aPortfolioItem
+	parents ifEmpty: [ [aPortfolioItem checkNotInto: self] on: Error do: [:error | self error: error messageText] ].
+	parents do: [:portfolio | portfolio checkNotInParents: aPortfolioItem].! !
+
+!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'grm 10/16/2022 20:27:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'grm 10/16/2022 20:27:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'grm 10/16/2022 20:27:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'grm 10/16/2022 20:27:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'grm 10/16/2022 20:27:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'grm 10/16/2022 20:27:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'grm 10/16/2022 20:27:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'grm 10/16/2022 20:27:42'!
+FAILURE!
+
+!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'grm 10/16/2022 20:27:42'!
+FAILURE!
+
+!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'grm 10/16/2022 20:27:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'grm 10/16/2022 20:27:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'grm 10/16/2022 20:27:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'grm 10/16/2022 20:27:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'grm 10/16/2022 20:27:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'grm 10/16/2022 20:27:42'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:27:42'!
+PASSED!
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:27:42'!
+PASSED!
+!Portfolio methodsFor: 'validation' stamp: 'grm 10/16/2022 20:28:31' prior: 50554944!
+checkNotInto: aPortfolio 
+	(aPortfolio alreadyHasPortfolio: self) ifTrue: [ self error: self class cannotAddAccountTwiceErrorDescription ]! !
+!Portfolio methodsFor: 'validation' stamp: 'grm 10/16/2022 20:28:53' prior: 50555016!
+checkNotInto: aPortfolio 
+	(aPortfolio alreadyHasPortfolio: self) ifTrue: [ self error: self class cannotAddPortfolioTwiceErrorDescription ]! !
+
+!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:28:54'!
+PASSED!
+!Portfolio methodsFor: 'add' stamp: 'grm 10/16/2022 20:29:35' prior: 50554949!
+checkNotInParents: aPortfolioItem
+	parents ifEmpty: [ aPortfolioItem checkNotInto: self ].
+	parents do: [:portfolio | portfolio checkNotInParents: aPortfolioItem].! !
+
+!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'grm 10/16/2022 20:29:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'grm 10/16/2022 20:29:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'grm 10/16/2022 20:29:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'grm 10/16/2022 20:29:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'grm 10/16/2022 20:29:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'grm 10/16/2022 20:29:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'grm 10/16/2022 20:29:36'!
+PASSED!
+
+!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'grm 10/16/2022 20:29:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'grm 10/16/2022 20:29:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'grm 10/16/2022 20:29:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'grm 10/16/2022 20:29:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'grm 10/16/2022 20:29:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'grm 10/16/2022 20:29:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'grm 10/16/2022 20:29:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'grm 10/16/2022 20:29:37'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:29:37'!
+PASSED!
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:29:37'!
+PASSED!
+!Portfolio methodsFor: 'add' stamp: 'grm 10/16/2022 20:29:44' prior: 50555088!
+checkNotInParents: aPortfolioItem
+	parents ifEmpty: [aPortfolioItem checkNotInto: self].
+	parents do: [:portfolio | portfolio checkNotInParents: aPortfolioItem].! !
+
+!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:29:45'!
+PASSED!
+
+!testRun: #PortfolioTest #test16 stamp: 'grm 10/16/2022 20:29:50'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/16/2022 20:31:47'!
+test16cannotAddAccountIfParentHasIt
+	| portfolio1 portfolio2 account |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	
+	account := self accountWithOneTransaction .
+	
+	portfolio1 addPortfolioItem: account.
+	portfolio1 addPortfolioItem: portfolio2.
+	
+	[portfolio2 addPortfolioItem: account.]
+	on: Error
+	do: [:error |
+			self assert: Portfolio cannotAddAccountTwiceErrorDescription equals: error messageText.
+			self assert: 100 equals: portfolio1 balance.
+			^self
+		].
+	
+	self fail.! !
+
+!methodRemoval: PortfolioTest #test16 stamp: 'grm 10/16/2022 20:31:47'!
+test16
+	| portfolio1 portfolio2 account |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	
+	account := self accountWithOneTransaction .
+	
+	portfolio1 addPortfolioItem: account.
+	portfolio1 addPortfolioItem: portfolio2.
+	
+	[portfolio2 addPortfolioItem: account.]
+	on: Error
+	do: [:error |
+			self assert: Portfolio cannotAddAccountTwiceErrorDescription equals: error messageText.
+			self assert: 100 equals: portfolio1 balance.
+			^self
+		].
+	
+	self fail.!
+
+!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'grm 10/16/2022 20:31:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+
+!testRun: #PortfolioTest #test16cannotAddAccountIfParentHasIt stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:31:59'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/16/2022 20:35:55'!
+test16cannotAddPortfolioIfParentHasIt
+	| portfolio1 portfolio2 portfolio3 |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new.
+	
+	portfolio1 addPortfolioItem: portfolio2.
+	portfolio1 addPortfolioItem: portfolio3.
+	
+	[portfolio2 addPortfolioItem: portfolio3.]
+	on: Error
+	do: [:error |
+			self assert: Portfolio cannotAddPortfolioTwiceErrorDescription equals: error messageText.
+			self assert: 100 equals: portfolio1 balance.
+			^self
+		].
+	
+	self fail.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/16/2022 20:36:12'!
+test17cannotAddPortfolioIfParentHasIt
+	| portfolio1 portfolio2 portfolio3 |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new.
+	
+	portfolio1 addPortfolioItem: portfolio2.
+	portfolio1 addPortfolioItem: portfolio3.
+	
+	[portfolio2 addPortfolioItem: portfolio3.]
+	on: Error
+	do: [:error |
+			self assert: Portfolio cannotAddPortfolioTwiceErrorDescription equals: error messageText.
+			self assert: 100 equals: portfolio1 balance.
+			^self
+		].
+	
+	self fail.! !
+
+!methodRemoval: PortfolioTest #test16cannotAddPortfolioIfParentHasIt stamp: 'grm 10/16/2022 20:36:12'!
+test16cannotAddPortfolioIfParentHasIt
+	| portfolio1 portfolio2 portfolio3 |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new.
+	
+	portfolio1 addPortfolioItem: portfolio2.
+	portfolio1 addPortfolioItem: portfolio3.
+	
+	[portfolio2 addPortfolioItem: portfolio3.]
+	on: Error
+	do: [:error |
+			self assert: Portfolio cannotAddPortfolioTwiceErrorDescription equals: error messageText.
+			self assert: 100 equals: portfolio1 balance.
+			^self
+		].
+	
+	self fail.!
+
+!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'grm 10/16/2022 20:36:13'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'grm 10/16/2022 20:36:19'!
+FAILURE!
+
+!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'grm 10/16/2022 20:36:19'!
+FAILURE!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/16/2022 20:36:37' prior: 50555331!
+test17cannotAddPortfolioIfParentHasIt
+	| portfolio1 portfolio2 portfolio3 |
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new.
+	
+	portfolio1 addPortfolioItem: portfolio2.
+	portfolio1 addPortfolioItem: portfolio3.
+	
+	[portfolio2 addPortfolioItem: portfolio3.]
+	on: Error
+	do: [:error |
+			self assert: Portfolio cannotAddPortfolioTwiceErrorDescription equals: error messageText.
+			^self
+		].
+	
+	self fail.! !
+
+!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test16cannotAddAccountIfParentHasIt stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+!testRun: #PortfolioTest #testXXX stamp: 'grm 10/16/2022 20:36:38'!
+PASSED!
+
+----SNAPSHOT----(16 October 2022 20:46:55) CuisUniversity-5481.image priorSource: 7126745!
