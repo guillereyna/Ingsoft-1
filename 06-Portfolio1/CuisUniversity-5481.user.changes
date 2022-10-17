@@ -7,1224 +7,89 @@
 
 ----QUIT----(11 September 2022 19:10:10) CuisUniversity-5481.image priorSource: 7059465!
 
-----STARTUP---- (17 October 2022 12:42:11) as /home/clinux01/Escritorio/linux64/CuisUniversity-5481.image!
+----STARTUP---- (17 October 2022 16:04:12) as /home/clinux01/Descargas/linux64/CuisUniversity-5481.image!
+
+
+----End fileIn of /home/clinux01/Escritorio/linux64/Portfolio-Ejercicio.st----!
+
+!classRemoval: #PortfolioTest stamp: 'MSS 10/17/2022 16:06:15'!
+TestCase subclass: #PortfolioTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+----End fileIn of /home/clinux01/Escritorio/linux64/Portfolio-Ejercicio.st----!
+
+----STARTUP---- (17 October 2022 16:11:03) as /home/clinux01/Descargas/linux64/CuisUniversity-5481.image!
 
 
 ----End fileIn of /home/clinux01/Descargas/Portfolio-Ejercicio.st----!
-
-!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test16cannotAddAccountIfParentHasIt stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'MSS 10/17/2022 12:43:24'!
-PASSED!
-
-!testRun: #PortfolioTest #testXXX stamp: 'MSS 10/17/2022 12:43:24'!
-FAILURE!
-
-!testRun: #PortfolioTest #testXXX stamp: 'MSS 10/17/2022 12:43:24'!
-FAILURE!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 12:49:24'!
-test18getRootPortfoliosOfRootPortfolioReturnsHimself
-	| portfolio1 portfolio2 account |
-	portfolio1 := Portfolio new.
-	account := self accountWithOneTransaction .
-	portfolio1 addPortfolioItem: account .
+!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 16:11:53'!
+test21checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly
+	| portfolio1 portfolio2 portfolio3 portfolio4 account |
 	
-	portfolio2 := Portfolio new.
-	portfolio2 addPortfolioItem: account.
-	
-	self assert: []! !
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 12:50:07' prior: 50553070!
-test18getRootPortfoliosOfRootPortfolioReturnsHimself
-	| portfolio1 portfolio2 account |
-	portfolio1 := Portfolio new.
-	account := self accountWithOneTransaction .
-	portfolio1 addPortfolioItem: account .
-	
-	portfolio2 := Portfolio new.
-	portfolio2 addPortfolioItem: account.
-	
-	self assert: portfolio1 getRootPortFolios equals: portfolio1.! !
-
-!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 12:50:14'!
-FAILURE!
-
-!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 12:50:14'!
-FAILURE!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 12:50:36' prior: 50553082!
-test18getRootPortfoliosOfRootPortfolioReturnsHimself
-	| portfolio1 portfolio2 account |
-	portfolio1 := Portfolio new.
-	account := self accountWithOneTransaction .
-	portfolio1 addPortfolioItem: account .
-	
-	portfolio2 := Portfolio new.
-	portfolio2 addPortfolioItem: account.
-	
-	self assert: portfolio1 getRootPortFolios equals: (Set with: portfolio1).! !
-
-!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 12:50:40'!
-PASSED!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 12:51:29'!
-test19getRootPortfoliosOfDirectChildAccount
-	| portfolio1 portfolio2 account |
-	portfolio1 := Portfolio new.
-	account := self accountWithOneTransaction .
-	portfolio1 addPortfolioItem: account .
-	
-	portfolio2 := Portfolio new.
-	portfolio2 addPortfolioItem: account.
-	
-	self assert: account getRootPortFolios equals: (Set with: portfolio1 with: portfolio2).! !
-
-!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'MSS 10/17/2022 12:51:36'!
-FAILURE!
-
-!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'MSS 10/17/2022 12:51:36'!
-FAILURE!
-
-!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'MSS 10/17/2022 12:51:53'!
-FAILURE!
-
-----End fileIn of /home/clinux01/Escritorio/linux64/Packages/TerseGuide.pck.st----!
-!PortfolioItem methodsFor: 'as yet unclassified' stamp: 'MSS 10/17/2022 12:58:22' prior: 50552822!
-getRootPortFolios
-	|rootPortfolios|
-	parents isEmpty ifTrue:[^OrderedCollection with: self].
-	
-	rootPortfolios := OrderedCollection new.
-	parents do:[:parentt | rootPortfolios := rootPortfolios addAll: parentt getRootPortFolios ; yourself].
-	^rootPortfolios .! !
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 12:58:46' prior: 50553122!
-test19getRootPortfoliosOfDirectChildAccount
-	| portfolio1 portfolio2 account |
-	portfolio1 := Portfolio new.
-	account := self accountWithOneTransaction .
-	portfolio1 addPortfolioItem: account .
-	
-	portfolio2 := Portfolio new.
-	portfolio2 addPortfolioItem: account.
-	
-	self assert: account getRootPortFolios equals: (OrderedCollection with: portfolio1 with: portfolio2).! !
-
-!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'MSS 10/17/2022 12:59:01'!
-PASSED!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 12:59:08' prior: 50553104!
-test18getRootPortfoliosOfRootPortfolioReturnsHimself
-	| portfolio1 portfolio2 account |
-	portfolio1 := Portfolio new.
-	account := self accountWithOneTransaction .
-	portfolio1 addPortfolioItem: account .
-	
-	portfolio2 := Portfolio new.
-	portfolio2 addPortfolioItem: account.
-	
-	self assert: portfolio1 getRootPortFolios equals: (OrderedCollection with: portfolio1).! !
-
-!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test16cannotAddAccountIfParentHasIt stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'MSS 10/17/2022 12:59:09'!
-PASSED!
-
-!testRun: #PortfolioTest #testXXX stamp: 'MSS 10/17/2022 12:59:09'!
-FAILURE!
-
-!testRun: #PortfolioTest #testXXX stamp: 'MSS 10/17/2022 12:59:09'!
-FAILURE!
-
-!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 12:59:19'!
-PASSED!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 12:59:36' prior: 50556096!
-test18getRootPortfoliosOfRootPortfolioReturnsHimself
-	| portfolio1 portfolio2 account |
-	portfolio1 := Portfolio new.
-	account := self accountWithOneTransaction .
-	portfolio1 addPortfolioItem: account .
-	
-	portfolio2 := Portfolio new.
-	portfolio2 addPortfolioItem: account.
-	
-	self assert: (OrderedCollection with: portfolio1) equals: portfolio1 getRootPortFolios .! !
-
-!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 12:59:39'!
-PASSED!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 12:59:56' prior: 50556078!
-test19getRootPortfoliosOfDirectChildAccount
-	| portfolio1 portfolio2 account |
-	portfolio1 := Portfolio new.
-	account := self accountWithOneTransaction .
-	portfolio1 addPortfolioItem: account .
-	
-	portfolio2 := Portfolio new.
-	portfolio2 addPortfolioItem: account.
-	
-	self assert:  (OrderedCollection with: portfolio1 with: portfolio2) equals: account getRootPortFolios.! !
-
-!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'MSS 10/17/2022 12:59:59'!
-PASSED!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:01:08'!
-test20getRootPortfoliosOfANestedPortfolioItem
-	| portfolio1 portfolio2 account |
-	portfolio1 := Portfolio new.
-	account := self accountWithOneTransaction .
-	portfolio1 addPortfolioItem: account .
-	
-	portfolio2 := Portfolio new.
-	portfolio2 addPortfolioItem: account.
-	
-	self assert:  (OrderedCollection with: portfolio1 with: portfolio2) equals: account getRootPortFolios.! !
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:04:24' prior: 50556225!
-test20getRootPortfoliosOfANestedPortfolioItem
-	| portfolio1 portfolio2 portfolio3 portfolio4 |
 	portfolio1 := Portfolio new.
 	portfolio2 := Portfolio new.
 	portfolio3 := Portfolio new .
-	
-	portfolio1 addPortfolioItem: portfolio3 .
-	portfolio2 addPortfolioItem: portfolio3 .
 	portfolio4 := Portfolio new.
+	account := self accountWithOneTransaction .
 	
-	portfolio3 addPortfolioItem: portfolio4 .
+	portfolio1 addPortfolioItem: portfolio2 .
+	portfolio2 addPortfolioItem: portfolio3 .
+	portfolio3 addPortfolioItem: account.
+	account := self accountWithOneTransaction .
 	
 	
-	self assert:  (OrderedCollection with: portfolio1 with: portfolio2) equals: portfolio4 getRootPortFolios.! !
+	[portfolio4 checkNoCommonPortfoliosWithDescendantsOf: portfolio1]
+	on: Error
+	do: [:error |
+			self fail.
+		].
+	
+	! !
 
-!testRun: #PortfolioTest #test20getRootPortfoliosOfANestedPortfolioItem stamp: 'MSS 10/17/2022 13:04:38'!
-PASSED!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:05:54'!
-test21getAllDescendantsOfReceptiveAccountReturnsEmpty
-	"| account |
+!methodRemoval: PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 16:11:53'!
+test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly
+	| portfolio1 portfolio2 portfolio3 portfolio4 account |
 	
-	account := []
+	portfolio1 := Portfolio new.
+	portfolio2 := Portfolio new.
+	portfolio3 := Portfolio new .
+	portfolio4 := Portfolio new.
+	account := self accountWithOneTransaction .
+	
+	portfolio1 addPortfolioItem: portfolio2 .
+	portfolio2 addPortfolioItem: portfolio3 .
+	portfolio3 addPortfolioItem: account.
+	account := self accountWithOneTransaction .
 	
 	
-	self assert:  (OrderedCollection with: portfolio1 with: portfolio2) equals: portfolio4 getRootPortFolios."! !
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:06:55' prior: 50556261!
+	[portfolio4 checkNoCommonPortfoliosWithDescendantsOf: portfolio1]
+	on: Error
+	do: [:error |
+			self fail.
+		].
+	
+	!
+
+!methodRemoval: PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'MSS 10/17/2022 16:11:58'!
 test21getAllDescendantsOfReceptiveAccountReturnsEmpty
 	| account |
 	
 	account := self accountWithOneTransaction .
 	
 	
-	self assert:  (OrderedCollection new) equals: account getAllDescendants .! !
+	self assert:  (Set new) equals: account getAllDescendants .!
 
-!testRun: #PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'MSS 10/17/2022 13:07:01'!
-FAILURE!
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'MSS 10/17/2022 13:07:22' prior: 50553000!
-getAllDescendants
-	^OrderedCollection new.
-	
-	
-	! !
-
-!testRun: #PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test16cannotAddAccountIfParentHasIt stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test20getRootPortfoliosOfANestedPortfolioItem stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'MSS 10/17/2022 13:07:25'!
-PASSED!
-
-!testRun: #PortfolioTest #testXXX stamp: 'MSS 10/17/2022 13:07:25'!
-FAILURE!
-
-!testRun: #PortfolioTest #testXXX stamp: 'MSS 10/17/2022 13:07:25'!
-FAILURE!
-
-!testRun: #PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'MSS 10/17/2022 13:07:33'!
-PASSED!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:08:00'!
-test21getAllDescendantsOfPortfolioWorks
-	| account |
-	
-	account := self accountWithOneTransaction .
-	
-	
-	self assert:  (OrderedCollection new) equals: account getAllDescendants .! !
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:08:04'!
-test22getAllDescendantsOfPortfolioWorks
-	| account |
-	
-	account := self accountWithOneTransaction .
-	
-	
-	self assert:  (OrderedCollection new) equals: account getAllDescendants .! !
-
-!methodRemoval: PortfolioTest #test21getAllDescendantsOfPortfolioWorks stamp: 'MSS 10/17/2022 13:08:07'!
-test21getAllDescendantsOfPortfolioWorks
-	| account |
-	
-	account := self accountWithOneTransaction .
-	
-	
-	self assert:  (OrderedCollection new) equals: account getAllDescendants .!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:11:26' prior: 50556382!
-test22getAllDescendantsOfPortfolioWorks
-	| portfolio1 portfolio2 portfolio3 portfolio4 account |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio4 addPortfolioItem: portfolio4 .
-	account := self accountWithOneTransaction .
-	
-	
-	self assert:  (OrderedCollection new) equals: account getAllDescendants .! !
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:12:50' prior: 50556400!
-test22getAllDescendantsOfPortfolioWorks
-	| portfolio1 portfolio2 portfolio3 portfolio4 account |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio4 addPortfolioItem: portfolio4 .
-	portfolio3 addPortfolioItem: account.
-	account := self accountWithOneTransaction .
-	
-	
-	self assert:  (OrderedCollection new) equals: account getAllDescendants .! !
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:20:26' prior: 50556419!
-test22getAllDescendantsOfPortfolioWorks
-	| portfolio1 portfolio2 portfolio3 portfolio4 account |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio4 addPortfolioItem: portfolio4 .
-	portfolio3 addPortfolioItem: account.
-	account := self accountWithOneTransaction .
-	
-	
-	
-	self assert:  (OrderedCollection new) equals: account getAllDescendants .! !
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:26:24' prior: 50556440!
-test22getAllDescendantsOfPortfolioWorks
-	| portfolio1 portfolio2 portfolio3 portfolio4 account expectedResults |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio4 addPortfolioItem: portfolio4 .
-	portfolio3 addPortfolioItem: account.
-	account := self accountWithOneTransaction .
-	
-	expectedResults := OrderedCollection with: portfolio2 with: portfolio3 with: portfolio4 with: account.
-	
-	
-	self assert:  ((account getAllDescendants) allSatisfy: [:descendant | expectedResults includes: descendant ] ).
-	self assert: (expectedResults size) = (account getAllDescendants size).! !
-
-!testRun: #PortfolioTest #test22getAllDescendantsOfPortfolioWorks stamp: 'MSS 10/17/2022 13:26:26'!
-FAILURE!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:28:33' prior: 50556461!
-test22getAllDescendantsOfPortfolioWorks
-	| portfolio1 portfolio2 portfolio3 portfolio4 account expectedResults |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio4 addPortfolioItem: portfolio4 .
-	portfolio3 addPortfolioItem: account.
-	account := self accountWithOneTransaction .
-	
-	expectedResults := OrderedCollection with: portfolio2 with: portfolio3 with: portfolio4 with: account.
-	
-	
-	self assert:  ((portfolio1 getAllDescendants) allSatisfy: [:descendant | expectedResults includes: descendant ] ).
-	self assert: (expectedResults size) = (portfolio1 getAllDescendants size).! !
-
-!testRun: #PortfolioTest #test22getAllDescendantsOfPortfolioWorks stamp: 'MSS 10/17/2022 13:28:36'!
-FAILURE!
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'MSS 10/17/2022 13:29:23' prior: 50552912!
-getAllDescendants
-	|descendants|
-	descendants := OrderedCollection new.
-	
-	items do:[: descendant | descendants add: descendant. descendants := descendants addAll: descendant getAllDescendants .].
-	
-	^descendants.
-	
-	
-	! !
-
-!testRun: #PortfolioTest #test22getAllDescendantsOfPortfolioWorks stamp: 'MSS 10/17/2022 13:29:44'!
-FAILURE!
-
-!testRun: #PortfolioTest #test22getAllDescendantsOfPortfolioWorks stamp: 'MSS 10/17/2022 13:30:34'!
-FAILURE!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:31:25' prior: 50556492!
-test22getAllDescendantsOfPortfolioWorks
-	| portfolio1 portfolio2 portfolio3 portfolio4 account expectedResults |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio4 addPortfolioItem: portfolio4 .
-	portfolio3 addPortfolioItem: account.
-	account := self accountWithOneTransaction .
-	
-	expectedResults := OrderedCollection with: portfolio2 with: portfolio3 with: portfolio4 with: account.
-	
-	
-	self assert:  ((portfolio1 getAllDescendants) allSatisfy: [:descendant | expectedResults includes: descendant ] ).
-	self assert:  (expectedResults allSatisfy: [:descendant | portfolio1 getAllDescendants includes: descendant ] ).
-	! !
-
-!testRun: #PortfolioTest #test22getAllDescendantsOfPortfolioWorks stamp: 'MSS 10/17/2022 13:31:29'!
-FAILURE!
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'MSS 10/17/2022 13:38:22' prior: 50556524!
-getAllDescendants
-	|descendants|
-	descendants := Set new.
-	
-	items do:[: descendant | descendants add: descendant. descendants := descendants addAll: descendant getAllDescendants .].
-	
-	^descendants.
-	
-	
-	! !
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'MSS 10/17/2022 13:38:35' prior: 50556284!
+!methodRemoval: ReceptiveAccount #getAllDescendants stamp: 'MSS 10/17/2022 16:12:01'!
 getAllDescendants
 	^Set new.
 	
 	
-	! !
-
-!testRun: #PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'MSS 10/17/2022 13:38:41'!
-FAILURE!
-
-!testRun: #PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'MSS 10/17/2022 13:38:41'!
-FAILURE!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:38:47' prior: 50556270!
-test21getAllDescendantsOfReceptiveAccountReturnsEmpty
-	| account |
-	
-	account := self accountWithOneTransaction .
-	
-	
-	self assert:  (Set new) equals: account getAllDescendants .! !
-
-!testRun: #PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test16cannotAddAccountIfParentHasIt stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test20getRootPortfoliosOfANestedPortfolioItem stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'MSS 10/17/2022 13:38:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test22getAllDescendantsOfPortfolioWorks stamp: 'MSS 10/17/2022 13:38:48'!
-FAILURE!
-
-!testRun: #PortfolioTest #testXXX stamp: 'MSS 10/17/2022 13:38:48'!
-FAILURE!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:38:59' prior: 50556541!
-test22getAllDescendantsOfPortfolioWorks
-	| portfolio1 portfolio2 portfolio3 portfolio4 account expectedResults |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio4 addPortfolioItem: portfolio4 .
-	portfolio3 addPortfolioItem: account.
-	account := self accountWithOneTransaction .
-	
-	expectedResults := Set with: portfolio2 with: portfolio3 with: portfolio4 with: account.
-	
-	
-	self assert:  ((portfolio1 getAllDescendants) allSatisfy: [:descendant | expectedResults includes: descendant ] ).
-	self assert:  (expectedResults allSatisfy: [:descendant | portfolio1 getAllDescendants includes: descendant ] ).
-	! !
-
-!testRun: #PortfolioTest #test22getAllDescendantsOfPortfolioWorks stamp: 'MSS 10/17/2022 13:39:01'!
-FAILURE!
-!PortfolioItem methodsFor: 'as yet unclassified' stamp: 'MSS 10/17/2022 13:45:15' prior: 50552813!
-checkNoRelatingPortfolioItemsWith: aPortfolioItem 
-	|portFolioItemRoots|
-	portFolioItemRoots := aPortfolioItem getRootPortFolios .
-	
-	
-	portFolioItemRoots do:[:rootPortfolio | self checkNoCommonPortfoliosWithDescendantsOf: rootPortfolio].! !
-!PortfolioItem methodsFor: 'validation' stamp: 'MSS 10/17/2022 13:48:54'!
-checkNoCommonPortfoliosWithDescendantsOf: aPortfolioItem
-	self checkNotInto: aPortfolioItem.
-	aPortfolioItem items do:[:item | self checkNoCommonPortfoliosWithDescendantsOf: item].! !
-
-!methodRemoval: Portfolio #getAllDescendants stamp: 'MSS 10/17/2022 13:49:37'!
-getAllDescendants
-	|descendants|
-	descendants := Set new.
-	
-	items do:[: descendant | descendants add: descendant. descendants := descendants addAll: descendant getAllDescendants .].
-	
-	^descendants.
-	
-	
 	!
-!PortfolioItem methodsFor: 'validation' stamp: 'MSS 10/17/2022 13:50:47' prior: 50556731!
-checkNoCommonPortfoliosWithDescendantsOf: aPortfolioItem
-	self checkNotInParents: aPortfolioItem.
-	aPortfolioItem items do:[:item | self checkNoCommonPortfoliosWithDescendantsOf: item].! !
-
-!methodRemoval: PortfolioItem #getFamily stamp: 'MSS 10/17/2022 13:51:01'!
-getFamily
-	|relatives rootPortfolios|
-	relatives := Set with: self.
-	rootPortfolios:= self getRootPortFolios.
-	
-	rootPortfolios do:[:root  | relatives := relatives addAll: root getAllDescendants].
-	
-	^relatives.
-	!
-
-!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test16cannotAddAccountIfParentHasIt stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test20getRootPortfoliosOfANestedPortfolioItem stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'MSS 10/17/2022 13:52:16'!
-PASSED!
-
-!testRun: #PortfolioTest #test22getAllDescendantsOfPortfolioWorks stamp: 'MSS 10/17/2022 13:52:16'!
-ERROR!
-
-!testRun: #PortfolioTest #testXXX stamp: 'MSS 10/17/2022 13:52:16'!
-FAILURE!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:55:13'!
-test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly
-	| portfolio1 portfolio2 portfolio3 portfolio4 account |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio3 addPortfolioItem: account.
-	account := self accountWithOneTransaction .
-	
-	
-	
-	self assert: (portfolio4 noCommonPortfoliosWithDescendantsOf: portfolio1).
-	! !
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:55:37' prior: 50556846!
-test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly
-	| portfolio1 portfolio2 portfolio3 portfolio4 account |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio3 addPortfolioItem: account.
-	account := self accountWithOneTransaction .
-	
-	
-	
-	self assert: (portfolio4 checkNoCommonPortfoliosWithDescendantsOf: portfolio1).
-	! !
-
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 13:55:38'!
-ERROR!
-!PortfolioItem methodsFor: 'validation' stamp: 'MSS 10/17/2022 13:56:34' prior: 50556749!
-checkNoCommonPortfoliosWithDescendantsOf: aPortfolioItem
-	self checkNotInParents: aPortfolioItem.
-	aPortfolioItem getItems do:[:item | self checkNoCommonPortfoliosWithDescendantsOf: item].! !
-
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 13:56:39'!
-ERROR!
-!PortfolioItem methodsFor: 'as yet unclassified' stamp: 'MSS 10/17/2022 13:56:51'!
-getItems
-	self shouldBeImplemented.! !
-!PortfolioItem methodsFor: 'as yet unclassified' stamp: 'MSS 10/17/2022 13:57:02' prior: 50556904!
-getItems
-	self subclassResponsibility .! !
-
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 13:57:04'!
-ERROR!
-!Portfolio methodsFor: 'transactions' stamp: 'MSS 10/17/2022 13:57:27' overrides: 50556909!
-getItems
-	^items copy.! !
-!ReceptiveAccount methodsFor: 'transactions' stamp: 'MSS 10/17/2022 13:57:54' overrides: 50556909!
-getItems 
-
-	^OrderedCollection new.! !
-
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 13:58:02'!
-ERROR!
-
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 13:58:02'!
-ERROR!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:59:47' prior: 50556866!
-test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly
-	| portfolio1 portfolio2 portfolio3 portfolio4 account |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio3 addPortfolioItem: account.
-	account := self accountWithOneTransaction .
-	
-	
-	[portfolio4 checkNoCommonPortfoliosWithDescendantsOf: portfolio1]
-	on: Error
-	do: [:error |
-			self fail.
-		].
-	
-	! !
-
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test16cannotAddAccountIfParentHasIt stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test20getRootPortfoliosOfANestedPortfolioItem stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 13:59:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test22getAllDescendantsOfPortfolioWorks stamp: 'MSS 10/17/2022 13:59:48'!
-ERROR!
-
-!testRun: #PortfolioTest #testXXX stamp: 'MSS 10/17/2022 13:59:48'!
-FAILURE!
-
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 13:59:56'!
-PASSED!
-
-!methodRemoval: PortfolioTest #test22getAllDescendantsOfPortfolioWorks stamp: 'MSS 10/17/2022 14:00:06'!
-test22getAllDescendantsOfPortfolioWorks
-	| portfolio1 portfolio2 portfolio3 portfolio4 account expectedResults |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio4 addPortfolioItem: portfolio4 .
-	portfolio3 addPortfolioItem: account.
-	account := self accountWithOneTransaction .
-	
-	expectedResults := Set with: portfolio2 with: portfolio3 with: portfolio4 with: account.
-	
-	
-	self assert:  ((portfolio1 getAllDescendants) allSatisfy: [:descendant | expectedResults includes: descendant ] ).
-	self assert:  (expectedResults allSatisfy: [:descendant | portfolio1 getAllDescendants includes: descendant ] ).
-	!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 14:01:00' prior: 50556934!
-test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly
-	| portfolio1 portfolio2 portfolio3 portfolio4 account |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio3 addPortfolioItem: account.
-	account := self accountWithOneTransaction .
-	
-	
-	[	portfolio4 addPortfolioItem: account.
-		portfolio4 checkNoCommonPortfoliosWithDescendantsOf: portfolio1]
-	on: Error
-	do: [:error |
-			self fail.
-		].
-	
-	! !
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 14:01:18' prior: 50557076!
-test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly
-	| portfolio1 portfolio2 portfolio3 portfolio4 account |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio3 addPortfolioItem: account.
-	account := self accountWithOneTransaction .
-	
-	
-	[	portfolio4 addPortfolioItem: account.
-		portfolio4 checkNoCommonPortfoliosWithDescendantsOf: portfolio1]
-	on: Error
-	do: [:error |
-			self assert: Portfolio cannotAddPortfolioTwiceErrorDescription equals: error messageText.
-			^self
-		].
-	
-	self fail.
-	! !
-
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 14:01:20'!
-FAILURE!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:59:47' prior: 50557099!
-test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly
-	| portfolio1 portfolio2 portfolio3 portfolio4 account |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio3 addPortfolioItem: account.
-	account := self accountWithOneTransaction .
-	
-	
-	[portfolio4 checkNoCommonPortfoliosWithDescendantsOf: portfolio1]
-	on: Error
-	do: [:error |
-			self fail.
-		].
-	
-	! !
-
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test16cannotAddAccountIfParentHasIt stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test20getRootPortfoliosOfANestedPortfolioItem stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 14:02:44'!
-PASSED!
-
-!testRun: #PortfolioTest #testXXX stamp: 'MSS 10/17/2022 14:02:44'!
-FAILURE!
-
-!testRun: #PortfolioTest #testXXX stamp: 'MSS 10/17/2022 14:02:44'!
-FAILURE!
-
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 14:02:55'!
-PASSED!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 14:03:19'!
-test23checkCommonPortfoliosWithDescendantsOfRaisesError
-	| portfolio1 portfolio2 portfolio3 portfolio4 account |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio3 addPortfolioItem: account.
-	account := self accountWithOneTransaction .
-	
-	
-	[	portfolio4 addPortfolioItem: account.
-		portfolio4 checkNoCommonPortfoliosWithDescendantsOf: portfolio1]
-	on: Error
-	do: [:error |
-			self assert: Portfolio cannotAddPortfolioTwiceErrorDescription equals: error messageText.
-			^self
-		].
-	
-	self fail.
-	
-	! !
-
-!testRun: #PortfolioTest #test23checkCommonPortfoliosWithDescendantsOfRaisesError stamp: 'MSS 10/17/2022 14:03:21'!
-FAILURE!
-
-!testRun: #PortfolioTest #test23checkCommonPortfoliosWithDescendantsOfRaisesError stamp: 'MSS 10/17/2022 14:03:21'!
-FAILURE!
-
-!testRun: #PortfolioTest #test23checkCommonPortfoliosWithDescendantsOfRaisesError stamp: 'MSS 10/17/2022 14:09:03'!
-FAILURE!
-!ReceptiveAccount methodsFor: 'validation' stamp: 'MSS 10/17/2022 14:15:31' prior: 50552983 overrides: 50552784!
-alreadyHasAccount: aPortfolioItem
-	^self = aPortfolioItem.! !
-
-!testRun: #PortfolioTest #test23checkCommonPortfoliosWithDescendantsOfRaisesError stamp: 'MSS 10/17/2022 14:17:06'!
-FAILURE!
-
-!testRun: #PortfolioTest #test23checkCommonPortfoliosWithDescendantsOfRaisesError stamp: 'MSS 10/17/2022 14:19:10'!
-FAILURE!
-
-!testRun: #PortfolioTest #test23checkCommonPortfoliosWithDescendantsOfRaisesError stamp: 'MSS 10/17/2022 14:19:10'!
-FAILURE!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 14:20:00' prior: 50557240!
-test23checkCommonPortfoliosWithDescendantsOfRaisesError
-	| portfolio1 portfolio2 portfolio3 portfolio4 account |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio3 addPortfolioItem: account.
-	
-	
-	
-	[	portfolio4 addPortfolioItem: account.
-		portfolio4 checkNoCommonPortfoliosWithDescendantsOf: portfolio1]
-	on: Error
-	do: [:error |
-			self assert: Portfolio cannotAddPortfolioTwiceErrorDescription equals: error messageText.
-			^self
-		].
-	
-	self fail.
-	
-	! !
-
-!testRun: #PortfolioTest #test23checkCommonPortfoliosWithDescendantsOfRaisesError stamp: 'MSS 10/17/2022 14:20:01'!
-FAILURE!
-
-!testRun: #PortfolioTest #test23checkCommonPortfoliosWithDescendantsOfRaisesError stamp: 'MSS 10/17/2022 14:20:19'!
-FAILURE!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 14:20:57' prior: 50557295!
-test23checkCommonPortfoliosWithDescendantsOfRaisesError
+!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 16:12:14'!
+test22checkPortfoliosWithCommonDescendantAccountCannotBeAdded
 	| portfolio1 portfolio2 portfolio3 portfolio4 account |
 	
 	portfolio1 := Portfolio new.
@@ -1251,90 +116,7 @@ test23checkCommonPortfoliosWithDescendantsOfRaisesError
 	
 	! !
 
-!testRun: #PortfolioTest #test23checkCommonPortfoliosWithDescendantsOfRaisesError stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test16cannotAddAccountIfParentHasIt stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test20getRootPortfoliosOfANestedPortfolioItem stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #test23checkCommonPortfoliosWithDescendantsOfRaisesError stamp: 'MSS 10/17/2022 14:21:00'!
-PASSED!
-
-!testRun: #PortfolioTest #testXXX stamp: 'MSS 10/17/2022 14:21:00'!
-FAILURE!
-
-!testRun: #PortfolioTest #testXXX stamp: 'MSS 10/17/2022 14:21:00'!
-FAILURE!
-
-!testRun: #PortfolioTest #test23checkCommonPortfoliosWithDescendantsOfRaisesError stamp: 'MSS 10/17/2022 14:21:03'!
-PASSED!
-
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 14:21:04'!
-PASSED!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 14:22:18'!
+!methodRemoval: PortfolioTest #test23checkPortfoliosWithCommonDescendantAccountCannotBeAdded stamp: 'MSS 10/17/2022 16:12:14'!
 test23checkPortfoliosWithCommonDescendantAccountCannotBeAdded
 	| portfolio1 portfolio2 portfolio3 portfolio4 account |
 	
@@ -1360,11 +142,9 @@ test23checkPortfoliosWithCommonDescendantAccountCannotBeAdded
 	
 	self fail.
 	
-	! !
+	!
 
-!testRun: #PortfolioTest #test23checkPortfoliosWithCommonDescendantAccountCannotBeAdded stamp: 'MSS 10/17/2022 14:22:21'!
-PASSED!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 14:22:50'!
+!methodRemoval: PortfolioTest #test23checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded stamp: 'MSS 10/17/2022 16:12:39'!
 test23checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded
 	| portfolio1 portfolio2 portfolio3 portfolio4 account |
 	
@@ -1390,67 +170,9 @@ test23checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded
 	
 	self fail.
 	
-	! !
-
-!methodRemoval: PortfolioTest #test23checkCommonPortfoliosWithDescendantsOfRaisesError stamp: 'MSS 10/17/2022 14:22:54'!
-test23checkCommonPortfoliosWithDescendantsOfRaisesError
-	| portfolio1 portfolio2 portfolio3 portfolio4 account |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio3 addPortfolioItem: account.
-	
-	
-	
-	[	portfolio4 addPortfolioItem: account.
-		portfolio4 checkNoCommonPortfoliosWithDescendantsOf: portfolio1]
-	on: Error
-	do: [:error |
-			self assert: Portfolio cannotAddAccountTwiceErrorDescription equals: error messageText.
-			^self
-		].
-	
-	self fail.
-	
 	!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 14:23:31'!
-test24checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded
-	| portfolio1 portfolio2 portfolio3 portfolio4 portfolio5 |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	portfolio5 := Portfolio new.
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio3 addPortfolioItem: portfolio5.
-	
-	
-	
-	[	portfolio4 addPortfolioItem: portfolio5.
-		portfolio4 checkNoCommonPortfoliosWithDescendantsOf: portfolio1]
-	on: Error
-	do: [:error |
-			self assert: Portfolio cannotAddAccountTwiceErrorDescription equals: error messageText.
-			^self
-		].
-	
-	self fail.
-	
-	! !
-
-!testRun: #PortfolioTest #test24checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded stamp: 'MSS 10/17/2022 14:23:33'!
-FAILURE!
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 14:23:46' prior: 50557526!
-test24checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded
+!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 16:12:43'!
+test23checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded
 	| portfolio1 portfolio2 portfolio3 portfolio4 portfolio5 |
 	
 	portfolio1 := Portfolio new.
@@ -1477,180 +199,99 @@ test24checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded
 	
 	! !
 
-!testRun: #PortfolioTest #test24checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test16cannotAddAccountIfParentHasIt stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test20getRootPortfoliosOfANestedPortfolioItem stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test23checkPortfoliosWithCommonDescendantAccountCannotBeAdded stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test23checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #test24checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded stamp: 'MSS 10/17/2022 14:23:48'!
-PASSED!
-
-!testRun: #PortfolioTest #testXXX stamp: 'MSS 10/17/2022 14:23:48'!
-FAILURE!
-
-!testRun: #PortfolioTest #testXXX stamp: 'MSS 10/17/2022 14:23:48'!
-FAILURE!
-
-!methodRemoval: PortfolioTest #testXXX stamp: 'MSS 10/17/2022 14:24:05'!
-testXXX
-	| portfolio1 portfolio2 account |
+!methodRemoval: PortfolioTest #test24checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded stamp: 'MSS 10/17/2022 16:12:43'!
+test24checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded
+	| portfolio1 portfolio2 portfolio3 portfolio4 portfolio5 |
+	
 	portfolio1 := Portfolio new.
-	account := self accountWithOneTransaction .
-	portfolio1 addPortfolioItem: account .
-	
 	portfolio2 := Portfolio new.
-	portfolio2 addPortfolioItem: account.
+	portfolio3 := Portfolio new .
+	portfolio4 := Portfolio new.
+	portfolio5 := Portfolio new.
 	
-	[portfolio1 addPortfolioItem: portfolio2 .
-		] on: Error
-	  do: [:error | 
-				self assert: (error messageText = Portfolio cannotAddAccountTwiceErrorDescription).
-				self assert: (portfolio1 balance = 100).
-				^self].
+	portfolio1 addPortfolioItem: portfolio2 .
+	portfolio2 addPortfolioItem: portfolio3 .
+	portfolio3 addPortfolioItem: portfolio5.
+	
+	
+	
+	[	portfolio4 addPortfolioItem: portfolio5.
+		portfolio4 checkNoCommonPortfoliosWithDescendantsOf: portfolio1]
+	on: Error
+	do: [:error |
+			self assert: Portfolio cannotAddPortfolioTwiceErrorDescription equals: error messageText.
+			^self
+		].
+	
+	self fail.
+	
+	!
 
-	self fail.!
-
-!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test16cannotAddAccountIfParentHasIt stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test16cannotAddAccountIfParentHasIt stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test20getRootPortfoliosOfANestedPortfolioItem stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test20getRootPortfoliosOfANestedPortfolioItem stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test21checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test22checkPortfoliosWithCommonDescendantAccountCannotBeAdded stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!
 
-!testRun: #PortfolioTest #test23checkPortfoliosWithCommonDescendantAccountCannotBeAdded stamp: 'MSS 10/17/2022 14:24:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test23checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded stamp: 'MSS 10/17/2022 14:24:09'!
-PASSED!
-
-!testRun: #PortfolioTest #test24checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded stamp: 'MSS 10/17/2022 14:24:09'!
+!testRun: #PortfolioTest #test23checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded stamp: 'MSS 10/17/2022 16:13:23'!
 PASSED!

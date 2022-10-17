@@ -276,17 +276,8 @@ test20getRootPortfoliosOfANestedPortfolioItem
 	
 	self assert:  (OrderedCollection with: portfolio1 with: portfolio2) equals: portfolio4 getRootPortFolios.! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:38:47'!
-test21getAllDescendantsOfReceptiveAccountReturnsEmpty
-	| account |
-	
-	account := self accountWithOneTransaction .
-	
-	
-	self assert:  (Set new) equals: account getAllDescendants .! !
-
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 13:59:47'!
-test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly
+!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 16:11:53'!
+test21checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly
 	| portfolio1 portfolio2 portfolio3 portfolio4 account |
 	
 	portfolio1 := Portfolio new.
@@ -309,8 +300,8 @@ test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly
 	
 	! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 14:22:18'!
-test23checkPortfoliosWithCommonDescendantAccountCannotBeAdded
+!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 16:12:14'!
+test22checkPortfoliosWithCommonDescendantAccountCannotBeAdded
 	| portfolio1 portfolio2 portfolio3 portfolio4 account |
 	
 	portfolio1 := Portfolio new.
@@ -337,36 +328,8 @@ test23checkPortfoliosWithCommonDescendantAccountCannotBeAdded
 	
 	! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 14:22:50'!
+!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 16:12:43'!
 test23checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded
-	| portfolio1 portfolio2 portfolio3 portfolio4 account |
-	
-	portfolio1 := Portfolio new.
-	portfolio2 := Portfolio new.
-	portfolio3 := Portfolio new .
-	portfolio4 := Portfolio new.
-	account := self accountWithOneTransaction .
-	
-	portfolio1 addPortfolioItem: portfolio2 .
-	portfolio2 addPortfolioItem: portfolio3 .
-	portfolio3 addPortfolioItem: account.
-	
-	
-	
-	[	portfolio4 addPortfolioItem: account.
-		portfolio4 checkNoCommonPortfoliosWithDescendantsOf: portfolio1]
-	on: Error
-	do: [:error |
-			self assert: Portfolio cannotAddAccountTwiceErrorDescription equals: error messageText.
-			^self
-		].
-	
-	self fail.
-	
-	! !
-
-!PortfolioTest methodsFor: 'tests' stamp: 'MSS 10/17/2022 14:23:46'!
-test24checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded
 	| portfolio1 portfolio2 portfolio3 portfolio4 portfolio5 |
 	
 	portfolio1 := Portfolio new.
@@ -647,6 +610,10 @@ transactions
 	self subclassResponsibility.! !
 
 
+!PortfolioItem methodsFor: 'validation' stamp: 'grm 10/16/2022 18:54:31'!
+addParent: aPortfolio 
+	parents add: aPortfolio.! !
+
 !PortfolioItem methodsFor: 'validation' stamp: 'MSS 10/15/2022 19:17:12'!
 alreadyHasAccount: aPortfolioItem
 	self subclassResponsibility .! !
@@ -660,16 +627,7 @@ checkNoCommonPortfoliosWithDescendantsOf: aPortfolioItem
 	self checkNotInParents: aPortfolioItem.
 	aPortfolioItem getItems do:[:item | self checkNoCommonPortfoliosWithDescendantsOf: item].! !
 
-!PortfolioItem methodsFor: 'validation' stamp: 'MSS 10/15/2022 19:17:58'!
-checkNotInto
-	self subclassResponsibility.! !
-
-
-!PortfolioItem methodsFor: 'as yet unclassified' stamp: 'grm 10/16/2022 18:54:31'!
-addParent: aPortfolio 
-	parents add: aPortfolio.! !
-
-!PortfolioItem methodsFor: 'as yet unclassified' stamp: 'MSS 10/17/2022 13:45:15'!
+!PortfolioItem methodsFor: 'validation' stamp: 'MSS 10/17/2022 13:45:15'!
 checkNoRelatingPortfolioItemsWith: aPortfolioItem 
 	|portFolioItemRoots|
 	portFolioItemRoots := aPortfolioItem getRootPortFolios .
@@ -677,11 +635,15 @@ checkNoRelatingPortfolioItemsWith: aPortfolioItem
 	
 	portFolioItemRoots do:[:rootPortfolio | self checkNoCommonPortfoliosWithDescendantsOf: rootPortfolio].! !
 
-!PortfolioItem methodsFor: 'as yet unclassified' stamp: 'MSS 10/17/2022 13:57:02'!
+!PortfolioItem methodsFor: 'validation' stamp: 'MSS 10/15/2022 19:17:58'!
+checkNotInto
+	self subclassResponsibility.! !
+
+!PortfolioItem methodsFor: 'validation' stamp: 'MSS 10/17/2022 13:57:02'!
 getItems
 	self subclassResponsibility .! !
 
-!PortfolioItem methodsFor: 'as yet unclassified' stamp: 'MSS 10/17/2022 12:58:22'!
+!PortfolioItem methodsFor: 'validation' stamp: 'MSS 10/17/2022 12:58:22'!
 getRootPortFolios
 	|rootPortfolios|
 	parents isEmpty ifTrue:[^OrderedCollection with: self].
@@ -690,7 +652,7 @@ getRootPortFolios
 	parents do:[:parentt | rootPortfolios := rootPortfolios addAll: parentt getRootPortFolios ; yourself].
 	^rootPortfolios .! !
 
-!PortfolioItem methodsFor: 'as yet unclassified' stamp: 'grm 10/16/2022 18:57:18'!
+!PortfolioItem methodsFor: 'validation' stamp: 'grm 10/16/2022 18:57:18'!
 parents
 	^parents copy! !
 
@@ -823,12 +785,4 @@ alreadyHasPortfolio: aPortfolioItem
 !ReceptiveAccount methodsFor: 'validation' stamp: 'MSS 10/15/2022 18:44:06'!
 checkNotInto: aPortfolio
 	(aPortfolio alreadyHasAccount: self) ifTrue: [self error: aPortfolio class cannotAddAccountTwiceErrorDescription ].
-	! !
-
-
-!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'MSS 10/17/2022 13:38:35'!
-getAllDescendants
-	^Set new.
-	
-	
 	! !
