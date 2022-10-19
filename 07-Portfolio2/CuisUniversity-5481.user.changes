@@ -597,3 +597,519 @@ PASSED!
 PASSED!
 
 ----SNAPSHOT----(18 October 2022 21:22:43) CuisUniversity-5481.image priorSource: 7059698!
+
+Object subclass: #Transferencia
+	instanceVariableNames: 'value originAccount destinationAccount amountOfMoney'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #Transferencia category: 'Portfolio-Solucion' stamp: 'MSSW 10/18/2022 21:40:25'!
+Object subclass: #Transferencia
+	instanceVariableNames: 'value originAccount destinationAccount amountOfMoney'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+Object subclass: #Transferencia
+	instanceVariableNames: 'value originAccount destinationAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #Transferencia category: 'Portfolio-Solucion' stamp: 'MSSW 10/18/2022 21:40:43'!
+Object subclass: #Transferencia
+	instanceVariableNames: 'value originAccount destinationAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'MSSW 10/18/2022 21:40:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'MSSW 10/18/2022 21:40:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'MSSW 10/18/2022 21:40:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'MSSW 10/18/2022 21:40:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'MSSW 10/18/2022 21:40:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'MSSW 10/18/2022 21:40:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'MSSW 10/18/2022 21:40:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'MSSW 10/18/2022 21:40:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalancesCorrectly stamp: 'MSSW 10/18/2022 21:40:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'MSSW 10/18/2022 21:40:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'MSSW 10/18/2022 21:40:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'MSSW 10/18/2022 21:40:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'MSSW 10/18/2022 21:40:48'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:43:01'!
+test13transferIsRegisteredInBothEnds
+	| origin destination foreign transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := Transferencia from: origin to: destination for: 100.
+	
+	foreign := ReceptiveAccount new.
+	
+	self assert: (origin transactions last) equals: transfer.
+	self assert: (destination transactions last) equals: transfer.	! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:43:17' prior: 50604268!
+test13transferIsRegisteredInBothEnds
+	| origin destination  transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := Transferencia from: origin to: destination for: 100.
+	
+	self assert: (origin transactions last) equals: transfer.
+	self assert: (destination transactions last) equals: transfer.	! !
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'MSSW 10/18/2022 21:43:22'!
+PASSED!
+
+!methodRemoval: ReceptiveAccountTest #test08transferenciaAffectsBalancesCorrectly stamp: 'MSSW 10/18/2022 21:44:51'!
+test08transferenciaAffectsBalancesCorrectly
+	| money originReceptiveAccount destinationReceptiveAccount transfer |
+	
+	
+	originReceptiveAccount := ReceptiveAccount new.
+	destinationReceptiveAccount := ReceptiveAccount new.
+	money := 100.
+
+	transfer := Transferencia from: originReceptiveAccount to: destinationReceptiveAccount  for: money.
+	
+	self assert: (originReceptiveAccount balance = -100 and: [destinationReceptiveAccount balance = 100]).
+	
+	!
+
+!classDefinition: #ReceptiveAccountTest category: 'Portfolio-Solucion' stamp: 'MSSW 10/18/2022 21:47:55'!
+TestCase subclass: #ReceptiveAccountTest
+	instanceVariableNames: 'origin1'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #ReceptiveAccountTest category: 'Portfolio-Solucion' stamp: 'MSSW 10/18/2022 21:47:57'!
+TestCase subclass: #ReceptiveAccountTest
+	instanceVariableNames: 'origin1 destination1'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #ReceptiveAccountTest category: 'Portfolio-Solucion' stamp: 'MSSW 10/18/2022 21:47:58'!
+TestCase subclass: #ReceptiveAccountTest
+	instanceVariableNames: 'origin1 destination1 amount1'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:46:55' overrides: 16961394!
+setUp
+	
+	origin1 := ReceptiveAccount new.
+	destination1 := ReceptiveAccount new.
+	amount1 := 100 .
+	
+	! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:48:44' prior: 50603597!
+test08transferenciaAffectsBalanceCorrectly
+	| origin destination amount |
+	
+	Transferencia from: origin1 to: destination1 for: amount1.
+	
+	self assert: amount1 equals: destination1 balance.
+	self assert: amount1 negated equals: origin1 balance.! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:48:51' prior: 50604351!
+test08transferenciaAffectsBalanceCorrectly
+
+	
+	Transferencia from: origin1 to: destination1 for: amount1.
+	
+	self assert: amount1 equals: destination1 balance.
+	self assert: amount1 negated equals: origin1 balance.! !
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'MSSW 10/18/2022 21:48:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'MSSW 10/18/2022 21:48:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'MSSW 10/18/2022 21:48:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'MSSW 10/18/2022 21:48:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'MSSW 10/18/2022 21:48:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'MSSW 10/18/2022 21:48:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'MSSW 10/18/2022 21:48:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'MSSW 10/18/2022 21:48:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'MSSW 10/18/2022 21:48:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'MSSW 10/18/2022 21:48:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'MSSW 10/18/2022 21:48:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'MSSW 10/18/2022 21:48:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'MSSW 10/18/2022 21:48:53'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'MSSW 10/18/2022 21:48:53'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:49:54' prior: 50603610!
+test09transferenciaIsRegisteredCorrectly
+	| transfer |
+	
+	
+	transfer := Transferencia from: origin1 to: destination1 for: amount1.
+	
+	self assert: (origin1 hasRegistered: transfer).
+	self assert: (destination1 hasRegistered: transfer).! !
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'MSSW 10/18/2022 21:49:57'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:50:27' prior: 50603624!
+test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly
+	| transfer |
+	
+	
+	transfer := Transferencia from: origin1 to: destination1 for: amount1.
+	
+	self assert: (transfer isOrigin: origin1).
+	self assert: (transfer isDestination: destination1).
+	self deny: (transfer isOrigin: destination1).
+	self deny: (transfer isDestination: origin1).! !
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'MSSW 10/18/2022 21:50:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'MSSW 10/18/2022 21:50:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'MSSW 10/18/2022 21:50:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'MSSW 10/18/2022 21:50:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'MSSW 10/18/2022 21:50:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'MSSW 10/18/2022 21:50:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'MSSW 10/18/2022 21:50:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'MSSW 10/18/2022 21:50:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'MSSW 10/18/2022 21:50:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'MSSW 10/18/2022 21:50:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'MSSW 10/18/2022 21:50:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'MSSW 10/18/2022 21:50:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'MSSW 10/18/2022 21:50:31'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'MSSW 10/18/2022 21:50:31'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:50:57' prior: 50603641!
+test11transferCanAnswerOtherEndOfTransaction
+	|  transfer |
+	
+
+	transfer := Transferencia from: origin1 to: destination1 for: amount1.
+	
+	self assert: destination1 equals: (transfer otherEnd: origin1).
+	self assert: origin1 equals: (transfer otherEnd: destination1).! !
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'MSSW 10/18/2022 21:50:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'MSSW 10/18/2022 21:50:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'MSSW 10/18/2022 21:50:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'MSSW 10/18/2022 21:50:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'MSSW 10/18/2022 21:50:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'MSSW 10/18/2022 21:50:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'MSSW 10/18/2022 21:50:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'MSSW 10/18/2022 21:50:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'MSSW 10/18/2022 21:50:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'MSSW 10/18/2022 21:50:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'MSSW 10/18/2022 21:50:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'MSSW 10/18/2022 21:50:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'MSSW 10/18/2022 21:50:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'MSSW 10/18/2022 21:50:58'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:51:19' prior: 50603656!
+test12transferRaisesErrorIfAccountIsNotPartOfTransaction
+	|  foreign transfer |
+	
+	
+	transfer := Transferencia from: origin1 to: destination1 for: 100.
+	
+	foreign := ReceptiveAccount new.
+	
+	[transfer otherEnd: foreign.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText].
+	
+	[transfer affectsBalance: 100 of: foreign.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText.
+		^self].
+	
+	self fail.! !
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'MSSW 10/18/2022 21:51:25'!
+PASSED!
+
+!classDefinition: #ReceptiveAccountTest category: 'Portfolio-Solucion' stamp: 'MSSW 10/18/2022 21:52:09'!
+TestCase subclass: #ReceptiveAccountTest
+	instanceVariableNames: 'origin1 destination1 amount1 foreign1'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:52:07' prior: 50604344 overrides: 16961394!
+setUp
+	
+	origin1 := ReceptiveAccount new.
+	destination1 := ReceptiveAccount new.
+	amount1 := 100 .
+	foreign1 := ReceptiveAccount new.
+	! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:52:25' prior: 50604576!
+test12transferRaisesErrorIfAccountIsNotPartOfTransaction
+	|  transfer |
+	
+	
+	transfer := Transferencia from: origin1 to: destination1 for: 100.
+	
+	foreign1 := ReceptiveAccount new.
+	
+	[transfer otherEnd: foreign1.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText].
+	
+	[transfer affectsBalance: 100 of: foreign1.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText.
+		^self].
+	
+	self fail.! !
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'MSSW 10/18/2022 21:52:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'MSSW 10/18/2022 21:52:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'MSSW 10/18/2022 21:52:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'MSSW 10/18/2022 21:52:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'MSSW 10/18/2022 21:52:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'MSSW 10/18/2022 21:52:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'MSSW 10/18/2022 21:52:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'MSSW 10/18/2022 21:52:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'MSSW 10/18/2022 21:52:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'MSSW 10/18/2022 21:52:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'MSSW 10/18/2022 21:52:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'MSSW 10/18/2022 21:52:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'MSSW 10/18/2022 21:52:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'MSSW 10/18/2022 21:52:26'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:52:53' prior: 50604283!
+test13transferIsRegisteredInBothEnds
+	| transfer |
+	
+	
+	transfer := Transferencia from: origin1 to: destination1 for: 100.
+	
+	self assert: (origin1 transactions last) equals: transfer.
+	self assert: (destination1 transactions last) equals: transfer.	! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:57:37'!
+genericExternalAccountErrorCheck: aBlockOfInsecureCode
+	|  transfer |
+	
+	
+	transfer := Transferencia from: origin1 to: destination1 for: 100.
+	
+	[aBlockOfInsecureCode value: transfer.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText].
+		
+	self fail.! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:57:58' prior: 50604620!
+test12transferRaisesErrorIfAccountIsNotPartOfTransaction
+	|  transfer |
+	
+	
+	transfer := Transferencia from: origin1 to: destination1 for: 100.
+	
+	
+	[transfer otherEnd: foreign1.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText].
+	
+	[transfer affectsBalance: 100 of: foreign1.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText.
+		^self].
+	
+	self fail.! !
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'MSSW 10/18/2022 21:58:00'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:58:39' prior: 50604723!
+test12transferRaisesErrorIfAccountIsNotPartOfTransaction
+	|  transfer |
+	
+	
+	transfer := Transferencia from: origin1 to: destination1 for: 100.
+	
+	
+	self genericExternalAccountErrorCheck: [transfer otherEnd: foreign1.].
+
+	self genericExternalAccountErrorCheck: [transfer affectsBalance: 100 of: foreign1.].
+	
+	self fail.! !
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'MSSW 10/18/2022 21:58:41'!
+FAILURE!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 22:00:02' prior: 50604708!
+genericExternalAccountErrorCheck: aBlockOfInsecureCode
+	|  transfer |
+	
+	
+	transfer := Transferencia from: origin1 to: destination1 for: 100.
+	
+	[aBlockOfInsecureCode value: transfer]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText].
+		
+	self fail.! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 22:02:57' prior: 50604748!
+test12transferRaisesErrorIfAccountIsNotPartOfTransaction
+	
+	
+	self genericExternalAccountErrorCheck: [:aTransfer | aTransfer otherEnd: foreign1.].
+
+	self genericExternalAccountErrorCheck: [:aTransfer | aTransfer  affectsBalance: 100 of: foreign1.].
+	
+	self fail.! !
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'MSSW 10/18/2022 22:02:58'!
+FAILURE!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 22:05:57' prior: 50604766!
+genericExternalAccountErrorCheck: aBlockOfInsecureCode
+	|  transfer |
+	
+	
+	transfer := Transferencia from: origin1 to: destination1 for: 100.
+	
+	[aBlockOfInsecureCode value: transfer.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText].
+		
+	self fail.! !
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'MSSW 10/18/2022 22:05:59'!
+FAILURE!
+
+----QUIT----(18 October 2022 22:07:52) CuisUniversity-5481.image priorSource: 8690185!

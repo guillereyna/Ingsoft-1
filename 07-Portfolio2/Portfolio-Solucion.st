@@ -216,10 +216,33 @@ test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Solucion'!
 TestCase subclass: #ReceptiveAccountTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'origin1 destination1 amount1 foreign1'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 22:05:57'!
+genericExternalAccountErrorCheck: aBlockOfInsecureCode
+	|  transfer |
+	
+	
+	transfer := Transferencia from: origin1 to: destination1 for: 100.
+	
+	[aBlockOfInsecureCode value: transfer.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText].
+		
+	self fail.! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:52:07'!
+setUp
+	
+	origin1 := ReceptiveAccount new.
+	destination1 := ReceptiveAccount new.
+	amount1 := 100 .
+	foreign1 := ReceptiveAccount new.
+	! !
 
 !ReceptiveAccountTest methodsFor: 'tests' stamp: 'HAW 5/23/2019 15:19:48'!
 test01ReceptiveAccountHaveZeroAsBalanceWhenCreated 
@@ -304,83 +327,66 @@ test07AccountKnowsItsTransactions
 	self assert: (account1 transactions includes: deposit1).
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 20:45:08'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:48:51'!
 test08transferenciaAffectsBalanceCorrectly
-	| origin destination amount |
-	
-	origin := ReceptiveAccount new.
-	destination := ReceptiveAccount new.
-	amount := 100 .
-	
-	Transferencia from: origin to: destination for: amount.
-	
-	self assert: amount equals: destination balance.
-	self assert: amount negated equals: origin balance.! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 20:59:47'!
+	
+	Transferencia from: origin1 to: destination1 for: amount1.
+	
+	self assert: amount1 equals: destination1 balance.
+	self assert: amount1 negated equals: origin1 balance.! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:49:54'!
 test09transferenciaIsRegisteredCorrectly
-	| origin destination amount transfer |
+	| transfer |
 	
-	origin := ReceptiveAccount new.
-	destination := ReceptiveAccount new.
-	amount := 100 .
 	
-	transfer := Transferencia from: origin to: destination for: amount.
+	transfer := Transferencia from: origin1 to: destination1 for: amount1.
 	
-	self assert: (origin hasRegistered: transfer).
-	self assert: (destination hasRegistered: transfer).! !
+	self assert: (origin1 hasRegistered: transfer).
+	self assert: (destination1 hasRegistered: transfer).! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:11:58'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:50:27'!
 test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly
-	| origin destination amount transfer |
+	| transfer |
 	
-	origin := ReceptiveAccount new.
-	destination := ReceptiveAccount new.
-	amount := 100 .
 	
-	transfer := Transferencia from: origin to: destination for: amount.
+	transfer := Transferencia from: origin1 to: destination1 for: amount1.
 	
-	self assert: (transfer isOrigin: origin).
-	self assert: (transfer isDestination: destination).
-	self deny: (transfer isOrigin: destination).
-	self deny: (transfer isDestination: origin).! !
+	self assert: (transfer isOrigin: origin1).
+	self assert: (transfer isDestination: destination1).
+	self deny: (transfer isOrigin: destination1).
+	self deny: (transfer isDestination: origin1).! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:13:25'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:50:57'!
 test11transferCanAnswerOtherEndOfTransaction
-	| origin destination amount transfer |
+	|  transfer |
 	
-	origin := ReceptiveAccount new.
-	destination := ReceptiveAccount new.
-	amount := 100 .
-	
-	transfer := Transferencia from: origin to: destination for: amount.
-	
-	self assert: destination equals: (transfer otherEnd: origin).
-	self assert: origin equals: (transfer otherEnd: destination).! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:22:06'!
+	transfer := Transferencia from: origin1 to: destination1 for: amount1.
+	
+	self assert: destination1 equals: (transfer otherEnd: origin1).
+	self assert: origin1 equals: (transfer otherEnd: destination1).! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 22:02:57'!
 test12transferRaisesErrorIfAccountIsNotPartOfTransaction
-	| origin destination foreign transfer |
 	
-	origin := ReceptiveAccount new.
-	destination := ReceptiveAccount new.
 	
-	transfer := Transferencia from: origin to: destination for: 100.
-	
-	foreign := ReceptiveAccount new.
-	
-	[transfer otherEnd: foreign.]
-	on: Error - MessageNotUnderstood
-	do: [:error | 
-		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText].
-	
-	[transfer affectsBalance: 100 of: foreign.]
-	on: Error - MessageNotUnderstood
-	do: [:error | 
-		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText.
-		^self].
+	self genericExternalAccountErrorCheck: [:aTransfer | aTransfer otherEnd: foreign1.].
+
+	self genericExternalAccountErrorCheck: [:aTransfer | aTransfer  affectsBalance: 100 of: foreign1.].
 	
 	self fail.! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:52:53'!
+test13transferIsRegisteredInBothEnds
+	| transfer |
+	
+	
+	transfer := Transferencia from: origin1 to: destination1 for: 100.
+	
+	self assert: (origin1 transactions last) equals: transfer.
+	self assert: (destination1 transactions last) equals: transfer.	! !
 
 
 !classDefinition: #Account category: 'Portfolio-Solucion'!
@@ -731,7 +737,7 @@ for: aValue
 
 !classDefinition: #Transferencia category: 'Portfolio-Solucion'!
 Object subclass: #Transferencia
-	instanceVariableNames: 'value originAccount depositAccount destinationAccount amountOfMoney'
+	instanceVariableNames: 'value originAccount destinationAccount'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
