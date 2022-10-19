@@ -1113,3 +1113,2554 @@ genericExternalAccountErrorCheck: aBlockOfInsecureCode
 FAILURE!
 
 ----QUIT----(18 October 2022 22:07:52) CuisUniversity-5481.image priorSource: 8690185!
+
+----STARTUP---- (19 October 2022 18:39:14) as /mnt/Data/Universidad/Ingenieria I/linux64/CuisUniversity-5481.image!
+
+
+----End fileIn of /mnt/Data/Universidad/Ingenieria I/linux64/Portfolio-Solucion.st----!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 18:41:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 18:41:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 18:41:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 18:41:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 18:41:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 18:41:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 18:41:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 18:41:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 18:41:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 18:41:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 18:41:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 18:41:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 18:41:56'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'grm 10/19/2022 18:41:56'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 18:41:56'!
+FAILURE!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 20:45:08' prior: 50554137!
+test08transferenciaAffectsBalanceCorrectly
+	| origin destination amount |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	Transferencia from: origin to: destination for: amount.
+	
+	self assert: amount equals: destination balance.
+	self assert: amount negated equals: origin balance.! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 20:59:47' prior: 50554147!
+test09transferenciaIsRegisteredCorrectly
+	| origin destination amount transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	transfer := Transferencia from: origin to: destination for: amount.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:11:58' prior: 50554158!
+test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly
+	| origin destination amount transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	transfer := Transferencia from: origin to: destination for: amount.
+	
+	self assert: (transfer isOrigin: origin).
+	self assert: (transfer isDestination: destination).
+	self deny: (transfer isOrigin: destination).
+	self deny: (transfer isDestination: origin).! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:13:25' prior: 50554172!
+test11transferCanAnswerOtherEndOfTransaction
+	| origin destination amount transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	transfer := Transferencia from: origin to: destination for: amount.
+	
+	self assert: destination equals: (transfer otherEnd: origin).
+	self assert: origin equals: (transfer otherEnd: destination).! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:47:21'!
+foreignAccountErrorCheck: aBlockOfInsecureCode
+	|  transfer |
+	
+	
+	transfer := Transferencia from: origin1 to: destination1 for: 100.
+	
+	[aBlockOfInsecureCode value: transfer.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText].
+		
+	self fail.! !
+!ReceptiveAccountTest methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 18:47:21' prior: 50554184!
+test12transferRaisesErrorIfAccountIsNotPartOfTransaction
+	
+	
+	self foreignAccountErrorCheck: [:aTransfer | aTransfer otherEnd: foreign1.].
+
+	self foreignAccountErrorCheck: [:aTransfer | aTransfer  affectsBalance: 100 of: foreign1.].
+	
+	self fail.! !
+
+!methodRemoval: ReceptiveAccountTest #genericExternalAccountErrorCheck: stamp: 'grm 10/19/2022 18:47:21'!
+genericExternalAccountErrorCheck: aBlockOfInsecureCode
+	|  transfer |
+	
+	
+	transfer := Transferencia from: origin1 to: destination1 for: 100.
+	
+	[aBlockOfInsecureCode value: transfer.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText].
+		
+	self fail.!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:49:09' prior: 50554783!
+foreignAccountErrorCheck: aBlockOfInsecureCode
+	|  transfer |
+	
+	
+	transfer := Transferencia from: origin1 to: destination1 for: 100.
+	
+	[aBlockOfInsecureCode value: transfer.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText.
+		^self].
+		
+	self fail.! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:49:17' prior: 50554798!
+test12transferRaisesErrorIfAccountIsNotPartOfTransaction
+	
+	
+	self foreignAccountErrorCheck: [:aTransfer | aTransfer otherEnd: foreign1.].
+
+	self foreignAccountErrorCheck: [:aTransfer | aTransfer  affectsBalance: 100 of: foreign1.].! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:49:37' prior: 50554839!
+test12transferRaisesErrorIfAccountIsNotPartOfTransaction
+	| foreign |
+	
+	foreign := ReceptiveAccount new.
+	
+	self foreignAccountErrorCheck: [:aTransfer | aTransfer otherEnd: foreign1.].
+
+	self foreignAccountErrorCheck: [:aTransfer | aTransfer  affectsBalance: 100 of: foreign1.].! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:49:54' prior: 50554850!
+test12transferRaisesErrorIfAccountIsNotPartOfTransaction
+	| foreignAccount |
+	
+	foreignAccount := ReceptiveAccount new.
+	
+	self foreignAccountErrorCheck: [:aTransfer | aTransfer otherEnd: foreignAccount.].
+
+	self foreignAccountErrorCheck: [:aTransfer | aTransfer  affectsBalance: 100 of: foreignAccount.].! !
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 18:49:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 18:49:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 18:49:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 18:49:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 18:49:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 18:49:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 18:49:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 18:49:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 18:49:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 18:49:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 18:49:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 18:49:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 18:49:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'grm 10/19/2022 18:49:55'!
+PASSED!
+
+!methodRemoval: ReceptiveAccountTest #setUp stamp: 'grm 10/19/2022 18:50:09'!
+setUp
+	
+	origin1 := ReceptiveAccount new.
+	destination1 := ReceptiveAccount new.
+	amount1 := 100 .
+	foreign1 := ReceptiveAccount new.
+	!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:51:51' prior: 50554195!
+test13transferIsRegisteredInBothEnds
+	| origin destination transfer |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	
+	transfer := Transferencia from: origin to: destination for: 100.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).	! !
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'grm 10/19/2022 18:51:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 18:51:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 18:51:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 18:51:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 18:51:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 18:51:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 18:51:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 18:51:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 18:51:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 18:51:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 18:51:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 18:51:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 18:51:52'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'grm 10/19/2022 18:51:52'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 18:51:52'!
+ERROR!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:52:05' prior: 50554936!
+test13transferIsRegisteredInBothEnds
+	| origin destination transfer |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := Transferencia from: origin to: destination for: 100.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).	! !
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'grm 10/19/2022 18:52:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 18:52:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 18:52:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 18:52:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 18:52:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 18:52:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 18:52:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 18:52:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 18:52:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 18:52:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 18:52:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 18:52:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 18:52:06'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'grm 10/19/2022 18:52:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 18:52:06'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'grm 10/19/2022 18:52:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 18:52:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 18:52:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 18:52:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 18:52:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 18:52:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 18:52:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 18:52:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 18:52:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 18:52:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 18:52:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 18:52:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 18:52:42'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'grm 10/19/2022 18:52:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 18:52:42'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'grm 10/19/2022 18:53:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 18:53:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 18:53:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 18:53:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 18:53:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 18:53:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 18:53:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 18:53:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 18:53:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 18:53:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 18:53:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 18:53:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 18:53:03'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'grm 10/19/2022 18:53:03'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 18:53:03'!
+ERROR!
+!ReceptiveAccountTest methodsFor: 'internal' stamp: 'grm 10/19/2022 18:53:49' prior: 50554824!
+foreignAccountErrorCheck: aBlockOfInsecureCode
+	|  transfer origin destination |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	
+	transfer := Transferencia from: origin to: destination for: 100.
+	
+	[aBlockOfInsecureCode value: transfer.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText.
+		^self].
+		
+	self fail.! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:57:19' prior: 50554736!
+test09transferenciaIsRegisteredCorrectly
+	| origin destination transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := Transferencia from: origin to: destination for: 100.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).! !
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 18:57:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 18:57:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 18:57:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 18:57:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 18:57:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 18:57:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 18:57:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 18:57:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 18:57:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 18:57:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 18:57:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 18:57:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 18:57:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'grm 10/19/2022 18:57:20'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:58:05' prior: 50554750!
+test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly
+	| origin destination transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := Transferencia from: origin to: destination for: 100.
+	
+	self assert: (transfer isOrigin: origin).
+	self assert: (transfer isDestination: destination).
+	self deny: (transfer isOrigin: destination).
+	self deny: (transfer isDestination: origin).! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:58:35' prior: 50554768!
+test11transferCanAnswerOtherEndOfTransaction
+	| origin destination transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := Transferencia from: origin to: destination for: 100.
+	
+	self assert: destination equals: (transfer otherEnd: origin).
+	self assert: origin equals: (transfer otherEnd: destination).! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:59:49'!
+transferenciaFor100From: destination to: origin
+
+	^ Transferencia from: origin to: destination for: 100! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:59:49' prior: 50555277!
+test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly
+	| origin destination transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := self transferenciaFor100From: destination to: origin.
+	
+	self assert: (transfer isOrigin: origin).
+	self assert: (transfer isDestination: destination).
+	self deny: (transfer isOrigin: destination).
+	self deny: (transfer isDestination: origin).! !
+!ReceptiveAccountTest methodsFor: 'internal' stamp: 'grm 10/19/2022 18:59:49' prior: 50555193!
+foreignAccountErrorCheck: aBlockOfInsecureCode
+	|  transfer origin destination |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	
+	transfer := self transferenciaFor100From: destination to: origin.
+	
+	[aBlockOfInsecureCode value: transfer.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText.
+		^self].
+		
+	self fail.! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:59:49' prior: 50555294!
+test11transferCanAnswerOtherEndOfTransaction
+	| origin destination transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := self transferenciaFor100From: destination to: origin.
+	
+	self assert: destination equals: (transfer otherEnd: origin).
+	self assert: origin equals: (transfer otherEnd: destination).! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:59:49' prior: 50555210!
+test09transferenciaIsRegisteredCorrectly
+	| origin destination transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := self transferenciaFor100From: destination to: origin.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:59:49' prior: 50555007!
+test13transferIsRegisteredInBothEnds
+	| origin destination transfer |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := self transferenciaFor100From: destination to: origin.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).	! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:00:05' prior: 50555308!
+transferenciaFor100From: origin to: destination
+
+	^ Transferencia from: origin to: destination for: 100! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:00:43' prior: 50554722!
+test08transferenciaAffectsBalanceCorrectly
+	| origin destination amount |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	Transferencia from: destination to: origin for: amount.
+	
+	self assert: amount equals: destination balance.
+	self assert: amount negated equals: origin balance.! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:01:06' prior: 50555363!
+test09transferenciaIsRegisteredCorrectly
+	| origin destination transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := self transferenciaFor100From: origin to: destination.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:01:14' prior: 50555315!
+test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly
+	| origin destination transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := self transferenciaFor100From: origin to: destination.
+	
+	self assert: (transfer isOrigin: origin).
+	self assert: (transfer isDestination: destination).
+	self deny: (transfer isOrigin: destination).
+	self deny: (transfer isDestination: origin).! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:01:25' prior: 50555349!
+test11transferCanAnswerOtherEndOfTransaction
+	| origin destination transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := self transferenciaFor100From: origin to: destination.
+	
+	self assert: destination equals: (transfer otherEnd: origin).
+	self assert: origin equals: (transfer otherEnd: destination).! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:01:35' prior: 50555376!
+test13transferIsRegisteredInBothEnds
+	| origin destination transfer |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := self transferenciaFor100From: origin to: destination.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).	! !
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'grm 10/19/2022 19:01:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 19:01:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:01:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:01:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 19:01:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 19:01:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 19:01:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 19:01:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:01:36'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 19:01:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 19:01:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 19:01:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 19:01:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'grm 10/19/2022 19:01:36'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:01:36'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:01:56'!
+FAILURE!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:02:05' prior: 50555396!
+test08transferenciaAffectsBalanceCorrectly
+	| origin destination amount |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	Transferencia from: origin to: destination for: amount.
+	
+	self assert: amount equals: destination balance.
+	self assert: amount negated equals: origin balance.! !
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:02:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 19:02:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:02:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:02:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 19:02:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 19:02:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 19:02:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 19:02:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:02:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 19:02:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 19:02:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 19:02:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 19:02:06'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'grm 10/19/2022 19:02:06'!
+PASSED!
+
+!methodRemoval: ReceptiveAccountTest #test13transferIsRegisteredInBothEnds stamp: 'grm 10/19/2022 19:03:19'!
+test13transferIsRegisteredInBothEnds
+	| origin destination transfer |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := self transferenciaFor100From: origin to: destination.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).	!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:19:42'!
+test13emptyAccountSummaryIsEmpty
+	| account summary |
+	account := ReceptiveAccount new.
+	
+	summary := account summary.
+	
+	self assert: 0 equals: summary size.! !
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:19:43'!
+ERROR!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 19:20:01'!
+summary
+	self shouldBeImplemented.! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 19:20:12' prior: 50555620!
+summary
+	^OrderedCollection new.! !
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:20:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 19:20:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:20:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:20:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 19:20:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 19:20:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 19:20:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 19:20:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:20:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 19:20:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 19:20:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 19:20:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 19:20:14'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:20:14'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:24:41'!
+test14accountSummary
+	| account summary |
+	account := ReceptiveAccount new.
+	Deposit for: 100 on: account.
+	
+	
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Depósito por 100.') equals: summary.! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:24:44' prior: 50555682!
+test14accountSummary
+	| account summary |
+	account := ReceptiveAccount new.
+	Deposit for: 100 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Depósito por 100.') equals: summary.! !
+
+!testRun: #ReceptiveAccountTest #test14accountSummary stamp: 'grm 10/19/2022 19:24:46'!
+ERROR!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:25:15' prior: 50555692!
+test14accountSummary
+	| account summary |
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Depósito por 100.') equals: summary.! !
+
+!testRun: #ReceptiveAccountTest #test14accountSummary stamp: 'grm 10/19/2022 19:25:16'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 19:26:40' prior: 50555625!
+summary
+	| summary |
+	summary := OrderedCollection with: 'Depósito por 100.'! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 19:26:47' prior: 50555719!
+summary
+	^OrderedCollection with: 'Depósito por 100.'! !
+
+!testRun: #ReceptiveAccountTest #test14accountSummary stamp: 'grm 10/19/2022 19:26:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 19:26:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:26:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:26:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 19:26:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 19:26:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 19:26:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 19:26:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:26:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 19:26:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 19:26:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 19:26:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 19:26:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:26:49'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test14accountSummary stamp: 'grm 10/19/2022 19:26:49'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:26:49'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test14accountSummary stamp: 'grm 10/19/2022 19:27:09'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummary stamp: 'grm 10/19/2022 19:27:11'!
+PASSED!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 19:28:03' prior: 50555725!
+summary
+	transactions isEmpty ifTrue: [^OrderedCollection new.].
+	^OrderedCollection with: 'Depósito por 100.'! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 19:28:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:28:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:28:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 19:28:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 19:28:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 19:28:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 19:28:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:28:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 19:28:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 19:28:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 19:28:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 19:28:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:28:04'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummary stamp: 'grm 10/19/2022 19:28:04'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:28:21'!
+test14accountSummaryWithOneDeposit
+	| account summary |
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Depósito por 100.') equals: summary.! !
+
+!methodRemoval: ReceptiveAccountTest #test14accountSummary stamp: 'grm 10/19/2022 19:28:21'!
+test14accountSummary
+	| account summary |
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Depósito por 100.') equals: summary.!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:28:51'!
+test14accountSummaryWithOneWithdraw
+	| account summary |
+	account := ReceptiveAccount new.
+	Withdraw register: 50 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Extracción por 50.') equals: summary.! !
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 19:28:52'!
+FAILURE!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:29:08'!
+test15accountSummaryWithOneWithdraw
+	| account summary |
+	account := ReceptiveAccount new.
+	Withdraw register: 50 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Extracción por 50.') equals: summary.! !
+
+!methodRemoval: ReceptiveAccountTest #test14accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 19:29:08'!
+test14accountSummaryWithOneWithdraw
+	| account summary |
+	account := ReceptiveAccount new.
+	Withdraw register: 50 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Extracción por 50.') equals: summary.!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:29:38'!
+test14accountSummaryWithOneDepositFor100
+	| account summary |
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Depósito por 100.') equals: summary.! !
+
+!methodRemoval: ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/19/2022 19:29:38'!
+test14accountSummaryWithOneDeposit
+	| account summary |
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Depósito por 100.') equals: summary.!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:35:19'!
+test14accountSummaryWithOneDeposit
+	| account summary |
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Depósito por 100.') equals: summary.! !
+
+!methodRemoval: ReceptiveAccountTest #test14accountSummaryWithOneDepositFor100 stamp: 'grm 10/19/2022 19:35:19'!
+test14accountSummaryWithOneDepositFor100
+	| account summary |
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Depósito por 100.') equals: summary.!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:35:26'!
+test16accountSummaryWithOneWithdraw
+	| account summary |
+	account := ReceptiveAccount new.
+	Withdraw register: 50 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Extracción por 50.') equals: summary.! !
+
+!methodRemoval: ReceptiveAccountTest #test15accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 19:35:26'!
+test15accountSummaryWithOneWithdraw
+	| account summary |
+	account := ReceptiveAccount new.
+	Withdraw register: 50 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Extracción por 50.') equals: summary.!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:36:10'!
+test15accountSummaryWithMultipleDeposits
+	| account summary |
+	account := ReceptiveAccount new.
+	Deposit register: 80 on: account.
+	Deposit register: 25 on: account.
+	
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Depósito por 80.' with: 'Depósito por 25.') equals: summary.! !
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 19:36:11'!
+FAILURE!
+
+----End fileIn of /mnt/Data/Universidad/Ingenieria I/linux64/Packages/TerseGuide.pck.st----!
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 19:38:38' prior: 50555796!
+summary
+	^transactions collect: [:transaction | transaction message].! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 19:38:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:38:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:38:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 19:38:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 19:38:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 19:38:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 19:38:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:38:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 19:38:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 19:38:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 19:38:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 19:38:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:38:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/19/2022 19:38:40'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 19:38:40'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 19:38:40'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 19:38:47'!
+ERROR!
+!AccountTransaction methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 19:38:56'!
+message
+	self shouldBeImplemented.! !
+!AccountTransaction methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 19:39:11' prior: 50558979!
+message
+	self subclassResponsibility! !
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 19:39:12'!
+ERROR!
+
+'a' , 10!
+
+'a' , 10 asString!
+!Deposit methodsFor: 'value' stamp: 'grm 10/19/2022 19:41:05' overrides: 50558984!
+message
+	^'Depósito for ' , value asString , '.'! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/19/2022 19:41:08'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 19:41:08'!
+FAILURE!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 19:41:08'!
+ERROR!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/19/2022 19:41:08'!
+PASSED!
+!Deposit methodsFor: 'value' stamp: 'grm 10/19/2022 19:41:19' prior: 50558993 overrides: 50558984!
+message
+	^'Depósito por ' , value asString , '.'! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 19:41:20'!
+ERROR!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/19/2022 19:41:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 19:41:20'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/19/2022 19:41:42'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 19:41:43'!
+PASSED!
+!Withdraw methodsFor: 'value' stamp: 'grm 10/19/2022 19:42:15' overrides: 50558984!
+message
+	^'Extracción por ' , value asString , '.'! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 19:42:16'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 19:42:19'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 19:42:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:42:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/19/2022 19:42:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 19:42:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 19:42:20'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:43:06'!
+test16accountSummaryWithMultipleWithdraw
+	| account summary |
+	account := ReceptiveAccount new.
+	Withdraw register: 50 on: account.
+	Withdraw register: 76 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Extracción por 50.' with: 'Extracción por 76.') equals: summary.! !
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithMultipleWithdraw stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithMultipleWithdraw stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 19:43:07'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:43:16'!
+test17accountSummaryWithMultipleWithdraw
+	| account summary |
+	account := ReceptiveAccount new.
+	Withdraw register: 50 on: account.
+	Withdraw register: 76 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Extracción por 50.' with: 'Extracción por 76.') equals: summary.! !
+
+!methodRemoval: ReceptiveAccountTest #test16accountSummaryWithMultipleWithdraw stamp: 'grm 10/19/2022 19:43:16'!
+test16accountSummaryWithMultipleWithdraw
+	| account summary |
+	account := ReceptiveAccount new.
+	Withdraw register: 50 on: account.
+	Withdraw register: 76 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Extracción por 50.' with: 'Extracción por 76.') equals: summary.!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:46:09'!
+test18accountSummaryWithOneTransferencia
+	| origin destination originSummary destinationSummary |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	Transferencia from: origin to: destination for: 100.
+	
+	originSummary := origin summary.
+	destinationSummary := destination summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.') equals: originSummary .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.') equals: destinationSummary .! !
+
+AccountTransaction subclass: #Transferencia
+	instanceVariableNames: 'value originAccount destinationAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #Transferencia category: 'Portfolio-Solucion' stamp: 'grm 10/19/2022 19:46:38'!
+AccountTransaction subclass: #Transferencia
+	instanceVariableNames: 'value originAccount destinationAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+Object subclass: #Transferencia
+	instanceVariableNames: 'value originAccount destinationAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #Transferencia category: 'Portfolio-Solucion' stamp: 'grm 10/19/2022 19:47:45'!
+Object subclass: #Transferencia
+	instanceVariableNames: 'value originAccount destinationAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransferencia stamp: 'grm 10/19/2022 19:48:37'!
+ERROR!
+!Transferencia methodsFor: 'initialization' stamp: 'grm 10/19/2022 19:48:45'!
+message
+	self shouldBeImplemented.! !
+!Transferencia methodsFor: 'initialization' stamp: 'grm 10/19/2022 19:52:55'!
+message: anAccount
+	(self isOrigin: anAccount) ifTrue: [^'Salida por transferencia de ' , value asString , '.'].
+	(self isOrigin: anAccount) ifTrue: [^'Entrada por transferencia de ', value asString , '.'].! !
+
+!methodRemoval: Transferencia #message stamp: 'grm 10/19/2022 19:53:00'!
+message
+	self shouldBeImplemented.!
+!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 19:53:12' prior: 50559655!
+message: anAccount
+	(self isOrigin: anAccount) ifTrue: [^'Salida por transferencia de ' , value asString , '.'].
+	(self isOrigin: anAccount) ifTrue: [^'Entrada por transferencia de ', value asString , '.'].
+	self error: self class accountIsNotPartOfTransactionErrorDescription.! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 19:53:32' prior: 50558910!
+summary
+	^transactions collect: [:transaction | transaction message: self].! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 19:53:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:53:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:53:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 19:53:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 19:53:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 19:53:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 19:53:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:53:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 19:53:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 19:53:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 19:53:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 19:53:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:53:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/19/2022 19:53:33'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 19:53:33'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 19:53:33'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test17accountSummaryWithMultipleWithdraw stamp: 'grm 10/19/2022 19:53:33'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransferencia stamp: 'grm 10/19/2022 19:53:33'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransferencia stamp: 'grm 10/19/2022 19:53:43'!
+ERROR!
+!AccountTransaction methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 19:54:47'!
+message: anAccount
+	self subclassResponsibility! !
+
+!methodRemoval: AccountTransaction #message stamp: 'grm 10/19/2022 19:54:52'!
+message
+	self subclassResponsibility!
+!Deposit methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 19:55:18' overrides: 50559758!
+message: anAccount
+	^'Depósito por ' , value asString , '.'! !
+
+!methodRemoval: Deposit #message stamp: 'grm 10/19/2022 19:55:21'!
+message
+	^'Depósito por ' , value asString , '.'!
+!Withdraw methodsFor: 'value' stamp: 'grm 10/19/2022 19:55:30' overrides: 50559758!
+message: anAccount
+	^'Extracción por ' , value asString , '.'! !
+
+!methodRemoval: Withdraw #message stamp: 'grm 10/19/2022 19:55:41'!
+message
+	^'Extracción por ' , value asString , '.'!
+
+!testRun: #ReceptiveAccountTest #test17accountSummaryWithMultipleWithdraw stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17accountSummaryWithMultipleWithdraw stamp: 'grm 10/19/2022 19:55:48'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransferencia stamp: 'grm 10/19/2022 19:55:48'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransferencia stamp: 'grm 10/19/2022 19:55:48'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test17accountSummaryWithMultipleWithdraw stamp: 'grm 10/19/2022 19:55:55'!
+PASSED!
+
+AccountTransaction subclass: #Transferencia
+	instanceVariableNames: 'value originAccount destinationAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #Transferencia category: 'Portfolio-Solucion' stamp: 'grm 10/19/2022 19:56:11'!
+AccountTransaction subclass: #Transferencia
+	instanceVariableNames: 'value originAccount destinationAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!AccountTransaction methodsFor: 'balance' stamp: 'grm 10/19/2022 19:56:26'!
+affectsBalance: aBalance of: anAccount
+
+	self subclassResponsibility ! !
+
+!methodRemoval: AccountTransaction #affectBalance: stamp: 'grm 10/19/2022 19:56:30'!
+affectBalance: aBalance
+
+	self subclassResponsibility !
+!Deposit methodsFor: 'balance' stamp: 'grm 10/19/2022 19:56:39' overrides: 50559878!
+affectsBalance: aBalance of: anAccount
+
+	^aBalance + value ! !
+
+!methodRemoval: Deposit #affectBalance: stamp: 'grm 10/19/2022 19:56:42'!
+affectBalance: aBalance
+
+	^aBalance + value !
+!Withdraw methodsFor: 'balance' stamp: 'grm 10/19/2022 19:58:04'!
+affectBalance: aBalance a: a 
+
+	^aBalance - value! !
+
+!methodRemoval: Withdraw #affectBalance: stamp: 'grm 10/19/2022 19:58:04'!
+affectBalance: aBalance
+
+	^aBalance - value!
+!Withdraw methodsFor: 'balance' stamp: 'grm 10/19/2022 19:58:23'!
+affectBalance: aBalance of: anAccount 
+
+	^aBalance - value! !
+
+!methodRemoval: Withdraw #affectBalance:a: stamp: 'grm 10/19/2022 19:58:27'!
+affectBalance: aBalance a: a 
+
+	^aBalance - value!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'grm 10/19/2022 19:59:06' prior: 50554434 overrides: 50554227!
+balance
+
+	^transactions 
+		inject: 0
+		into: [ :currentBalance :transaction | transaction affectsBalance: currentBalance of: self]! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:59:07'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17accountSummaryWithMultipleWithdraw stamp: 'grm 10/19/2022 19:59:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransferencia stamp: 'grm 10/19/2022 19:59:07'!
+ERROR!
+!Withdraw methodsFor: 'balance' stamp: 'grm 10/19/2022 19:59:30' overrides: 50559878!
+affectsBalance: aBalance of: anAccount 
+
+	^aBalance - value! !
+
+!methodRemoval: Withdraw #affectBalance:of: stamp: 'grm 10/19/2022 19:59:30'!
+affectBalance: aBalance of: anAccount 
+
+	^aBalance - value!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17accountSummaryWithMultipleWithdraw stamp: 'grm 10/19/2022 19:59:33'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransferencia stamp: 'grm 10/19/2022 19:59:33'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransferencia stamp: 'grm 10/19/2022 19:59:33'!
+ERROR!
+
+!classRenamed: #Transferencia as: #Transfer stamp: 'grm 10/19/2022 20:00:13'!
+Smalltalk renameClassNamed: #Transferencia as: #Transfer!
+!ReceptiveAccountTest methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 20:00:13' prior: 50555389!
+transferenciaFor100From: origin to: destination
+
+	^ Transfer from: origin to: destination for: 100! !
+!ReceptiveAccountTest methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 20:00:13' prior: 50559599!
+test18accountSummaryWithOneTransferencia
+	| origin destination originSummary destinationSummary |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	Transfer from: origin to: destination for: 100.
+	
+	originSummary := origin summary.
+	destinationSummary := destination summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.') equals: originSummary .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.') equals: destinationSummary .! !
+!ReceptiveAccountTest methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 20:00:13' prior: 50555528!
+test08transferenciaAffectsBalanceCorrectly
+	| origin destination amount |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	Transfer from: origin to: destination for: amount.
+	
+	self assert: amount equals: destination balance.
+	self assert: amount negated equals: origin balance.! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:00:59' prior: 50560140!
+test18accountSummaryWithOneTransferencia
+	"| origin destination originSummary destinationSummary |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	Transfer from: origin to: destination for: 100.
+	
+	originSummary := origin summary.
+	destinationSummary := destination summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.') equals: originSummary .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.') equals: destinationSummary ."! !
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransferencia stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17accountSummaryWithMultipleWithdraw stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransferencia stamp: 'grm 10/19/2022 20:01:00'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:01:08' prior: 50560174!
+test18accountSummaryWithOneTransferencia
+	| origin destination originSummary destinationSummary |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	Transfer from: origin to: destination for: 100.
+	
+	originSummary := origin summary.
+	destinationSummary := destination summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.') equals: originSummary .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.') equals: destinationSummary .! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:01:22'!
+test18accountSummaryWithOneTransfer
+	| origin destination originSummary destinationSummary |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	Transfer from: origin to: destination for: 100.
+	
+	originSummary := origin summary.
+	destinationSummary := destination summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.') equals: originSummary .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.') equals: destinationSummary .! !
+
+!methodRemoval: ReceptiveAccountTest #test18accountSummaryWithOneTransferencia stamp: 'grm 10/19/2022 20:01:22'!
+test18accountSummaryWithOneTransferencia
+	| origin destination originSummary destinationSummary |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	Transfer from: origin to: destination for: 100.
+	
+	originSummary := origin summary.
+	destinationSummary := destination summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.') equals: originSummary .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.') equals: destinationSummary .!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:01:30'!
+test08transferAffectsBalanceCorrectly
+	| origin destination amount |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	Transfer from: origin to: destination for: amount.
+	
+	self assert: amount equals: destination balance.
+	self assert: amount negated equals: origin balance.! !
+
+!methodRemoval: ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/19/2022 20:01:30'!
+test08transferenciaAffectsBalanceCorrectly
+	| origin destination amount |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	Transfer from: origin to: destination for: amount.
+	
+	self assert: amount equals: destination balance.
+	self assert: amount negated equals: origin balance.!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:01:36'!
+test09transferIsRegisteredCorrectly
+	| origin destination transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := self transferenciaFor100From: origin to: destination.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).! !
+
+!methodRemoval: ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/19/2022 20:01:36'!
+test09transferenciaIsRegisteredCorrectly
+	| origin destination transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := self transferenciaFor100From: origin to: destination.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).!
+!AccountTransaction methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 20:04:09'!
+report: anAccount
+	self subclassResponsibility! !
+!Deposit methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 20:04:09' overrides: 50560376!
+report: anAccount
+	^'Depósito por ' , value asString , '.'! !
+!Transfer methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 20:04:09' overrides: 50560376!
+report: anAccount
+	(self isOrigin: anAccount) ifTrue: [^'Salida por transferencia de ' , value asString , '.'].
+	(self isOrigin: anAccount) ifTrue: [^'Entrada por transferencia de ', value asString , '.'].
+	self error: self class accountIsNotPartOfTransactionErrorDescription.! !
+!Withdraw methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 20:04:09' overrides: 50560376!
+report: anAccount
+	^'Extracción por ' , value asString , '.'! !
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 20:04:09' prior: 50559681!
+summary
+	^transactions collect: [:transaction | transaction report: self].! !
+
+!methodRemoval: AccountTransaction #message: stamp: 'grm 10/19/2022 20:04:09'!
+message: anAccount
+	self subclassResponsibility!
+
+!methodRemoval: Deposit #message: stamp: 'grm 10/19/2022 20:04:09'!
+message: anAccount
+	^'Depósito por ' , value asString , '.'!
+
+!methodRemoval: Transfer #message: stamp: 'grm 10/19/2022 20:04:09'!
+message: anAccount
+	(self isOrigin: anAccount) ifTrue: [^'Salida por transferencia de ' , value asString , '.'].
+	(self isOrigin: anAccount) ifTrue: [^'Entrada por transferencia de ', value asString , '.'].
+	self error: self class accountIsNotPartOfTransactionErrorDescription.!
+
+!methodRemoval: Withdraw #message: stamp: 'grm 10/19/2022 20:04:09'!
+message: anAccount
+	^'Extracción por ' , value asString , '.'!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransfer stamp: 'grm 10/19/2022 20:10:07'!
+ERROR!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransfer stamp: 'grm 10/19/2022 20:10:17'!
+ERROR!
+
+TestCase subclass: #ReceptiveAccountTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #ReceptiveAccountTest category: 'Portfolio-Solucion' stamp: 'grm 10/19/2022 20:10:41'!
+TestCase subclass: #ReceptiveAccountTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransfer stamp: 'grm 10/19/2022 20:10:56'!
+ERROR!
+!Transfer methodsFor: 'report' stamp: 'grm 10/19/2022 20:11:36' prior: 50560386 overrides: 50560376!
+report: anAccount
+	(self isOrigin: anAccount) ifTrue: [^'Salida por transferencia de ' , value asString , '.'].
+	(self isDestination: anAccount) ifTrue: [^'Entrada por transferencia de ', value asString , '.'].
+	self error: self class accountIsNotPartOfTransactionErrorDescription.! !
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransfer stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferAffectsBalanceCorrectly stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferIsRegisteredCorrectly stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17accountSummaryWithMultipleWithdraw stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransfer stamp: 'grm 10/19/2022 20:11:47'!
+PASSED!
+!Transfer methodsFor: 'balance' stamp: 'grm 10/19/2022 20:13:22'!
+raiseForeignAccountError
+
+	^ self error: self class accountIsNotPartOfTransactionErrorDescription! !
+!Transfer methodsFor: 'balance' stamp: 'grm 10/19/2022 20:13:22' prior: 50554606 overrides: 50559878!
+affectsBalance: aBalance of: anAccount
+
+	(self isOrigin: anAccount ) ifTrue: [^aBalance - value].
+	(self isDestination: anAccount) ifTrue: [^aBalance + value].
+	self raiseForeignAccountError.! !
+!Transfer methodsFor: 'report' stamp: 'grm 10/19/2022 20:13:22' prior: 50560456 overrides: 50560376!
+report: anAccount
+	(self isOrigin: anAccount) ifTrue: [^'Salida por transferencia de ' , value asString , '.'].
+	(self isDestination: anAccount) ifTrue: [^'Entrada por transferencia de ', value asString , '.'].
+	self raiseForeignAccountError.! !
+!Transfer methodsFor: 'account' stamp: 'grm 10/19/2022 20:13:22' prior: 50554628!
+otherEnd: anAccount
+	(self isOrigin: anAccount) ifTrue: [^destinationAccount].
+	(self isDestination: anAccount) ifTrue: [^originAccount].
+	self raiseForeignAccountError.! !
+!Transfer methodsFor: 'account' stamp: 'grm 10/19/2022 20:13:50' prior: 50560566!
+otherEnd: anAccount
+
+	(self isOrigin: anAccount) ifTrue: [^destinationAccount].
+	(self isDestination: anAccount) ifTrue: [^originAccount].
+	self raiseForeignAccountError.! !
+!Transfer methodsFor: 'balance' stamp: 'grm 10/19/2022 20:14:09' prior: 50560545 overrides: 50559878!
+affectsBalance: aBalance of: anAccount
+
+	(self isOrigin: anAccount) ifTrue: [^aBalance - value].
+	(self isDestination: anAccount) ifTrue: [^aBalance + value].
+	self raiseForeignAccountError.! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:16:58'!
+test18accountSummaryWithMultipleTransfers
+	| origin destination originSummary destinationSummary |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	Transfer from: origin to: destination for: 100.
+	Transfer from: destination to: origin for: 25.
+	
+	originSummary := origin summary.
+	destinationSummary := destination summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.') equals: originSummary .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.') equals: destinationSummary .! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:17:03' prior: 50560592!
+test18accountSummaryWithMultipleTransfers
+	| account1 destination originSummary destinationSummary |
+	account1 := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	Transfer from: account1 to: destination for: 100.
+	Transfer from: destination to: account1 for: 25.
+	
+	originSummary := account1 summary.
+	destinationSummary := destination summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.') equals: originSummary .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.') equals: destinationSummary .! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:17:10' prior: 50560613!
+test18accountSummaryWithMultipleTransfers
+	| account1 account2 originSummary destinationSummary |
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	Transfer from: account1 to: account2 for: 100.
+	Transfer from: account2 to: account1 for: 25.
+	
+	originSummary := account1 summary.
+	destinationSummary := account2 summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.') equals: originSummary .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.') equals: destinationSummary .! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:17:17' prior: 50560634!
+test18accountSummaryWithMultipleTransfers
+	| account1 account2 summary1 destinationSummary |
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	Transfer from: account1 to: account2 for: 100.
+	Transfer from: account2 to: account1 for: 25.
+	
+	summary1 := account1 summary.
+	destinationSummary := account2 summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.') equals: summary1 .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.') equals: destinationSummary .! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:17:23' prior: 50560655!
+test18accountSummaryWithMultipleTransfers
+	| account1 account2 summary1 summary2 |
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	Transfer from: account1 to: account2 for: 100.
+	Transfer from: account2 to: account1 for: 25.
+	
+	summary1 := account1 summary.
+	summary2 := account2 summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.') equals: summary1 .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.') equals: summary2 .! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:18:01' prior: 50560675!
+test18accountSummaryWithMultipleTransfers
+	| account1 account2 summary1 summary2 |
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	Transfer from: account1 to: account2 for: 100.
+	Transfer from: account2 to: account1 for: 25.
+	
+	summary1 := account1 summary.
+	summary2 := account2 summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.' with: 'Entrada por transferencia de 25.') equals: summary1 .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.' with: 'Salida por transferencia de 25.') equals: summary2 .! !
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithMultipleTransfers stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferAffectsBalanceCorrectly stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferIsRegisteredCorrectly stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmpty stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17accountSummaryWithMultipleWithdraw stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithMultipleTransfers stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransfer stamp: 'grm 10/19/2022 20:18:02'!
+PASSED!
+
+----SNAPSHOT----(19 October 2022 20:26:15) CuisUniversity-5481.image priorSource: 7106625!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:26:28'!
+test19accountSummaryWithMultipleTransfers
+	| account1 account2 summary1 summary2 |
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	Transfer from: account1 to: account2 for: 100.
+	Transfer from: account2 to: account1 for: 25.
+	
+	summary1 := account1 summary.
+	summary2 := account2 summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.' with: 'Entrada por transferencia de 25.') equals: summary1 .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.' with: 'Salida por transferencia de 25.') equals: summary2 .! !
+
+!methodRemoval: ReceptiveAccountTest #test18accountSummaryWithMultipleTransfers stamp: 'grm 10/19/2022 20:26:28'!
+test18accountSummaryWithMultipleTransfers
+	| account1 account2 summary1 summary2 |
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	Transfer from: account1 to: account2 for: 100.
+	Transfer from: account2 to: account1 for: 25.
+	
+	summary1 := account1 summary.
+	summary2 := account2 summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.' with: 'Entrada por transferencia de 25.') equals: summary1 .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.' with: 'Salida por transferencia de 25.') equals: summary2 .!
+
+----SNAPSHOT----(19 October 2022 20:26:34) CuisUniversity-5481.image priorSource: 7332446!

@@ -216,33 +216,33 @@ test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Solucion'!
 TestCase subclass: #ReceptiveAccountTest
-	instanceVariableNames: 'origin1 destination1 amount1 foreign1'
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 22:05:57'!
-genericExternalAccountErrorCheck: aBlockOfInsecureCode
-	|  transfer |
+!ReceptiveAccountTest methodsFor: 'internal' stamp: 'grm 10/19/2022 18:59:49'!
+foreignAccountErrorCheck: aBlockOfInsecureCode
+	|  transfer origin destination |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
 	
 	
-	transfer := Transferencia from: origin1 to: destination1 for: 100.
+	transfer := self transferenciaFor100From: destination to: origin.
 	
 	[aBlockOfInsecureCode value: transfer.]
 	on: Error - MessageNotUnderstood
 	do: [:error | 
-		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText].
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText.
+		^self].
 		
 	self fail.! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:52:07'!
-setUp
-	
-	origin1 := ReceptiveAccount new.
-	destination1 := ReceptiveAccount new.
-	amount1 := 100 .
-	foreign1 := ReceptiveAccount new.
-	! !
+!ReceptiveAccountTest methodsFor: 'internal' stamp: 'grm 10/19/2022 20:00:13'!
+transferenciaFor100From: origin to: destination
+
+	^ Transfer from: origin to: destination for: 100! !
+
 
 !ReceptiveAccountTest methodsFor: 'tests' stamp: 'HAW 5/23/2019 15:19:48'!
 test01ReceptiveAccountHaveZeroAsBalanceWhenCreated 
@@ -327,66 +327,145 @@ test07AccountKnowsItsTransactions
 	self assert: (account1 transactions includes: deposit1).
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:48:51'!
-test08transferenciaAffectsBalanceCorrectly
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:01:30'!
+test08transferAffectsBalanceCorrectly
+	| origin destination amount |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	Transfer from: origin to: destination for: amount.
+	
+	self assert: amount equals: destination balance.
+	self assert: amount negated equals: origin balance.! !
 
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:01:36'!
+test09transferIsRegisteredCorrectly
+	| origin destination transfer |
 	
-	Transferencia from: origin1 to: destination1 for: amount1.
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
 	
-	self assert: amount1 equals: destination1 balance.
-	self assert: amount1 negated equals: origin1 balance.! !
+	transfer := self transferenciaFor100From: origin to: destination.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:49:54'!
-test09transferenciaIsRegisteredCorrectly
-	| transfer |
-	
-	
-	transfer := Transferencia from: origin1 to: destination1 for: amount1.
-	
-	self assert: (origin1 hasRegistered: transfer).
-	self assert: (destination1 hasRegistered: transfer).! !
-
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:50:27'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:01:14'!
 test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly
-	| transfer |
+	| origin destination transfer |
 	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
 	
-	transfer := Transferencia from: origin1 to: destination1 for: amount1.
+	transfer := self transferenciaFor100From: origin to: destination.
 	
-	self assert: (transfer isOrigin: origin1).
-	self assert: (transfer isDestination: destination1).
-	self deny: (transfer isOrigin: destination1).
-	self deny: (transfer isDestination: origin1).! !
+	self assert: (transfer isOrigin: origin).
+	self assert: (transfer isDestination: destination).
+	self deny: (transfer isOrigin: destination).
+	self deny: (transfer isDestination: origin).! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:50:57'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:01:25'!
 test11transferCanAnswerOtherEndOfTransaction
-	|  transfer |
+	| origin destination transfer |
 	
-
-	transfer := Transferencia from: origin1 to: destination1 for: amount1.
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
 	
-	self assert: destination1 equals: (transfer otherEnd: origin1).
-	self assert: origin1 equals: (transfer otherEnd: destination1).! !
+	transfer := self transferenciaFor100From: origin to: destination.
+	
+	self assert: destination equals: (transfer otherEnd: origin).
+	self assert: origin equals: (transfer otherEnd: destination).! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 22:02:57'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 18:49:54'!
 test12transferRaisesErrorIfAccountIsNotPartOfTransaction
+	| foreignAccount |
 	
+	foreignAccount := ReceptiveAccount new.
 	
-	self genericExternalAccountErrorCheck: [:aTransfer | aTransfer otherEnd: foreign1.].
+	self foreignAccountErrorCheck: [:aTransfer | aTransfer otherEnd: foreignAccount.].
 
-	self genericExternalAccountErrorCheck: [:aTransfer | aTransfer  affectsBalance: 100 of: foreign1.].
-	
-	self fail.! !
+	self foreignAccountErrorCheck: [:aTransfer | aTransfer  affectsBalance: 100 of: foreignAccount.].! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'MSSW 10/18/2022 21:52:53'!
-test13transferIsRegisteredInBothEnds
-	| transfer |
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:19:42'!
+test13emptyAccountSummaryIsEmpty
+	| account summary |
+	account := ReceptiveAccount new.
+	
+	summary := account summary.
+	
+	self assert: 0 equals: summary size.! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:35:19'!
+test14accountSummaryWithOneDeposit
+	| account summary |
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Depósito por 100.') equals: summary.! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:36:10'!
+test15accountSummaryWithMultipleDeposits
+	| account summary |
+	account := ReceptiveAccount new.
+	Deposit register: 80 on: account.
+	Deposit register: 25 on: account.
 	
 	
-	transfer := Transferencia from: origin1 to: destination1 for: 100.
+	summary := account summary.
 	
-	self assert: (origin1 transactions last) equals: transfer.
-	self assert: (destination1 transactions last) equals: transfer.	! !
+	self assert: (OrderedCollection with: 'Depósito por 80.' with: 'Depósito por 25.') equals: summary.! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:35:26'!
+test16accountSummaryWithOneWithdraw
+	| account summary |
+	account := ReceptiveAccount new.
+	Withdraw register: 50 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Extracción por 50.') equals: summary.! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:43:16'!
+test17accountSummaryWithMultipleWithdraw
+	| account summary |
+	account := ReceptiveAccount new.
+	Withdraw register: 50 on: account.
+	Withdraw register: 76 on: account.
+	
+	summary := account summary.
+	
+	self assert: (OrderedCollection with: 'Extracción por 50.' with: 'Extracción por 76.') equals: summary.! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:01:22'!
+test18accountSummaryWithOneTransfer
+	| origin destination originSummary destinationSummary |
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	Transfer from: origin to: destination for: 100.
+	
+	originSummary := origin summary.
+	destinationSummary := destination summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.') equals: originSummary .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.') equals: destinationSummary .! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:26:28'!
+test19accountSummaryWithMultipleTransfers
+	| account1 account2 summary1 summary2 |
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	Transfer from: account1 to: account2 for: 100.
+	Transfer from: account2 to: account1 for: 25.
+	
+	summary1 := account1 summary.
+	summary2 := account2 summary.
+	
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.' with: 'Entrada por transferencia de 25.') equals: summary1 .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.' with: 'Salida por transferencia de 25.') equals: summary2 .! !
 
 
 !classDefinition: #Account category: 'Portfolio-Solucion'!
@@ -396,6 +475,18 @@ Object subclass: #Account
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
+!Account methodsFor: 'balance' stamp: 'HAW 5/25/2019 12:23:40'!
+balance
+
+	self subclassResponsibility ! !
+
+
+!Account methodsFor: 'composition' stamp: 'HAW 5/25/2019 12:24:04'!
+addedTo: aPortfolio
+
+	self subclassResponsibility ! !
+
+
 !Account methodsFor: 'testing' stamp: 'HAW 5/25/2019 12:23:47'!
 hasRegistered: aTransaction
 
@@ -403,12 +494,6 @@ hasRegistered: aTransaction
 
 !Account methodsFor: 'testing' stamp: 'HAW 5/25/2019 12:24:25'!
 isComposedBy: anAccount
-
-	self subclassResponsibility ! !
-
-
-!Account methodsFor: 'balance' stamp: 'HAW 5/25/2019 12:23:40'!
-balance
 
 	self subclassResponsibility ! !
 
@@ -423,12 +508,6 @@ transactions
 
 	self subclassResponsibility ! !
 
-
-!Account methodsFor: 'composition' stamp: 'HAW 5/25/2019 12:24:04'!
-addedTo: aPortfolio
-
-	self subclassResponsibility ! !
-
 
 !classDefinition: #Portfolio category: 'Portfolio-Solucion'!
 Account subclass: #Portfolio
@@ -436,6 +515,25 @@ Account subclass: #Portfolio
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
+
+!Portfolio methodsFor: 'account management - private' stamp: 'HAW 5/25/2019 12:17:31'!
+addRootParentsTo: rootParents
+
+	parents 
+		ifEmpty: [ rootParents add: self ] 
+		ifNotEmpty: [ parents do: [ :aParent | aParent addRootParentsTo: rootParents ]]! !
+
+!Portfolio methodsFor: 'account management - private' stamp: 'HAW 5/25/2019 12:20:36'!
+assertCanAdd: accountToAdd
+
+	(self anyRootParentIsComposedBy: accountToAdd) ifTrue: [ self signalCanNotAddAccount ].
+! !
+
+!Portfolio methodsFor: 'account management - private' stamp: 'HAW 5/25/2019 11:48:34'!
+signalCanNotAddAccount
+	
+	self error: self class canNotAddAccountErrorMessage! !
+
 
 !Portfolio methodsFor: 'accounts management' stamp: 'HAW 5/25/2019 11:49:20'!
 accountsIncludes: anAccount
@@ -472,39 +570,23 @@ rootParents
 	^ rootParents! !
 
 
-!Portfolio methodsFor: 'initialization' stamp: 'HAW 5/25/2019 12:03:18'!
-initialize
-
-	accounts := OrderedCollection new.
-	parents := OrderedCollection new.! !
-
-
 !Portfolio methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:19:36'!
 balance
 	
 	^accounts sum: [ :anAccount | anAccount balance ] ifEmpty: [ 0 ]! !
 
 
-!Portfolio methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:42:55'!
-addTransactionsTo: aCollectionOfTransactions
-
-	accounts do: [ :anAccount | anAccount addTransactionsTo: aCollectionOfTransactions ]! !
-
-!Portfolio methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:38:32'!
-transactions
-	
-	| transactions |
-	
-	transactions := OrderedCollection new.
-	accounts do: [ :anAccount | anAccount addTransactionsTo: transactions ].
-	
-	^transactions ! !
-
-
 !Portfolio methodsFor: 'composition' stamp: 'HAW 5/25/2019 12:02:59'!
 addedTo: aPortfolio 
 	
 	parents add: aPortfolio ! !
+
+
+!Portfolio methodsFor: 'initialization' stamp: 'HAW 5/25/2019 12:03:18'!
+initialize
+
+	accounts := OrderedCollection new.
+	parents := OrderedCollection new.! !
 
 
 !Portfolio methodsFor: 'testing' stamp: 'HAW 5/25/2019 12:20:56'!
@@ -523,23 +605,20 @@ isComposedBy: anAccount
 	^ self = anAccount or: [ accounts anySatisfy: [ :composedAccount | (composedAccount isComposedBy: anAccount) or: [ anAccount isComposedBy: composedAccount ]]]! !
 
 
-!Portfolio methodsFor: 'account management - private' stamp: 'HAW 5/25/2019 12:17:31'!
-addRootParentsTo: rootParents
+!Portfolio methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:42:55'!
+addTransactionsTo: aCollectionOfTransactions
 
-	parents 
-		ifEmpty: [ rootParents add: self ] 
-		ifNotEmpty: [ parents do: [ :aParent | aParent addRootParentsTo: rootParents ]]! !
+	accounts do: [ :anAccount | anAccount addTransactionsTo: aCollectionOfTransactions ]! !
 
-!Portfolio methodsFor: 'account management - private' stamp: 'HAW 5/25/2019 12:20:36'!
-assertCanAdd: accountToAdd
-
-	(self anyRootParentIsComposedBy: accountToAdd) ifTrue: [ self signalCanNotAddAccount ].
-! !
-
-!Portfolio methodsFor: 'account management - private' stamp: 'HAW 5/25/2019 11:48:34'!
-signalCanNotAddAccount
+!Portfolio methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:38:32'!
+transactions
 	
-	self error: self class canNotAddAccountErrorMessage! !
+	| transactions |
+	
+	transactions := OrderedCollection new.
+	accounts do: [ :anAccount | anAccount addTransactionsTo: transactions ].
+	
+	^transactions ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -575,11 +654,42 @@ Account subclass: #ReceptiveAccount
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
+!ReceptiveAccount methodsFor: 'balance' stamp: 'grm 10/19/2022 19:59:06'!
+balance
+
+	^transactions 
+		inject: 0
+		into: [ :currentBalance :transaction | transaction affectsBalance: currentBalance of: self]! !
+
+
+!ReceptiveAccount methodsFor: 'composition' stamp: 'HAW 5/25/2019 12:03:32'!
+addedTo: aPortfolio 
+	
+	! !
+
+
 !ReceptiveAccount methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:35'!
 initialize
 
 	super initialize.
 	transactions := OrderedCollection new.! !
+
+
+!ReceptiveAccount methodsFor: 'report' stamp: 'grm 10/19/2022 20:04:09'!
+summary
+	^transactions collect: [:transaction | transaction report: self].! !
+
+
+!ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/21/2019 18:55:56'!
+hasRegistered: aTransaction
+
+	^ transactions includes: aTransaction 
+! !
+
+!ReceptiveAccount methodsFor: 'testing' stamp: 'HAW 5/25/2019 11:54:51'!
+isComposedBy: anAccount
+
+	^self = anAccount ! !
 
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:38:52'!
@@ -598,35 +708,6 @@ transactions
 
 	^ transactions copy! !
 
-
-!ReceptiveAccount methodsFor: 'balance' stamp: 'grm 10/18/2022 20:54:08'!
-balance
-
-	^transactions 
-		inject: 0
-		into: [ :currentBalance :transaction | 
-			(transaction isKindOf: Transferencia)
-				ifTrue: [transaction affectsBalance: currentBalance of: self]
-				ifFalse: [transaction affectBalance: currentBalance] ]! !
-
-
-!ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/21/2019 18:55:56'!
-hasRegistered: aTransaction
-
-	^ transactions includes: aTransaction 
-! !
-
-!ReceptiveAccount methodsFor: 'testing' stamp: 'HAW 5/25/2019 11:54:51'!
-isComposedBy: anAccount
-
-	^self = anAccount ! !
-
-
-!ReceptiveAccount methodsFor: 'composition' stamp: 'HAW 5/25/2019 12:03:32'!
-addedTo: aPortfolio 
-	
-	! !
-
 
 !classDefinition: #AccountTransaction category: 'Portfolio-Solucion'!
 Object subclass: #AccountTransaction
@@ -635,14 +716,19 @@ Object subclass: #AccountTransaction
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!AccountTransaction methodsFor: 'value' stamp: 'HernanWilkinson 9/12/2011 12:25'!
-value 
+!AccountTransaction methodsFor: 'balance' stamp: 'grm 10/19/2022 19:56:26'!
+affectsBalance: aBalance of: anAccount
 
 	self subclassResponsibility ! !
 
 
-!AccountTransaction methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:25:39'!
-affectBalance: aBalance
+!AccountTransaction methodsFor: 'report' stamp: 'grm 10/19/2022 20:04:09'!
+report: anAccount
+	self subclassResponsibility! !
+
+
+!AccountTransaction methodsFor: 'value' stamp: 'HernanWilkinson 9/12/2011 12:25'!
+value 
 
 	self subclassResponsibility ! !
 
@@ -670,22 +756,27 @@ AccountTransaction subclass: #Deposit
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
+!Deposit methodsFor: 'balance' stamp: 'grm 10/19/2022 19:56:39'!
+affectsBalance: aBalance of: anAccount
+
+	^aBalance + value ! !
+
+
 !Deposit methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:45'!
 initializeFor: aValue
 
 	value := aValue ! !
 
 
+!Deposit methodsFor: 'report' stamp: 'grm 10/19/2022 20:04:09'!
+report: anAccount
+	^'Depósito por ' , value asString , '.'! !
+
+
 !Deposit methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:38'!
 value
 
 	^ value! !
-
-
-!Deposit methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:25:02'!
-affectBalance: aBalance
-
-	^aBalance + value ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -699,50 +790,44 @@ for: aValue
 	^ self new initializeFor: aValue ! !
 
 
-!classDefinition: #Withdraw category: 'Portfolio-Solucion'!
-AccountTransaction subclass: #Withdraw
-	instanceVariableNames: 'value'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Portfolio-Solucion'!
-
-!Withdraw methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:46'!
-initializeFor: aValue
-
-	value := aValue ! !
-
-
-!Withdraw methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:33'!
-value
-
-	^ value! !
-
-
-!Withdraw methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:25:15'!
-affectBalance: aBalance
-
-	^aBalance - value! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'Withdraw class' category: 'Portfolio-Solucion'!
-Withdraw class
-	instanceVariableNames: ''!
-
-!Withdraw class methodsFor: 'instance creation' stamp: 'HernanWilkinson 7/13/2011 18:33'!
-for: aValue
-
-	^ self new initializeFor: aValue ! !
-
-
-!classDefinition: #Transferencia category: 'Portfolio-Solucion'!
-Object subclass: #Transferencia
+!classDefinition: #Transfer category: 'Portfolio-Solucion'!
+AccountTransaction subclass: #Transfer
 	instanceVariableNames: 'value originAccount destinationAccount'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!Transferencia methodsFor: 'initialization' stamp: 'grm 10/18/2022 20:47:32'!
+!Transfer methodsFor: 'account - private' stamp: 'grm 10/18/2022 21:06:17'!
+isDestination: anAccount
+	^anAccount = destinationAccount ! !
+
+!Transfer methodsFor: 'account - private' stamp: 'grm 10/18/2022 21:06:08'!
+isOrigin: anAccount
+	^anAccount = originAccount ! !
+
+!Transfer methodsFor: 'account - private' stamp: 'grm 10/19/2022 20:13:22'!
+raiseForeignAccountError
+
+	^ self error: self class accountIsNotPartOfTransactionErrorDescription! !
+
+
+!Transfer methodsFor: 'account' stamp: 'grm 10/19/2022 20:13:50'!
+otherEnd: anAccount
+
+	(self isOrigin: anAccount) ifTrue: [^destinationAccount].
+	(self isDestination: anAccount) ifTrue: [^originAccount].
+	self raiseForeignAccountError.! !
+
+
+!Transfer methodsFor: 'balance' stamp: 'grm 10/19/2022 20:14:09'!
+affectsBalance: aBalance of: anAccount
+
+	(self isOrigin: anAccount) ifTrue: [^aBalance - value].
+	(self isDestination: anAccount) ifTrue: [^aBalance + value].
+	self raiseForeignAccountError.! !
+
+
+!Transfer methodsFor: 'initialization' stamp: 'grm 10/18/2022 20:47:32'!
 initializeFrom: anOriginAccount to: aDestinationAccount for: anAmountOfMoney 
 	originAccount := anOriginAccount.
 	destinationAccount := aDestinationAccount.
@@ -754,38 +839,64 @@ initializeFrom: anOriginAccount to: aDestinationAccount for: anAmountOfMoney
 	! !
 
 
-!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 21:15:51'!
-affectsBalance: aBalance of: anAccount
-
-	(self isOrigin: anAccount ) ifTrue: [^aBalance - value].
-	(self isDestination: anAccount) ifTrue: [^aBalance + value].
-	self error: self class accountIsNotPartOfTransactionErrorDescription.! !
-
-!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 21:06:17'!
-isDestination: anAccount
-	^anAccount = destinationAccount ! !
-
-!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 21:06:08'!
-isOrigin: anAccount
-	^anAccount = originAccount ! !
-
-!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 21:14:40'!
-otherEnd: anAccount
-	(self isOrigin: anAccount) ifTrue: [^destinationAccount].
-	(self isDestination: anAccount) ifTrue: [^originAccount].
-	self error: self class accountIsNotPartOfTransactionErrorDescription.! !
+!Transfer methodsFor: 'report' stamp: 'grm 10/19/2022 20:13:22'!
+report: anAccount
+	(self isOrigin: anAccount) ifTrue: [^'Salida por transferencia de ' , value asString , '.'].
+	(self isDestination: anAccount) ifTrue: [^'Entrada por transferencia de ', value asString , '.'].
+	self raiseForeignAccountError.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Transferencia class' category: 'Portfolio-Solucion'!
-Transferencia class
+!classDefinition: 'Transfer class' category: 'Portfolio-Solucion'!
+Transfer class
 	instanceVariableNames: ''!
 
-!Transferencia class methodsFor: 'error message' stamp: 'grm 10/18/2022 21:15:17'!
+!Transfer class methodsFor: 'error message' stamp: 'grm 10/18/2022 21:15:17'!
 accountIsNotPartOfTransactionErrorDescription
 	^'That account is not a part of this transaction!!!!!!'! !
 
 
-!Transferencia class methodsFor: 'instance creation' stamp: 'grm 10/18/2022 20:46:23'!
+!Transfer class methodsFor: 'instance creation' stamp: 'grm 10/18/2022 20:46:23'!
 from: anOriginAccount to: aDestinationAccount for: anAmountOfMoney 
 	^self new initializeFrom: anOriginAccount to: aDestinationAccount for: anAmountOfMoney ! !
+
+
+!classDefinition: #Withdraw category: 'Portfolio-Solucion'!
+AccountTransaction subclass: #Withdraw
+	instanceVariableNames: 'value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!Withdraw methodsFor: 'balance' stamp: 'grm 10/19/2022 19:59:30'!
+affectsBalance: aBalance of: anAccount 
+
+	^aBalance - value! !
+
+
+!Withdraw methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:46'!
+initializeFor: aValue
+
+	value := aValue ! !
+
+
+!Withdraw methodsFor: 'report' stamp: 'grm 10/19/2022 20:04:09'!
+report: anAccount
+	^'Extracción por ' , value asString , '.'! !
+
+
+!Withdraw methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:33'!
+value
+
+	^ value! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Withdraw class' category: 'Portfolio-Solucion'!
+Withdraw class
+	instanceVariableNames: ''!
+
+!Withdraw class methodsFor: 'instance creation' stamp: 'HernanWilkinson 7/13/2011 18:33'!
+for: aValue
+
+	^ self new initializeFor: aValue ! !
