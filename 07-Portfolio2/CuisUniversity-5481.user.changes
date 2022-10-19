@@ -1,0 +1,599 @@
+
+
+----QUIT----(11 September 2022 19:10:09) CuisUniversity-5481.image priorSource: 2810882!
+
+----STARTUP---- (11 September 2022 19:10:10) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-5481.image!
+
+
+----QUIT----(11 September 2022 19:10:10) CuisUniversity-5481.image priorSource: 7059465!
+
+----STARTUP---- (18 October 2022 20:18:30) as /mnt/Data/Universidad/Ingenieria I/linux64/CuisUniversity-5481.image!
+
+
+----End fileIn of /mnt/Data/Universidad/Ingenieria I/Ingsoft-1/07-Portfolio2/Portfolio-Solucion.st----!
+
+Object subclass: #Transferencia
+	instanceVariableNames: 'value originAccount depositAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #Transferencia category: 'Portfolio-Solucion' stamp: 'grm 10/18/2022 20:41:02'!
+Object subclass: #Transferencia
+	instanceVariableNames: 'value originAccount depositAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+a:= 10!
+
+a!
+
+(a not)!
+
+(a negated)!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 20:45:08'!
+test08transferenciaAffectsBalanceCorrectly
+	| origin destination amount |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	Transferencia from: origin to: destination for: amount.
+	
+	self assert: amount equals: destination balance.
+	self assert: amount negated equals: origin balance.! !
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/18/2022 20:45:14'!
+ERROR!
+!Transferencia class methodsFor: 'instance creation' stamp: 'grm 10/18/2022 20:45:21'!
+from: aReceptiveAccount to: aReceptiveAccount2 for: aSmallInteger 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeFrom: aReceptiveAccount to: aReceptiveAccount2 for: aSmallInteger ! !
+!Transferencia class methodsFor: 'instance creation' stamp: 'grm 10/18/2022 20:46:23' prior: 50553025!
+from: anOriginAccount to: aDestinationAccount for: anAmountOfMoney 
+	^self new initializeFrom: anOriginAccount to: aDestinationAccount for: anAmountOfMoney ! !
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/18/2022 20:46:24'!
+ERROR!
+
+!classDefinition: #Transferencia category: 'Portfolio-Solucion' stamp: 'grm 10/18/2022 20:46:32'!
+Object subclass: #Transferencia
+	instanceVariableNames: 'value originAccount depositAccount destinationAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #Transferencia category: 'Portfolio-Solucion' stamp: 'grm 10/18/2022 20:46:32'!
+Object subclass: #Transferencia
+	instanceVariableNames: 'value originAccount depositAccount destinationAccount amountOfMoney'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!Transferencia methodsFor: 'initialization' stamp: 'grm 10/18/2022 20:46:32'!
+initializeFrom: anOriginAccount to: aDestinationAccount for: anAmountOfMoney 
+	self shouldBeImplemented.
+	originAccount := anOriginAccount.
+	destinationAccount := aDestinationAccount.
+	amountOfMoney := anAmountOfMoney.! !
+!Transferencia methodsFor: 'initialization' stamp: 'grm 10/18/2022 20:47:32' prior: 50553067!
+initializeFrom: anOriginAccount to: aDestinationAccount for: anAmountOfMoney 
+	originAccount := anOriginAccount.
+	destinationAccount := aDestinationAccount.
+	value := anAmountOfMoney.
+	
+	anOriginAccount register: self.
+	aDestinationAccount register: self.
+	
+	! !
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/18/2022 20:47:35'!
+ERROR!
+!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 20:47:45'!
+affectBalance: aSmallInteger 
+	self shouldBeImplemented.! !
+!ReceptiveAccount methodsFor: 'balance' stamp: 'grm 10/18/2022 20:54:08' prior: 50552854 overrides: 50552659!
+balance
+
+	^transactions 
+		inject: 0
+		into: [ :currentBalance :transaction | 
+			(transaction isKindOf: Transferencia)
+				ifTrue: [transaction affectsBalance: currentBalance of: self]
+				ifFalse: [transaction affectBalance: currentBalance] ]! !
+!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 20:55:54'!
+affectsBalance: aBalance of: anAccount
+
+	(anAccount = originAccount) ifTrue: [^aBalance - value].
+	(anAccount = destinationAccount) ifTrue: [^aBalance - value].! !
+!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 20:56:24' prior: 50553109!
+affectsBalance: aBalance of: anAccount
+
+	(anAccount = originAccount) ifTrue: [^aBalance - value].
+	(anAccount = destinationAccount) ifTrue: [^aBalance + value].! !
+
+!methodRemoval: Transferencia #affectBalance: stamp: 'grm 10/18/2022 20:56:51'!
+affectBalance: aSmallInteger 
+	self shouldBeImplemented.!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/18/2022 20:58:13'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/18/2022 20:58:13'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 20:58:13'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 20:58:13'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/18/2022 20:58:13'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/18/2022 20:58:13'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/18/2022 20:58:13'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/18/2022 20:58:13'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/18/2022 20:58:13'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 20:59:34'!
+test08transferenciaIsRegisteredCorrectly
+	| origin destination amount transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	transfer := Transferencia from: origin to: destination for: amount.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).! !
+
+!testRun: #ReceptiveAccountTest #test08transferenciaIsRegisteredCorrectly stamp: 'grm 10/18/2022 20:59:35'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/18/2022 20:59:35'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 20:59:35'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 20:59:35'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/18/2022 20:59:35'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/18/2022 20:59:35'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/18/2022 20:59:35'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/18/2022 20:59:35'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/18/2022 20:59:35'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaIsRegisteredCorrectly stamp: 'grm 10/18/2022 20:59:35'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 20:59:47'!
+test09transferenciaIsRegisteredCorrectly
+	| origin destination amount transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	transfer := Transferencia from: origin to: destination for: amount.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).! !
+
+!methodRemoval: ReceptiveAccountTest #test08transferenciaIsRegisteredCorrectly stamp: 'grm 10/18/2022 20:59:47'!
+test08transferenciaIsRegisteredCorrectly
+	| origin destination amount transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	transfer := Transferencia from: origin to: destination for: amount.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).!
+!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 21:06:08'!
+isOrigin: anAccount
+	^anAccount = originAccount ! !
+!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 21:06:17'!
+isDestination: anAccount
+	^anAccount = destinationAccount ! !
+!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 21:06:58' prior: 50553118!
+affectsBalance: aBalance of: anAccount
+
+	(self isOrigin: anAccount ) ifTrue: [^aBalance - value].
+	(self isDestination: anAccount) ifTrue: [^aBalance + value].! !
+!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 21:08:46'!
+otherEnd: anAccount
+	(self isOrigin: anAccount) ifTrue: [^destinationAccount].
+	(self isDestination: anAccount) ifTrue: [^originAccount].! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:11:58'!
+test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly
+	| origin destination amount transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	transfer := Transferencia from: origin to: destination for: amount.
+	
+	self assert: (transfer isOrigin: origin).
+	self assert: (transfer isDestination: destination).
+	self deny: (transfer isOrigin: destination).
+	self deny: (transfer isDestination: origin).! !
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/18/2022 21:11:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/18/2022 21:11:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 21:11:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 21:11:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/18/2022 21:11:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/18/2022 21:11:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/18/2022 21:11:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/18/2022 21:11:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/18/2022 21:11:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/18/2022 21:11:59'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/18/2022 21:11:59'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:12:22'!
+test11transferCanAnswerOtherEndOfTransaction
+	| origin destination amount transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	transfer := Transferencia from: origin to: destination for: amount.
+	
+	self assert: (transfer otherEnd: origin = destination).
+	self assert: (transfer otherEnd: destination = origin).! !
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/18/2022 21:12:23'!
+ERROR!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:12:42' prior: 50553329!
+test11transferCanAnswerOtherEndOfTransaction
+	| origin destination amount transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	transfer := Transferencia from: origin to: destination for: amount.
+	
+	self assert: ((transfer otherEnd: origin) = destination).
+	self assert: ((transfer otherEnd: destination) = origin).! !
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/18/2022 21:12:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/18/2022 21:12:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 21:12:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 21:12:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/18/2022 21:12:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/18/2022 21:12:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/18/2022 21:12:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/18/2022 21:12:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/18/2022 21:12:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/18/2022 21:12:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/18/2022 21:12:43'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/18/2022 21:12:43'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:13:25' prior: 50553348!
+test11transferCanAnswerOtherEndOfTransaction
+	| origin destination amount transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	transfer := Transferencia from: origin to: destination for: amount.
+	
+	self assert: destination equals: (transfer otherEnd: origin).
+	self assert: origin equals: (transfer otherEnd: destination).! !
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/18/2022 21:13:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/18/2022 21:13:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 21:13:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 21:13:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/18/2022 21:13:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/18/2022 21:13:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/18/2022 21:13:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/18/2022 21:13:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/18/2022 21:13:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/18/2022 21:13:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/18/2022 21:13:26'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/18/2022 21:13:26'!
+PASSED!
+!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 21:14:40' prior: 50553262!
+otherEnd: anAccount
+	(self isOrigin: anAccount) ifTrue: [^destinationAccount].
+	(self isDestination: anAccount) ifTrue: [^originAccount].
+	self error: self class accountIsNotPartOfTransactionErrorDescription.! !
+!Transferencia class methodsFor: 'instance creation' stamp: 'grm 10/18/2022 21:15:17'!
+accountIsNotPartOfTransactionErrorDescription
+	^'That account is not a part of this transaction!!!!!!'! !
+!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 21:15:51' prior: 50553254!
+affectsBalance: aBalance of: anAccount
+
+	(self isOrigin: anAccount ) ifTrue: [^aBalance - value].
+	(self isDestination: anAccount) ifTrue: [^aBalance + value].
+	self error: self class accountIsNotPartOfTransactionErrorDescription.! !
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:20:56'!
+test12transferRaisesErrorIfAccountIsNotPartOfTransaction
+	| origin destination foreign transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := Transferencia from: origin to: destination for: 100.
+	
+	foreign := ReceptiveAccount new.
+	
+	[transfer otherEnd: foreign.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText.
+		^self].
+	
+	self fail.! !
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/18/2022 21:20:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/18/2022 21:20:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 21:20:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 21:20:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/18/2022 21:20:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/18/2022 21:20:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/18/2022 21:20:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/18/2022 21:20:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/18/2022 21:20:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/18/2022 21:20:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/18/2022 21:20:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/18/2022 21:20:58'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/18/2022 21:20:58'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:21:02' prior: 50553497!
+test12transferRaisesErrorIfAccountIsNotPartOfTransaction
+	| origin destination foreign transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := Transferencia from: origin to: destination for: 100.
+	
+	foreign := ReceptiveAccount new.
+	
+	[transfer otherEnd: foreign.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText.
+		].
+	
+	self fail.! !
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/18/2022 21:21:02'!
+FAILURE!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:21:07' prior: 50553566!
+test12transferRaisesErrorIfAccountIsNotPartOfTransaction
+	| origin destination foreign transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := Transferencia from: origin to: destination for: 100.
+	
+	foreign := ReceptiveAccount new.
+	
+	[transfer otherEnd: foreign.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText.
+		^self].
+	
+	self fail.! !
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/18/2022 21:21:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/18/2022 21:21:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 21:21:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 21:21:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/18/2022 21:21:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/18/2022 21:21:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/18/2022 21:21:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/18/2022 21:21:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/18/2022 21:21:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/18/2022 21:21:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/18/2022 21:21:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/18/2022 21:21:08'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/18/2022 21:21:08'!
+PASSED!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:22:06' prior: 50553589!
+test12transferRaisesErrorIfAccountIsNotPartOfTransaction
+	| origin destination foreign transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := Transferencia from: origin to: destination for: 100.
+	
+	foreign := ReceptiveAccount new.
+	
+	[transfer otherEnd: foreign.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText].
+	
+	[transfer affectsBalance: 100 of: foreign.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText.
+		^self].
+	
+	self fail.! !
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/18/2022 21:22:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/18/2022 21:22:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 21:22:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/18/2022 21:22:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/18/2022 21:22:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/18/2022 21:22:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/18/2022 21:22:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/18/2022 21:22:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferenciaAffectsBalanceCorrectly stamp: 'grm 10/18/2022 21:22:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferenciaIsRegisteredCorrectly stamp: 'grm 10/18/2022 21:22:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/18/2022 21:22:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/18/2022 21:22:07'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/18/2022 21:22:07'!
+PASSED!
+
+----SNAPSHOT----(18 October 2022 21:22:43) CuisUniversity-5481.image priorSource: 7059698!

@@ -304,6 +304,84 @@ test07AccountKnowsItsTransactions
 	self assert: (account1 transactions includes: deposit1).
 ! !
 
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 20:45:08'!
+test08transferenciaAffectsBalanceCorrectly
+	| origin destination amount |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	Transferencia from: origin to: destination for: amount.
+	
+	self assert: amount equals: destination balance.
+	self assert: amount negated equals: origin balance.! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 20:59:47'!
+test09transferenciaIsRegisteredCorrectly
+	| origin destination amount transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	transfer := Transferencia from: origin to: destination for: amount.
+	
+	self assert: (origin hasRegistered: transfer).
+	self assert: (destination hasRegistered: transfer).! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:11:58'!
+test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly
+	| origin destination amount transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	transfer := Transferencia from: origin to: destination for: amount.
+	
+	self assert: (transfer isOrigin: origin).
+	self assert: (transfer isDestination: destination).
+	self deny: (transfer isOrigin: destination).
+	self deny: (transfer isDestination: origin).! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:13:25'!
+test11transferCanAnswerOtherEndOfTransaction
+	| origin destination amount transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	amount := 100 .
+	
+	transfer := Transferencia from: origin to: destination for: amount.
+	
+	self assert: destination equals: (transfer otherEnd: origin).
+	self assert: origin equals: (transfer otherEnd: destination).! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/18/2022 21:22:06'!
+test12transferRaisesErrorIfAccountIsNotPartOfTransaction
+	| origin destination foreign transfer |
+	
+	origin := ReceptiveAccount new.
+	destination := ReceptiveAccount new.
+	
+	transfer := Transferencia from: origin to: destination for: 100.
+	
+	foreign := ReceptiveAccount new.
+	
+	[transfer otherEnd: foreign.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText].
+	
+	[transfer affectsBalance: 100 of: foreign.]
+	on: Error - MessageNotUnderstood
+	do: [:error | 
+		self assert: transfer class accountIsNotPartOfTransactionErrorDescription equals: error messageText.
+		^self].
+	
+	self fail.! !
+
 
 !classDefinition: #Account category: 'Portfolio-Solucion'!
 Object subclass: #Account
@@ -515,12 +593,15 @@ transactions
 	^ transactions copy! !
 
 
-!ReceptiveAccount methodsFor: 'balance' stamp: 'HAW 5/25/2019 11:24:46'!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'grm 10/18/2022 20:54:08'!
 balance
 
 	^transactions 
 		inject: 0
-		into: [ :currentBalance :transaction | transaction affectBalance: currentBalance ]! !
+		into: [ :currentBalance :transaction | 
+			(transaction isKindOf: Transferencia)
+				ifTrue: [transaction affectsBalance: currentBalance of: self]
+				ifFalse: [transaction affectBalance: currentBalance] ]! !
 
 
 !ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/21/2019 18:55:56'!
@@ -646,3 +727,59 @@ Withdraw class
 for: aValue
 
 	^ self new initializeFor: aValue ! !
+
+
+!classDefinition: #Transferencia category: 'Portfolio-Solucion'!
+Object subclass: #Transferencia
+	instanceVariableNames: 'value originAccount depositAccount destinationAccount amountOfMoney'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!Transferencia methodsFor: 'initialization' stamp: 'grm 10/18/2022 20:47:32'!
+initializeFrom: anOriginAccount to: aDestinationAccount for: anAmountOfMoney 
+	originAccount := anOriginAccount.
+	destinationAccount := aDestinationAccount.
+	value := anAmountOfMoney.
+	
+	anOriginAccount register: self.
+	aDestinationAccount register: self.
+	
+	! !
+
+
+!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 21:15:51'!
+affectsBalance: aBalance of: anAccount
+
+	(self isOrigin: anAccount ) ifTrue: [^aBalance - value].
+	(self isDestination: anAccount) ifTrue: [^aBalance + value].
+	self error: self class accountIsNotPartOfTransactionErrorDescription.! !
+
+!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 21:06:17'!
+isDestination: anAccount
+	^anAccount = destinationAccount ! !
+
+!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 21:06:08'!
+isOrigin: anAccount
+	^anAccount = originAccount ! !
+
+!Transferencia methodsFor: 'as yet unclassified' stamp: 'grm 10/18/2022 21:14:40'!
+otherEnd: anAccount
+	(self isOrigin: anAccount) ifTrue: [^destinationAccount].
+	(self isDestination: anAccount) ifTrue: [^originAccount].
+	self error: self class accountIsNotPartOfTransactionErrorDescription.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Transferencia class' category: 'Portfolio-Solucion'!
+Transferencia class
+	instanceVariableNames: ''!
+
+!Transferencia class methodsFor: 'error message' stamp: 'grm 10/18/2022 21:15:17'!
+accountIsNotPartOfTransactionErrorDescription
+	^'That account is not a part of this transaction!!!!!!'! !
+
+
+!Transferencia class methodsFor: 'instance creation' stamp: 'grm 10/18/2022 20:46:23'!
+from: anOriginAccount to: aDestinationAccount for: anAmountOfMoney 
+	^self new initializeFrom: anOriginAccount to: aDestinationAccount for: anAmountOfMoney ! !
