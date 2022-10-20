@@ -213,6 +213,153 @@ test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd
 			self assert: Portfolio canNotAddAccountErrorMessage equals: anError messageText.
 			self assert: portfolioToModify accountsIsEmpty ]! !
 
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 22:18:07'!
+test16emptyPortfolioHasEmptySummary
+	| portfolio |
+	portfolio := Portfolio new.
+	
+	self assert: 0 equals: portfolio summary size! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 22:19:53'!
+test17portfolioWithEmptyAccountHasEmptySummary
+	| portfolio account |
+	portfolio := Portfolio new.
+	account := ReceptiveAccount new.
+	portfolio add: account.
+	
+	self assert: 0 equals: portfolio summary size! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 22:21:57'!
+test18portfolioWithOneAccountHasSameSummary
+	| portfolio account |
+	portfolio := Portfolio new.
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	portfolio add: account.
+	
+	self assert: account summary size equals: portfolio summary size.
+	self assert: account summary equals: portfolio summary.! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 22:36:24'!
+test19portfolioWithMultipleAccountsHasCorrectSummary
+	| portfolio account1 account2 |
+	portfolio := Portfolio new.
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	Deposit register: 50 on: account2.
+	Withdraw register: 20 on: account2.
+	
+	Deposit register: 100 on: account1.
+	
+	portfolio add: account1.
+	portfolio add: account2.
+	
+	self assert: account1 summary, account2 summary equals: portfolio summary.! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 22:39:27'!
+test20composedPortfolioHasCorrectSummary
+	| portfolio1 portfolio2 account1 account2 |
+	account1 := ReceptiveAccount new.
+	portfolio1 := Portfolio with: account1.
+	
+	account2 := ReceptiveAccount new.
+	portfolio2 := Portfolio with: account2.
+	
+	portfolio1 add: portfolio2.
+	
+	Transfer from: account1 to: account2 for: 100.
+	Deposit register: 50 on: account2.
+	Withdraw register: 70 on: account1.
+	
+	self assert: account1 summary, portfolio2 summary equals: portfolio1 summary.! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 23:11:10'!
+test21emptyPortfolioHasTransferNetZero
+	
+	self assert: 0 equals: Portfolio new transferNet.! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 23:16:44'!
+test22portfolioWithOneAccountHasCorrectTransferNet
+	| portfolio account1 account2 amount |
+	portfolio _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	account2 _ ReceptiveAccount new.
+	portfolio add: account1.
+	
+	amount _ 120.
+	
+	Transfer from: account2 to: account1 for: amount.
+	
+	self assert: amount equals: portfolio transferNet.! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 23:17:40'!
+test23portfolioWithManyAccountsHasCorrectTransferNet
+	| portfolio account1 account2 amount |
+	portfolio _ Portfolio new.
+	account1 _ ReceptiveAccount new.
+	account2 _ ReceptiveAccount new.
+	portfolio add: account1.
+	portfolio add: account2.
+	
+	amount _ 120.
+	
+	Transfer from: account2 to: account1 for: amount.
+	Transfer from: account1 to: account2 for: amount.
+	
+	self assert: 0 equals: portfolio transferNet.! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 23:21:52'!
+test24composedPortfolioHasCorrectTransferNet
+	| portfolio1 portfolio2 account1 account2 account3 |
+	
+	account1 _ ReceptiveAccount new.
+	portfolio1 _ Portfolio with: account1.
+	
+	account2 _ ReceptiveAccount new.
+	portfolio2 _ Portfolio with: account2.
+	
+	account3 _ ReceptiveAccount new.
+	
+	portfolio1 add: portfolio2.
+	
+	Transfer from: account3 to: account1 for: 120.
+	Transfer from: account2 to: account3 for: 90.
+	Transfer from: account1 to: account2 for: 20.
+	
+	
+	self assert: (120 - 90 + 20 - 20) equals: portfolio1 transferNet.! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 23:36:14'!
+test25emptyPortfolioTreeHasOwnNameOnly
+	| portfolio |
+	portfolio _ Portfolio new.
+	
+	self assert: (OrderedCollection with: portfolio assetName) equals: portfolio tree.! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 23:54:15'!
+test26composedPortfolioHasCorrectNameTree
+	| portfolio1 portfolio2 portfolio3 account1 account2 nameTree |
+	portfolio1 _ Portfolio new.
+	portfolio2 _ Portfolio new.
+	portfolio3 _ Portfolio new.
+	
+	account1 _ ReceptiveAccount new.
+	account2 _ ReceptiveAccount new.
+	
+	portfolio2 add: account2.
+	portfolio1 add: account1.
+	portfolio1 add: portfolio2.
+	portfolio1 add: portfolio3.
+	
+	nameTree _ 
+		(OrderedCollection with: (portfolio1 assetName)),
+		account1 assetTree,
+		portfolio2 assetTree,
+		portfolio3 assetTree.
+	
+	self assert: nameTree equals: portfolio1 tree.! !
+
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Solucion'!
 TestCase subclass: #ReceptiveAccountTest
@@ -467,10 +614,67 @@ test19accountSummaryWithMultipleTransfers
 	self assert: (OrderedCollection with: 'Salida por transferencia de 100.' with: 'Entrada por transferencia de 25.') equals: summary1 .
 	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.' with: 'Salida por transferencia de 25.') equals: summary2 .! !
 
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 22:09:00'!
+test20accountSummaryWithMultipleTransactions
+	| account1 account2 account3 summary1 |
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	account3 := ReceptiveAccount new.
+	
+	Transfer from: account2 to: account1 for: 200.
+	Deposit register: 100 on: account1.
+	Transfer from: account1 to: account3 for: 140.
+	Withdraw register: 23 on: account1.
+	
+	summary1 := account1 summary.
+	
+	self assert: (OrderedCollection
+		with: 'Entrada por transferencia de 200.'
+		with: 'Depósito por 100.'
+		with: 'Salida por transferencia de 140.'
+		with: 'Extracción por 23.')
+		equals: summary1 .! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 22:48:13'!
+test21accountWithNoTransfersHasTransferNetZero
+	| account |
+	account := ReceptiveAccount new.
+	
+	Deposit register: 100 on: account.
+	Withdraw register: 29 on: account.
+	
+	self assert: 0 equals: account transferNet.! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 23:01:04'!
+test22accountWithOneTransferHasCorrectTransferNet
+	| account1 account2 |
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	
+	self transferenciaFor100From: account2 to: account1. 
+	
+	self assert: 100 equals: account1 transferNet.! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 23:02:15'!
+test23accountWithManyTransfersHasCorrectTransferNet
+	| account1 account2 |
+	account1 := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	
+	Transfer from: account1 to: account2 for: 200.
+	Transfer from: account2 to: account1 for: 90.
+	
+	self assert: -110 equals: account1 transferNet.! !
+
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 23:10:24'!
+test24emptyAccountHasTransferNetZero
+	
+	self assert: 0 equals: ReceptiveAccount new transferNet.! !
+
 
 !classDefinition: #Account category: 'Portfolio-Solucion'!
 Object subclass: #Account
-	instanceVariableNames: ''
+	instanceVariableNames: 'name'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
@@ -487,6 +691,17 @@ addedTo: aPortfolio
 	self subclassResponsibility ! !
 
 
+!Account methodsFor: 'initialization' stamp: 'grm 10/19/2022 23:30:11'!
+initializeNamed: aName
+
+	name := aName .! !
+
+
+!Account methodsFor: 'report' stamp: 'grm 10/19/2022 22:11:33'!
+summary
+	self subclassResponsibility ! !
+
+
 !Account methodsFor: 'testing' stamp: 'HAW 5/25/2019 12:23:47'!
 hasRegistered: aTransaction
 
@@ -495,6 +710,15 @@ hasRegistered: aTransaction
 !Account methodsFor: 'testing' stamp: 'HAW 5/25/2019 12:24:25'!
 isComposedBy: anAccount
 
+	self subclassResponsibility ! !
+
+
+!Account methodsFor: 'names' stamp: 'grm 10/19/2022 23:42:17'!
+assetName
+	self subclassResponsibility ! !
+
+!Account methodsFor: 'names' stamp: 'grm 10/19/2022 23:42:21'!
+assetTree
 	self subclassResponsibility ! !
 
 
@@ -507,6 +731,17 @@ addTransactionsTo: aCollectionOfTransactions
 transactions
 
 	self subclassResponsibility ! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Account class' category: 'Portfolio-Solucion'!
+Account class
+	instanceVariableNames: ''!
+
+!Account class methodsFor: 'as yet unclassified' stamp: 'grm 10/19/2022 23:30:26'!
+named: aName
+
+	^self new initializeNamed: aName.! !
 
 
 !classDefinition: #Portfolio category: 'Portfolio-Solucion'!
@@ -582,11 +817,31 @@ addedTo: aPortfolio
 	parents add: aPortfolio ! !
 
 
-!Portfolio methodsFor: 'initialization' stamp: 'HAW 5/25/2019 12:03:18'!
+!Portfolio methodsFor: 'initialization' stamp: 'grm 10/19/2022 23:27:02'!
 initialize
-
+	
+	name := 'Portfolio'.
 	accounts := OrderedCollection new.
 	parents := OrderedCollection new.! !
+
+
+!Portfolio methodsFor: 'report' stamp: 'grm 10/19/2022 22:15:25'!
+summary
+	| summary |
+	
+	summary := OrderedCollection new.
+	accounts do: [ :anAccount | summary addAll: anAccount summary ].
+	
+	^summary ! !
+
+!Portfolio methodsFor: 'report' stamp: 'grm 10/19/2022 23:12:21'!
+transferNet
+	
+	^accounts inject: 0 into: [:currentNet :anAccount | currentNet + anAccount transferNet]! !
+
+!Portfolio methodsFor: 'report' stamp: 'grm 10/19/2022 23:41:29'!
+tree
+	^self assetTree.! !
 
 
 !Portfolio methodsFor: 'testing' stamp: 'HAW 5/25/2019 12:20:56'!
@@ -619,6 +874,20 @@ transactions
 	accounts do: [ :anAccount | anAccount addTransactionsTo: transactions ].
 	
 	^transactions ! !
+
+
+!Portfolio methodsFor: 'names' stamp: 'grm 10/19/2022 23:35:48'!
+assetName
+	^name.! !
+
+!Portfolio methodsFor: 'names' stamp: 'grm 10/19/2022 23:52:13'!
+assetTree
+	| nameTree |
+	nameTree _ OrderedCollection with: self assetName.
+	
+	accounts do: [ :anAccount | nameTree addAll: anAccount assetTree ].
+	
+	^nameTree! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -668,16 +937,21 @@ addedTo: aPortfolio
 	! !
 
 
-!ReceptiveAccount methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:35'!
+!ReceptiveAccount methodsFor: 'initialization' stamp: 'grm 10/19/2022 23:27:14'!
 initialize
 
 	super initialize.
+	name := 'Cuenta'.
 	transactions := OrderedCollection new.! !
 
 
 !ReceptiveAccount methodsFor: 'report' stamp: 'grm 10/19/2022 20:04:09'!
 summary
 	^transactions collect: [:transaction | transaction report: self].! !
+
+!ReceptiveAccount methodsFor: 'report' stamp: 'grm 10/19/2022 22:52:13'!
+transferNet
+	^transactions inject: 0 into: [:currentNet :aTransaction | aTransaction affectsTransferNet: currentNet of: self ]! !
 
 
 !ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/21/2019 18:55:56'!
@@ -690,6 +964,15 @@ hasRegistered: aTransaction
 isComposedBy: anAccount
 
 	^self = anAccount ! !
+
+
+!ReceptiveAccount methodsFor: 'names' stamp: 'grm 10/19/2022 23:42:58'!
+assetName
+	^name! !
+
+!ReceptiveAccount methodsFor: 'names' stamp: 'grm 10/19/2022 23:43:32'!
+assetTree
+	^OrderedCollection with: self assetName .! !
 
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:38:52'!
@@ -716,8 +999,13 @@ Object subclass: #AccountTransaction
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!AccountTransaction methodsFor: 'balance' stamp: 'grm 10/19/2022 19:56:26'!
+!AccountTransaction methodsFor: 'affects' stamp: 'grm 10/19/2022 19:56:26'!
 affectsBalance: aBalance of: anAccount
+
+	self subclassResponsibility ! !
+
+!AccountTransaction methodsFor: 'affects' stamp: 'grm 10/19/2022 22:57:29'!
+affectsTransferNet: aCurrentNet of: anAccount
 
 	self subclassResponsibility ! !
 
@@ -756,10 +1044,14 @@ AccountTransaction subclass: #Deposit
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!Deposit methodsFor: 'balance' stamp: 'grm 10/19/2022 19:56:39'!
+!Deposit methodsFor: 'affects' stamp: 'grm 10/19/2022 19:56:39'!
 affectsBalance: aBalance of: anAccount
 
 	^aBalance + value ! !
+
+!Deposit methodsFor: 'affects' stamp: 'grm 10/19/2022 22:56:01'!
+affectsTransferNet: aTransferNet of: anAccount
+	^aTransferNet! !
 
 
 !Deposit methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:45'!
@@ -797,6 +1089,14 @@ AccountTransaction subclass: #Transfer
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
+!Transfer methodsFor: 'account' stamp: 'grm 10/19/2022 20:13:50'!
+otherEnd: anAccount
+
+	(self isOrigin: anAccount) ifTrue: [^destinationAccount].
+	(self isDestination: anAccount) ifTrue: [^originAccount].
+	self raiseForeignAccountError.! !
+
+
 !Transfer methodsFor: 'account - private' stamp: 'grm 10/18/2022 21:06:17'!
 isDestination: anAccount
 	^anAccount = destinationAccount ! !
@@ -811,20 +1111,22 @@ raiseForeignAccountError
 	^ self error: self class accountIsNotPartOfTransactionErrorDescription! !
 
 
-!Transfer methodsFor: 'account' stamp: 'grm 10/19/2022 20:13:50'!
-otherEnd: anAccount
+!Transfer methodsFor: 'affects' stamp: 'grm 10/19/2022 22:54:48'!
+affectsAmount: aCurrentAmount of: anAccount
 
-	(self isOrigin: anAccount) ifTrue: [^destinationAccount].
-	(self isDestination: anAccount) ifTrue: [^originAccount].
+	(self isOrigin: anAccount) ifTrue: [^aCurrentAmount - value].
+	(self isDestination: anAccount) ifTrue: [^aCurrentAmount + value].
 	self raiseForeignAccountError.! !
 
-
-!Transfer methodsFor: 'balance' stamp: 'grm 10/19/2022 20:14:09'!
+!Transfer methodsFor: 'affects' stamp: 'grm 10/19/2022 22:55:10'!
 affectsBalance: aBalance of: anAccount
 
-	(self isOrigin: anAccount) ifTrue: [^aBalance - value].
-	(self isDestination: anAccount) ifTrue: [^aBalance + value].
-	self raiseForeignAccountError.! !
+	^self affectsAmount: aBalance of: anAccount .! !
+
+!Transfer methodsFor: 'affects' stamp: 'grm 10/19/2022 22:55:20'!
+affectsTransferNet: aCurrentNet of: anAccount
+
+	^self affectsAmount: aCurrentNet of: anAccount .! !
 
 
 !Transfer methodsFor: 'initialization' stamp: 'grm 10/18/2022 20:47:32'!
@@ -868,10 +1170,14 @@ AccountTransaction subclass: #Withdraw
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!Withdraw methodsFor: 'balance' stamp: 'grm 10/19/2022 19:59:30'!
+!Withdraw methodsFor: 'affects' stamp: 'grm 10/19/2022 19:59:30'!
 affectsBalance: aBalance of: anAccount 
 
 	^aBalance - value! !
+
+!Withdraw methodsFor: 'affects' stamp: 'grm 10/19/2022 22:56:29'!
+affectsTransferNet: aTransferNet of: anAccount 
+	^aTransferNet! !
 
 
 !Withdraw methodsFor: 'initialization' stamp: 'HernanWilkinson 7/13/2011 18:46'!
