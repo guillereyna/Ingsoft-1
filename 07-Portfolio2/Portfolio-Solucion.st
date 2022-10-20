@@ -834,6 +834,15 @@ summary
 	
 	^summary ! !
 
+!Portfolio methodsFor: 'report' stamp: 'grm 10/20/2022 00:00:59'!
+summaryTree
+	| summaryTree |
+	summaryTree _ OrderedCollection with: self assetName.
+	
+	accounts do: [:anAccount | summaryTree addAll: anAccount summaryTree].
+	
+	^summaryTree.! !
+
 !Portfolio methodsFor: 'report' stamp: 'grm 10/19/2022 23:12:21'!
 transferNet
 	
@@ -948,6 +957,10 @@ initialize
 !ReceptiveAccount methodsFor: 'report' stamp: 'grm 10/19/2022 20:04:09'!
 summary
 	^transactions collect: [:transaction | transaction report: self].! !
+
+!ReceptiveAccount methodsFor: 'report' stamp: 'grm 10/20/2022 00:02:23'!
+summaryTree
+	^(OrderedCollection with: self assetName) addAll: self summary.! !
 
 !ReceptiveAccount methodsFor: 'report' stamp: 'grm 10/19/2022 22:52:13'!
 transferNet

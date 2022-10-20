@@ -6729,3 +6729,19 @@ PASSED!
 ----SNAPSHOT----(19 October 2022 23:54:22) CuisUniversity-5481.image priorSource: 7333926!
 
 ----SNAPSHOT----(19 October 2022 23:54:36) CuisUniversity-5481.image priorSource: 7452876!
+
+----STARTUP---- (19 October 2022 23:57:32) as /mnt/Data/Universidad/Ingenieria I/linux64/CuisUniversity-5481.image!
+
+!Portfolio methodsFor: 'report' stamp: 'grm 10/20/2022 00:00:59'!
+summaryTree
+	| summaryTree |
+	summaryTree _ OrderedCollection with: self assetName.
+	
+	accounts do: [:anAccount | summaryTree addAll: anAccount summaryTree].
+	
+	^summaryTree.! !
+!ReceptiveAccount methodsFor: 'report' stamp: 'grm 10/20/2022 00:02:23'!
+summaryTree
+	^(OrderedCollection with: self assetName) addAll: self summary.! !
+
+----SNAPSHOT----(20 October 2022 00:02:51) CuisUniversity-5481.image priorSource: 7452968!
