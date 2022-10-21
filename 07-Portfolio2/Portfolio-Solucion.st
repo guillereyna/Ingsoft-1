@@ -1,9 +1,13 @@
 !classDefinition: #PortfolioTest category: 'Portfolio-Solucion'!
 TestCase subclass: #PortfolioTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'tab'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/20/2022 20:23:28'!
+setUp
+	tab := '    '.! !
 
 !PortfolioTest methodsFor: 'tests' stamp: 'HAW 5/25/2019 11:16:26'!
 test01BalanceOfPortfolioWithoutAccountsIsZero
@@ -213,35 +217,44 @@ test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd
 			self assert: Portfolio canNotAddAccountErrorMessage equals: anError messageText.
 			self assert: portfolioToModify accountsIsEmpty ]! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 22:18:07'!
-test16emptyPortfolioHasEmptySummary
-	| portfolio |
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/20/2022 20:53:48'!
+test16emptyPortfolioHasEmptySummaryWithBalanceZero
+	| portfolio summary |
 	portfolio := Portfolio new.
 	
-	self assert: 0 equals: portfolio summary size! !
+	summary _ portfolio summary.
+	
+	self assert: 1 equals: summary size.
+	self assert: (OrderedCollection with: 'Balance = 0') equals: summary.! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 22:19:53'!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/20/2022 20:56:40'!
 test17portfolioWithEmptyAccountHasEmptySummary
-	| portfolio account |
+	| portfolio account summary |
 	portfolio := Portfolio new.
 	account := ReceptiveAccount new.
 	portfolio add: account.
 	
-	self assert: 0 equals: portfolio summary size! !
+	summary _ portfolio summary.
+	
+	self assert: 2 equals: summary size.
+	self assert: (OrderedCollection with: 'Balance = 0' with: 'Balance = 0') equals: summary.! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 22:21:57'!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/20/2022 21:03:35'!
 test18portfolioWithOneAccountHasSameSummary
-	| portfolio account |
+	| portfolio account portfolioSummary accountSummary |
 	portfolio := Portfolio new.
 	account := ReceptiveAccount new.
 	Deposit register: 100 on: account.
 	
 	portfolio add: account.
 	
-	self assert: account summary size equals: portfolio summary size.
-	self assert: account summary equals: portfolio summary.! !
+	portfolioSummary _ portfolio summary.
+	accountSummary _ account summary.
+	
+	self assert: accountSummary size + 1 equals: portfolioSummary size.
+	self assert: accountSummary, (OrderedCollection with: 'Balance = 100') equals: portfolioSummary.! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 22:36:24'!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/20/2022 21:04:28'!
 test19portfolioWithMultipleAccountsHasCorrectSummary
 	| portfolio account1 account2 |
 	portfolio := Portfolio new.
@@ -255,9 +268,10 @@ test19portfolioWithMultipleAccountsHasCorrectSummary
 	portfolio add: account1.
 	portfolio add: account2.
 	
-	self assert: account1 summary, account2 summary equals: portfolio summary.! !
+	self assert: account1 summary, account2 summary, (OrderedCollection with: 'Balance = 130')
+	 equals: portfolio summary.! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 22:39:27'!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/20/2022 21:05:37'!
 test20composedPortfolioHasCorrectSummary
 	| portfolio1 portfolio2 account1 account2 |
 	account1 := ReceptiveAccount new.
@@ -272,7 +286,8 @@ test20composedPortfolioHasCorrectSummary
 	Deposit register: 50 on: account2.
 	Withdraw register: 70 on: account1.
 	
-	self assert: account1 summary, portfolio2 summary equals: portfolio1 summary.! !
+	self assert: account1 summary, portfolio2 summary, (OrderedCollection with: 'Balance = -20')
+	 equals: portfolio1 summary.! !
 
 !PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 23:11:10'!
 test21emptyPortfolioHasTransferNetZero
@@ -337,28 +352,29 @@ test25emptyPortfolioTreeHasOwnNameOnly
 	
 	self assert: (OrderedCollection with: portfolio assetName) equals: portfolio tree.! !
 
-!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/19/2022 23:54:15'!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/20/2022 20:23:12'!
 test26composedPortfolioHasCorrectNameTree
-	| portfolio1 portfolio2 portfolio3 account1 account2 nameTree |
-	portfolio1 _ Portfolio new.
-	portfolio2 _ Portfolio new.
-	portfolio3 _ Portfolio new.
+	| portfolioFamilia portfolioHijos miCuenta cuentaJuan cuentaAngeles familyTree |
+	portfolioFamilia := Portfolio named: 'Portfolio de la familia'.
+	miCuenta := ReceptiveAccount named: 'Cuenta Mia'.
 	
-	account1 _ ReceptiveAccount new.
-	account2 _ ReceptiveAccount new.
+	portfolioHijos := Portfolio named: 'Portfolio de hijos'.
+	cuentaJuan := ReceptiveAccount named: 'Cuenta de Juan'.
+	cuentaAngeles := ReceptiveAccount named: 'Cuenta de Angeles'.
 	
-	portfolio2 add: account2.
-	portfolio1 add: account1.
-	portfolio1 add: portfolio2.
-	portfolio1 add: portfolio3.
+	portfolioHijos add: cuentaJuan.
+	portfolioHijos add: cuentaAngeles.
+	portfolioFamilia add: miCuenta.
+	portfolioFamilia add: portfolioHijos.
 	
-	nameTree _ 
-		(OrderedCollection with: (portfolio1 assetName)),
-		account1 assetTree,
-		portfolio2 assetTree,
-		portfolio3 assetTree.
-	
-	self assert: nameTree equals: portfolio1 tree.! !
+	familyTree := portfolioFamilia tree.	
+	self assert: (OrderedCollection
+					with: 'Portfolio de la familia'
+					with: tab, 'Cuenta Mia'
+					with: tab, 'Portfolio de hijos'
+					with: tab, tab, 'Cuenta de Juan'
+					with: tab, tab, 'Cuenta de Angeles')
+		equals: familyTree.! !
 
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Solucion'!
@@ -535,16 +551,17 @@ test12transferRaisesErrorIfAccountIsNotPartOfTransaction
 
 	self foreignAccountErrorCheck: [:aTransfer | aTransfer  affectsBalance: 100 of: foreignAccount.].! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:19:42'!
-test13emptyAccountSummaryIsEmpty
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/20/2022 19:48:22'!
+test13emptyAccountSummaryIsEmptyAndBalanceZero
 	| account summary |
 	account := ReceptiveAccount new.
 	
 	summary := account summary.
 	
-	self assert: 0 equals: summary size.! !
+	self assert: 1 equals: summary size.
+	self assert: 'Balance = 0' equals: summary first.! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:35:19'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/20/2022 19:50:31'!
 test14accountSummaryWithOneDeposit
 	| account summary |
 	account := ReceptiveAccount new.
@@ -552,9 +569,9 @@ test14accountSummaryWithOneDeposit
 	
 	summary := account summary.
 	
-	self assert: (OrderedCollection with: 'Depósito por 100.') equals: summary.! !
+	self assert: (OrderedCollection with: 'Depósito por 100.' with: 'Balance = 100') equals: summary.! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:36:10'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/20/2022 19:51:50'!
 test15accountSummaryWithMultipleDeposits
 	| account summary |
 	account := ReceptiveAccount new.
@@ -564,9 +581,12 @@ test15accountSummaryWithMultipleDeposits
 	
 	summary := account summary.
 	
-	self assert: (OrderedCollection with: 'Depósito por 80.' with: 'Depósito por 25.') equals: summary.! !
+	self assert: (OrderedCollection
+					with: 'Depósito por 80.'
+					with: 'Depósito por 25.'
+					with: 'Balance = 105') equals: summary.! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:35:26'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/20/2022 19:52:18'!
 test16accountSummaryWithOneWithdraw
 	| account summary |
 	account := ReceptiveAccount new.
@@ -574,9 +594,9 @@ test16accountSummaryWithOneWithdraw
 	
 	summary := account summary.
 	
-	self assert: (OrderedCollection with: 'Extracción por 50.') equals: summary.! !
+	self assert: (OrderedCollection with: 'Extracción por 50.' with: 'Balance = -50') equals: summary.! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 19:43:16'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/20/2022 19:52:50'!
 test17accountSummaryWithMultipleWithdraw
 	| account summary |
 	account := ReceptiveAccount new.
@@ -585,9 +605,12 @@ test17accountSummaryWithMultipleWithdraw
 	
 	summary := account summary.
 	
-	self assert: (OrderedCollection with: 'Extracción por 50.' with: 'Extracción por 76.') equals: summary.! !
+	self assert: (OrderedCollection
+					with: 'Extracción por 50.'
+					with: 'Extracción por 76.'
+					with: 'Balance = -126') equals: summary.! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:01:22'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/20/2022 19:53:22'!
 test18accountSummaryWithOneTransfer
 	| origin destination originSummary destinationSummary |
 	origin := ReceptiveAccount new.
@@ -597,10 +620,12 @@ test18accountSummaryWithOneTransfer
 	originSummary := origin summary.
 	destinationSummary := destination summary.
 	
-	self assert: (OrderedCollection with: 'Salida por transferencia de 100.') equals: originSummary .
-	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.') equals: destinationSummary .! !
+	self assert: (OrderedCollection with: 'Salida por transferencia de 100.'
+									with: 'Balance = -100') equals: originSummary .
+	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.'
+									with: 'Balance = 100') equals: destinationSummary .! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 20:26:28'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/20/2022 19:54:18'!
 test19accountSummaryWithMultipleTransfers
 	| account1 account2 summary1 summary2 |
 	account1 := ReceptiveAccount new.
@@ -611,10 +636,16 @@ test19accountSummaryWithMultipleTransfers
 	summary1 := account1 summary.
 	summary2 := account2 summary.
 	
-	self assert: (OrderedCollection with: 'Salida por transferencia de 100.' with: 'Entrada por transferencia de 25.') equals: summary1 .
-	self assert: (OrderedCollection with: 'Entrada por transferencia de 100.' with: 'Salida por transferencia de 25.') equals: summary2 .! !
+	self assert: (OrderedCollection
+					with: 'Salida por transferencia de 100.'
+					with: 'Entrada por transferencia de 25.'
+					with: 'Balance = -75') equals: summary1 .
+	self assert: (OrderedCollection
+					with: 'Entrada por transferencia de 100.'
+					with: 'Salida por transferencia de 25.'
+					with: 'Balance = 75') equals: summary2 .! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 22:09:00'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/20/2022 19:55:08'!
 test20accountSummaryWithMultipleTransactions
 	| account1 account2 account3 summary1 |
 	account1 := ReceptiveAccount new.
@@ -632,7 +663,8 @@ test20accountSummaryWithMultipleTransactions
 		with: 'Entrada por transferencia de 200.'
 		with: 'Depósito por 100.'
 		with: 'Salida por transferencia de 140.'
-		with: 'Extracción por 23.')
+		with: 'Extracción por 23.'
+		with: 'Balance = 137')
 		equals: summary1 .! !
 
 !ReceptiveAccountTest methodsFor: 'tests' stamp: 'grm 10/19/2022 22:48:13'!
@@ -717,8 +749,8 @@ isComposedBy: anAccount
 assetName
 	self subclassResponsibility ! !
 
-!Account methodsFor: 'names' stamp: 'grm 10/19/2022 23:42:21'!
-assetTree
+!Account methodsFor: 'names' stamp: 'grm 10/20/2022 20:31:29'!
+portfolioStructureTreeFromLevel: currentLevel
 	self subclassResponsibility ! !
 
 
@@ -825,12 +857,14 @@ initialize
 	parents := OrderedCollection new.! !
 
 
-!Portfolio methodsFor: 'report' stamp: 'grm 10/19/2022 22:15:25'!
+!Portfolio methodsFor: 'report' stamp: 'grm 10/20/2022 20:55:05'!
 summary
 	| summary |
 	
 	summary := OrderedCollection new.
 	accounts do: [ :anAccount | summary addAll: anAccount summary ].
+	
+	summary add: 'Balance = ', self balance asString.
 	
 	^summary ! !
 
@@ -848,9 +882,9 @@ transferNet
 	
 	^accounts inject: 0 into: [:currentNet :anAccount | currentNet + anAccount transferNet]! !
 
-!Portfolio methodsFor: 'report' stamp: 'grm 10/19/2022 23:41:29'!
+!Portfolio methodsFor: 'report' stamp: 'grm 10/20/2022 20:29:32'!
 tree
-	^self assetTree.! !
+	^self portfolioStructureTreeFromLevel: 0.! !
 
 
 !Portfolio methodsFor: 'testing' stamp: 'HAW 5/25/2019 12:20:56'!
@@ -889,12 +923,17 @@ transactions
 assetName
 	^name.! !
 
-!Portfolio methodsFor: 'names' stamp: 'grm 10/19/2022 23:52:13'!
-assetTree
-	| nameTree |
-	nameTree _ OrderedCollection with: self assetName.
+!Portfolio methodsFor: 'names' stamp: 'grm 10/20/2022 20:41:58'!
+portfolioStructureTreeFromLevel: currentLevel
+	| nameTree tab indent |
 	
-	accounts do: [ :anAccount | nameTree addAll: anAccount assetTree ].
+	tab := '    '.
+	indent:= ''.
+	currentLevel timesRepeat: [indent := indent,tab].
+	
+	nameTree _ OrderedCollection with: indent, self assetName.
+	
+	accounts do: [ :anAccount | nameTree addAll: (anAccount portfolioStructureTreeFromLevel: currentLevel + 1) ].
 	
 	^nameTree! !
 
@@ -954,17 +993,23 @@ initialize
 	transactions := OrderedCollection new.! !
 
 
-!ReceptiveAccount methodsFor: 'report' stamp: 'grm 10/19/2022 20:04:09'!
+!ReceptiveAccount methodsFor: 'report' stamp: 'grm 10/20/2022 19:49:48'!
 summary
-	^transactions collect: [:transaction | transaction report: self].! !
+	| summary |
+	summary := transactions collect: [:transaction | transaction report: self].
+	summary add: 'Balance = ' , self balance asString.
+	^summary! !
 
 !ReceptiveAccount methodsFor: 'report' stamp: 'grm 10/20/2022 00:02:23'!
 summaryTree
 	^(OrderedCollection with: self assetName) addAll: self summary.! !
 
-!ReceptiveAccount methodsFor: 'report' stamp: 'grm 10/19/2022 22:52:13'!
+!ReceptiveAccount methodsFor: 'report' stamp: 'grm 10/20/2022 20:00:02'!
 transferNet
-	^transactions inject: 0 into: [:currentNet :aTransaction | aTransaction affectsTransferNet: currentNet of: self ]! !
+
+	^transactions
+		inject: 0 
+		into: [:currentNet :aTransaction | aTransaction affectsTransferNet: currentNet of: self ]! !
 
 
 !ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/21/2019 18:55:56'!
@@ -983,9 +1028,14 @@ isComposedBy: anAccount
 assetName
 	^name! !
 
-!ReceptiveAccount methodsFor: 'names' stamp: 'grm 10/19/2022 23:43:32'!
-assetTree
-	^OrderedCollection with: self assetName .! !
+!ReceptiveAccount methodsFor: 'names' stamp: 'grm 10/20/2022 20:45:47'!
+portfolioStructureTreeFromLevel: currentLevel
+	|tab indent |
+	
+	tab := '    '.
+	indent:= ''.
+	currentLevel timesRepeat: [indent := indent,tab].
+	^OrderedCollection with: indent, self assetName .! !
 
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:38:52'!
