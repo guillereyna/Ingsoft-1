@@ -9412,3 +9412,1747 @@ PASSED!
 
 !testRun: #ReceptiveAccountTest #test24emptyAccountHasTransferNetZero stamp: 'grm 10/20/2022 21:25:28'!
 PASSED!
+
+----STARTUP---- (23 October 2022 21:20:28) as /mnt/Data/Universidad/Ingenieria I/linux64/CuisUniversity-5481.image!
+
+
+!classRemoval: #Withdraw stamp: 'grm 10/23/2022 21:20:44'!
+AccountTransaction subclass: #Withdraw
+	instanceVariableNames: 'value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #Transfer stamp: 'grm 10/23/2022 21:20:45'!
+AccountTransaction subclass: #Transfer
+	instanceVariableNames: 'value originAccount destinationAccount'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #Deposit stamp: 'grm 10/23/2022 21:20:45'!
+AccountTransaction subclass: #Deposit
+	instanceVariableNames: 'value'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #AccountTransaction stamp: 'grm 10/23/2022 21:20:46'!
+Object subclass: #AccountTransaction
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #ReceptiveAccount stamp: 'grm 10/23/2022 21:20:46'!
+Account subclass: #ReceptiveAccount
+	instanceVariableNames: 'transactions'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #Portfolio stamp: 'grm 10/23/2022 21:20:46'!
+Account subclass: #Portfolio
+	instanceVariableNames: 'accounts parents'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #Account stamp: 'grm 10/23/2022 21:20:47'!
+Object subclass: #Account
+	instanceVariableNames: 'name'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #ReceptiveAccountTest stamp: 'grm 10/23/2022 21:20:48'!
+TestCase subclass: #ReceptiveAccountTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classRemoval: #PortfolioTest stamp: 'grm 10/23/2022 21:20:48'!
+TestCase subclass: #PortfolioTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+----End fileIn of /mnt/Data/Universidad/Ingenieria I/linux64/Portfolio-Solucion.st----!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/23/2022 21:31:07'!
+test25emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly
+	| portfolio |
+	portfolio _ Portfolio new.
+	
+	self assert: (OrderedCollection with: portfolio assetName with: 'Balance = 0') equals: portfolio summaryTree.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/23/2022 21:31:14'!
+test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly
+	| portfolio |
+	portfolio _ Portfolio new.
+	
+	self assert: (OrderedCollection with: portfolio assetName with: 'Balance = 0') equals: portfolio summaryTree.! !
+
+!methodRemoval: PortfolioTest #test25emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 21:31:14'!
+test25emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly
+	| portfolio |
+	portfolio _ Portfolio new.
+	
+	self assert: (OrderedCollection with: portfolio assetName with: 'Balance = 0') equals: portfolio summaryTree.!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 21:31:58'!
+FAILURE!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 21:32:11'!
+PASSED!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 21:32:20'!
+FAILURE!
+!Portfolio methodsFor: 'report' stamp: 'grm 10/23/2022 21:32:58' prior: 50565591!
+summaryTree
+	| summaryTree |
+	summaryTree _ OrderedCollection with: self assetName with: 'Balance = ', self balance asString.
+	
+	^summaryTree.! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test16emptyPortfolioHasEmptySummaryWithBalanceZero stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test17portfolioWithEmptyAccountHasEmptySummary stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test18portfolioWithOneAccountHasSameSummary stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test19portfolioWithMultipleAccountsHasCorrectSummary stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test20composedPortfolioHasCorrectSummary stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test21emptyPortfolioHasTransferNetZero stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test22portfolioWithOneAccountHasCorrectTransferNet stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test23portfolioWithManyAccountsHasCorrectTransferNet stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test24composedPortfolioHasCorrectTransferNet stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test25emptyPortfolioTreeHasOwnNameOnly stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test26composedPortfolioHasCorrectNameTree stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 21:32:58'!
+PASSED!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test16emptyPortfolioHasEmptySummaryWithBalanceZero stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test17portfolioWithEmptyAccountHasEmptySummary stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test18portfolioWithOneAccountHasSameSummary stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test19portfolioWithMultipleAccountsHasCorrectSummary stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test20composedPortfolioHasCorrectSummary stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test21emptyPortfolioHasTransferNetZero stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test22portfolioWithOneAccountHasCorrectTransferNet stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test23portfolioWithManyAccountsHasCorrectTransferNet stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test24composedPortfolioHasCorrectTransferNet stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test25emptyPortfolioTreeHasOwnNameOnly stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test26composedPortfolioHasCorrectNameTree stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 21:33:02'!
+PASSED!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/23/2022 21:43:30'!
+test27composedPortfolioHasCorrectSummaryTree
+	| portfolioParent portfolioChild account summaryTree |
+	
+	portfolioParent _ Portfolio named: 'Parent'.
+	portfolioChild _ Portfolio named: 'Child'.
+	account _ ReceptiveAccount named: 'Account'.
+	Deposit register: 10 on: account.
+	
+	portfolioParent add: account .
+	portfolioParent add: portfolioChild .
+	
+	summaryTree _ OrderedCollection with: 'Parent'
+					with: tab, 'Account'
+					with: tab, tab, 'Depósito por 10.'
+					with: tab, tab, 'Balance = 10'
+					with: tab, 'Child'
+					with: tab, tab, 'Balance = 0'.
+					
+	summaryTree add: tab, 'Balance = 10'.
+	
+	self assert: summaryTree equals: portfolioParent summaryTree.! !
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/23/2022 21:43:37'!
+test28composedPortfolioHasCorrectSummaryTree
+	| portfolioParent portfolioChild account summaryTree |
+	
+	portfolioParent _ Portfolio named: 'Parent'.
+	portfolioChild _ Portfolio named: 'Child'.
+	account _ ReceptiveAccount named: 'Account'.
+	Deposit register: 10 on: account.
+	
+	portfolioParent add: account .
+	portfolioParent add: portfolioChild .
+	
+	summaryTree _ OrderedCollection with: 'Parent'
+					with: tab, 'Account'
+					with: tab, tab, 'Depósito por 10.'
+					with: tab, tab, 'Balance = 10'
+					with: tab, 'Child'
+					with: tab, tab, 'Balance = 0'.
+					
+	summaryTree add: tab, 'Balance = 10'.
+	
+	self assert: summaryTree equals: portfolioParent summaryTree.! !
+
+!methodRemoval: PortfolioTest #test27composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 21:43:37'!
+test27composedPortfolioHasCorrectSummaryTree
+	| portfolioParent portfolioChild account summaryTree |
+	
+	portfolioParent _ Portfolio named: 'Parent'.
+	portfolioChild _ Portfolio named: 'Child'.
+	account _ ReceptiveAccount named: 'Account'.
+	Deposit register: 10 on: account.
+	
+	portfolioParent add: account .
+	portfolioParent add: portfolioChild .
+	
+	summaryTree _ OrderedCollection with: 'Parent'
+					with: tab, 'Account'
+					with: tab, tab, 'Depósito por 10.'
+					with: tab, tab, 'Balance = 10'
+					with: tab, 'Child'
+					with: tab, tab, 'Balance = 0'.
+					
+	summaryTree add: tab, 'Balance = 10'.
+	
+	self assert: summaryTree equals: portfolioParent summaryTree.!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 21:43:38'!
+FAILURE!
+!Portfolio methodsFor: 'report' stamp: 'grm 10/23/2022 21:46:12' prior: 50566076!
+summaryTree
+	| summaryTree |
+	summaryTree _ OrderedCollection with: self assetName.
+	
+	summaryTree addAll: (self summaryTreeFromLevel: 0).
+	
+	summaryTree add: '    Balance = ', self balance asString.
+	
+	^summaryTree.! !
+!Portfolio methodsFor: 'report' stamp: 'grm 10/23/2022 21:46:45' prior: 50566366!
+summaryTree
+	^self summaryTreeFromLevel: 0.! !
+!Portfolio methodsFor: 'report' stamp: 'grm 10/23/2022 21:47:08'!
+summaryTreeFromLevel: aCurrentLevel
+	| summaryTree |
+	
+	summaryTree _ OrderedCollection with: self assetName.
+	
+	summaryTree addAll: (self summaryTreeFromLevel: aCurrentLevel + 1).
+	
+	summaryTree add: '    Balance = ', self balance asString.
+	
+	^summaryTree.! !
+!Portfolio methodsFor: 'report - private' stamp: 'grm 10/23/2022 21:51:50' prior: 50566380!
+summaryTreeFromLevel: currentLevel
+	| summaryTree tab indent |
+	
+	tab := '    '.
+	indent:= ''.
+	currentLevel timesRepeat: [indent := indent,tab].
+	
+	summaryTree _ OrderedCollection with: indent, self assetName.
+	
+	accounts do: [ :anAccount | summaryTree addAll: (anAccount summaryTreeFromLevel: currentLevel + 1) ].
+	
+	summaryTree add: indent, 'Balance = ', self balance asString.
+	
+	^summaryTree! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test16emptyPortfolioHasEmptySummaryWithBalanceZero stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test17portfolioWithEmptyAccountHasEmptySummary stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test18portfolioWithOneAccountHasSameSummary stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test19portfolioWithMultipleAccountsHasCorrectSummary stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test20composedPortfolioHasCorrectSummary stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test21emptyPortfolioHasTransferNetZero stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test22portfolioWithOneAccountHasCorrectTransferNet stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test23portfolioWithManyAccountsHasCorrectTransferNet stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test24composedPortfolioHasCorrectTransferNet stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test25emptyPortfolioTreeHasOwnNameOnly stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test26composedPortfolioHasCorrectNameTree stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 21:51:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 21:51:52'!
+ERROR!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 21:51:52'!
+ERROR!
+!Account methodsFor: 'report' stamp: 'grm 10/23/2022 21:53:46'!
+summaryTree
+	self subclassResponsibility ! !
+!Account methodsFor: 'report' stamp: 'grm 10/23/2022 21:53:52'!
+transferNet
+	self subclassResponsibility ! !
+
+!methodRemoval: Account #summaryTree stamp: 'grm 10/23/2022 21:54:17'!
+summaryTree
+	self subclassResponsibility !
+
+!methodRemoval: ReceptiveAccount #summaryTree stamp: 'grm 10/23/2022 21:54:25'!
+summaryTree
+	^(OrderedCollection with: self assetName) addAll: self summary.!
+!Account methodsFor: 'report - private' stamp: 'grm 10/23/2022 21:55:05' prior: 50565474!
+assetName
+	self subclassResponsibility .! !
+!Account methodsFor: 'report - private' stamp: 'grm 10/23/2022 21:55:16'!
+portfolioStructureFromLevel: currentLevel
+	self subclassResponsibility .! !
+!Account methodsFor: 'report - private' stamp: 'grm 10/23/2022 21:55:23'!
+summaryTreeFromLevel: currentLevel
+	self subclassResponsibility .! !
+
+!methodRemoval: Account #portfolioStructureFromLevel: stamp: 'grm 10/23/2022 21:56:22'!
+portfolioStructureFromLevel: currentLevel
+	self subclassResponsibility .!
+
+pim _ OrderedCollection with: 3 with: 6 with: 1.!
+
+pum _ pim do: [:a | a +1].!
+
+pum!
+
+pum _ pim do: [:a | a +1].!
+
+pum _ pim do: [:a | a +1].!
+
+pum _ pim collect: [:a | a +1].!
+!ReceptiveAccount methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:02:00' overrides: 50566542!
+summaryTreeFromLevel: currentLevel
+	| summaryTree tab indent |
+	
+	tab := '    '.
+	indent:= ''.
+	currentLevel timesRepeat: [indent := indent,tab].
+	
+	summaryTree _ OrderedCollection with: indent, self assetName .
+	summaryTree addAll: (self summary collect: [:line | indent, line]).
+	
+	^summaryTree.! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferAffectsBalanceCorrectly stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferIsRegisteredCorrectly stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmptyAndBalanceZero stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17accountSummaryWithMultipleWithdraw stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransfer stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test19accountSummaryWithMultipleTransfers stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test20accountSummaryWithMultipleTransactions stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test21accountWithNoTransfersHasTransferNetZero stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test22accountWithOneTransferHasCorrectTransferNet stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test23accountWithManyTransfersHasCorrectTransferNet stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test24emptyAccountHasTransferNetZero stamp: 'grm 10/23/2022 22:02:02'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test16emptyPortfolioHasEmptySummaryWithBalanceZero stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test17portfolioWithEmptyAccountHasEmptySummary stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test18portfolioWithOneAccountHasSameSummary stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test19portfolioWithMultipleAccountsHasCorrectSummary stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test20composedPortfolioHasCorrectSummary stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test21emptyPortfolioHasTransferNetZero stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test22portfolioWithOneAccountHasCorrectTransferNet stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test23portfolioWithManyAccountsHasCorrectTransferNet stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test24composedPortfolioHasCorrectTransferNet stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test25emptyPortfolioTreeHasOwnNameOnly stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test26composedPortfolioHasCorrectNameTree stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 22:02:07'!
+PASSED!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 22:02:07'!
+FAILURE!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 22:02:07'!
+FAILURE!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test16emptyPortfolioHasEmptySummaryWithBalanceZero stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test17portfolioWithEmptyAccountHasEmptySummary stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test18portfolioWithOneAccountHasSameSummary stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test19portfolioWithMultipleAccountsHasCorrectSummary stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test20composedPortfolioHasCorrectSummary stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test21emptyPortfolioHasTransferNetZero stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test22portfolioWithOneAccountHasCorrectTransferNet stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test23portfolioWithManyAccountsHasCorrectTransferNet stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test24composedPortfolioHasCorrectTransferNet stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test25emptyPortfolioTreeHasOwnNameOnly stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test26composedPortfolioHasCorrectNameTree stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 22:02:14'!
+PASSED!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 22:02:14'!
+FAILURE!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 22:02:14'!
+FAILURE!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/23/2022 22:03:33' prior: 50566314!
+test28composedPortfolioHasCorrectSummaryTree
+	| portfolioParent portfolioChild account expectedSummaryTree calculatedSummaryTree |
+	
+	portfolioParent _ Portfolio named: 'Parent'.
+	portfolioChild _ Portfolio named: 'Child'.
+	account _ ReceptiveAccount named: 'Account'.
+	Deposit register: 10 on: account.
+	
+	portfolioParent add: account .
+	portfolioParent add: portfolioChild .
+	
+	expectedSummaryTree _ OrderedCollection with: 'Parent'
+					with: tab, 'Account'
+					with: tab, tab, 'Depósito por 10.'
+					with: tab, tab, 'Balance = 10'
+					with: tab, 'Child'
+					with: tab, tab, 'Balance = 0'.
+					
+	expectedSummaryTree add: tab, 'Balance = 10'.
+	
+	calculatedSummaryTree _ portfolioParent summaryTree.
+	
+	self assert: expectedSummaryTree equals: calculatedSummaryTree.! !
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 22:03:34'!
+FAILURE!
+!Portfolio methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:04:34' prior: 50566392 overrides: 50566542!
+summaryTreeFromLevel: currentLevel
+	| summaryTree tab indent |
+	
+	tab := '    '.
+	indent:= ''.
+	currentLevel timesRepeat: [indent := indent,tab].
+	
+	summaryTree _ OrderedCollection with: indent, self assetName.
+	
+	accounts do: [ :anAccount | summaryTree addAll: (anAccount summaryTreeFromLevel: currentLevel + 1) ].
+	
+	summaryTree add: indent, tab, 'Balance = ', self balance asString.
+	
+	^summaryTree! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test16emptyPortfolioHasEmptySummaryWithBalanceZero stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test17portfolioWithEmptyAccountHasEmptySummary stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test18portfolioWithOneAccountHasSameSummary stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test19portfolioWithMultipleAccountsHasCorrectSummary stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test20composedPortfolioHasCorrectSummary stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test21emptyPortfolioHasTransferNetZero stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test22portfolioWithOneAccountHasCorrectTransferNet stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test23portfolioWithManyAccountsHasCorrectTransferNet stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test24composedPortfolioHasCorrectTransferNet stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test25emptyPortfolioTreeHasOwnNameOnly stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test26composedPortfolioHasCorrectNameTree stamp: 'grm 10/23/2022 22:04:35'!
+PASSED!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 22:04:35'!
+FAILURE!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 22:04:35'!
+FAILURE!
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/23/2022 22:04:51' prior: 50566044!
+test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly
+	| portfolio |
+	portfolio _ Portfolio new.
+	
+	self assert: (OrderedCollection with: portfolio assetName with: '    Balance = 0') equals: portfolio summaryTree.! !
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test16emptyPortfolioHasEmptySummaryWithBalanceZero stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test17portfolioWithEmptyAccountHasEmptySummary stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test18portfolioWithOneAccountHasSameSummary stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test19portfolioWithMultipleAccountsHasCorrectSummary stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test20composedPortfolioHasCorrectSummary stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test21emptyPortfolioHasTransferNetZero stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test22portfolioWithOneAccountHasCorrectTransferNet stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test23portfolioWithManyAccountsHasCorrectTransferNet stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test24composedPortfolioHasCorrectTransferNet stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test25emptyPortfolioTreeHasOwnNameOnly stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test26composedPortfolioHasCorrectNameTree stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 22:04:52'!
+PASSED!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 22:04:52'!
+FAILURE!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 22:04:52'!
+FAILURE!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 22:05:02'!
+FAILURE!
+!ReceptiveAccount methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:06:39' prior: 50566559 overrides: 50566542!
+summaryTreeFromLevel: currentLevel
+	| summaryTree tab indent |
+	
+	tab := '    '.
+	indent:= ''.
+	currentLevel timesRepeat: [indent := indent,tab].
+	
+	summaryTree _ OrderedCollection with: indent, self assetName .
+	summaryTree addAll: (self summary collect: [:line | indent, tab, line]).
+	
+	^summaryTree.! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferAffectsBalanceCorrectly stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferIsRegisteredCorrectly stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmptyAndBalanceZero stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17accountSummaryWithMultipleWithdraw stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransfer stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test19accountSummaryWithMultipleTransfers stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test20accountSummaryWithMultipleTransactions stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test21accountWithNoTransfersHasTransferNetZero stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test22accountWithOneTransferHasCorrectTransferNet stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test23accountWithManyTransfersHasCorrectTransferNet stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test24emptyAccountHasTransferNetZero stamp: 'grm 10/23/2022 22:06:40'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test16emptyPortfolioHasEmptySummaryWithBalanceZero stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test17portfolioWithEmptyAccountHasEmptySummary stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test18portfolioWithOneAccountHasSameSummary stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test19portfolioWithMultipleAccountsHasCorrectSummary stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test20composedPortfolioHasCorrectSummary stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test21emptyPortfolioHasTransferNetZero stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test22portfolioWithOneAccountHasCorrectTransferNet stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test23portfolioWithManyAccountsHasCorrectTransferNet stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test24composedPortfolioHasCorrectTransferNet stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test25emptyPortfolioTreeHasOwnNameOnly stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test26composedPortfolioHasCorrectNameTree stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 22:06:43'!
+PASSED!
+!Account methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:10:22'!
+getIndentForLevel: currentLevel
+	| indent |
+
+	indent _ ''.
+	currentLevel timesRepeat: [indent _ indent, '    '].
+	
+	^indent! !
+!Portfolio methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:11:07' prior: 50566912 overrides: 50566542!
+summaryTreeFromLevel: currentLevel
+	| summaryTree tab indent |
+	
+	tab := '    '.
+	indent:= self getIndentForLevel: currentLevel .
+	
+	summaryTree _ OrderedCollection with: indent, self assetName.
+	
+	accounts do: [ :anAccount | summaryTree addAll: (anAccount summaryTreeFromLevel: currentLevel + 1) ].
+	
+	summaryTree add: indent, tab, 'Balance = ', self balance asString.
+	
+	^summaryTree! !
+!Portfolio methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:11:12' prior: 50565652 overrides: 50565478!
+portfolioStructureTreeFromLevel: currentLevel
+	| nameTree tab indent |
+	
+	tab := '    '.
+	indent:= indent:= self getIndentForLevel: currentLevel .
+	
+	nameTree _ OrderedCollection with: indent, self assetName.
+	
+	accounts do: [ :anAccount | nameTree addAll: (anAccount portfolioStructureTreeFromLevel: currentLevel + 1) ].
+	
+	^nameTree! !
+!Portfolio methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:11:29' prior: 50567392 overrides: 50565478!
+portfolioStructureTreeFromLevel: currentLevel
+	| nameTree indent |
+
+	indent:= indent:= self getIndentForLevel: currentLevel .
+	
+	nameTree _ OrderedCollection with: indent, self assetName.
+	
+	accounts do: [ :anAccount | nameTree addAll: (anAccount portfolioStructureTreeFromLevel: currentLevel + 1) ].
+	
+	^nameTree! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test16emptyPortfolioHasEmptySummaryWithBalanceZero stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test17portfolioWithEmptyAccountHasEmptySummary stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test18portfolioWithOneAccountHasSameSummary stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test19portfolioWithMultipleAccountsHasCorrectSummary stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test20composedPortfolioHasCorrectSummary stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test21emptyPortfolioHasTransferNetZero stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test22portfolioWithOneAccountHasCorrectTransferNet stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test23portfolioWithManyAccountsHasCorrectTransferNet stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test24composedPortfolioHasCorrectTransferNet stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test25emptyPortfolioTreeHasOwnNameOnly stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test26composedPortfolioHasCorrectNameTree stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 22:11:33'!
+PASSED!
+!Portfolio methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:11:37' prior: 50567407 overrides: 50565478!
+portfolioStructureTreeFromLevel: currentLevel
+	| nameTree indent |
+
+	indent := indent:= self getIndentForLevel: currentLevel .
+	
+	nameTree _ OrderedCollection with: indent, self assetName.
+	
+	accounts do: [ :anAccount | nameTree addAll: (anAccount portfolioStructureTreeFromLevel: currentLevel + 1) ].
+	
+	^nameTree! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test16emptyPortfolioHasEmptySummaryWithBalanceZero stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test17portfolioWithEmptyAccountHasEmptySummary stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test18portfolioWithOneAccountHasSameSummary stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test19portfolioWithMultipleAccountsHasCorrectSummary stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test20composedPortfolioHasCorrectSummary stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test21emptyPortfolioHasTransferNetZero stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test22portfolioWithOneAccountHasCorrectTransferNet stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test23portfolioWithManyAccountsHasCorrectTransferNet stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test24composedPortfolioHasCorrectTransferNet stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test25emptyPortfolioTreeHasOwnNameOnly stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test26composedPortfolioHasCorrectNameTree stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 22:11:38'!
+PASSED!
+!Portfolio methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:11:45' prior: 50567526 overrides: 50565478!
+portfolioStructureTreeFromLevel: currentLevel
+	| nameTree indent |
+
+	indent := self getIndentForLevel: currentLevel .
+	
+	nameTree _ OrderedCollection with: indent, self assetName.
+	
+	accounts do: [ :anAccount | nameTree addAll: (anAccount portfolioStructureTreeFromLevel: currentLevel + 1) ].
+	
+	^nameTree! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test16emptyPortfolioHasEmptySummaryWithBalanceZero stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test17portfolioWithEmptyAccountHasEmptySummary stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test18portfolioWithOneAccountHasSameSummary stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test19portfolioWithMultipleAccountsHasCorrectSummary stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test20composedPortfolioHasCorrectSummary stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test21emptyPortfolioHasTransferNetZero stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test22portfolioWithOneAccountHasCorrectTransferNet stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test23portfolioWithManyAccountsHasCorrectTransferNet stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test24composedPortfolioHasCorrectTransferNet stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test25emptyPortfolioTreeHasOwnNameOnly stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test26composedPortfolioHasCorrectNameTree stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 22:11:47'!
+PASSED!
+!Portfolio methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:13:23' prior: 50567376 overrides: 50566542!
+summaryTreeFromLevel: currentLevel
+	| summaryTree indent |
+	
+	indent:= self getIndentForLevel: currentLevel .
+	
+	summaryTree _ OrderedCollection with: indent, self assetName.
+	
+	accounts do: [ :anAccount | summaryTree addAll: (anAccount summaryTreeFromLevel: currentLevel + 1) ].
+	
+	summaryTree add: (self getIndentForLevel: currentLevel + 1), 'Balance = ', self balance asString.
+	
+	^summaryTree! !
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test16emptyPortfolioHasEmptySummaryWithBalanceZero stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test17portfolioWithEmptyAccountHasEmptySummary stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test18portfolioWithOneAccountHasSameSummary stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test19portfolioWithMultipleAccountsHasCorrectSummary stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test20composedPortfolioHasCorrectSummary stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test21emptyPortfolioHasTransferNetZero stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test22portfolioWithOneAccountHasCorrectTransferNet stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test23portfolioWithManyAccountsHasCorrectTransferNet stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test24composedPortfolioHasCorrectTransferNet stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test25emptyPortfolioTreeHasOwnNameOnly stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test26composedPortfolioHasCorrectNameTree stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 22:13:38'!
+PASSED!
+!ReceptiveAccount methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:14:13' prior: 50565760 overrides: 50565478!
+portfolioStructureTreeFromLevel: currentLevel
+	| indent |
+	
+	indent:= self getIndentForLevel: currentLevel .
+	
+	^OrderedCollection with: indent, self assetName .! !
+!ReceptiveAccount methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:14:53' prior: 50567160 overrides: 50566542!
+summaryTreeFromLevel: currentLevel
+	| summaryTree indent |
+
+	indent := self getIndentForLevel: currentLevel .
+	
+	summaryTree _ OrderedCollection with: indent, self assetName .
+	summaryTree addAll: (self summary collect: [:line | (self getIndentForLevel: currentLevel + 1), line]).
+	
+	^summaryTree.! !
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test08transferAffectsBalanceCorrectly stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test09transferIsRegisteredCorrectly stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test10transferCanAnswerIfAccountIsOriginOrDestinationCorrectly stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test11transferCanAnswerOtherEndOfTransaction stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test12transferRaisesErrorIfAccountIsNotPartOfTransaction stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test13emptyAccountSummaryIsEmptyAndBalanceZero stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test14accountSummaryWithOneDeposit stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test15accountSummaryWithMultipleDeposits stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test16accountSummaryWithOneWithdraw stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test17accountSummaryWithMultipleWithdraw stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test18accountSummaryWithOneTransfer stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test19accountSummaryWithMultipleTransfers stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test20accountSummaryWithMultipleTransactions stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test21accountWithNoTransfersHasTransferNetZero stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test22accountWithOneTransferHasCorrectTransferNet stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test23accountWithManyTransfersHasCorrectTransferNet stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test24emptyAccountHasTransferNetZero stamp: 'grm 10/23/2022 22:14:55'!
+PASSED!
+
+!testRun: #PortfolioTest #test01BalanceOfPortfolioWithoutAccountsIsZero stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test02BalanceOfPortfolioWithAccountsIsSumOfAccountsBalance stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test03BalanceOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test04PortfolioWithoutAccountsHasNoRegisteredTransaction stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test05PortfolioHasRegisteredItsAccountsTransactions stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test06PortfolioLooksForRegisteredTransactionsRecursively stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test07PortfolioHasNoTransactionWhenHasNoAccounts stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test08PortfolioTransactionsIncludesAllItsAccountsTransactions stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test09PortfolioTransactionsAreCalculatedRecursively stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test10PortfolioCanNotIncludeTheSameAccountMoreThanOnce stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test11PortfolioCanNotIncludeAccountOfItsPortfolios stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test12PortfolioCanNotIncludeItself stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test13ComposedPortfolioCanNotHaveParentPortfolioAccount stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test14ComposedPortfolioCanNotHaveAccountOfAnyRootParentRecursively stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test15PortfolioCanNotIncludeAnyOfTheComposedAccountOfPortfolioToAdd stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test16emptyPortfolioHasEmptySummaryWithBalanceZero stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test17portfolioWithEmptyAccountHasEmptySummary stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test18portfolioWithOneAccountHasSameSummary stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test19portfolioWithMultipleAccountsHasCorrectSummary stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test20composedPortfolioHasCorrectSummary stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test21emptyPortfolioHasTransferNetZero stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test22portfolioWithOneAccountHasCorrectTransferNet stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test23portfolioWithManyAccountsHasCorrectTransferNet stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test24composedPortfolioHasCorrectTransferNet stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test25emptyPortfolioTreeHasOwnNameOnly stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test26composedPortfolioHasCorrectNameTree stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+!testRun: #PortfolioTest #test28composedPortfolioHasCorrectSummaryTree stamp: 'grm 10/23/2022 22:15:04'!
+PASSED!
+
+----SNAPSHOT----(23 October 2022 22:17:45) CuisUniversity-5481.image priorSource: 7453583!

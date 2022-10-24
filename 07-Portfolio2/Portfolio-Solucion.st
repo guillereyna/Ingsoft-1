@@ -5,9 +5,10 @@ TestCase subclass: #PortfolioTest
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/20/2022 20:23:28'!
+!PortfolioTest methodsFor: 'setUp' stamp: 'grm 10/20/2022 20:23:28'!
 setUp
 	tab := '    '.! !
+
 
 !PortfolioTest methodsFor: 'tests' stamp: 'HAW 5/25/2019 11:16:26'!
 test01BalanceOfPortfolioWithoutAccountsIsZero
@@ -376,6 +377,38 @@ test26composedPortfolioHasCorrectNameTree
 					with: tab, tab, 'Cuenta de Angeles')
 		equals: familyTree.! !
 
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/23/2022 22:04:51'!
+test27emptyPortfolioSummaryTreeHasOwnNameAndBalanceOnly
+	| portfolio |
+	portfolio _ Portfolio new.
+	
+	self assert: (OrderedCollection with: portfolio assetName with: '    Balance = 0') equals: portfolio summaryTree.! !
+
+!PortfolioTest methodsFor: 'tests' stamp: 'grm 10/23/2022 22:03:33'!
+test28composedPortfolioHasCorrectSummaryTree
+	| portfolioParent portfolioChild account expectedSummaryTree calculatedSummaryTree |
+	
+	portfolioParent _ Portfolio named: 'Parent'.
+	portfolioChild _ Portfolio named: 'Child'.
+	account _ ReceptiveAccount named: 'Account'.
+	Deposit register: 10 on: account.
+	
+	portfolioParent add: account .
+	portfolioParent add: portfolioChild .
+	
+	expectedSummaryTree _ OrderedCollection with: 'Parent'
+					with: tab, 'Account'
+					with: tab, tab, 'Depósito por 10.'
+					with: tab, tab, 'Balance = 10'
+					with: tab, 'Child'
+					with: tab, tab, 'Balance = 0'.
+					
+	expectedSummaryTree add: tab, 'Balance = 10'.
+	
+	calculatedSummaryTree _ portfolioParent summaryTree.
+	
+	self assert: expectedSummaryTree equals: calculatedSummaryTree.! !
+
 
 !classDefinition: #ReceptiveAccountTest category: 'Portfolio-Solucion'!
 TestCase subclass: #ReceptiveAccountTest
@@ -733,6 +766,32 @@ initializeNamed: aName
 summary
 	self subclassResponsibility ! !
 
+!Account methodsFor: 'report' stamp: 'grm 10/23/2022 21:53:52'!
+transferNet
+	self subclassResponsibility ! !
+
+
+!Account methodsFor: 'report - private' stamp: 'grm 10/23/2022 21:55:05'!
+assetName
+	self subclassResponsibility .! !
+
+!Account methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:10:22'!
+getIndentForLevel: currentLevel
+	| indent |
+
+	indent _ ''.
+	currentLevel timesRepeat: [indent _ indent, '    '].
+	
+	^indent! !
+
+!Account methodsFor: 'report - private' stamp: 'grm 10/20/2022 20:31:29'!
+portfolioStructureTreeFromLevel: currentLevel
+	self subclassResponsibility ! !
+
+!Account methodsFor: 'report - private' stamp: 'grm 10/23/2022 21:55:23'!
+summaryTreeFromLevel: currentLevel
+	self subclassResponsibility .! !
+
 
 !Account methodsFor: 'testing' stamp: 'HAW 5/25/2019 12:23:47'!
 hasRegistered: aTransaction
@@ -742,15 +801,6 @@ hasRegistered: aTransaction
 !Account methodsFor: 'testing' stamp: 'HAW 5/25/2019 12:24:25'!
 isComposedBy: anAccount
 
-	self subclassResponsibility ! !
-
-
-!Account methodsFor: 'names' stamp: 'grm 10/19/2022 23:42:17'!
-assetName
-	self subclassResponsibility ! !
-
-!Account methodsFor: 'names' stamp: 'grm 10/20/2022 20:31:29'!
-portfolioStructureTreeFromLevel: currentLevel
 	self subclassResponsibility ! !
 
 
@@ -868,14 +918,9 @@ summary
 	
 	^summary ! !
 
-!Portfolio methodsFor: 'report' stamp: 'grm 10/20/2022 00:00:59'!
+!Portfolio methodsFor: 'report' stamp: 'grm 10/23/2022 21:46:45'!
 summaryTree
-	| summaryTree |
-	summaryTree _ OrderedCollection with: self assetName.
-	
-	accounts do: [:anAccount | summaryTree addAll: anAccount summaryTree].
-	
-	^summaryTree.! !
+	^self summaryTreeFromLevel: 0.! !
 
 !Portfolio methodsFor: 'report' stamp: 'grm 10/19/2022 23:12:21'!
 transferNet
@@ -885,6 +930,37 @@ transferNet
 !Portfolio methodsFor: 'report' stamp: 'grm 10/20/2022 20:29:32'!
 tree
 	^self portfolioStructureTreeFromLevel: 0.! !
+
+
+!Portfolio methodsFor: 'report - private' stamp: 'grm 10/19/2022 23:35:48'!
+assetName
+	^name.! !
+
+!Portfolio methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:11:45'!
+portfolioStructureTreeFromLevel: currentLevel
+	| nameTree indent |
+
+	indent := self getIndentForLevel: currentLevel .
+	
+	nameTree _ OrderedCollection with: indent, self assetName.
+	
+	accounts do: [ :anAccount | nameTree addAll: (anAccount portfolioStructureTreeFromLevel: currentLevel + 1) ].
+	
+	^nameTree! !
+
+!Portfolio methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:13:23'!
+summaryTreeFromLevel: currentLevel
+	| summaryTree indent |
+	
+	indent:= self getIndentForLevel: currentLevel .
+	
+	summaryTree _ OrderedCollection with: indent, self assetName.
+	
+	accounts do: [ :anAccount | summaryTree addAll: (anAccount summaryTreeFromLevel: currentLevel + 1) ].
+	
+	summaryTree add: (self getIndentForLevel: currentLevel + 1), 'Balance = ', self balance asString.
+	
+	^summaryTree! !
 
 
 !Portfolio methodsFor: 'testing' stamp: 'HAW 5/25/2019 12:20:56'!
@@ -917,25 +993,6 @@ transactions
 	accounts do: [ :anAccount | anAccount addTransactionsTo: transactions ].
 	
 	^transactions ! !
-
-
-!Portfolio methodsFor: 'names' stamp: 'grm 10/19/2022 23:35:48'!
-assetName
-	^name.! !
-
-!Portfolio methodsFor: 'names' stamp: 'grm 10/20/2022 20:41:58'!
-portfolioStructureTreeFromLevel: currentLevel
-	| nameTree tab indent |
-	
-	tab := '    '.
-	indent:= ''.
-	currentLevel timesRepeat: [indent := indent,tab].
-	
-	nameTree _ OrderedCollection with: indent, self assetName.
-	
-	accounts do: [ :anAccount | nameTree addAll: (anAccount portfolioStructureTreeFromLevel: currentLevel + 1) ].
-	
-	^nameTree! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1000,16 +1057,36 @@ summary
 	summary add: 'Balance = ' , self balance asString.
 	^summary! !
 
-!ReceptiveAccount methodsFor: 'report' stamp: 'grm 10/20/2022 00:02:23'!
-summaryTree
-	^(OrderedCollection with: self assetName) addAll: self summary.! !
-
 !ReceptiveAccount methodsFor: 'report' stamp: 'grm 10/20/2022 20:00:02'!
 transferNet
 
 	^transactions
 		inject: 0 
 		into: [:currentNet :aTransaction | aTransaction affectsTransferNet: currentNet of: self ]! !
+
+
+!ReceptiveAccount methodsFor: 'report - private' stamp: 'grm 10/19/2022 23:42:58'!
+assetName
+	^name! !
+
+!ReceptiveAccount methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:14:13'!
+portfolioStructureTreeFromLevel: currentLevel
+	| indent |
+	
+	indent:= self getIndentForLevel: currentLevel .
+	
+	^OrderedCollection with: indent, self assetName .! !
+
+!ReceptiveAccount methodsFor: 'report - private' stamp: 'grm 10/23/2022 22:14:53'!
+summaryTreeFromLevel: currentLevel
+	| summaryTree indent |
+
+	indent := self getIndentForLevel: currentLevel .
+	
+	summaryTree _ OrderedCollection with: indent, self assetName .
+	summaryTree addAll: (self summary collect: [:line | (self getIndentForLevel: currentLevel + 1), line]).
+	
+	^summaryTree.! !
 
 
 !ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/21/2019 18:55:56'!
@@ -1022,20 +1099,6 @@ hasRegistered: aTransaction
 isComposedBy: anAccount
 
 	^self = anAccount ! !
-
-
-!ReceptiveAccount methodsFor: 'names' stamp: 'grm 10/19/2022 23:42:58'!
-assetName
-	^name! !
-
-!ReceptiveAccount methodsFor: 'names' stamp: 'grm 10/20/2022 20:45:47'!
-portfolioStructureTreeFromLevel: currentLevel
-	|tab indent |
-	
-	tab := '    '.
-	indent:= ''.
-	currentLevel timesRepeat: [indent := indent,tab].
-	^OrderedCollection with: indent, self assetName .! !
 
 
 !ReceptiveAccount methodsFor: 'transactions' stamp: 'HAW 5/25/2019 11:38:52'!
