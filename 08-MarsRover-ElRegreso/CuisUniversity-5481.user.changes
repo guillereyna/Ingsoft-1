@@ -1670,3 +1670,3302 @@ PASSED!
 ----SNAPSHOT----(24 October 2022 22:01:02) CuisUniversity-5481.image priorSource: 7708434!
 
 ----SNAPSHOT----(24 October 2022 22:01:21) CuisUniversity-5481.image priorSource: 7728882!
+
+----STARTUP---- (26 October 2022 18:38:25) as /mnt/Data/Universidad/Ingenieria I/linux64/CuisUniversity-5481.image!
+
+
+----End fileIn of /mnt/Data/Universidad/Ingenieria I/linux64/MarsRover-WithHeading.st----!
+
+Object subclass: #MarsRoverLogger
+	instanceVariableNames: 'rover log'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverLogger category: 'MarsRover-WithHeading' stamp: 'grm 10/26/2022 18:41:19'!
+Object subclass: #MarsRoverLogger
+	instanceVariableNames: 'rover log'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+MarsRoverLogger subclass: #MarsRoverPositionLogger
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverPositionLogger category: 'MarsRover-WithHeading' stamp: 'grm 10/26/2022 18:41:37'!
+MarsRoverLogger subclass: #MarsRoverPositionLogger
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+!MarsRoverLogger class methodsFor: 'as yet unclassified' stamp: 'grm 10/26/2022 18:43:12' prior: 50553017!
+attachedTo: aMarsRover
+	^self new initializeAttachedTo: aMarsRover.! !
+
+!testRun: #MarsRoverLoggerTest #test01loggerHasEmptyPositionLogAfterEmptyCommands stamp: 'grm 10/26/2022 18:43:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02loggerHasUpdatedPositionAfterMovingForward stamp: 'grm 10/26/2022 18:43:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03loggerHasUpdatedPositionAfterMovingBackward stamp: 'grm 10/26/2022 18:43:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04loggerLogsMultiplesMoveForwardAndBackwards stamp: 'grm 10/26/2022 18:43:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05loggerDoesNotLogPositionAfterTurningLeft stamp: 'grm 10/26/2022 18:43:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06loggerDoesNotLogPositionAfterTurningRight stamp: 'grm 10/26/2022 18:43:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07loggerLogsPositionProcessingForwardLeftBackwardRightForward stamp: 'grm 10/26/2022 18:43:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08loggerHasEmptyHeadingLogAfterEmptyCommands stamp: 'grm 10/26/2022 18:43:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09loggerHasHeadingWestAfterTurningLeftNorth stamp: 'grm 10/26/2022 18:43:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10loggerHasHeadingEastAfterTurningLeftNorth stamp: 'grm 10/26/2022 18:43:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11loggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'grm 10/26/2022 18:43:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12loggerDoesNotLogHeadingAfterMovingForward stamp: 'grm 10/26/2022 18:43:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13loggerDoesNotLogHeadingAfterMovingForward stamp: 'grm 10/26/2022 18:43:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13loggerLogsHeadingProcessingLeftBackwardRightForwardRight stamp: 'grm 10/26/2022 18:43:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01loggerHasEmptyPositionLogAfterEmptyCommands stamp: 'grm 10/26/2022 18:43:48'!
+PASSED!
+!MarsRoverPositionLogger methodsFor: 'no messages' stamp: 'grm 10/26/2022 18:46:17' overrides: 50552985!
+initializeAttachedTo: aMarsRover
+	rover _ aMarsRover.
+	log _ OrderedCollection new.
+	
+	rover attachLogger: self withMessage: [:aLogger |  aLogger logPosition: self position].! !
+!MarsRoverPositionLogger methodsFor: 'as yet unclassified' stamp: 'grm 10/26/2022 18:46:44' prior: 50553119 overrides: 50552985!
+initializeAttachedTo: aMarsRover
+	rover _ aMarsRover.
+	log _ OrderedCollection new.
+	
+	rover attachLogger: self withMessage: [:aLogger | aLogger logPosition: self position].! !
+
+----STARTUP---- (26 October 2022 18:50:12) as /mnt/Data/Universidad/Ingenieria I/linux64/CuisUniversity-5481.image!
+
+
+----End fileIn of /mnt/Data/Universidad/Ingenieria I/linux64/MarsRover-WithHeading.st----!
+
+MarsRoverLogger subclass: #MarsRoverPositionLogger
+	instanceVariableNames: 'rover headingLog positionLog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+MarsRoverLogger subclass: #MarsRoverPositionLogger
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverPositionLogger category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 18:51:03'!
+MarsRoverLogger subclass: #MarsRoverPositionLogger
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+!MarsRoverLogger class methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 18:51:12' prior: 50553018!
+attachedTo: aMarsRover
+	^self new initializeAttachedTo: aMarsRover.! !
+!MarsRoverPositionLogger methodsFor: 'no messages' stamp: 'guille 10/26/2022 18:52:53' overrides: 50552986!
+initializeAttachedTo: aMarsRover
+	rover _ aMarsRover.
+	positionLog _ OrderedCollection new.
+
+	rover addLogger: [:aPosition | self log: aPosition].! !
+
+!classDefinition: #MarsRoverPositionLogger category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 18:53:05'!
+MarsRoverLogger subclass: #MarsRoverPositionLogger
+	instanceVariableNames: 'log'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+!MarsRoverPositionLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 18:53:03' prior: 50553053 overrides: 50552986!
+initializeAttachedTo: aMarsRover
+	rover _ aMarsRover.
+	log _ OrderedCollection new.
+
+	rover addLogger: [:aPosition | self log: aPosition].! !
+
+MarsRoverLogger subclass: #MarsRoverPositionLogger
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverPositionLogger category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 18:53:30'!
+MarsRoverLogger subclass: #MarsRoverPositionLogger
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+Object subclass: #MarsRoverLogger
+	instanceVariableNames: 'rover log headingLog positionLog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverLogger category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 18:53:34'!
+Object subclass: #MarsRoverLogger
+	instanceVariableNames: 'rover log headingLog positionLog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRover category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 18:54:26'!
+Object subclass: #MarsRover
+	instanceVariableNames: 'position head logger loggers'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 18:54:25'!
+addLogger: aLoggerClosure
+
+	loggers add: aLoggerClosure.! !
+!MarsRoverPositionLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 18:55:34'!
+log: aPosition
+	log add: aPosition x asString , ',' , aPosition y asString! !
+!MarsRoverPositionLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 18:55:44' prior: 50553120!
+log: aPosition
+	log add: (aPosition x asString , ',' , aPosition y asString)! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 18:56:47'!
+log
+	loggers do: [:aLogger | aLogger value].! !
+
+c _ [:a | a+1].!
+
+c!
+
+c value: 2!
+
+c value!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 18:59:00' prior: 50553132!
+log
+	loggers do: [:aLogger | aLogger value: position].! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 18:59:49' prior: 50552286!
+test01loggerHasEmptyPositionLogAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: OrderedCollection new equals: logger printLog.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 19:00:12' prior: 50553138!
+log
+	loggers do: [:aLogger | aLogger value: position copy].! !
+!MarsRoverPositionLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 19:00:31'!
+printLogs
+	^log copy! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:00:38' prior: 50553143!
+test01loggerHasEmptyPositionLogAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: OrderedCollection new equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test01loggerHasEmptyPositionLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:00:39'!
+ERROR!
+!MarsRover methodsFor: 'initialization' stamp: 'guille 10/26/2022 19:01:19' prior: 50552640!
+initializeAt: aPosition heading: aHeadingType
+
+	position := aPosition.
+	head := aHeadingType for: self.
+	loggers := OrderedCollection new.! !
+
+!testRun: #MarsRoverLoggerTest #test01loggerHasEmptyPositionLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:01:24'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:01:47' prior: 50552297!
+test02loggerHasUpdatedPositionAfterMovingForward
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'f'.
+	
+	self assert: (OrderedCollection with: '0,1') equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test02loggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 19:01:49'!
+FAILURE!
+!MarsRover methodsFor: 'moving' stamp: 'guille 10/26/2022 19:02:15' prior: 50552703!
+moveForward
+	
+	head moveForward.
+	logger ifNotNil: [logger logPosition: position].
+	self log.! !
+
+!testRun: #MarsRoverLoggerTest #test02loggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 19:02:20'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:02:30' prior: 50552308!
+test03loggerHasUpdatedPositionAfterMovingBackward
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLogger attachedTo: rover.
+	
+	rover process: 'b'.
+	
+	self assert: (OrderedCollection with: '0,-1') equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test03loggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 19:02:33'!
+ERROR!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:02:40' prior: 50553218!
+test03loggerHasUpdatedPositionAfterMovingBackward
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'b'.
+	
+	self assert: (OrderedCollection with: '0,-1') equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test03loggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 19:02:41'!
+FAILURE!
+!MarsRover methodsFor: 'moving' stamp: 'guille 10/26/2022 19:02:51' prior: 50552694!
+moveBackward
+	
+	head moveBackward.
+	logger ifNotNil: [logger logPosition: position].
+	self log.! !
+
+!testRun: #MarsRoverLoggerTest #test02loggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 19:02:57'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03loggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 19:02:58'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:03:05' prior: 50552319!
+test04loggerLogsMultiplesMoveForwardAndBackwards
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'bbff'.
+	
+	self assert: (OrderedCollection with: '0,-1'
+									with: '0,-2'
+									with: '0,-1'
+									with: '0,0') equals: logger positionLog.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:03:14' prior: 50553264!
+test04loggerLogsMultiplesMoveForwardAndBackwards
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'bbff'.
+	
+	self assert: (OrderedCollection with: '0,-1'
+									with: '0,-2'
+									with: '0,-1'
+									with: '0,0') equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test04loggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 19:03:15'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01loggerHasEmptyPositionLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:03:15'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02loggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 19:03:15'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03loggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 19:03:15'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04loggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 19:03:15'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05loggerDoesNotLogPositionAfterTurningLeft stamp: 'guille 10/26/2022 19:03:15'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06loggerDoesNotLogPositionAfterTurningRight stamp: 'guille 10/26/2022 19:03:15'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07loggerLogsPositionProcessingForwardLeftBackwardRightForward stamp: 'guille 10/26/2022 19:03:15'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08loggerHasEmptyHeadingLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:03:15'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09loggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:03:15'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10loggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:03:15'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11loggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 19:03:15'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12loggerDoesNotLogHeadingAfterMovingForward stamp: 'guille 10/26/2022 19:03:15'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13loggerDoesNotLogHeadingAfterMovingForward stamp: 'guille 10/26/2022 19:03:15'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13loggerLogsHeadingProcessingLeftBackwardRightForwardRight stamp: 'guille 10/26/2022 19:03:15'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04loggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 19:03:18'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:03:36' prior: 50552333!
+test05loggerDoesNotLogPositionAfterTurningLeft
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'l'.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test05loggerDoesNotLogPositionAfterTurningLeft stamp: 'guille 10/26/2022 19:03:39'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01loggerHasEmptyPositionLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:03:39'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02loggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 19:03:39'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03loggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 19:03:39'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04loggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 19:03:39'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05loggerDoesNotLogPositionAfterTurningLeft stamp: 'guille 10/26/2022 19:03:39'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06loggerDoesNotLogPositionAfterTurningRight stamp: 'guille 10/26/2022 19:03:39'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07loggerLogsPositionProcessingForwardLeftBackwardRightForward stamp: 'guille 10/26/2022 19:03:39'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08loggerHasEmptyHeadingLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:03:39'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09loggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:03:39'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10loggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:03:39'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11loggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 19:03:39'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12loggerDoesNotLogHeadingAfterMovingForward stamp: 'guille 10/26/2022 19:03:39'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13loggerDoesNotLogHeadingAfterMovingForward stamp: 'guille 10/26/2022 19:03:39'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13loggerLogsHeadingProcessingLeftBackwardRightForwardRight stamp: 'guille 10/26/2022 19:03:39'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05loggerDoesNotLogPositionAfterTurningLeft stamp: 'guille 10/26/2022 19:03:41'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:03:47' prior: 50552344!
+test06loggerDoesNotLogPositionAfterTurningRight
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'r'.
+	
+	self assert: (OrderedCollection new) equals: logger positionLog.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:03:52' prior: 50553434!
+test06loggerDoesNotLogPositionAfterTurningRight
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'r'.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test06loggerDoesNotLogPositionAfterTurningRight stamp: 'guille 10/26/2022 19:03:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01loggerHasEmptyPositionLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:03:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02loggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 19:03:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03loggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 19:03:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04loggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 19:03:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05loggerDoesNotLogPositionAfterTurningLeft stamp: 'guille 10/26/2022 19:03:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06loggerDoesNotLogPositionAfterTurningRight stamp: 'guille 10/26/2022 19:03:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07loggerLogsPositionProcessingForwardLeftBackwardRightForward stamp: 'guille 10/26/2022 19:03:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08loggerHasEmptyHeadingLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:03:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09loggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:03:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10loggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:03:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11loggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 19:03:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12loggerDoesNotLogHeadingAfterMovingForward stamp: 'guille 10/26/2022 19:03:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13loggerDoesNotLogHeadingAfterMovingForward stamp: 'guille 10/26/2022 19:03:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13loggerLogsHeadingProcessingLeftBackwardRightForwardRight stamp: 'guille 10/26/2022 19:03:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06loggerDoesNotLogPositionAfterTurningRight stamp: 'guille 10/26/2022 19:03:57'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:04:19' prior: 50552355!
+test07loggerLogsPositionProcessingForwardLeftBackwardRightForward
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'flbrf'.
+	
+	self assert: (OrderedCollection with: '0,1'
+									with: '1,1'
+									with: '1,2') equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test07loggerLogsPositionProcessingForwardLeftBackwardRightForward stamp: 'guille 10/26/2022 19:04:21'!
+PASSED!
+
+MarsRoverLogger subclass: #MarsRoverHeadingLogger
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverHeadingLogger category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 19:04:51'!
+MarsRoverLogger subclass: #MarsRoverHeadingLogger
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+!MarsRoverHeadingLogger methodsFor: 'no messages' stamp: 'guille 10/26/2022 19:09:15' overrides: 50552986!
+initializeAttachedTo: aMarsRover
+	rover _ aMarsRover.
+	log _ OrderedCollection new.
+
+	rover addLogger: [:aPosition :aHeading | self log: aHeading].! !
+!MarsRoverHeadingLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 19:09:50'!
+log: aHeading
+	log add: aHeading asHeadingString ! !
+!MarsRoverHeadingLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 19:10:03'!
+printLogs
+	^log copy! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:11:05' prior: 50552368!
+test08loggerHasEmptyHeadingLogAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test08loggerHasEmptyHeadingLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:11:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01loggerHasEmptyPositionLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:11:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02loggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 19:11:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03loggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 19:11:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04loggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 19:11:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05loggerDoesNotLogPositionAfterTurningLeft stamp: 'guille 10/26/2022 19:11:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06loggerDoesNotLogPositionAfterTurningRight stamp: 'guille 10/26/2022 19:11:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07loggerLogsPositionProcessingForwardLeftBackwardRightForward stamp: 'guille 10/26/2022 19:11:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08loggerHasEmptyHeadingLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:11:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09loggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:11:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10loggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:11:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11loggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 19:11:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12loggerDoesNotLogHeadingAfterMovingForward stamp: 'guille 10/26/2022 19:11:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13loggerDoesNotLogHeadingAfterMovingForward stamp: 'guille 10/26/2022 19:11:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13loggerLogsHeadingProcessingLeftBackwardRightForwardRight stamp: 'guille 10/26/2022 19:11:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08loggerHasEmptyHeadingLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:11:10'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:11:23' prior: 50552379!
+test09loggerHasHeadingWestAfterTurningLeftNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'l'.
+	
+	self assert: (OrderedCollection with: 'West') equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test09loggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:11:26'!
+FAILURE!
+!MarsRover methodsFor: 'heading' stamp: 'guille 10/26/2022 19:11:50' prior: 50552662!
+rotateLeft
+	
+	head rotateLeft.
+	logger ifNotNil: [logger logHeading: head].
+	self log.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 19:12:04' prior: 50553155!
+log
+	loggers do: [:aLogger | aLogger value: position copy value: head copy].! !
+
+!testRun: #MarsRoverLoggerTest #test09loggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:12:20'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:12:26' prior: 50552390!
+test10loggerHasHeadingEastAfterTurningLeftNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLogger attachedTo: rover.
+	
+	rover process: 'r'.
+	
+	self assert: (OrderedCollection with: 'East') equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test10loggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:12:28'!
+ERROR!
+
+!testRun: #MarsRoverLoggerTest #test10loggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:12:28'!
+ERROR!
+!MarsRover methodsFor: 'heading' stamp: 'guille 10/26/2022 19:12:40' prior: 50552667!
+rotateRight
+	
+	head rotateRight.
+	logger ifNotNil: [logger logHeading: head].
+	self log.! !
+
+!testRun: #MarsRoverLoggerTest #test10loggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:12:44'!
+ERROR!
+
+!testRun: #MarsRoverLoggerTest #test10loggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:12:44'!
+ERROR!
+
+!testRun: #MarsRoverLoggerTest #test09loggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:12:50'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10loggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:12:51'!
+ERROR!
+
+!testRun: #MarsRoverLoggerTest #test10loggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:12:51'!
+ERROR!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:13:02' prior: 50553682!
+test10loggerHasHeadingEastAfterTurningLeftNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'r'.
+	
+	self assert: (OrderedCollection with: 'East') equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test10loggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:13:04'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:13:33' prior: 50552401!
+test11loggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'rrll'.
+	
+	self assert: (OrderedCollection with: 'East'
+									with: 'South'
+									with: 'East'
+									with: 'North') equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test11loggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 19:13:35'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:13:47' prior: 50552415!
+test12loggerDoesNotLogHeadingAfterMovingForward
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'f'.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test12loggerDoesNotLogHeadingAfterMovingForward stamp: 'guille 10/26/2022 19:13:48'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test12loggerDoesNotLogHeadingAfterMovingForward stamp: 'guille 10/26/2022 19:13:48'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test12loggerDoesNotLogHeadingAfterMovingForward stamp: 'guille 10/26/2022 19:14:00'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test12loggerDoesNotLogHeadingAfterMovingForward stamp: 'guille 10/26/2022 19:14:00'!
+FAILURE!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:20:34'!
+test05loggerLogsPositionAfterTurningLeftOnce
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'l'.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test05loggerLogsPositionAfterTurningLeftOnce stamp: 'guille 10/26/2022 19:20:36'!
+ERROR!
+
+!testRun: #MarsRoverLoggerTest #test05loggerLogsPositionAfterTurningLeftOnce stamp: 'guille 10/26/2022 19:20:36'!
+ERROR!
+
+!testRun: #MarsRoverLoggerTest #test05loggerLogsPositionAfterTurningLeftOnce stamp: 'guille 10/26/2022 19:20:51'!
+ERROR!
+
+!testRun: #MarsRoverLoggerTest #test05loggerLogsPositionAfterTurningLeftOnce stamp: 'guille 10/26/2022 19:20:51'!
+ERROR!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:21:16' prior: 50553790!
+test05loggerLogsPositionAfterTurningLeftOnce
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'l'.
+	
+	self assert: (OrderedCollection with: '0@0') equals: logger printLogs.! !
+!MarsRoverPositionLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 19:22:01' prior: 50553071 overrides: 50552986!
+initializeAttachedTo: aMarsRover
+	rover _ aMarsRover.
+	log _ OrderedCollection new.
+
+	rover addLogger: [:aPosition :aHeading | self log: aPosition].! !
+
+!methodRemoval: MarsRoverLoggerTest #test05loggerDoesNotLogPositionAfterTurningLeft stamp: 'guille 10/26/2022 19:31:00'!
+test05loggerDoesNotLogPositionAfterTurningLeft
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'l'.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.!
+
+!methodRemoval: MarsRoverLoggerTest #test05loggerLogsPositionAfterTurningLeftOnce stamp: 'guille 10/26/2022 19:31:01'!
+test05loggerLogsPositionAfterTurningLeftOnce
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'l'.
+	
+	self assert: (OrderedCollection with: '0@0') equals: logger printLogs.!
+
+!methodRemoval: MarsRoverLoggerTest #test06loggerDoesNotLogPositionAfterTurningRight stamp: 'guille 10/26/2022 19:31:02'!
+test06loggerDoesNotLogPositionAfterTurningRight
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'r'.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.!
+
+!methodRemoval: MarsRoverLoggerTest #test07loggerLogsPositionProcessingForwardLeftBackwardRightForward stamp: 'guille 10/26/2022 19:31:05'!
+test07loggerLogsPositionProcessingForwardLeftBackwardRightForward
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'flbrf'.
+	
+	self assert: (OrderedCollection with: '0,1'
+									with: '1,1'
+									with: '1,2') equals: logger printLogs.!
+
+!methodRemoval: MarsRoverLoggerTest #test12loggerDoesNotLogHeadingAfterMovingForward stamp: 'guille 10/26/2022 19:31:11'!
+test12loggerDoesNotLogHeadingAfterMovingForward
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'f'.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.!
+
+!methodRemoval: MarsRoverLoggerTest #test13loggerDoesNotLogHeadingAfterMovingForward stamp: 'guille 10/26/2022 19:31:13'!
+test13loggerDoesNotLogHeadingAfterMovingForward
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLogger attachedTo: rover.
+	
+	rover process: 'b'.
+	
+	self assert: (OrderedCollection new) equals: logger headingLog.!
+
+!methodRemoval: MarsRoverLoggerTest #test13loggerLogsHeadingProcessingLeftBackwardRightForwardRight stamp: 'guille 10/26/2022 19:31:15'!
+test13loggerLogsHeadingProcessingLeftBackwardRightForwardRight
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLogger attachedTo: rover.
+	
+	rover process: 'lbrfr'.
+	
+	self assert: (OrderedCollection with: 'West'
+									with: 'North'
+									with: 'East') equals: logger headingLog.!
+
+!testRun: #MarsRoverLoggerTest #test01loggerHasEmptyPositionLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:31:18'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02loggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 19:31:18'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03loggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 19:31:18'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04loggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 19:31:18'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08loggerHasEmptyHeadingLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:31:18'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09loggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:31:18'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10loggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:31:18'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11loggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 19:31:18'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:31:30'!
+test05loggerHasEmptyHeadingLogAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test08loggerHasEmptyHeadingLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:31:30'!
+test08loggerHasEmptyHeadingLogAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:31:37'!
+test06loggerHasHeadingWestAfterTurningLeftNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'l'.
+	
+	self assert: (OrderedCollection with: 'West') equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test09loggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:31:37'!
+test09loggerHasHeadingWestAfterTurningLeftNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'l'.
+	
+	self assert: (OrderedCollection with: 'West') equals: logger printLogs.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:31:43'!
+test07loggerHasHeadingEastAfterTurningLeftNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'r'.
+	
+	self assert: (OrderedCollection with: 'East') equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test10loggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:31:43'!
+test10loggerHasHeadingEastAfterTurningLeftNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'r'.
+	
+	self assert: (OrderedCollection with: 'East') equals: logger printLogs.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:31:53'!
+test08loggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'rrll'.
+	
+	self assert: (OrderedCollection with: 'East'
+									with: 'South'
+									with: 'East'
+									with: 'North') equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test11loggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 19:31:53'!
+test11loggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'rrll'.
+	
+	self assert: (OrderedCollection with: 'East'
+									with: 'South'
+									with: 'East'
+									with: 'North') equals: logger printLogs.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:34:19'!
+test01positionLoggerHasEmptyLogAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: OrderedCollection new equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test01loggerHasEmptyPositionLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:34:19'!
+test01loggerHasEmptyPositionLogAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: OrderedCollection new equals: logger printLogs.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:34:28'!
+test02positionLoggerHasUpdatedPositionAfterMovingForward
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'f'.
+	
+	self assert: (OrderedCollection with: '0,1') equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test02loggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 19:34:28'!
+test02loggerHasUpdatedPositionAfterMovingForward
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'f'.
+	
+	self assert: (OrderedCollection with: '0,1') equals: logger printLogs.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:34:35'!
+test03positionLoggerHasUpdatedPositionAfterMovingBackward
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'b'.
+	
+	self assert: (OrderedCollection with: '0,-1') equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test03loggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 19:34:35'!
+test03loggerHasUpdatedPositionAfterMovingBackward
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'b'.
+	
+	self assert: (OrderedCollection with: '0,-1') equals: logger printLogs.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:34:43'!
+test04positionLoggerLogsMultiplesMoveForwardAndBackwards
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'bbff'.
+	
+	self assert: (OrderedCollection with: '0,-1'
+									with: '0,-2'
+									with: '0,-1'
+									with: '0,0') equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test04loggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 19:34:43'!
+test04loggerLogsMultiplesMoveForwardAndBackwards
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'bbff'.
+	
+	self assert: (OrderedCollection with: '0,-1'
+									with: '0,-2'
+									with: '0,-1'
+									with: '0,0') equals: logger printLogs.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:34:49'!
+test05positionLoggerHasEmptyHeadingLogAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test05loggerHasEmptyHeadingLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:34:49'!
+test05loggerHasEmptyHeadingLogAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:34:57'!
+test05headingLoggerHasEmptyHeadingLogAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test05positionLoggerHasEmptyHeadingLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:34:57'!
+test05positionLoggerHasEmptyHeadingLogAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:35:02'!
+test05headingLoggerHasEmptyLogAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test05headingLoggerHasEmptyHeadingLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:35:02'!
+test05headingLoggerHasEmptyHeadingLogAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:35:12'!
+test06headingLoggerHasHeadingWestAfterTurningLeftNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'l'.
+	
+	self assert: (OrderedCollection with: 'West') equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test06loggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:35:12'!
+test06loggerHasHeadingWestAfterTurningLeftNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'l'.
+	
+	self assert: (OrderedCollection with: 'West') equals: logger printLogs.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:35:26'!
+test07headingLoggerHasHeadingEastAfterTurningLeftNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'r'.
+	
+	self assert: (OrderedCollection with: 'East') equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test07loggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:35:26'!
+test07loggerHasHeadingEastAfterTurningLeftNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'r'.
+	
+	self assert: (OrderedCollection with: 'East') equals: logger printLogs.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:35:34'!
+test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'rrll'.
+	
+	self assert: (OrderedCollection with: 'East'
+									with: 'South'
+									with: 'East'
+									with: 'North') equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test08loggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 19:35:34'!
+test08loggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'rrll'.
+	
+	self assert: (OrderedCollection with: 'East'
+									with: 'South'
+									with: 'East'
+									with: 'North') equals: logger printLogs.!
+
+a _ OrderedCollection new.!
+
+a _ OrderedCollection new.!
+
+a last!
+
+nil = a!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:40:51'!
+test09positionLoggerKnowsCurrentPositionAfterMoving
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'lf'.
+	
+	self assert: '-1,0' equals: logger currentPosition.! !
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMoving stamp: 'guille 10/26/2022 19:40:58'!
+ERROR!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMoving stamp: 'guille 10/26/2022 19:40:58'!
+ERROR!
+!MarsRoverPositionLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 19:41:05'!
+currentPosition
+	self shouldBeImplemented.! !
+!MarsRoverPositionLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 19:41:51' prior: 50554339!
+currentPosition
+	log isEmpty ifTrue: [^nil].
+	^log last! !
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMoving stamp: 'guille 10/26/2022 19:41:52'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMoving stamp: 'guille 10/26/2022 19:41:56'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMoving stamp: 'guille 10/26/2022 19:42:00'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasEmptyLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:42:00'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 19:42:00'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 19:42:00'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 19:42:00'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasEmptyLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:42:00'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:42:00'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:42:00'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 19:42:00'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMoving stamp: 'guille 10/26/2022 19:42:00'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:42:33'!
+test09positionLoggerKnowsCurrentPositionAfterMovingOnce
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'lf'.
+	
+	self assert: '-1,0' equals: logger currentPosition.! !
+
+!methodRemoval: MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMoving stamp: 'guille 10/26/2022 19:42:33'!
+test09positionLoggerKnowsCurrentPositionAfterMoving
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'lf'.
+	
+	self assert: '-1,0' equals: logger currentPosition.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:43:24'!
+test09positionLoggerKnowsCurrentPositionAfterMovingManyTimes
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'lfffrbrf'.
+	
+	self assert: '-2,-1' equals: logger currentPosition.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:43:31'!
+test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'lfffrbrf'.
+	
+	self assert: '-2,-1' equals: logger currentPosition.! !
+
+!methodRemoval: MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 19:43:31'!
+test09positionLoggerKnowsCurrentPositionAfterMovingManyTimes
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'lfffrbrf'.
+	
+	self assert: '-2,-1' equals: logger currentPosition.!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 19:43:33'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasEmptyLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:43:33'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 19:43:33'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 19:43:33'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 19:43:33'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasEmptyLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:43:33'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:43:33'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:43:33'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 19:43:33'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 19:43:33'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 19:43:33'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:45:01'!
+test10positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'lllll'.
+	
+	self assert: (OrderedCollection with: '0,0') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:45:07'!
+test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'lllll'.
+	
+	self assert: (OrderedCollection with: '0,0') equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test10positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 19:45:07'!
+test10positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'lllll'.
+	
+	self assert: (OrderedCollection with: '0,0') equals: logger printLogs.!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 19:45:08'!
+FAILURE!
+
+----End fileIn of /mnt/Data/Universidad/Ingenieria I/linux64/Packages/TerseGuide.pck.st----!
+!MarsRoverPositionLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 19:46:40' prior: 50553126!
+log: aPosition
+	(aPosition ~= self currentPosition) ifTrue: [log add: (aPosition x asString , ',' , aPosition y asString)]! !
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 19:46:50'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 19:47:21'!
+PASSED!
+!MarsRoverPositionLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 19:48:35' prior: 50557468!
+log: aPosition
+	| positionsLog |
+	positionLog _ aPosition x asString , ',' , aPosition y asString.
+	(positionLog ~= self currentPosition) ifTrue: [log add: positionLog]! !
+
+Object subclass: #MarsRoverLogger
+	instanceVariableNames: 'rover log headingLog '
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverLogger category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 19:48:42'!
+Object subclass: #MarsRoverLogger
+	instanceVariableNames: 'rover log headingLog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+Object subclass: #MarsRoverLogger
+	instanceVariableNames: 'rover log '
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverLogger category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 19:48:44'!
+Object subclass: #MarsRoverLogger
+	instanceVariableNames: 'rover log'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+!MarsRoverPositionLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 19:48:52' prior: 50557485!
+log: aPosition
+	| positionLog |
+	positionLog _ aPosition x asString , ',' , aPosition y asString.
+	(positionLog ~= self currentPosition) ifTrue: [log add: positionLog]! !
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 19:48:59'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasEmptyLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:48:59'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 19:48:59'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 19:48:59'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 19:48:59'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasEmptyLogAfterEmptyCommands stamp: 'guille 10/26/2022 19:48:59'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:48:59'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 19:48:59'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 19:48:59'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 19:48:59'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 19:48:59'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 19:48:59'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:51:46'!
+test09headingLoggerKnowsCurrentHeadingAfterMovingOnce
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'lf'.
+	
+	self assert: 'West' equals: logger currentHeading.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 19:51:56'!
+test12headingLoggerKnowsCurrentHeadingAfterMovingOnce
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'lf'.
+	
+	self assert: 'West' equals: logger currentHeading.! !
+
+!methodRemoval: MarsRoverLoggerTest #test09headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 19:51:56'!
+test09headingLoggerKnowsCurrentHeadingAfterMovingOnce
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'lf'.
+	
+	self assert: 'West' equals: logger currentHeading.!
+!MarsRoverHeadingLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 20:09:16'!
+currentHeading
+	log isEmpty ifTrue: [^nil].
+	^log last! !
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 20:09:20'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 20:09:21'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasEmptyLogAfterEmptyCommands stamp: 'guille 10/26/2022 20:09:21'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 20:09:21'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 20:09:21'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 20:09:21'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasEmptyLogAfterEmptyCommands stamp: 'guille 10/26/2022 20:09:21'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:09:21'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:09:21'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 20:09:21'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 20:09:21'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 20:09:21'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 20:09:21'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 20:09:21'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:10:09'!
+test10headingLoggerKnowsCurrentHeadingAfterMovingManyTimes
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'lfffrbrf'.
+	
+	self assert: 'East' equals: logger currentHeading.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:10:16'!
+test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'lfffrbrf'.
+	
+	self assert: 'East' equals: logger currentHeading.! !
+
+!methodRemoval: MarsRoverLoggerTest #test10headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 20:10:16'!
+test10headingLoggerKnowsCurrentHeadingAfterMovingManyTimes
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'lfffrbrf'.
+	
+	self assert: 'East' equals: logger currentHeading.!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 20:10:17'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasEmptyLogAfterEmptyCommands stamp: 'guille 10/26/2022 20:10:17'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 20:10:17'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 20:10:17'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 20:10:17'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasEmptyLogAfterEmptyCommands stamp: 'guille 10/26/2022 20:10:17'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:10:17'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:10:17'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 20:10:17'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 20:10:17'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 20:10:17'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 20:10:17'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 20:10:17'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 20:10:17'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:11:08'!
+test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection with: '0,0') equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test01positionLoggerHasEmptyLogAfterEmptyCommands stamp: 'guille 10/26/2022 20:11:12'!
+test01positionLoggerHasEmptyLogAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: OrderedCollection new equals: logger printLogs.!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:11:47'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:11:47'!
+FAILURE!
+!MarsRoverLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 20:12:03' prior: 50552986!
+initializeAttachedTo: aMarsRover
+	self subclassResponsibility ! !
+
+!methodRemoval: MarsRoverLogger #headingLog stamp: 'guille 10/26/2022 20:12:09'!
+headingLog
+	^headingLog copy.!
+
+!methodRemoval: MarsRover #attachLogger: stamp: 'guille 10/26/2022 20:12:28'!
+attachLogger: aMarsRoverLogger
+	
+	logger _ aMarsRoverLogger .!
+!MarsRover methodsFor: 'moving' stamp: 'guille 10/26/2022 20:12:35' prior: 50553250!
+moveBackward
+	
+	head moveBackward.
+	self log.! !
+!MarsRover methodsFor: 'moving' stamp: 'guille 10/26/2022 20:12:39' prior: 50553208!
+moveForward
+	
+	head moveForward.
+	self log.! !
+!MarsRover methodsFor: 'heading' stamp: 'guille 10/26/2022 20:12:46' prior: 50553666!
+rotateLeft
+	
+	head rotateLeft.
+	self log.! !
+!MarsRover methodsFor: 'heading' stamp: 'guille 10/26/2022 20:12:51' prior: 50553701!
+rotateRight
+	
+	head rotateRight.
+	self log.! !
+
+!methodRemoval: MarsRoverLogger #logHeading: stamp: 'guille 10/26/2022 20:13:10'!
+logHeading: aHeading
+	headingLog add: aHeading asHeadingString.!
+
+!methodRemoval: MarsRoverLogger #logPosition: stamp: 'guille 10/26/2022 20:13:12'!
+logPosition: aPosition
+	positionLog add: (aPosition x asString , ',' , aPosition y asString)!
+
+!methodRemoval: MarsRoverLogger #positionLog stamp: 'guille 10/26/2022 20:13:13'!
+positionLog
+	^positionLog copy.!
+!MarsRoverLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 20:13:35'!
+printLogs
+	self subclassResponsibility ! !
+!MarsRoverHeadingLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 20:29:53' prior: 50553556 overrides: 50557810!
+initializeAttachedTo: aMarsRover
+	log _ OrderedCollection new.
+
+	aMarsRover addLogger: [:aPosition :aHeading | self log: aHeading].! !
+!MarsRoverPositionLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 20:30:05' prior: 50553830 overrides: 50557810!
+initializeAttachedTo: aMarsRover
+	log _ OrderedCollection new.
+
+	aMarsRover addLogger: [:aPosition :aHeading | self log: aPosition].! !
+
+Object subclass: #MarsRoverLogger
+	instanceVariableNames: 'log'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverLogger category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 20:30:27'!
+Object subclass: #MarsRoverLogger
+	instanceVariableNames: 'log'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:30:30'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 20:30:30'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 20:30:30'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 20:30:30'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasEmptyLogAfterEmptyCommands stamp: 'guille 10/26/2022 20:30:30'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:30:30'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:30:30'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 20:30:30'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 20:30:30'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 20:30:30'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 20:30:30'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 20:30:30'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 20:30:30'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:30:30'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:30:50'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:30:50'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 20:31:04'!
+PASSED!
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 20:31:56' prior: 50553115!
+addLogger: aLoggerClosure
+
+	loggers add: aLoggerClosure.
+	self log.! !
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:32:00'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:32:02'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 20:32:02'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 20:32:02'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 20:32:02'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasEmptyLogAfterEmptyCommands stamp: 'guille 10/26/2022 20:32:02'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:32:02'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:32:02'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 20:32:02'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 20:32:02'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 20:32:02'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 20:32:02'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 20:32:02'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 20:32:02'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:32:25' prior: 50554088!
+test02positionLoggerHasUpdatedPositionAfterMovingForward
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'f'.
+	
+	self assert: (OrderedCollection with: '0,0' with: '0,1') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:32:35' prior: 50554112!
+test03positionLoggerHasUpdatedPositionAfterMovingBackward
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'b'.
+	
+	self assert: (OrderedCollection with: '0,0' with: '0,-1') equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 20:32:35'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:32:35'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 20:32:35'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 20:32:35'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 20:32:35'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasEmptyLogAfterEmptyCommands stamp: 'guille 10/26/2022 20:32:36'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:32:36'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:32:36'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 20:32:36'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 20:32:36'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 20:32:36'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 20:32:36'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 20:32:36'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 20:32:36'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:32:56' prior: 50554137!
+test04positionLoggerLogsMultiplesMoveForwardAndBackwards
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'bbff'.
+	
+	self assert: (OrderedCollection with: '0,0'
+								with: '0,-1'
+								with: '0,-2'
+								with: '0,-1'
+								with: '0,0') equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 20:32:57'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:33:15'!
+test05headingLoggerHasStartingHeadingAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection with: 'North') equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test05headingLoggerHasEmptyLogAfterEmptyCommands stamp: 'guille 10/26/2022 20:33:19'!
+test05headingLoggerHasEmptyLogAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection new) equals: logger printLogs.!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 20:33:20'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 20:33:25'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 20:33:27'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 20:33:28'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 20:33:29'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:33:29'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 20:33:29'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 20:33:29'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 20:33:29'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 20:33:29'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:33:29'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:33:29'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 20:33:29'!
+FAILURE!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 20:33:29'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 20:33:29'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 20:33:29'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 20:33:29'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 20:33:29'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:33:46' prior: 50554238!
+test06headingLoggerHasHeadingWestAfterTurningLeftNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'l'.
+	
+	self assert: (OrderedCollection with: 'North' with: 'West') equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:33:48'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:33:55' prior: 50554262!
+test07headingLoggerHasHeadingEastAfterTurningLeftNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'r'.
+	
+	self assert: (OrderedCollection with: 'North' with: 'East') equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:33:56'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:34:17' prior: 50554286!
+test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'rrll'.
+	
+	self assert: (OrderedCollection with: 'North'
+								with: 'East'
+								with: 'South'
+								with: 'East'
+								with: 'North') equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 20:34:18'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 20:34:20'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:34:20'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 20:34:20'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 20:34:20'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 20:34:20'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 20:34:20'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:34:20'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:34:20'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 20:34:20'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 20:34:20'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 20:34:20'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 20:34:20'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 20:34:20'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 20:34:20'!
+PASSED!
+
+Object subclass: #MarsRoverLoggerController
+	instanceVariableNames: 'log'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverLoggerController category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 20:38:46'!
+Object subclass: #MarsRoverLoggerController
+	instanceVariableNames: 'log'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:42:13'!
+test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection with: '0,0 North') equals: logger printLogs.! !
+!MarsRoverLoggerController methodsFor: 'nil' stamp: 'guille 10/26/2022 20:42:27'!
+printLogs
+	^log! !
+
+MarsRoverLogger subclass: #MarsRoverLoggerController
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverLoggerController category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 20:42:56'!
+MarsRoverLogger subclass: #MarsRoverLoggerController
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+!MarsRoverLogger methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 20:43:18' prior: 50557857!
+printLogs
+	^log copy! !
+
+!methodRemoval: MarsRoverPositionLogger #printLogs stamp: 'guille 10/26/2022 20:43:18'!
+printLogs
+	^log copy!
+
+!methodRemoval: MarsRoverLoggerController #printLogs stamp: 'guille 10/26/2022 20:43:28'!
+printLogs
+	^log!
+
+!methodRemoval: MarsRoverHeadingLogger #printLogs stamp: 'guille 10/26/2022 20:43:32'!
+printLogs
+	^log copy!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:43:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 20:43:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 20:43:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 20:43:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 20:43:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:43:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:43:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 20:43:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 20:43:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 20:43:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 20:43:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 20:43:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 20:43:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands stamp: 'guille 10/26/2022 20:43:45'!
+ERROR!
+
+!testRun: #MarsRoverLoggerTest #test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands stamp: 'guille 10/26/2022 20:43:45'!
+ERROR!
+!MarsRoverLoggerController methodsFor: 'no messages' stamp: 'guille 10/26/2022 20:44:27' overrides: 50557810!
+initializeAttachedTo: aMarsRover
+	log _ OrderedCollection new.
+
+	aMarsRover addLogger: [:aPosition :aHeading | ].! !
+!MarsRoverLoggerController methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 20:44:49' prior: 50558478 overrides: 50557810!
+initializeAttachedTo: aMarsRover
+	log _ OrderedCollection new.
+
+	aMarsRover addLogger: [:aPosition :aHeading | self logCurrentPositionAndHeading].! !
+
+Object subclass: #NameOfSubclass
+	instanceVariableNames: 'positionLogger headingLogger'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #NameOfSubclass category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 20:45:26'!
+Object subclass: #NameOfSubclass
+	instanceVariableNames: 'positionLogger headingLogger'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classRemoval: #NameOfSubclass stamp: 'guille 10/26/2022 20:45:32'!
+Object subclass: #NameOfSubclass
+	instanceVariableNames: 'positionLogger headingLogger'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+MarsRoverLogger subclass: #MarsRoverLoggerController
+	instanceVariableNames: ''
+	classVariableNames: 'positionLogger headingLogger'
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+MarsRoverLogger subclass: #MarsRoverLoggerController
+	instanceVariableNames: 'positionLogger headingLogger'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverLoggerController category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 20:45:53'!
+MarsRoverLogger subclass: #MarsRoverLoggerController
+	instanceVariableNames: 'positionLogger headingLogger'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+!MarsRoverLoggerController methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 20:46:54' prior: 50558486 overrides: 50557810!
+initializeAttachedTo: aMarsRover
+	log _ OrderedCollection new.
+	
+	positionLogger _ MarsRoverPositionLogger attachedTo: aMarsRover.
+	headingLogger _ MarsRoverHeadingLogger attachedTo: aMarsRover.
+	aMarsRover addLogger: [:aPosition :aHeading | self logCurrentPositionAndHeading].! !
+!MarsRoverLoggerController methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 20:47:53'!
+logCurrentPositionAndHeading
+	log add: positionLogger currentPosition , ' ' , headingLogger currentHeading! !
+!MarsRoverLoggerController methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 20:47:58' prior: 50558550!
+logCurrentPositionAndHeading
+	log add: (positionLogger currentPosition , ' ' , headingLogger currentHeading)! !
+
+!testRun: #MarsRoverLoggerTest #test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands stamp: 'guille 10/26/2022 20:48:14'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:48:14'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 20:48:14'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 20:48:14'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 20:48:14'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 20:48:14'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:48:14'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:48:14'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 20:48:14'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 20:48:14'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 20:48:14'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 20:48:14'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 20:48:14'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 20:48:14'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands stamp: 'guille 10/26/2022 20:48:14'!
+PASSED!
+!MarsRoverLoggerController methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 20:50:50'!
+currentPosition
+	^positionLogger currentPosition! !
+!MarsRoverLoggerController methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 20:51:00'!
+currentHeading
+	^headingLogger currentHeading! !
+!MarsRoverLoggerController methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 20:51:28'!
+currentPositionAndHeading
+	^self currentPosition, ' ', self currentHeading! !
+!MarsRoverLoggerController methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 20:51:40' prior: 50558557!
+logCurrentPositionAndHeading
+	log add: self currentPositionAndHeading ! !
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:51:44'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 20:51:44'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 20:51:44'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 20:51:44'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 20:51:44'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:51:44'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:51:44'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 20:51:44'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 20:51:44'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 20:51:44'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 20:51:44'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 20:51:44'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 20:51:44'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands stamp: 'guille 10/26/2022 20:51:44'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:55:51'!
+test14loggerControllerLogsMultipleCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: (OrderedCollection with: '0,0 North'
+								with: '0,1 North'
+								with: '0,1 West'
+								with: '1,1 West'
+								with: '2,1 West'
+								with: '2,1 South') equals: logger printLogs.! !
+
+!testRun: #MarsRoverLoggerTest #test14loggerControllerLogsMultipleCommands stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test14loggerControllerLogsMultipleCommands stamp: 'guille 10/26/2022 20:55:53'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:56:02'!
+test15loggerControllerLogsMultipleCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: (OrderedCollection with: '0,0 North'
+								with: '0,1 North'
+								with: '0,1 West'
+								with: '1,1 West'
+								with: '2,1 West'
+								with: '2,1 South') equals: logger printLogs.! !
+
+!methodRemoval: MarsRoverLoggerTest #test14loggerControllerLogsMultipleCommands stamp: 'guille 10/26/2022 20:56:02'!
+test14loggerControllerLogsMultipleCommands
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: (OrderedCollection with: '0,0 North'
+								with: '0,1 North'
+								with: '0,1 West'
+								with: '1,1 West'
+								with: '2,1 West'
+								with: '2,1 South') equals: logger printLogs.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:56:46'!
+test15loggerControllerKnowsCurrentHeading
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: 'South' equals: logger currentHeading.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:56:55'!
+test16loggerControllerKnowsCurrentHeading
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: 'South' equals: logger currentHeading.! !
+
+!methodRemoval: MarsRoverLoggerTest #test15loggerControllerKnowsCurrentHeading stamp: 'guille 10/26/2022 20:56:55'!
+test15loggerControllerKnowsCurrentHeading
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: 'South' equals: logger currentHeading.!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:57:14'!
+test17loggerControllerKnowsCurrentPosition
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: 'South' equals: logger currentHeading.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:57:25' prior: 50558861!
+test17loggerControllerKnowsCurrentPosition
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: '2,1' equals: logger currentPosition.! !
+
+!testRun: #MarsRoverLoggerTest #test17loggerControllerKnowsCurrentPosition stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test15loggerControllerLogsMultipleCommands stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test16loggerControllerKnowsCurrentHeading stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test17loggerControllerKnowsCurrentPosition stamp: 'guille 10/26/2022 20:57:26'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:57:55'!
+test17loggerControllerKnowsCurrentPositionAndHeading
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: 'South 2,1' equals: logger currentPositionAndHeading .! !
+
+!testRun: #MarsRoverLoggerTest #test17loggerControllerKnowsCurrentPositionAndHeading stamp: 'guille 10/26/2022 20:57:56'!
+FAILURE!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:58:05' prior: 50558959!
+test17loggerControllerKnowsCurrentPositionAndHeading
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: '2,1 South' equals: logger currentPositionAndHeading .! !
+
+!testRun: #MarsRoverLoggerTest #test17loggerControllerKnowsCurrentPositionAndHeading stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test15loggerControllerLogsMultipleCommands stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test16loggerControllerKnowsCurrentHeading stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test17loggerControllerKnowsCurrentPosition stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test17loggerControllerKnowsCurrentPositionAndHeading stamp: 'guille 10/26/2022 20:58:07'!
+PASSED!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:58:25'!
+test18loggerControllerKnowsCurrentPositionAndHeading
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: '2,1 South' equals: logger currentPositionAndHeading .! !
+
+!methodRemoval: MarsRoverLoggerTest #test17loggerControllerKnowsCurrentPositionAndHeading stamp: 'guille 10/26/2022 20:58:25'!
+test17loggerControllerKnowsCurrentPositionAndHeading
+	| rover logger |
+	rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: '2,1 South' equals: logger currentPositionAndHeading .!
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05'!
+roverAtOriginHeadingNorth
+
+	^ MarsRover at: 0@0 heading: MarsRoverHeadingNorth! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50558368!
+test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection with: '0,0 North') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50558045!
+test03positionLoggerHasUpdatedPositionAfterMovingBackward
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'b'.
+	
+	self assert: (OrderedCollection with: '0,0' with: '0,-1') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50557776!
+test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection with: '0,0') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50558239!
+test06headingLoggerHasHeadingWestAfterTurningLeftNorth
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'l'.
+	
+	self assert: (OrderedCollection with: 'North' with: 'West') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50558273!
+test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'rrll'.
+	
+	self assert: (OrderedCollection with: 'North'
+								with: 'East'
+								with: 'South'
+								with: 'East'
+								with: 'North') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50558137!
+test05headingLoggerHasStartingHeadingAfterEmptyCommands
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection with: 'North') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50554517!
+test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'lllll'.
+	
+	self assert: (OrderedCollection with: '0,0') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50558873!
+test17loggerControllerKnowsCurrentPosition
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: '2,1' equals: logger currentPosition.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50554434!
+test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'lfffrbrf'.
+	
+	self assert: '-2,-1' equals: logger currentPosition.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50558032!
+test02positionLoggerHasUpdatedPositionAfterMovingForward
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'f'.
+	
+	self assert: (OrderedCollection with: '0,0' with: '0,1') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50558256!
+test07headingLoggerHasHeadingEastAfterTurningLeftNorth
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'r'.
+	
+	self assert: (OrderedCollection with: 'North' with: 'East') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50558118!
+test04positionLoggerLogsMultiplesMoveForwardAndBackwards
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'bbff'.
+	
+	self assert: (OrderedCollection with: '0,0'
+								with: '0,-1'
+								with: '0,-2'
+								with: '0,-1'
+								with: '0,0') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50558795!
+test15loggerControllerLogsMultipleCommands
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: (OrderedCollection with: '0,0 North'
+								with: '0,1 North'
+								with: '0,1 West'
+								with: '1,1 West'
+								with: '2,1 West'
+								with: '2,1 South') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50559067!
+test18loggerControllerKnowsCurrentPositionAndHeading
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: '2,1 South' equals: logger currentPositionAndHeading .! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50554399!
+test09positionLoggerKnowsCurrentPositionAfterMovingOnce
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverPositionLogger attachedTo: rover.
+	
+	rover process: 'lf'.
+	
+	self assert: '-1,0' equals: logger currentPosition.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50557692!
+test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'lfffrbrf'.
+	
+	self assert: 'East' equals: logger currentHeading.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50557592!
+test12headingLoggerKnowsCurrentHeadingAfterMovingOnce
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverHeadingLogger attachedTo: rover.
+	
+	rover process: 'lf'.
+	
+	self assert: 'West' equals: logger currentHeading.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:05' prior: 50558838!
+test16loggerControllerKnowsCurrentHeading
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ MarsRoverLoggerController attachedTo: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: 'South' equals: logger currentHeading.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:50'!
+positionLoggerOn: rover
+
+	^ MarsRoverPositionLogger attachedTo: rover! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:50' prior: 50559173!
+test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self positionLoggerOn: rover.
+	
+	rover process: 'lllll'.
+	
+	self assert: (OrderedCollection with: '0,0') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:50' prior: 50559208!
+test02positionLoggerHasUpdatedPositionAfterMovingForward
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self positionLoggerOn: rover.
+	
+	rover process: 'f'.
+	
+	self assert: (OrderedCollection with: '0,0' with: '0,1') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:50' prior: 50559196!
+test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self positionLoggerOn: rover.
+	
+	rover process: 'lfffrbrf'.
+	
+	self assert: '-2,-1' equals: logger currentPosition.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:50' prior: 50559232!
+test04positionLoggerLogsMultiplesMoveForwardAndBackwards
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self positionLoggerOn: rover.
+	
+	rover process: 'bbff'.
+	
+	self assert: (OrderedCollection with: '0,0'
+								with: '0,-1'
+								with: '0,-2'
+								with: '0,-1'
+								with: '0,0') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:50' prior: 50559110!
+test03positionLoggerHasUpdatedPositionAfterMovingBackward
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self positionLoggerOn: rover.
+	
+	rover process: 'b'.
+	
+	self assert: (OrderedCollection with: '0,0' with: '0,-1') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:50' prior: 50559122!
+test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self positionLoggerOn: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection with: '0,0') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 20:59:50' prior: 50559275!
+test09positionLoggerKnowsCurrentPositionAfterMovingOnce
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self positionLoggerOn: rover.
+	
+	rover process: 'lf'.
+	
+	self assert: '-1,0' equals: logger currentPosition.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 21:00:11'!
+headingLoggerOn: rover
+
+	^ MarsRoverHeadingLogger attachedTo: rover! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 21:00:11' prior: 50559220!
+test07headingLoggerHasHeadingEastAfterTurningLeftNorth
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self headingLoggerOn: rover.
+	
+	rover process: 'r'.
+	
+	self assert: (OrderedCollection with: 'North' with: 'East') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 21:00:11' prior: 50559134!
+test06headingLoggerHasHeadingWestAfterTurningLeftNorth
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self headingLoggerOn: rover.
+	
+	rover process: 'l'.
+	
+	self assert: (OrderedCollection with: 'North' with: 'West') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 21:00:11' prior: 50559297!
+test12headingLoggerKnowsCurrentHeadingAfterMovingOnce
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self headingLoggerOn: rover.
+	
+	rover process: 'lf'.
+	
+	self assert: 'West' equals: logger currentHeading.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 21:00:11' prior: 50559146!
+test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self headingLoggerOn: rover.
+	
+	rover process: 'rrll'.
+	
+	self assert: (OrderedCollection with: 'North'
+								with: 'East'
+								with: 'South'
+								with: 'East'
+								with: 'North') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 21:00:11' prior: 50559286!
+test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self headingLoggerOn: rover.
+	
+	rover process: 'lfffrbrf'.
+	
+	self assert: 'East' equals: logger currentHeading.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 21:00:11' prior: 50559161!
+test05headingLoggerHasStartingHeadingAfterEmptyCommands
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self headingLoggerOn: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection with: 'North') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 21:00:36'!
+loggerControllerOn: rover
+
+	^ MarsRoverLoggerController attachedTo: rover! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 21:00:36' prior: 50559247!
+test15loggerControllerLogsMultipleCommands
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self loggerControllerOn: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: (OrderedCollection with: '0,0 North'
+								with: '0,1 North'
+								with: '0,1 West'
+								with: '1,1 West'
+								with: '2,1 West'
+								with: '2,1 South') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 21:00:36' prior: 50559185!
+test17loggerControllerKnowsCurrentPosition
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self loggerControllerOn: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: '2,1' equals: logger currentPosition.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 21:00:36' prior: 50559263!
+test18loggerControllerKnowsCurrentPositionAndHeading
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self loggerControllerOn: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: '2,1 South' equals: logger currentPositionAndHeading .! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 21:00:36' prior: 50559098!
+test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self loggerControllerOn: rover.
+	
+	rover process: ''.
+	
+	self assert: (OrderedCollection with: '0,0 North') equals: logger printLogs.! !
+!MarsRoverLoggerTest methodsFor: 'tests' stamp: 'guille 10/26/2022 21:00:36' prior: 50559308!
+test16loggerControllerKnowsCurrentHeading
+	| rover logger |
+	rover _ self roverAtOriginHeadingNorth.
+	logger _ self loggerControllerOn: rover.
+	
+	rover process: 'flbbl'.
+	
+	self assert: 'South' equals: logger currentHeading.! !
+
+!testRun: #MarsRoverLoggerTest #test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test15loggerControllerLogsMultipleCommands stamp: 'guille 10/26/2022 21:00:45'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test16loggerControllerKnowsCurrentHeading stamp: 'guille 10/26/2022 21:00:46'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test17loggerControllerKnowsCurrentPosition stamp: 'guille 10/26/2022 21:00:46'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test18loggerControllerKnowsCurrentPositionAndHeading stamp: 'guille 10/26/2022 21:00:46'!
+PASSED!
+
+----SNAPSHOT----(26 October 2022 21:00:57) CuisUniversity-5481.image priorSource: 7059698!
+
+TranscriptWindow openTranscript.!
+
+Transcript clear.!
+
+Transcript clear.!
+
+a _ [Transcript clear. Transcript show: 'puim']!
+
+a!
+
+a value!
+!MarsRover methodsFor: 'logging' stamp: 'guille 10/26/2022 21:12:41'!
+updateLoggers
+	loggers do: [:aLogger | aLogger value: position copy value: head copy].! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 21:12:41' prior: 50557823!
+moveBackward
+	
+	head moveBackward.
+	self updateLoggers.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 21:12:41' prior: 50557828!
+moveForward
+	
+	head moveForward.
+	self updateLoggers.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 21:12:41' prior: 50557966!
+addLogger: aLoggerClosure
+
+	loggers add: aLoggerClosure.
+	self updateLoggers.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 21:12:41' prior: 50557833!
+rotateLeft
+	
+	head rotateLeft.
+	self updateLoggers.! !
+!MarsRover methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 21:12:41' prior: 50557838!
+rotateRight
+	
+	head rotateRight.
+	self updateLoggers.! !
+
+!methodRemoval: MarsRover #log stamp: 'guille 10/26/2022 21:12:41'!
+log
+	loggers do: [:aLogger | aLogger value: position copy value: head copy].!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 21:12:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 21:12:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 21:12:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 21:12:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 21:12:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 21:12:53'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 21:12:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 21:12:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 21:12:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 21:12:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 21:12:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 21:12:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 21:12:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands stamp: 'guille 10/26/2022 21:12:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test15loggerControllerLogsMultipleCommands stamp: 'guille 10/26/2022 21:12:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test16loggerControllerKnowsCurrentHeading stamp: 'guille 10/26/2022 21:12:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test17loggerControllerKnowsCurrentPosition stamp: 'guille 10/26/2022 21:12:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test18loggerControllerKnowsCurrentPositionAndHeading stamp: 'guille 10/26/2022 21:12:54'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test15loggerControllerLogsMultipleCommands stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test16loggerControllerKnowsCurrentHeading stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test17loggerControllerKnowsCurrentPosition stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test18loggerControllerKnowsCurrentPositionAndHeading stamp: 'guille 10/26/2022 21:13:31'!
+PASSED!
+
+----SNAPSHOT----(26 October 2022 21:13:43) CuisUniversity-5481.image priorSource: 7295335!
+
+Object subclass: #MarsRoverTranscript
+	instanceVariableNames: 'loggerController'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverTranscript category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 21:14:49'!
+Object subclass: #MarsRoverTranscript
+	instanceVariableNames: 'loggerController'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+Object subclass: #MarsRoverTranscript
+	instanceVariableNames: 'loggerController rover'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverTranscript category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 21:15:11'!
+Object subclass: #MarsRoverTranscript
+	instanceVariableNames: 'loggerController rover'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+!MarsRoverTranscript class methodsFor: 'no messages' stamp: 'guille 10/26/2022 21:15:49'!
+attachedTo: aMarsRover
+	^self new initializeAttachedTo: aMarsRover! !
+!MarsRoverTranscript methodsFor: 'no messages' stamp: 'guille 10/26/2022 21:17:13'!
+initializeAttachedTo: aMarsRover
+	loggerController _ MarsRoverLoggerController attachedTo: aMarsRover.
+	aMarsRover addLogger: [:aPosition :aHeading | self updateTranscript].! !
+!MarsRoverTranscript methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 21:18:22' prior: 50559861!
+initializeAttachedTo: aMarsRover
+	loggerController _ MarsRoverLoggerController attachedTo: aMarsRover.
+	aMarsRover addLogger: [:aPosition :aHeading | self updateTranscript].
+	
+	TranscriptWindow openTranscript.! !
+!MarsRoverTranscript methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 21:27:12'!
+updateTranscript
+	Transcript clear.
+	Transcript show: loggerController currentPositionAndHeading.! !
+
+rover _ MarsRover.!
+
+t _ MarsRoverTranscript!
+
+t _ MarsRoverTranscript attachedTo: rover.!
+
+rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth.!
+
+t _ MarsRoverTranscript attachedTo: rover.!
+
+rover process: 'f'!
+
+Object subclass: #MarsRoverTranscript
+	instanceVariableNames: 'loggerController'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverTranscript category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 21:30:30'!
+Object subclass: #MarsRoverTranscript
+	instanceVariableNames: 'loggerController'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+Object subclass: #MarsRoverTranscript
+	instanceVariableNames: 'loggerController tracked'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!classDefinition: #MarsRoverTranscript category: 'MarsRover-WithHeading' stamp: 'guille 10/26/2022 21:30:55'!
+Object subclass: #MarsRoverTranscript
+	instanceVariableNames: 'loggerController tracked'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+!MarsRoverTranscript methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 21:31:15' prior: 50559870!
+initializeAttachedTo: aMarsRover
+	loggerController _ MarsRoverLoggerController attachedTo: aMarsRover.
+	tracked _ loggerController.
+	aMarsRover addLogger: [:aPosition :aHeading | self updateTranscript].
+	
+	TranscriptWindow openTranscript.! !
+!MarsRoverTranscript methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 21:31:36' prior: 50559880!
+updateTranscript
+	Transcript clear.
+	Transcript show: tracked print.! !
+!MarsRoverLogger methodsFor: 'print' stamp: 'guille 10/26/2022 21:31:53' overrides: 16902957!
+print
+	^self subclassResponsibility ! !
+!MarsRoverHeadingLogger methodsFor: 'print' stamp: 'guille 10/26/2022 21:32:16' overrides: 50559939!
+print
+	^self currentHeading ! !
+!MarsRoverLoggerController methodsFor: 'print' stamp: 'guille 10/26/2022 21:32:32' overrides: 50559939!
+print
+	^self currentPositionAndHeading ! !
+!MarsRoverPositionLogger methodsFor: 'print' stamp: 'guille 10/26/2022 21:32:46' overrides: 50559939!
+print
+	^self currentPosition ! !
+
+t _ MarsRoverTranscript attachedTo: rover.!
+
+rover _ MarsRover at: 0@0 heading: MarsRoverHeadingNorth .!
+
+t _ MarsRoverTranscript attachedTo: rover.!
+!MarsRoverTranscript methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 21:34:58' prior: 50559933!
+updateTranscript
+	Transcript clear.
+	Transcript show: tracked value.! !
+!MarsRoverTranscript methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 21:35:15' prior: 50559922!
+initializeAttachedTo: aMarsRover
+	loggerController _ MarsRoverLoggerController attachedTo: aMarsRover.
+	tracked _ [loggerController currentPositionAndHeading ].
+	aMarsRover addLogger: [:aPosition :aHeading | self updateTranscript].
+	
+	TranscriptWindow openTranscript.! !
+
+t _ MarsRoverTranscript attachedTo: rover.!
+
+rover process: 'f'!
+
+rover process: 'f'!
+
+rover process: 'f'!
+
+rover process: 'f'!
+
+rover process: 'f'!
+
+rover process: 'f'!
+!MarsRoverTranscript methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 21:36:12'!
+trackHeading
+	tracked _ [loggerController currentHeading].! !
+!MarsRoverTranscript methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 21:36:34' prior: 50559987!
+trackHeading
+	tracked _ [loggerController currentHeading].
+	self updateTranscript .! !
+!MarsRoverTranscript methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 21:36:47'!
+trackPosition
+	tracked _ [loggerController currentPosition].
+	self updateTranscript .! !
+!MarsRoverTranscript methodsFor: 'as yet unclassified' stamp: 'guille 10/26/2022 21:36:54'!
+trackPositionAndHeading
+	tracked _ [loggerController currentPositionAndHeading ].
+	self updateTranscript .! !
+
+t trackHeading.!
+
+t trackPosition.!
+
+rover process: 'f'.!
+
+rover process: 'f'.!
+
+t trackHeading.!
+
+rover process: 'fl'.!
+
+!methodRemoval: MarsRoverLogger #print stamp: 'guille 10/26/2022 21:38:38'!
+print
+	^self subclassResponsibility !
+
+!methodRemoval: MarsRoverLogger #printLogs stamp: 'guille 10/26/2022 21:38:38'!
+printLogs
+	^log copy!
+
+!methodRemoval: MarsRoverHeadingLogger #print stamp: 'guille 10/26/2022 21:38:41'!
+print
+	^self currentHeading !
+
+!methodRemoval: MarsRoverLoggerController #print stamp: 'guille 10/26/2022 21:38:45'!
+print
+	^self currentPositionAndHeading !
+
+!methodRemoval: MarsRoverPositionLogger #print stamp: 'guille 10/26/2022 21:38:47'!
+print
+	^self currentPosition !
+!MarsRoverLogger methodsFor: 'print' stamp: 'guille 10/26/2022 21:39:03'!
+printLogs
+	^log copy! !
+
+!testRun: #MarsRoverLoggerTest #test01positionLoggerHasStartingPositionLoggedAfterEmptyCommands stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test02positionLoggerHasUpdatedPositionAfterMovingForward stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test03positionLoggerHasUpdatedPositionAfterMovingBackward stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test04positionLoggerLogsMultiplesMoveForwardAndBackwards stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test05headingLoggerHasStartingHeadingAfterEmptyCommands stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test06headingLoggerHasHeadingWestAfterTurningLeftNorth stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test07headingLoggerHasHeadingEastAfterTurningLeftNorth stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test08headingLoggerLogsMultipleHeadingsAfterTurningRightRightLeftLeftFromNorth stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test09positionLoggerKnowsCurrentPositionAfterMovingOnce stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test10positionLoggerKnowsCurrentPositionAfterMovingManyTimes stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test11positionLoggerDoesNotLogPositionRepeatedlyIfItDoesNotChange stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test12headingLoggerKnowsCurrentHeadingAfterMovingOnce stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test13headingLoggerKnowsCurrentHeadingAfterMovingManyTimes stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test14loggerControllerHasStartingHeadAndPosAfterEmptyCommands stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test15loggerControllerLogsMultipleCommands stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test16loggerControllerKnowsCurrentHeading stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test17loggerControllerKnowsCurrentPosition stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+!testRun: #MarsRoverLoggerTest #test18loggerControllerKnowsCurrentPositionAndHeading stamp: 'guille 10/26/2022 21:39:08'!
+PASSED!
+
+----SNAPSHOT----(26 October 2022 21:39:35) CuisUniversity-5481.image priorSource: 7301563!
