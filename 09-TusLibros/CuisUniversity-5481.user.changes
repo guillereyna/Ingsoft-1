@@ -1,0 +1,971 @@
+
+
+----QUIT----(11 September 2022 19:10:09) CuisUniversity-5481.image priorSource: 2810882!
+
+----STARTUP---- (11 September 2022 19:10:10) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-5481.image!
+
+
+----QUIT----(11 September 2022 19:10:10) CuisUniversity-5481.image priorSource: 7059465!
+
+----STARTUP---- (29 September 2022 17:57:21) as /home/greyna/Universidad/Ingenieria I/linux64/CuisUniversity-5481.image!
+
+
+----End fileIn of /home/greyna/Universidad/Ingenieria I/linux64/Packages/System/Collections-CompactArrays.pck.st----!
+
+----End fileIn of /home/greyna/Universidad/Ingenieria I/linux64/Packages/Features/VectorEngineInSmalltalk.pck.st----!
+
+TTFontDescription initialize!
+
+----End fileIn of /home/greyna/Universidad/Ingenieria I/linux64/Packages/Features/VectorGraphics.pck.st----!
+
+----SNAPSHOT----(29 September 2022 17:58:56) CuisUniversity-5481.image priorSource: 7059698!
+
+----STARTUP---- (3 October 2022 21:20:49) as /home/greyna/Universidad/Ingenieria I/fresh-cuis/CuisUniversity-5481.image!
+
+
+----End fileIn of /home/greyna/Universidad/Ingenieria I/Ingsoft-1/04-BabySteps/TDDBabyStepsGame.st----!
+
+----STARTUP---- (17 October 2022 15:44:00) as /home/greyna/Universidad/Ingenieria I/fresh-cuis/CuisUniversity-5481.image!
+
+
+----End fileIn of /home/greyna/Universidad/Ingenieria I/Ingsoft-1/06-Portfolio1/Portfolio-Ejercicio.st----!
+
+!testRun: #PortfolioTest #test01emptyPortfolioHasBalanceZero stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test02oneAccountAffectsPortfolioBalance stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test03nestedPortfolioAffectsBalance stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test04canDetectRepeatedChildAccount stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test05notAddedChildAccountIsNotIncludedInPortfolio stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test06cannotAddNonNestedChildAccountTwice stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test07cannotAddNestedChildAccountTwice stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test08cannotAddNonNestedChildPortfolioTwice stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test09cannotAddNestedDescendingPortfolioTwice stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test10portfolioHasNonNestedRegisteredAccount stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test11portfolioHasNestedRegisteredAccount stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test12portfolioKnowsItsTransactions stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test13portfolioKnowsItsNestedTransactions stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test14parentAddedToChildPortfolioCorrectly stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test15parentAddedToChildReceptiveAccountCorrectly stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test16cannotAddAccountIfParentHasIt stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test17cannotAddPortfolioIfParentHasIt stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test18getRootPortfoliosOfRootPortfolioReturnsHimself stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test19getRootPortfoliosOfDirectChildAccount stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test20getRootPortfoliosOfANestedPortfolioItem stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test21getAllDescendantsOfReceptiveAccountReturnsEmpty stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test22checkNoCommonPortfoliosWithDescendantsOfWorksCorrectly stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test23checkPortfoliosWithCommonDescendantAccountCannotBeAdded stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test23checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+!testRun: #PortfolioTest #test24checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded stamp: 'grm 10/17/2022 15:44:47'!
+PASSED!
+
+----STARTUP---- (27 October 2022 20:33:50) as /home/greyna/Universidad/Ingenieria I/cuis/CuisUniversity-5481.image!
+
+
+Object subclass: #TusLibrosCart
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #TusLibrosCart category: 'TusLibros' stamp: 'grm 10/27/2022 20:34:50'!
+Object subclass: #TusLibrosCart
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+TestCase subclass: #TusLibrosCartTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #TusLibrosCartTest category: 'TusLibros' stamp: 'grm 10/27/2022 20:35:10'!
+TestCase subclass: #TusLibrosCartTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #TusLibrosCartTest stamp: 'grm 10/27/2022 20:43:22'!
+TestCase subclass: #TusLibrosCartTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classRemoval: #TusLibrosCart stamp: 'grm 10/27/2022 20:43:30'!
+Object subclass: #TusLibrosCart
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+Object subclass: #BookCart
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #BookCart category: 'TusLibros' stamp: 'grm 10/27/2022 20:43:37'!
+Object subclass: #BookCart
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+TestCase subclass: #BookCartTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #BookCartTest category: 'TusLibros' stamp: 'grm 10/27/2022 20:43:47'!
+TestCase subclass: #BookCartTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 20:44:44'!
+test01newCartIsEmpty
+	| cart |
+	cart _ BookCart new.
+	
+	self assert: BookCart isEmpty.! !
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 20:44:51' prior: 50567878!
+test01newCartIsEmpty
+	| cart |
+	cart _ BookCart new.
+	
+	self assert: cart isEmpty.! !
+
+!testRun: #BookCartTest #test01newCartIsEmpty stamp: 'grm 10/27/2022 20:44:54'!
+ERROR!
+!BookCart methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 20:45:03'!
+isEmpty
+	self shouldBeImplemented.! !
+!BookCart methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 20:45:17' prior: 50567892!
+isEmpty
+	^true! !
+
+!testRun: #BookCartTest #test01newCartIsEmpty stamp: 'grm 10/27/2022 20:45:19'!
+PASSED!
+
+!testRun: #BookCartTest #test01newCartIsEmpty stamp: 'grm 10/27/2022 20:45:19'!
+PASSED!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 20:45:35'!
+test02cartIsNotEmptyAfterAddingBook
+	| cart |
+	cart _ BookCart new.
+	
+	self assert: cart isEmpty.! !
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 20:47:28' prior: 50567906!
+test02cartIsNotEmptyAfterAddingBook
+	| cart |
+	cart _ BookCart new.
+	cart add: #Book.
+	
+	self assert: cart isEmpty.! !
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 20:47:34'!
+ERROR!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 20:47:43' prior: 50567912!
+test02cartIsNotEmptyAfterAddingBook
+	| cart |
+	cart _ BookCart new.
+	cart add: #Book.
+	
+	self deny: cart isEmpty.! !
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 20:47:59'!
+ERROR!
+!BookCart methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 20:48:06'!
+add: aSymbol 
+	self shouldBeImplemented.! !
+
+!classDefinition: #BookCart category: 'TusLibros' stamp: 'grm 10/27/2022 20:54:32'!
+Object subclass: #BookCart
+	instanceVariableNames: 'books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!BookCart methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 20:54:30' prior: 50567932!
+add: aBook 
+	books add: aBook! !
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 20:54:34'!
+ERROR!
+!BookCart methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 20:54:55' overrides: 16920235!
+initialize
+	books _ OrderedCollection new.! !
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 20:55:00'!
+FAILURE!
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 20:55:00'!
+FAILURE!
+!BookCart methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 20:55:13' prior: 50567897!
+isEmpty
+	^books isEmpty! !
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 20:55:18'!
+PASSED!
+
+!testRun: #BookCartTest #test01newCartIsEmpty stamp: 'grm 10/27/2022 20:55:18'!
+PASSED!
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 20:55:18'!
+PASSED!
+
+!classDefinition: #BookCatalog category: 'TusLibros' stamp: 'grm 10/27/2022 20:59:52'!
+Object subclass: #BookCatalog
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 20:59:40'!
+test03cannotAddBookNotIncludedInCatalog
+	| cart catalog |
+	catalog _ BookCatalog new.
+	catalog add: #Book.
+	
+	cart _ BookCart withCatalog: catalog.
+	cart add: #Book.
+	
+	self deny: cart isEmpty.! !
+
+!testRun: #BookCartTest #test03cannotAddBookNotIncludedInCatalog stamp: 'grm 10/27/2022 21:00:00'!
+ERROR!
+!BookCatalog methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:00:12'!
+add: aSymbol 
+	self shouldBeImplemented.! !
+!BookCatalog methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:00:23' prior: 50567994!
+add: aBook! !
+
+!testRun: #BookCartTest #test03cannotAddBookNotIncludedInCatalog stamp: 'grm 10/27/2022 21:00:25'!
+ERROR!
+!BookCart class methodsFor: 'instance creation' stamp: 'grm 10/27/2022 21:00:57'!
+withCatalog: aBookCatalog 
+	"DO NOT FORGET TO RENAME COLLABORATORS AND REMOVE THIS COMMENT!!!!"
+	self shouldBeImplemented.
+	^self new initializeWithCatalog: aBookCatalog ! !
+!BookCart class methodsFor: 'instance creation' stamp: 'grm 10/27/2022 21:01:42' prior: 50568006!
+withCatalog: aBookCatalog 
+	^self new initializeWithCatalog: aBookCatalog ! !
+
+!testRun: #BookCartTest #test03cannotAddBookNotIncludedInCatalog stamp: 'grm 10/27/2022 21:01:44'!
+ERROR!
+
+!classDefinition: #BookCart category: 'TusLibros' stamp: 'grm 10/27/2022 21:01:54'!
+Object subclass: #BookCart
+	instanceVariableNames: 'books bookCatalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!BookCart methodsFor: 'initialization' stamp: 'grm 10/27/2022 21:01:54'!
+initializeWithCatalog: aBookCatalog 
+	self shouldBeImplemented.
+	bookCatalog := aBookCatalog.! !
+!BookCart methodsFor: 'initialization' stamp: 'grm 10/27/2022 21:02:06' prior: 50568031!
+initializeWithCatalog: aBookCatalog 
+	books _ OrderedCollection new.
+	bookCatalog := aBookCatalog.! !
+
+!testRun: #BookCartTest #test03cannotAddBookNotIncludedInCatalog stamp: 'grm 10/27/2022 21:02:07'!
+PASSED!
+
+!testRun: #BookCartTest #test01newCartIsEmpty stamp: 'grm 10/27/2022 21:02:07'!
+PASSED!
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:02:07'!
+PASSED!
+
+!testRun: #BookCartTest #test03cannotAddBookNotIncludedInCatalog stamp: 'grm 10/27/2022 21:02:07'!
+PASSED!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:07:26' prior: 50567981!
+test03cannotAddBookNotIncludedInCatalog
+	| cart catalog |
+	catalog _ BookCatalog new.
+	
+	cart _ BookCart withCatalog: catalog.
+	
+	
+	self
+		should: [cart add: #Book]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [:error |
+			self assert: cart class cannotAddBookNotInCatalogErrorDescription equals: error messageText.
+			self assert: cart isEmpty.]
+	
+	! !
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:07:37' prior: 50568056!
+test03cannotAddBookNotIncludedInCatalog
+	| cart catalog |
+	catalog _ BookCatalog new.
+	cart _ BookCart withCatalog: catalog.
+	
+	self
+		should: [cart add: #Book]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [:error |
+			self assert: cart class cannotAddBookNotInCatalogErrorDescription equals: error messageText.
+			self assert: cart isEmpty.]
+	
+	! !
+
+!testRun: #BookCartTest #test03cannotAddBookNotIncludedInCatalog stamp: 'grm 10/27/2022 21:07:44'!
+FAILURE!
+
+!classDefinition: #BookCart category: 'TusLibros' stamp: 'grm 10/27/2022 21:09:19'!
+Object subclass: #BookCart
+	instanceVariableNames: 'books bookCatalog catalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!BookCart methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:09:12' prior: 50567943!
+add: aBook 
+	catalog includes: aBook.
+	books add: aBook! !
+
+Object subclass: #BookCart
+	instanceVariableNames: 'books bookCatalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #BookCart category: 'TusLibros' stamp: 'grm 10/27/2022 21:09:30'!
+Object subclass: #BookCart
+	instanceVariableNames: 'books bookCatalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+Object subclass: #BookCart
+	instanceVariableNames: 'books catalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #BookCart category: 'TusLibros' stamp: 'grm 10/27/2022 21:09:43'!
+Object subclass: #BookCart
+	instanceVariableNames: 'books catalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!BookCart methodsFor: 'initialization' stamp: 'grm 10/27/2022 21:09:56' prior: 50568037!
+initializeWithCatalog: aBookCatalog 
+	books _ OrderedCollection new.
+	catalog := aBookCatalog.! !
+
+Object subclass: #BookCatalog
+	instanceVariableNames: 'books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #BookCatalog category: 'TusLibros' stamp: 'grm 10/27/2022 21:10:19'!
+Object subclass: #BookCatalog
+	instanceVariableNames: 'books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!BookCatalog methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:12:28'!
+includes: aBook
+	^false! !
+!BookCart methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:13:34' prior: 50568096!
+add: aBook 
+	(catalog includes: aBook) ifFalse: [self error: self class ].
+	books add: aBook! !
+!BookCart methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:13:50' prior: 50568145!
+add: aBook 
+	(catalog includes: aBook) ifFalse: [self error: self class cannotAddBookNotInCatalogErrorDescription].
+	books add: aBook! !
+!BookCart class methodsFor: 'instance creation' stamp: 'grm 10/27/2022 21:14:18'!
+cannotAddBookNotInCatalogErrorDescription
+	^'Cannot add book because it does not exist in the catalog'! !
+
+!testRun: #BookCartTest #test03cannotAddBookNotIncludedInCatalog stamp: 'grm 10/27/2022 21:14:48'!
+PASSED!
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:14:53'!
+ERROR!
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:14:53'!
+ERROR!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:15:37' prior: 50567922!
+test02cartIsNotEmptyAfterAddingBook
+	| cart |
+	cart _ BookCart withCatalog: BookCatalog new.
+	cart add: #Book.
+	
+	self deny: cart isEmpty.! !
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:15:38'!
+ERROR!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:16:23' prior: 50568174!
+test02cartIsNotEmptyAfterAddingBook
+	| cart catalog |
+	catalog _ BookCatalog new.
+	catalog add: #Book.
+	
+	cart _ BookCart withCatalog: catalog.
+	cart add: #Book.
+	
+	self deny: cart isEmpty.! !
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:16:33'!
+ERROR!
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:16:33'!
+ERROR!
+!BookCatalog methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:16:57' prior: 50567999!
+add: aBook
+	books add: aBook.! !
+
+----End fileIn of /home/greyna/Universidad/Ingenieria I/cuis/Packages/TerseGuide.pck.st----!
+!BookCatalog methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:18:35' overrides: 16920235!
+initialize
+	books := Set new.! !
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:18:56'!
+ERROR!
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:18:56'!
+ERROR!
+!BookCatalog methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:19:39' prior: 50568141!
+includes: aBook
+	^books includes: aBook.! !
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:19:43'!
+PASSED!
+
+!testRun: #BookCartTest #test01newCartIsEmpty stamp: 'grm 10/27/2022 21:19:47'!
+PASSED!
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:19:47'!
+PASSED!
+
+!testRun: #BookCartTest #test03cannotAddBookNotIncludedInCatalog stamp: 'grm 10/27/2022 21:19:47'!
+PASSED!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:20:11' prior: 50568185!
+test02cartIsNotEmptyAfterAddingBook
+	| cart catalog |
+	catalog _ Set new.
+	catalog add: #Book.
+	
+	cart _ BookCart withCatalog: catalog.
+	cart add: #Book.
+	
+	self deny: cart isEmpty.! !
+
+!testRun: #BookCartTest #test01newCartIsEmpty stamp: 'grm 10/27/2022 21:20:19'!
+PASSED!
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:20:19'!
+PASSED!
+
+!testRun: #BookCartTest #test03cannotAddBookNotIncludedInCatalog stamp: 'grm 10/27/2022 21:20:19'!
+PASSED!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:20:54' prior: 50568071!
+test03cannotAddBookNotIncludedInCatalog
+	| cart catalog |
+	catalog _ Set new.
+	cart _ BookCart withCatalog: catalog.
+	
+	self
+		should: [cart add: #Book]
+		raise: Error - MessageNotUnderstood
+		withExceptionDo: [:error |
+			self assert: cart class cannotAddBookNotInCatalogErrorDescription equals: error messageText.
+			self assert: cart isEmpty.]
+	
+	! !
+
+!testRun: #BookCartTest #test01newCartIsEmpty stamp: 'grm 10/27/2022 21:21:02'!
+PASSED!
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:21:02'!
+PASSED!
+
+!testRun: #BookCartTest #test03cannotAddBookNotIncludedInCatalog stamp: 'grm 10/27/2022 21:21:02'!
+PASSED!
+
+!classRemoval: #BookCatalog stamp: 'grm 10/27/2022 21:21:17'!
+Object subclass: #BookCatalog
+	instanceVariableNames: 'books'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:26:55'!
+test04canAddMultipleBooksInCatalog
+	| cart catalog |
+	catalog _ Set with: #Book.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	
+	self assert: 4 equals: cart size.! !
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:27:19' prior: 50571201!
+test04canAddMultipleBooksInCatalog
+	| cart catalog |
+	catalog _ Set with: #Book.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	
+	self assert: 4 equals: cart size.! !
+
+!testRun: #BookCartTest #test04canAddMultipleBooksInCatalog stamp: 'grm 10/27/2022 21:27:22'!
+ERROR!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:28:08' prior: 50571211!
+test04canAddMultipleBooksInCatalog
+	| cart catalog |
+	catalog _ Set with: #Book.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	
+	self assert: 4 equals: cart numberOfBooks.! !
+
+!testRun: #BookCartTest #test04canAddMultipleBooksInCatalog stamp: 'grm 10/27/2022 21:28:11'!
+ERROR!
+!BookCart methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:28:17'!
+numberOfBooks
+	self shouldBeImplemented.! !
+!BookCart methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:28:27' prior: 50571239!
+numberOfBooks
+	^4! !
+
+!testRun: #BookCartTest #test04canAddMultipleBooksInCatalog stamp: 'grm 10/27/2022 21:28:28'!
+PASSED!
+
+!testRun: #BookCartTest #test01newCartIsEmpty stamp: 'grm 10/27/2022 21:28:28'!
+PASSED!
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:28:28'!
+PASSED!
+
+!testRun: #BookCartTest #test03cannotAddBookNotIncludedInCatalog stamp: 'grm 10/27/2022 21:28:28'!
+PASSED!
+
+!testRun: #BookCartTest #test04canAddMultipleBooksInCatalog stamp: 'grm 10/27/2022 21:28:28'!
+PASSED!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:29:14'!
+test04numberOfBooksInCartIs4AfterAdding4Books
+	| cart catalog |
+	catalog _ Set with: #Book.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	
+	self assert: 4 equals: cart numberOfBooks.! !
+
+!methodRemoval: BookCartTest #test04canAddMultipleBooksInCatalog stamp: 'grm 10/27/2022 21:29:14'!
+test04canAddMultipleBooksInCatalog
+	| cart catalog |
+	catalog _ Set with: #Book.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	
+	self assert: 4 equals: cart numberOfBooks.!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:31:28'!
+test05numberOfBooksDecreasesAfterRemovingABook
+	| cart catalog |
+	catalog _ Set with: #Book.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	cart remove: #Book.
+	
+	self assert: 3 equals: cart numberOfBooks.! !
+
+!testRun: #BookCartTest #test05numberOfBooksDecreasesAfterRemovingABook stamp: 'grm 10/27/2022 21:31:34'!
+ERROR!
+!BookCart methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:31:43'!
+remove: aSymbol 
+	self shouldBeImplemented.! !
+!BookCart methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:31:55' prior: 50571299!
+remove: aBook 
+	books remove: aBook.! !
+
+!testRun: #BookCartTest #test05numberOfBooksDecreasesAfterRemovingABook stamp: 'grm 10/27/2022 21:31:57'!
+FAILURE!
+!BookCart methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:32:12' prior: 50571244!
+numberOfBooks
+	^books size! !
+
+!testRun: #BookCartTest #test05numberOfBooksDecreasesAfterRemovingABook stamp: 'grm 10/27/2022 21:32:17'!
+PASSED!
+
+!testRun: #BookCartTest #test01newCartIsEmpty stamp: 'grm 10/27/2022 21:32:17'!
+PASSED!
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:32:17'!
+PASSED!
+
+!testRun: #BookCartTest #test03cannotAddBookNotIncludedInCatalog stamp: 'grm 10/27/2022 21:32:17'!
+PASSED!
+
+!testRun: #BookCartTest #test04numberOfBooksInCartIs4AfterAdding4Books stamp: 'grm 10/27/2022 21:32:17'!
+PASSED!
+
+!testRun: #BookCartTest #test05numberOfBooksDecreasesAfterRemovingABook stamp: 'grm 10/27/2022 21:32:17'!
+PASSED!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:38:06'!
+test04booksAddedAreInCartAndNothingElse
+	| cart catalog |
+	catalog _ Set with: #Book.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+		
+	self assert: (OrderedCollection with: #Book with: #Book with: #Book)  
+		equals: cart numberOfBooks.! !
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:38:29' prior: 50571336!
+test04booksAddedAreInCartAndNothingElse
+	| cart catalog |
+	catalog _ Set with: #Book.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+		
+	self assert: (OrderedCollection with: #Book with: #Book with: #Book)  
+		equals: cart books.! !
+
+!methodRemoval: BookCartTest #test04numberOfBooksInCartIs4AfterAdding4Books stamp: 'grm 10/27/2022 21:38:59'!
+test04numberOfBooksInCartIs4AfterAdding4Books
+	| cart catalog |
+	catalog _ Set with: #Book.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	
+	self assert: 4 equals: cart numberOfBooks.!
+
+!testRun: #BookCartTest #test04booksAddedAreInCartAndNothingElse stamp: 'grm 10/27/2022 21:39:04'!
+ERROR!
+
+!testRun: #BookCartTest #test04booksAddedAreInCartAndNothingElse stamp: 'grm 10/27/2022 21:39:04'!
+ERROR!
+!BookCart methodsFor: 'accessing' stamp: 'grm 10/27/2022 21:39:19'!
+books
+	self shouldBeImplemented.
+	^books! !
+!BookCart methodsFor: 'accessing' stamp: 'grm 10/27/2022 21:39:34' prior: 50571377!
+books
+	^books copy.! !
+
+!testRun: #BookCartTest #test04booksAddedAreInCartAndNothingElse stamp: 'grm 10/27/2022 21:39:35'!
+PASSED!
+
+!testRun: #BookCartTest #test04booksAddedAreInCartAndNothingElse stamp: 'grm 10/27/2022 21:39:37'!
+PASSED!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:39:49' prior: 50571284!
+test05numberOfBooksDecreasesAfterRemovingABook
+	| cart catalog |
+	catalog _ Set with: #Book.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	cart remove: #Book.
+	
+	self assert: (OrderedCollection with: #Book with: #Book with: #Book)  
+		equals: cart addedBooks.! !
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:40:30' prior: 50571392!
+test05numberOfBooksDecreasesAfterRemovingABook
+	| cart catalog |
+	catalog _ Set with: #Book.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	cart remove: #Book.
+	
+	self assert: (OrderedCollection with: #Book with: #Book)  
+		equals: cart books.! !
+
+!testRun: #BookCartTest #test05numberOfBooksDecreasesAfterRemovingABook stamp: 'grm 10/27/2022 21:40:34'!
+PASSED!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:41:18'!
+test05booksAddedAndDeletedAreConsistentWithBooksInCart
+	| cart catalog |
+	catalog _ Set with: #Book.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	cart remove: #Book.
+	
+	self assert: (OrderedCollection with: #Book with: #Book)  
+		equals: cart books.! !
+
+!methodRemoval: BookCartTest #test05numberOfBooksDecreasesAfterRemovingABook stamp: 'grm 10/27/2022 21:41:24'!
+test05numberOfBooksDecreasesAfterRemovingABook
+	| cart catalog |
+	catalog _ Set with: #Book.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	cart remove: #Book.
+	
+	self assert: (OrderedCollection with: #Book with: #Book)  
+		equals: cart books.!
+
+!testRun: #BookCartTest #test01newCartIsEmpty stamp: 'grm 10/27/2022 21:41:27'!
+PASSED!
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:41:27'!
+PASSED!
+
+!testRun: #BookCartTest #test03cannotAddBookNotIncludedInCatalog stamp: 'grm 10/27/2022 21:41:27'!
+PASSED!
+
+!testRun: #BookCartTest #test04booksAddedAreInCartAndNothingElse stamp: 'grm 10/27/2022 21:41:27'!
+PASSED!
+
+!testRun: #BookCartTest #test05booksAddedAndDeletedAreConsistentWithBooksInCart stamp: 'grm 10/27/2022 21:41:27'!
+PASSED!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:51:32' prior: 50571348!
+test04booksAddedAreInCartAndNothingElse
+	| cart catalog |
+	catalog _ Set with: #BookISBN1 with: #BookISBN2 with: #BookISBN3.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #BookISBN1.
+	cart add: #BookISBN2.
+	cart add: #BookISBN3.
+		
+	self assert: (OrderedCollection with: #BookISBN1 with: #BookISBN2 with: #BookISBN3) equals: cart books.! !
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:52:09' prior: 50571420!
+test05booksAddedAndDeletedAreConsistentWithBooksInCart
+	| cart catalog |
+	catalog _ Set with: #BookISBN1 with: #BookISBN2 with: #BookISBN3.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #Book.
+	cart add: #Book.
+	cart add: #Book.
+	cart remove: #Book.
+	
+	self assert: (OrderedCollection with: #Book with: #Book)  
+		equals: cart books.! !
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:52:33' prior: 50571476!
+test05booksAddedAndDeletedAreConsistentWithBooksInCart
+	| cart catalog |
+	catalog _ Set with: #BookISBN1 with: #BookISBN2 with: #BookISBN3.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #BookISBN1.
+	cart add: #BookISBN2.
+	cart add: #BookISBN3.
+	cart remove: #BookISBN2.
+	
+	self assert: (OrderedCollection with: #BookISBN1 with: #BookISBN3)  
+		equals: cart books.! !
+
+!testRun: #BookCartTest #test05booksAddedAndDeletedAreConsistentWithBooksInCart stamp: 'grm 10/27/2022 21:52:35'!
+PASSED!
+
+!testRun: #BookCartTest #test01newCartIsEmpty stamp: 'grm 10/27/2022 21:52:35'!
+PASSED!
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:52:35'!
+PASSED!
+
+!testRun: #BookCartTest #test03cannotAddBookNotIncludedInCatalog stamp: 'grm 10/27/2022 21:52:35'!
+PASSED!
+
+!testRun: #BookCartTest #test04booksAddedAreInCartAndNothingElse stamp: 'grm 10/27/2022 21:52:35'!
+PASSED!
+
+!testRun: #BookCartTest #test05booksAddedAndDeletedAreConsistentWithBooksInCart stamp: 'grm 10/27/2022 21:52:35'!
+PASSED!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:53:10'!
+test05canAddSameBookMultipleTimes
+	| cart catalog |
+	catalog _ Set with: #BookISBN1.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #BookISBN1.
+	cart add: #BookISBN1.
+	
+	self assert: (OrderedCollection with: #BookISBN1 with: #BookISBN1)  
+		equals: cart books.! !
+
+!testRun: #BookCartTest #test05canAddSameBookMultipleTimes stamp: 'grm 10/27/2022 21:53:11'!
+PASSED!
+
+!testRun: #BookCartTest #test01newCartIsEmpty stamp: 'grm 10/27/2022 21:53:11'!
+PASSED!
+
+!testRun: #BookCartTest #test02cartIsNotEmptyAfterAddingBook stamp: 'grm 10/27/2022 21:53:11'!
+PASSED!
+
+!testRun: #BookCartTest #test03cannotAddBookNotIncludedInCatalog stamp: 'grm 10/27/2022 21:53:11'!
+PASSED!
+
+!testRun: #BookCartTest #test04booksAddedAreInCartAndNothingElse stamp: 'grm 10/27/2022 21:53:11'!
+PASSED!
+
+!testRun: #BookCartTest #test05booksAddedAndDeletedAreConsistentWithBooksInCart stamp: 'grm 10/27/2022 21:53:11'!
+PASSED!
+
+!testRun: #BookCartTest #test05canAddSameBookMultipleTimes stamp: 'grm 10/27/2022 21:53:11'!
+PASSED!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:53:17'!
+test06canAddSameBookMultipleTimes
+	| cart catalog |
+	catalog _ Set with: #BookISBN1.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #BookISBN1.
+	cart add: #BookISBN1.
+	
+	self assert: (OrderedCollection with: #BookISBN1 with: #BookISBN1)  
+		equals: cart books.! !
+
+!methodRemoval: BookCartTest #test05canAddSameBookMultipleTimes stamp: 'grm 10/27/2022 21:53:17'!
+test05canAddSameBookMultipleTimes
+	| cart catalog |
+	catalog _ Set with: #BookISBN1.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #BookISBN1.
+	cart add: #BookISBN1.
+	
+	self assert: (OrderedCollection with: #BookISBN1 with: #BookISBN1)  
+		equals: cart books.!
+!BookCart methodsFor: 'accessing' stamp: 'grm 10/27/2022 21:53:49'!
+list
+	^books copy.! !
+!BookCartTest methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:53:49' prior: 50571462!
+test04booksAddedAreInCartAndNothingElse
+	| cart catalog |
+	catalog _ Set with: #BookISBN1 with: #BookISBN2 with: #BookISBN3.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #BookISBN1.
+	cart add: #BookISBN2.
+	cart add: #BookISBN3.
+		
+	self assert: (OrderedCollection with: #BookISBN1 with: #BookISBN2 with: #BookISBN3) equals: cart list.! !
+!BookCartTest methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:53:49' prior: 50571490!
+test05booksAddedAndDeletedAreConsistentWithBooksInCart
+	| cart catalog |
+	catalog _ Set with: #BookISBN1 with: #BookISBN2 with: #BookISBN3.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #BookISBN1.
+	cart add: #BookISBN2.
+	cart add: #BookISBN3.
+	cart remove: #BookISBN2.
+	
+	self assert: (OrderedCollection with: #BookISBN1 with: #BookISBN3)  
+		equals: cart list.! !
+!BookCartTest methodsFor: 'as yet unclassified' stamp: 'grm 10/27/2022 21:53:49' prior: 50571559!
+test06canAddSameBookMultipleTimes
+	| cart catalog |
+	catalog _ Set with: #BookISBN1.
+	cart _ BookCart withCatalog: catalog.
+	
+	cart add: #BookISBN1.
+	cart add: #BookISBN1.
+	
+	self assert: (OrderedCollection with: #BookISBN1 with: #BookISBN1)  
+		equals: cart list.! !
+
+!methodRemoval: BookCart #books stamp: 'grm 10/27/2022 21:53:49'!
+books
+	^books copy.!
+
+!methodRemoval: BookCart #initialize stamp: 'grm 10/27/2022 21:54:12'!
+initialize
+	books _ OrderedCollection new.!
+!BookCartTest methodsFor: 'test' stamp: 'grm 10/27/2022 21:54:23' prior: 50567884!
+test01newCartIsEmpty
+	| cart |
+	cart _ BookCart with: Set new.
+	
+	self assert: cart isEmpty.! !
+
+----SNAPSHOT----(27 October 2022 21:54:44) CuisUniversity-5481.image priorSource: 7526373!
