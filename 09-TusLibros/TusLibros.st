@@ -91,16 +91,28 @@ test08CartRemembersTheNumberOfAddedItems
 	cart add: 2 of: self itemSellByTheStore.
 	self assert: (cart occurrencesOf: self itemSellByTheStore) = 2! !
 
+!CartTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:53:01'!
+test09CartKnowsRunningPrice
+
+	| cart |
+	
+	cart := self createCart.
+	
+	cart add: 2 of: self itemSellByTheStore.
+	self assert: 40 equals: cart runningPrice.! !
+
 
 !CartTest methodsFor: 'support' stamp: 'HernanWilkinson 6/17/2013 17:48'!
 createCart
 	
 	^Cart acceptingItemsOf: self defaultCatalog! !
 
-!CartTest methodsFor: 'support' stamp: 'HernanWilkinson 6/17/2013 17:43'!
+!CartTest methodsFor: 'support' stamp: 'grm 11/2/2022 18:02:42'!
 defaultCatalog
-	
-	^ Array with: self itemSellByTheStore! !
+	|catalog|
+	catalog _ Dictionary new.
+	catalog at: self itemSellByTheStore put: 20.
+	^catalog.! !
 
 !CartTest methodsFor: 'support' stamp: 'HernanWilkinson 6/17/2013 17:44'!
 itemNotSellByTheStore
@@ -120,24 +132,78 @@ TestCase subclass: #CashierTest
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!CashierTest methodsFor: 'support' stamp: 'grm 10/31/2022 19:58:50'!
+!CashierTest methodsFor: 'support' stamp: 'grm 11/2/2022 17:46:50'!
+cartWithOneBook
+	| cart |
+	cart _ self createCart.
+	cart add: 'validbook'.
+	^cart! !
+
+!CashierTest methodsFor: 'support' stamp: 'grm 11/2/2022 18:04:15'!
 createCart
 
-	^ Cart acceptingItemsOf: (Array with: 'validbook')! !
+	^ Cart acceptingItemsOf: self createCatalog! !
+
+!CashierTest methodsFor: 'support' stamp: 'grm 11/2/2022 18:04:04'!
+createCatalog
+	| catalog |
+	catalog _ Dictionary new.
+	catalog at: 'validbook' put: 20.
+	^catalog! !
+
+!CashierTest methodsFor: 'support' stamp: 'grm 11/2/2022 17:32:40'!
+expiredCreditCard
+	| expiration |
+	expiration _ FixedGregorianDate yearNumber: 2020 monthNumber: 8 dayNumber: 1.
+	^CreditCard withNumber: 11111111111 expirationDate: expiration owner: 'validName'.! !
+
+!CashierTest methodsFor: 'support' stamp: 'grm 11/2/2022 17:28:17'!
+validCreditCard
+	| expiration |
+	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
+	^CreditCard withNumber: 11111111111 expirationDate: expiration owner: 'validName'.! !
 
 
-!CashierTest methodsFor: 'tests' stamp: 'grm 10/31/2022 20:31:00'!
+!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:29:09'!
 test01cannotCheckoutEmptyCart
-	| cart card cashier |
+	| cart cashier card |
+	
 	cart _ self createCart.
-	card _ CreditCard new.
 	cashier _ Cashier new.
+	card _ self validCreditCard.
 	
 	self
 		should: [cashier checkout: cart withCreditCard: card]
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [:error | 
 			self assert: Cashier cannotCheckoutEmptyCartErrorDescription equals: error messageText. ]! !
+
+!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:32:06'!
+test02cannotCheckoutWithExpiredCard
+	| cart cashier card |
+	
+	cart _ self createCart.
+	cart add: 'validbook'.
+	cashier _ Cashier new.
+	card _ self expiredCreditCard.
+	
+	self
+		should: [cashier checkout: cart withCreditCard: card]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:error | 
+			self assert: Cashier cannotCheckoutWithExpiredCardErrorDescription equals: error messageText. ]! !
+
+!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:46:58'!
+test03canCheckoutCartWithOneBook
+	| cart cashier card |
+	
+	cart _ self cartWithOneBook.
+	cashier _ Cashier new.
+	card _ self validCreditCard.
+	
+	cashier checkout: cart withCreditCard: card.
+	
+	self assert: cart isEmpty.! !
 
 
 !classDefinition: #CreditCardTest category: 'TusLibros'!
@@ -217,6 +283,24 @@ test07cardCanAnswerCorrectOwnerName
 	
 	self assert: card owner equals: owner.! !
 
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:40:02'!
+test08expiredCreditCardKnowsItIsExpired
+	| expiration card owner |
+	owner _ 'validName'.
+	expiration _ FixedGregorianDate yearNumber: 2020 monthNumber: 8 dayNumber: 1.
+	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: owner.
+	
+	self assert: card isExpired.! !
+
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:41:03'!
+test09validCreditCardKnowsItIsNotExpired
+	| expiration card owner |
+	owner _ 'validName'.
+	expiration _ FixedGregorianDate yearNumber: 2024 monthNumber: 8 dayNumber: 1.
+	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: owner.
+	
+	self deny: card isExpired.! !
+
 
 !classDefinition: #Cart category: 'TusLibros'!
 Object subclass: #Cart
@@ -224,6 +308,31 @@ Object subclass: #Cart
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
+
+!Cart methodsFor: 'adding' stamp: 'HernanWilkinson 6/17/2013 17:44'!
+add: anItem
+
+	^ self add: 1 of: anItem ! !
+
+!Cart methodsFor: 'adding' stamp: 'HernanWilkinson 6/17/2013 17:51'!
+add: aQuantity of: anItem
+
+	self assertIsValidQuantity: aQuantity.
+	self assertIsValidItem: anItem.
+
+	1 to: aQuantity do: [ :aNumber | items add: anItem ]! !
+
+
+!Cart methodsFor: 'assertions' stamp: 'grm 11/2/2022 18:02:27'!
+assertIsValidItem: anItem
+
+	(catalog includesKey: anItem) ifFalse: [ self error: self invalidItemErrorMessage ]! !
+
+!Cart methodsFor: 'assertions' stamp: 'HernanWilkinson 6/17/2013 17:51'!
+assertIsValidQuantity: aQuantity
+
+	aQuantity strictlyPositive ifFalse: [ self error: self invalidQuantityErrorMessage ]! !
+
 
 !Cart methodsFor: 'error messages' stamp: 'HernanWilkinson 6/17/2013 17:45'!
 invalidItemErrorMessage
@@ -234,17 +343,6 @@ invalidItemErrorMessage
 invalidQuantityErrorMessage
 	
 	^'Invalid number of items'! !
-
-
-!Cart methodsFor: 'assertions' stamp: 'HernanWilkinson 6/17/2013 17:51'!
-assertIsValidItem: anItem
-
-	(catalog includes: anItem) ifFalse: [ self error: self invalidItemErrorMessage ]! !
-
-!Cart methodsFor: 'assertions' stamp: 'HernanWilkinson 6/17/2013 17:51'!
-assertIsValidQuantity: aQuantity
-
-	aQuantity strictlyPositive ifFalse: [ self error: self invalidQuantityErrorMessage ]! !
 
 
 !Cart methodsFor: 'initialization' stamp: 'HernanWilkinson 6/17/2013 17:48'!
@@ -259,6 +357,10 @@ occurrencesOf: anItem
 
 	^items occurrencesOf: anItem  ! !
 
+!Cart methodsFor: 'queries' stamp: 'grm 11/2/2022 17:59:42'!
+runningPrice
+	^items inject: 0 into: [:priceTotal :item | priceTotal + (catalog at: item) ]! !
+
 
 !Cart methodsFor: 'testing' stamp: 'HernanWilkinson 6/17/2013 17:44'!
 includes: anItem
@@ -271,18 +373,10 @@ isEmpty
 	^items isEmpty ! !
 
 
-!Cart methodsFor: 'adding' stamp: 'HernanWilkinson 6/17/2013 17:44'!
-add: anItem
-
-	^ self add: 1 of: anItem ! !
-
-!Cart methodsFor: 'adding' stamp: 'HernanWilkinson 6/17/2013 17:51'!
-add: aQuantity of: anItem
-
-	self assertIsValidQuantity: aQuantity.
-	self assertIsValidItem: anItem.
-
-	1 to: aQuantity do: [ :aNumber | items add: anItem ]! !
+!Cart methodsFor: 'private' stamp: 'grm 11/2/2022 17:48:25'!
+emptyBooks
+	
+	items _ OrderedCollection new.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -303,9 +397,12 @@ Object subclass: #Cashier
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Cashier methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 20:35:05'!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:47:38'!
 checkout: aCart withCreditCard: aCard
-	aCart isEmpty ifTrue: [self error: self class cannotCheckoutEmptyCartErrorDescription ]! !
+	aCart isEmpty ifTrue: [self error: self class cannotCheckoutEmptyCartErrorDescription ].
+	aCard isExpired ifTrue: [self error: self class cannotCheckoutWithExpiredCardErrorDescription].
+	
+	aCart emptyBooks.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -316,6 +413,10 @@ Cashier class
 !Cashier class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 20:33:58'!
 cannotCheckoutEmptyCartErrorDescription
 	^'Cart cannot be empty at checkout'! !
+
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:35:00'!
+cannotCheckoutWithExpiredCardErrorDescription
+	^'Card must not be expired'! !
 
 
 !classDefinition: #CreditCard category: 'TusLibros'!
@@ -334,6 +435,10 @@ initializeWithNumber: aCardNumber expirationDate: anExpirationDate owner: anOwne
 	number _ aCardNumber.
 	expiration _ anExpirationDate.
 	owner _ anOwnerName.! !
+
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:40:34'!
+isExpired
+	^expiration < expiration class today! !
 
 !CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:51:16'!
 number

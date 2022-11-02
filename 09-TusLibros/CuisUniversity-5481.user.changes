@@ -816,3 +816,385 @@ PASSED!
 PASSED!
 
 ----SNAPSHOT----(31 October 2022 21:54:27) CuisUniversity-5481.image priorSource: 7526373!
+
+----STARTUP---- (2 November 2022 17:18:28) as /mnt/Data/Universidad/Ingenieria I/linux64/CuisUniversity-5481.image!
+
+
+----End fileIn of /mnt/Data/Universidad/Ingenieria I/linux64/TusLibros.st----!
+!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:27:14' prior: 50552393!
+test01cannotCheckoutEmptyCart
+	| cart cashier expiration card owner |
+	owner _ 'validName'.
+	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
+	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: owner.
+	
+	cart _ self createCart.
+	cashier _ Cashier new.
+	
+	self
+		should: [cashier checkout: cart withCreditCard: card]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:error | 
+			self assert: Cashier cannotCheckoutEmptyCartErrorDescription equals: error messageText. ]! !
+!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:28:17'!
+validCreditCard
+	| expiration |
+	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
+	^CreditCard withNumber: 11111111111 expirationDate: expiration owner: 'validName'.! !
+!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:29:09' prior: 50552707!
+test01cannotCheckoutEmptyCart
+	| cart cashier card |
+	
+	cart _ self createCart.
+	cashier _ Cashier new.
+	card _ self validCreditCard.
+	
+	self
+		should: [cashier checkout: cart withCreditCard: card]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:error | 
+			self assert: Cashier cannotCheckoutEmptyCartErrorDescription equals: error messageText. ]! !
+
+!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 11/2/2022 17:29:11'!
+PASSED!
+
+!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 11/2/2022 17:29:11'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:32:06'!
+test02cannotCheckoutWithExpiredCard
+	| cart cashier card |
+	
+	cart _ self createCart.
+	cart add: 'validbook'.
+	cashier _ Cashier new.
+	card _ self expiredCreditCard.
+	
+	self
+		should: [cashier checkout: cart withCreditCard: card]
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [:error | 
+			self assert: Cashier cannotCheckoutWithExpiredCardErrorDescription equals: error messageText. ]! !
+
+!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 17:32:10'!
+ERROR!
+!CashierTest methodsFor: 'support' stamp: 'grm 11/2/2022 17:32:40'!
+expiredCreditCard
+	| expiration |
+	expiration _ FixedGregorianDate yearNumber: 2020 monthNumber: 8 dayNumber: 1.
+	^CreditCard withNumber: 11111111111 expirationDate: expiration owner: 'validName'.! !
+
+!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 17:33:16'!
+FAILURE!
+
+!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 17:33:22'!
+FAILURE!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:34:23' prior: 50552607!
+checkout: aCart withCreditCard: aCard
+	aCart isEmpty ifTrue: [self error: self class cannotCheckoutEmptyCartErrorDescription ].
+	aCard isExpired ifTrue: [self error: self class cannotCheckoutWithExpiredCardErrorDescription].! !
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:35:00'!
+cannotCheckoutWithExpiredCardErrorDescription
+	^'Card must not be expired'! !
+
+!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 17:35:14'!
+ERROR!
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:35:21'!
+isExpired
+	self shouldBeImplemented.! !
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:39:10' prior: 50552808!
+isExpired
+	^self < self class today! !
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:40:02'!
+test08expiredCreditCardKnowsItIsExpired
+	| expiration card owner |
+	owner _ 'validName'.
+	expiration _ FixedGregorianDate yearNumber: 2020 monthNumber: 8 dayNumber: 1.
+	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: owner.
+	
+	self assert: card isExpired.! !
+
+!testRun: #CreditCardTest #test08expiredCreditCardKnowsItIsExpired stamp: 'grm 11/2/2022 17:40:04'!
+ERROR!
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:40:25' prior: 50552813!
+isExpired
+	^self expiration < expiration class today! !
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:40:34' prior: 50552833!
+isExpired
+	^expiration < expiration class today! !
+
+!testRun: #CreditCardTest #test08expiredCreditCardKnowsItIsExpired stamp: 'grm 11/2/2022 17:40:37'!
+PASSED!
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:40:55'!
+test08validCreditCardKnowsItIsNotExpired
+	| expiration card owner |
+	owner _ 'validName'.
+	expiration _ FixedGregorianDate yearNumber: 2024 monthNumber: 8 dayNumber: 1.
+	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: owner.
+	
+	self deny: card isExpired.! !
+
+!testRun: #CreditCardTest #test08validCreditCardKnowsItIsNotExpired stamp: 'grm 11/2/2022 17:40:56'!
+PASSED!
+
+!testRun: #CreditCardTest #test01cannotCreateCardWithNonIntegerNumber stamp: 'grm 11/2/2022 17:40:56'!
+PASSED!
+
+!testRun: #CreditCardTest #test02cannotCreateCardWithNonStrictlyPositiveNumber stamp: 'grm 11/2/2022 17:40:56'!
+PASSED!
+
+!testRun: #CreditCardTest #test03cannotCreateCardWithInvalidDate stamp: 'grm 11/2/2022 17:40:56'!
+PASSED!
+
+!testRun: #CreditCardTest #test04cannotCreateCardWithOwnerNameOver30Characters stamp: 'grm 11/2/2022 17:40:56'!
+PASSED!
+
+!testRun: #CreditCardTest #test05cardCanAnswerCorrectNumber stamp: 'grm 11/2/2022 17:40:56'!
+PASSED!
+
+!testRun: #CreditCardTest #test06cardCanAnswerCorrectExpirationDate stamp: 'grm 11/2/2022 17:40:56'!
+PASSED!
+
+!testRun: #CreditCardTest #test07cardCanAnswerCorrectOwnerName stamp: 'grm 11/2/2022 17:40:56'!
+PASSED!
+
+!testRun: #CreditCardTest #test08expiredCreditCardKnowsItIsExpired stamp: 'grm 11/2/2022 17:40:56'!
+PASSED!
+
+!testRun: #CreditCardTest #test08validCreditCardKnowsItIsNotExpired stamp: 'grm 11/2/2022 17:40:56'!
+PASSED!
+!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:41:03'!
+test09validCreditCardKnowsItIsNotExpired
+	| expiration card owner |
+	owner _ 'validName'.
+	expiration _ FixedGregorianDate yearNumber: 2024 monthNumber: 8 dayNumber: 1.
+	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: owner.
+	
+	self deny: card isExpired.! !
+
+!methodRemoval: CreditCardTest #test08validCreditCardKnowsItIsNotExpired stamp: 'grm 11/2/2022 17:41:03'!
+test08validCreditCardKnowsItIsNotExpired
+	| expiration card owner |
+	owner _ 'validName'.
+	expiration _ FixedGregorianDate yearNumber: 2024 monthNumber: 8 dayNumber: 1.
+	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: owner.
+	
+	self deny: card isExpired.!
+
+!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 17:41:29'!
+PASSED!
+
+!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 11/2/2022 17:41:29'!
+PASSED!
+
+!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 17:41:29'!
+PASSED!
+!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:45:51'!
+test02canCheckoutCartWithOneBook
+	| cart cashier card |
+	
+	cart _ self createCart.
+	cart add: 'validbook'.
+	cashier _ Cashier new.
+	card _ self validCreditCard.
+	
+	cashier checkout: cart withCreditCard: card.
+	
+	self assert: cart isEmpty.! !
+!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:45:56'!
+test03canCheckoutCartWithOneBook
+	| cart cashier card |
+	
+	cart _ self createCart.
+	cart add: 'validbook'.
+	cashier _ Cashier new.
+	card _ self validCreditCard.
+	
+	cashier checkout: cart withCreditCard: card.
+	
+	self assert: cart isEmpty.! !
+
+!methodRemoval: CashierTest #test02canCheckoutCartWithOneBook stamp: 'grm 11/2/2022 17:45:56'!
+test02canCheckoutCartWithOneBook
+	| cart cashier card |
+	
+	cart _ self createCart.
+	cart add: 'validbook'.
+	cashier _ Cashier new.
+	card _ self validCreditCard.
+	
+	cashier checkout: cart withCreditCard: card.
+	
+	self assert: cart isEmpty.!
+!CashierTest methodsFor: 'support' stamp: 'grm 11/2/2022 17:46:50'!
+cartWithOneBook
+	| cart |
+	cart _ self createCart.
+	cart add: 'validbook'.
+	^cart! !
+!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:46:58' prior: 50552936!
+test03canCheckoutCartWithOneBook
+	| cart cashier card |
+	
+	cart _ self cartWithOneBook.
+	cashier _ Cashier new.
+	card _ self validCreditCard.
+	
+	cashier checkout: cart withCreditCard: card.
+	
+	self assert: cart isEmpty.! !
+
+!testRun: #CashierTest #test03canCheckoutCartWithOneBook stamp: 'grm 11/2/2022 17:47:00'!
+FAILURE!
+!Cashier methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:47:38' prior: 50552789!
+checkout: aCart withCreditCard: aCard
+	aCart isEmpty ifTrue: [self error: self class cannotCheckoutEmptyCartErrorDescription ].
+	aCard isExpired ifTrue: [self error: self class cannotCheckoutWithExpiredCardErrorDescription].
+	
+	aCart emptyBooks.! !
+!Cart methodsFor: 'testing' stamp: 'grm 11/2/2022 17:48:25'!
+emptyBooks
+	
+	items _ OrderedCollection new.! !
+
+!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 11/2/2022 17:49:21'!
+PASSED!
+
+!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 17:49:21'!
+PASSED!
+
+!testRun: #CashierTest #test03canCheckoutCartWithOneBook stamp: 'grm 11/2/2022 17:49:21'!
+PASSED!
+!CartTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:52:53'!
+test08CartKnowsRunningPrice
+
+	| cart |
+	
+	cart := self createCart.
+	
+	cart add: 2 of: self itemSellByTheStore.
+	self assert: 40 equals: cart runningPrice.! !
+!CartTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:53:01'!
+test09CartKnowsRunningPrice
+
+	| cart |
+	
+	cart := self createCart.
+	
+	cart add: 2 of: self itemSellByTheStore.
+	self assert: 40 equals: cart runningPrice.! !
+
+!methodRemoval: CartTest #test08CartKnowsRunningPrice stamp: 'grm 11/2/2022 17:53:01'!
+test08CartKnowsRunningPrice
+
+	| cart |
+	
+	cart := self createCart.
+	
+	cart add: 2 of: self itemSellByTheStore.
+	self assert: 40 equals: cart runningPrice.!
+!Cart methodsFor: 'queries' stamp: 'grm 11/2/2022 17:59:42'!
+runningPrice
+	^items inject: 0 into: [:priceTotal :item | priceTotal + (catalog at: item) ]! !
+
+!testRun: #CartTest #test09CartKnowsRunningPrice stamp: 'grm 11/2/2022 18:00:48'!
+ERROR!
+!CartTest methodsFor: 'support' stamp: 'grm 11/2/2022 18:01:43' prior: 50552364!
+defaultCatalog
+	|catalog|
+	catalog _ Dictionary new.
+	catalog at: self itemSellByTheStore put: 40.
+	^catalog.! !
+
+!testRun: #CartTest #test09CartKnowsRunningPrice stamp: 'grm 11/2/2022 18:01:48'!
+ERROR!
+
+!testRun: #CartTest #test09CartKnowsRunningPrice stamp: 'grm 11/2/2022 18:01:48'!
+ERROR!
+!Cart methodsFor: 'assertions' stamp: 'grm 11/2/2022 18:02:27' prior: 50552541!
+assertIsValidItem: anItem
+
+	(catalog includesKey: anItem) ifFalse: [ self error: self invalidItemErrorMessage ]! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'grm 11/2/2022 18:02:31'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'grm 11/2/2022 18:02:31'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'grm 11/2/2022 18:02:31'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'grm 11/2/2022 18:02:31'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'grm 11/2/2022 18:02:31'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'grm 11/2/2022 18:02:31'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'grm 11/2/2022 18:02:31'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'grm 11/2/2022 18:02:31'!
+PASSED!
+
+!testRun: #CartTest #test09CartKnowsRunningPrice stamp: 'grm 11/2/2022 18:02:31'!
+FAILURE!
+
+!testRun: #CartTest #test09CartKnowsRunningPrice stamp: 'grm 11/2/2022 18:02:31'!
+FAILURE!
+!CartTest methodsFor: 'support' stamp: 'grm 11/2/2022 18:02:42' prior: 50553030!
+defaultCatalog
+	|catalog|
+	catalog _ Dictionary new.
+	catalog at: self itemSellByTheStore put: 20.
+	^catalog.! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'grm 11/2/2022 18:02:45'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'grm 11/2/2022 18:02:45'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'grm 11/2/2022 18:02:45'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'grm 11/2/2022 18:02:45'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'grm 11/2/2022 18:02:45'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'grm 11/2/2022 18:02:45'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'grm 11/2/2022 18:02:45'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'grm 11/2/2022 18:02:45'!
+PASSED!
+
+!testRun: #CartTest #test09CartKnowsRunningPrice stamp: 'grm 11/2/2022 18:02:45'!
+PASSED!
+!CashierTest methodsFor: 'support' stamp: 'grm 11/2/2022 18:04:04'!
+createCatalog
+	| catalog |
+	catalog _ Dictionary new.
+	catalog at: 'validbook' put: 20.
+	^catalog! !
+!CashierTest methodsFor: 'support' stamp: 'grm 11/2/2022 18:04:15' prior: 50552388!
+createCart
+
+	^ Cart acceptingItemsOf: self createCatalog! !
+
+!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 11/2/2022 18:04:17'!
+PASSED!
+
+!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 18:04:17'!
+PASSED!
+
+!testRun: #CashierTest #test03canCheckoutCartWithOneBook stamp: 'grm 11/2/2022 18:04:17'!
+PASSED!
+
+----SNAPSHOT----(2 November 2022 18:04:43) CuisUniversity-5481.image priorSource: 7059698!
