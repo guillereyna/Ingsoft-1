@@ -105,1096 +105,147 @@ PASSED!
 !testRun: #PortfolioTest #test24checkPortfoliosWithCommonDescendantPortfolioCannotBeAdded stamp: 'grm 10/17/2022 15:44:47'!
 PASSED!
 
-----STARTUP---- (31 October 2022 19:24:18) as /home/greyna/Universidad/Ingenieria I/cuis/CuisUniversity-5481.image!
+----STARTUP---- (3 November 2022 19:26:52) as /home/greyna/Universidad/Ingenieria I/cuis/CuisUniversity-5481.image!
 
 
-----End fileIn of /home/greyna/Universidad/Ingenieria I/cuis/TusLibros-18.st----!
+----End fileIn of /home/greyna/Universidad/Ingenieria I/cuis/TusLibros-33.st----!
 
-!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'grm 10/31/2022 19:34:00'!
-PASSED!
-
-!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'grm 10/31/2022 19:34:00'!
-PASSED!
-
-!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'grm 10/31/2022 19:34:00'!
-PASSED!
-
-!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'grm 10/31/2022 19:34:00'!
-PASSED!
-
-!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'grm 10/31/2022 19:34:00'!
-PASSED!
-
-!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'grm 10/31/2022 19:34:00'!
-PASSED!
-
-!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'grm 10/31/2022 19:34:00'!
-PASSED!
-
-!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'grm 10/31/2022 19:34:00'!
-PASSED!
-
-Object subclass: #Cashier
+Object subclass: #RESTInterface
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!classDefinition: #Cashier category: 'TusLibros' stamp: 'grm 10/31/2022 19:41:05'!
-Object subclass: #Cashier
+!classDefinition: #RESTInterface category: 'TusLibros' stamp: 'grm 11/3/2022 19:39:10'!
+Object subclass: #RESTInterface
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-TestCase subclass: #CashierTest
+TestCase subclass: #RESTInterfaceTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!classDefinition: #CashierTest category: 'TusLibros' stamp: 'grm 10/31/2022 19:41:16'!
-TestCase subclass: #CashierTest
+!classDefinition: #RESTInterfaceTest category: 'TusLibros' stamp: 'grm 11/3/2022 19:39:18'!
+TestCase subclass: #RESTInterfaceTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
-!CashierTest methodsFor: 'no messages' stamp: 'grm 10/31/2022 19:57:42'!
-test01cannotCheckoutCartWithEmptyCreditCardNumber
-	| cart |
-	cart _ Cart ! !
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 19:58:37' prior: 50568054!
-test01cannotCheckoutCartWithEmptyCreditCardNumber
-	| cart |
-	cart _ Cart acceptingItemsOf: (Array with: 'validbook').! !
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 19:58:50'!
-createCart
+!RESTInterfaceTest methodsFor: 'no messages' stamp: 'grm 11/3/2022 19:53:23'!
+test01createCartReturnsSuccessCodeAndCartId
+	| api response |
+	api _ RESTInterface new.
+	
+	response _ api createCartFor: 1 password: 'pass'.
+	
+	self assert: '0|1' equals: response.! !
+!RESTInterface methodsFor: 'no messages' stamp: 'grm 11/3/2022 19:54:12'!
+createCartFor: aClientId password: aPassword
+	^'0|1'! !
 
-	^ Cart acceptingItemsOf: (Array with: 'validbook')! !
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 19:58:50' prior: 50568060!
-test01cannotCheckoutCartWithEmptyCreditCardNumber
-	| cart |
-	cart _ self createCart.! !
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 20:00:42' prior: 50568073!
-test01cannotCheckoutCartWithEmptyCreditCardNumber
-	| cart |
-	cart _ self createCart.
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'grm 11/3/2022 19:54:15'!
+PASSED!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'grm 11/3/2022 20:08:33'!
+test01createCartWithInvalidParametersReturnsError
+	| api response |
+	api _ RESTInterface new.
 	
-	Cashier checkout: cart withCardNumber: '' expirationDate: '' owner: ''.! !
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 20:11:00' prior: 50568079!
-test01cannotCheckoutCartWithEmptyCreditCardNumber
-	| cart |
-	cart _ self createCart.
+	response _ api createCartFor: #Invalid password: #Invalid.
 	
-	Cashier for: cart.
+	self assert: ('1|' , api class invalidParameterErrorDescription) equals: response.! !
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'grm 11/3/2022 20:08:44'!
+test02createCartWithInvalidParametersReturnsError
+	| api response |
+	api _ RESTInterface new.
 	
-	Cashier checkoutWithCardNumber: '' expirationDate: '' owner: ''.! !
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 20:23:24'!
-test01cannotCheckoutEmptyCart
-	| cart cashier |
-	cart _ self createCart.
-	cashier _ Cashier new.
+	response _ api createCartFor: #Invalid password: #Invalid.
 	
-	self
-		should: [Cashier checkout: cart withCreditCardNumber: '' expirationDate: '' owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error | 
-			self assert: Cashier cannotCheckoutEmptyCartErrorDescription equals: error messageText. ]! !
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 20:23:38' prior: 50568097!
-test01cannotCheckoutEmptyCart
-	| cart cashier |
-	cart _ self createCart.
-	cashier _ Cashier new.
-	
-	self
-		should: [cashier checkout: cart withCreditCardNumber: '' expirationDate: '' owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error | 
-			self assert: Cashier cannotCheckoutEmptyCartErrorDescription equals: error messageText. ]! !
+	self assert: ('1|' , api class invalidParameterErrorDescription) equals: response.! !
 
-!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 10/31/2022 20:27:44'!
+!methodRemoval: RESTInterfaceTest #test01createCartWithInvalidParametersReturnsError stamp: 'grm 11/3/2022 20:08:44'!
+test01createCartWithInvalidParametersReturnsError
+	| api response |
+	api _ RESTInterface new.
+	
+	response _ api createCartFor: #Invalid password: #Invalid.
+	
+	self assert: ('1|' , api class invalidParameterErrorDescription) equals: response.!
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidParametersReturnsError stamp: 'grm 11/3/2022 20:08:48'!
 ERROR!
-!Cashier methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 20:28:21'!
-checkout: aCart withCreditCardNumber: aString expirationDate: aString3 owner: aString4 
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidParametersReturnsError stamp: 'grm 11/3/2022 20:08:48'!
+ERROR!
+!RESTInterface class methodsFor: 'error description' stamp: 'grm 11/3/2022 20:09:02'!
+invalidParameterErrorDescription
 	self shouldBeImplemented.! !
-!Cashier methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 20:29:26' prior: 50568129!
-checkout: aCart withCreditCardNumber: aString expirationDate: aString3 owner: aString4 
-	self deny: aCart isEmpty.! !
+!RESTInterface class methodsFor: 'error description' stamp: 'grm 11/3/2022 20:09:19' prior: 50568457!
+invalidParameterErrorDescription
+	^'Invalid parameter'! !
 
-!methodRemoval: CashierTest #test01cannotCheckoutCartWithEmptyCreditCardNumber stamp: 'grm 10/31/2022 20:30:24'!
-test01cannotCheckoutCartWithEmptyCreditCardNumber
-	| cart |
-	cart _ self createCart.
-	
-	Cashier for: cart.
-	
-	Cashier checkoutWithCardNumber: '' expirationDate: '' owner: ''.!
-
-!classDefinition: #CreditCard category: 'TusLibros' stamp: 'grm 10/31/2022 20:31:10'!
-Object subclass: #CreditCard
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros'!
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 20:31:00' prior: 50568112!
-test01cannotCheckoutEmptyCart
-	| cart card cashier |
-	cart _ self createCart.
-	card _ CreditCard new.
-	cashier _ Cashier new.
-	
-	self
-		should: [cashier checkout: cart withCreditCard: card]
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error | 
-			self assert: Cashier cannotCheckoutEmptyCartErrorDescription equals: error messageText. ]! !
-!Cashier methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 20:31:27'!
-checkout: aCart withCreditCard: aCard
-	self deny: aCart isEmpty.! !
-
-!methodRemoval: Cashier #checkout:withCreditCardNumber:expirationDate:owner: stamp: 'grm 10/31/2022 20:31:30'!
-checkout: aCart withCreditCardNumber: aString expirationDate: aString3 owner: aString4 
-	self deny: aCart isEmpty.!
-
-!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 10/31/2022 20:31:36'!
-ERROR!
-
-!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 10/31/2022 20:31:36'!
-ERROR!
-!Cashier methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 20:32:28' prior: 50568173!
-checkout: aCart withCreditCard: aCard
-	aCart isEmpty ifTrue: [self error: self class ]! !
-!CreditCard class methodsFor: 'no messages' stamp: 'grm 10/31/2022 20:33:39'!
-cannotCheckoutEmptyCartErrorDescription
-	^'Cart cannot be empty at checkout'! !
-!Cashier class methodsFor: 'no messages' stamp: 'grm 10/31/2022 20:33:58'!
-cannotCheckoutEmptyCartErrorDescription
-	^'Cart cannot be empty at checkout'! !
-
-!methodRemoval: CreditCard class #cannotCheckoutEmptyCartErrorDescription stamp: 'grm 10/31/2022 20:34:03'!
-cannotCheckoutEmptyCartErrorDescription
-	^'Cart cannot be empty at checkout'!
-
-!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 10/31/2022 20:34:31'!
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidParametersReturnsError stamp: 'grm 11/3/2022 20:09:21'!
 FAILURE!
 
-!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 10/31/2022 20:34:31'!
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidParametersReturnsError stamp: 'grm 11/3/2022 20:09:27'!
 FAILURE!
-!Cashier methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 20:35:05' prior: 50568192!
-checkout: aCart withCreditCard: aCard
-	aCart isEmpty ifTrue: [self error: self class cannotCheckoutEmptyCartErrorDescription ]! !
 
-!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 10/31/2022 20:35:09'!
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidParametersReturnsError stamp: 'grm 11/3/2022 20:09:27'!
+FAILURE!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'grm 11/3/2022 20:11:46' prior: 50568407!
+createCartFor: aClientId password: aPassword
+	((aClientId isKindOf: SmallInteger) and: [aPassword isKindOf: String])
+		ifFalse: [^'1|' , self class invalidParameterErrorDescription ].
+	^'0|1'! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'grm 11/3/2022 20:11:49'!
 PASSED!
 
-TestCase subclass: #CreditCardTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros'!
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidParametersReturnsError stamp: 'grm 11/3/2022 20:11:49'!
+PASSED!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'grm 11/3/2022 20:20:04'!
+test03addToCartReturnsSuccessCode
+	| api response |
+	api _ RESTInterface new.
+	
+	response _ api addToCart: 1 bookIsbn: 1 quantityOf: 1.
+	
+	self assert: '0|OK' equals: response.! !
 
-!classDefinition: #CreditCardTest category: 'TusLibros' stamp: 'grm 10/31/2022 20:54:29'!
-TestCase subclass: #CreditCardTest
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros'!
-!CreditCardTest methodsFor: 'no messages' stamp: 'grm 10/31/2022 20:59:04'!
-test01cannotCreateCardWithNonStrictlyPositiveNumber
-	self
-		should: [CreditCard withNumber: 0 expirationDate: '' owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard numberCannotBeNonStrictlyPositiveErrorDescription equals: error messageText]! !
-!CreditCard class methodsFor: 'no messages' stamp: 'grm 10/31/2022 20:59:52'!
-numberCannotBeNonStrictlyPositiveErrorDescription
-	^'Credit cards must have strictly positive numbers'! !
-
-!testRun: #CreditCardTest #test01cannotCreateCardWithNonStrictlyPositiveNumber stamp: 'grm 10/31/2022 21:00:03'!
+!testRun: #RESTInterfaceTest #test03addToCartReturnsSuccessCode stamp: 'grm 11/3/2022 20:28:03'!
 ERROR!
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:00:11'!
-withNumber: aSmallInteger expirationDate: aString owner: aString3 
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'grm 11/3/2022 20:28:13'!
+addToCart: aSmallInteger bookIsbn: aSmallInteger2 quantityOf: aSmallInteger3 
 	self shouldBeImplemented.! !
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:01:31' prior: 50568264!
-withNumber: aCardNumber expirationDate: anExpirationDate owner: anOwnerName 
-	aCardNumber strictlyPositive ifFalse: [self error: self class numberCannotBeNonStrictlyPositiveErrorDescription ].! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'grm 11/3/2022 20:28:20' prior: 50568509!
+addToCart: aSmallInteger bookIsbn: aSmallInteger2 quantityOf: aSmallInteger3 
+	^'0|OK'! !
 
-!testRun: #CreditCardTest #test01cannotCreateCardWithNonStrictlyPositiveNumber stamp: 'grm 10/31/2022 21:01:33'!
-ERROR!
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:01:56' prior: 50568271!
-withNumber: aCardNumber expirationDate: anExpirationDate owner: anOwnerName 
-	aCardNumber strictlyPositive ifFalse: [self error: self numberCannotBeNonStrictlyPositiveErrorDescription ].! !
-
-!testRun: #CreditCardTest #test01cannotCreateCardWithNonStrictlyPositiveNumber stamp: 'grm 10/31/2022 21:02:01'!
+!testRun: #RESTInterfaceTest #test03addToCartReturnsSuccessCode stamp: 'grm 11/3/2022 20:28:22'!
 PASSED!
 
-27/08!
-
-27/08/1887!
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:20:13'!
-test02cannotCreateCardWithNonStrictlyPositiveNumber
-	self
-		should: [CreditCard withNumber: 0 expirationDate: '' owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard numberCannotBeNonStrictlyPositiveErrorDescription equals: error messageText]! !
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:20:22' prior: 50568299!
-test02cannotCreateCardWithNonStrictlyPositiveNumber
-	| expiration |
-	expiration _ FixedGregorianDate year: 2023 month: 8 dayNumber: 1.
-	self
-		should: [CreditCard withNumber: 0 expirationDate: expiration owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard numberCannotBeNonStrictlyPositiveErrorDescription equals: error messageText]! !
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:20:42' prior: 50568312!
-test02cannotCreateCardWithNonStrictlyPositiveNumber
-	self
-		should: [CreditCard withNumber: 0 expirationDate: '' owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard numberCannotBeNonStrictlyPositiveErrorDescription equals: error messageText]! !
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:21:27' prior: 50568328!
-test02cannotCreateCardWithNonStrictlyPositiveNumber
-	self
-		should: [CreditCard withNumber: 11111111111 expirationDate: '' owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidExpirationDateErrorDescription equals: error messageText]! !
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:21:58'!
-invalidExpirationDateErrorDescription
-	^'Expiration date must be Fixed Gregorian Date'! !
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:22:30' prior: 50568285!
-withNumber: aCardNumber expirationDate: anExpirationDate owner: anOwnerName 
-	aCardNumber strictlyPositive ifFalse: [self error: self numberCannotBeNonStrictlyPositiveErrorDescription ].
-	anExpirationDate isKindOf: FixedGregorianDate.! !
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:23:25'!
-test02cannotCreateCardWithInvalidDate
-	self
-		should: [CreditCard withNumber: 11111111111 expirationDate: '' owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidExpirationDateErrorDescription equals: error messageText]! !
-
-!methodRemoval: CreditCardTest #test02cannotCreateCardWithNonStrictlyPositiveNumber stamp: 'grm 10/31/2022 21:23:27'!
-test02cannotCreateCardWithNonStrictlyPositiveNumber
-	self
-		should: [CreditCard withNumber: 11111111111 expirationDate: '' owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidExpirationDateErrorDescription equals: error messageText]!
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:28:06'!
-test03cannotCreateCardWithOwnerNameOver30Characters
-	| expiration |
-	expiration _ FixedGregorianDate year: 2023 month: 8 dayNumber: 1.
-	self
-		should: [CreditCard withNumber: 11111111111 expirationDate: expiration owner: 'unNombreDeMasDeTreintaCharacters']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidOwnerNameErrorDescription equals: error messageText]! !
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:28:36'!
-invalidCardNumberErrorDescription
-	^'Credit cards must have strictly positive numbers'! !
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:28:36' prior: 50568359!
-withNumber: aCardNumber expirationDate: anExpirationDate owner: anOwnerName 
-	aCardNumber strictlyPositive ifFalse: [self error: self invalidCardNumberErrorDescription ].
-	anExpirationDate isKindOf: FixedGregorianDate.! !
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:28:36' prior: 50568242!
-test01cannotCreateCardWithNonStrictlyPositiveNumber
-	self
-		should: [CreditCard withNumber: 0 expirationDate: '' owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidCardNumberErrorDescription equals: error messageText]! !
-
-!methodRemoval: CreditCard class #numberCannotBeNonStrictlyPositiveErrorDescription stamp: 'grm 10/31/2022 21:28:36'!
-numberCannotBeNonStrictlyPositiveErrorDescription
-	^'Credit cards must have strictly positive numbers'!
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:29:53'!
-test02cannotCreateCardWithNonStrictlyPositiveNumber
-	self
-		should: [CreditCard withNumber: 0 expirationDate: '' owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidCardNumberErrorDescription equals: error messageText]! !
-
-!methodRemoval: CreditCardTest #test01cannotCreateCardWithNonStrictlyPositiveNumber stamp: 'grm 10/31/2022 21:29:53'!
-test01cannotCreateCardWithNonStrictlyPositiveNumber
-	self
-		should: [CreditCard withNumber: 0 expirationDate: '' owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidCardNumberErrorDescription equals: error messageText]!
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:30:18' prior: 50568447!
-test02cannotCreateCardWithNonStrictlyPositiveNumber
-	| expiration |
-	expiration _ FixedGregorianDate year: 2023 month: 8 dayNumber: 1.
-	self
-		should: [CreditCard withNumber: 0 expirationDate: expiration owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidCardNumberErrorDescription equals: error messageText]! !
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:30:42'!
-test02cannotCreateCardWithNonIntegerNumber
-	| expiration |
-	expiration _ FixedGregorianDate year: 2023 month: 8 dayNumber: 1.
-	self
-		should: [CreditCard withNumber: '' expirationDate: expiration owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidCardNumberErrorDescription equals: error messageText]! !
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:30:59'!
-test01cannotCreateCardWithNonIntegerNumber
-	| expiration |
-	expiration _ FixedGregorianDate year: 2023 month: 8 dayNumber: 1.
-	self
-		should: [CreditCard withNumber: '' expirationDate: expiration owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidCardNumberErrorDescription equals: error messageText]! !
-
-!methodRemoval: CreditCardTest #test02cannotCreateCardWithNonIntegerNumber stamp: 'grm 10/31/2022 21:30:59'!
-test02cannotCreateCardWithNonIntegerNumber
-	| expiration |
-	expiration _ FixedGregorianDate year: 2023 month: 8 dayNumber: 1.
-	self
-		should: [CreditCard withNumber: '' expirationDate: expiration owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidCardNumberErrorDescription equals: error messageText]!
-
-!testRun: #CreditCardTest #test01cannotCreateCardWithNonIntegerNumber stamp: 'grm 10/31/2022 21:31:01'!
-ERROR!
-
-!testRun: #CreditCardTest #test01cannotCreateCardWithNonIntegerNumber stamp: 'grm 10/31/2022 21:31:01'!
-ERROR!
-
-!testRun: #CreditCardTest #test01cannotCreateCardWithNonIntegerNumber stamp: 'grm 10/31/2022 21:31:24'!
-ERROR!
-
-!testRun: #CreditCardTest #test01cannotCreateCardWithNonIntegerNumber stamp: 'grm 10/31/2022 21:31:24'!
-ERROR!
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:32:40' prior: 50568502!
-test01cannotCreateCardWithNonIntegerNumber
-	| expiration |
-	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
-	self
-		should: [CreditCard withNumber: '' expirationDate: expiration owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidCardNumberErrorDescription equals: error messageText]! !
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:32:55' prior: 50568472!
-test02cannotCreateCardWithNonStrictlyPositiveNumber
-	| expiration |
-	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
-	self
-		should: [CreditCard withNumber: 0 expirationDate: expiration owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidCardNumberErrorDescription equals: error messageText]! !
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:33:03' prior: 50568395!
-test03cannotCreateCardWithOwnerNameOver30Characters
-	| expiration |
-	expiration _ FixedGregorianDate year: 2023 month: 8 dayNumber: 1.
-	self
-		should: [CreditCard withNumber: 11111111111 expirationDate: expiration owner: 'unNombreDeMasDeTreintaCharacters']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidOwnerNameErrorDescription equals: error messageText]! !
-
-!testRun: #CreditCardTest #test01cannotCreateCardWithNonIntegerNumber stamp: 'grm 10/31/2022 21:33:08'!
-ERROR!
-
-!testRun: #CreditCardTest #test01cannotCreateCardWithNonIntegerNumber stamp: 'grm 10/31/2022 21:33:08'!
-ERROR!
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:35:05' prior: 50568417!
-withNumber: aCardNumber expirationDate: anExpirationDate owner: anOwnerName 
-	((aCardNumber isKindOf: SmallInteger) and: [aCardNumber strictlyPositive])
-		ifFalse: [self error: self invalidCardNumberErrorDescription ].
-	(anExpirationDate isKindOf: FixedGregorianDate)
-		ifFalse: [self error: self invalidExpirationDateErrorDescription ].! !
-
-!testRun: #CreditCardTest #test01cannotCreateCardWithNonIntegerNumber stamp: 'grm 10/31/2022 21:35:12'!
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'grm 11/3/2022 20:28:22'!
 PASSED!
 
-!testRun: #CreditCardTest #test02cannotCreateCardWithInvalidDate stamp: 'grm 10/31/2022 21:35:15'!
-PASSED!
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:35:30'!
-test03cannotCreateCardWithInvalidDate
-	self
-		should: [CreditCard withNumber: 11111111111 expirationDate: '' owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidExpirationDateErrorDescription equals: error messageText]! !
-
-!methodRemoval: CreditCardTest #test02cannotCreateCardWithInvalidDate stamp: 'grm 10/31/2022 21:35:30'!
-test02cannotCreateCardWithInvalidDate
-	self
-		should: [CreditCard withNumber: 11111111111 expirationDate: '' owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidExpirationDateErrorDescription equals: error messageText]!
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:35:35'!
-test04cannotCreateCardWithOwnerNameOver30Characters
-	| expiration |
-	expiration _ FixedGregorianDate year: 2023 month: 8 dayNumber: 1.
-	self
-		should: [CreditCard withNumber: 11111111111 expirationDate: expiration owner: 'unNombreDeMasDeTreintaCharacters']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidOwnerNameErrorDescription equals: error messageText]! !
-
-!methodRemoval: CreditCardTest #test03cannotCreateCardWithOwnerNameOver30Characters stamp: 'grm 10/31/2022 21:35:35'!
-test03cannotCreateCardWithOwnerNameOver30Characters
-	| expiration |
-	expiration _ FixedGregorianDate year: 2023 month: 8 dayNumber: 1.
-	self
-		should: [CreditCard withNumber: 11111111111 expirationDate: expiration owner: 'unNombreDeMasDeTreintaCharacters']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidOwnerNameErrorDescription equals: error messageText]!
-
-!testRun: #CreditCardTest #test01cannotCreateCardWithNonIntegerNumber stamp: 'grm 10/31/2022 21:35:38'!
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidParametersReturnsError stamp: 'grm 11/3/2022 20:28:22'!
 PASSED!
 
-!testRun: #CreditCardTest #test02cannotCreateCardWithNonStrictlyPositiveNumber stamp: 'grm 10/31/2022 21:35:40'!
+!testRun: #RESTInterfaceTest #test03addToCartReturnsSuccessCode stamp: 'grm 11/3/2022 20:28:22'!
 PASSED!
 
-!testRun: #CreditCardTest #test03cannotCreateCardWithInvalidDate stamp: 'grm 10/31/2022 21:35:42'!
-PASSED!
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:36:28' prior: 50568411!
-invalidCardNumberErrorDescription
-	^'Credit card cannot have invalid credit card number'! !
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:37:36' prior: 50568561!
-test02cannotCreateCardWithNonStrictlyPositiveNumber
-	| expiration |
-	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
-	self
-		should: [CreditCard withNumber: 0 expirationDate: expiration owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidCardNumberErrorDescription equals: error messageText].
-		
-	self
-		should: [CreditCard withNumber: -1 expirationDate: expiration owner: '']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidCardNumberErrorDescription equals: error messageText]! !
-
-'asdf' size!
-
-'asdfa' size!
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:41:01' prior: 50568601!
-withNumber: aCardNumber expirationDate: anExpirationDate owner: anOwnerName 
-	((aCardNumber isKindOf: SmallInteger) and: [aCardNumber strictlyPositive])
-		ifFalse: [self error: self invalidCardNumberErrorDescription ].
-	(anExpirationDate isKindOf: FixedGregorianDate)
-		ifFalse: [self error: self invalidExpirationDateErrorDescription ].
-	((anOwnerName isKindOf: String) and: [anOwnerName size <= 30])
-		ifFalse: [self error: self invalidObjectErrorDescription ]. ! !
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:41:09' prior: 50568720!
-withNumber: aCardNumber expirationDate: anExpirationDate owner: anOwnerName 
-	((aCardNumber isKindOf: SmallInteger) and: [aCardNumber strictlyPositive])
-		ifFalse: [self error: self invalidCardNumberErrorDescription ].
-	(anExpirationDate isKindOf: FixedGregorianDate)
-		ifFalse: [self error: self invalidExpirationDateErrorDescription ].
-	((anOwnerName isKindOf: String) and: [anOwnerName size <= 30])
-		ifFalse: [self error: self invalidOwnerNameErrorDescription ]. ! !
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:41:35'!
-invalidOwnerNameErrorDescription
-	^'Owner name must be string with length under 31 characters.'! !
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:41:52' prior: 50568690!
-invalidCardNumberErrorDescription
-	^'Card number must be strictly positive integer'! !
-
-!testRun: #CreditCardTest #test01cannotCreateCardWithNonIntegerNumber stamp: 'grm 10/31/2022 21:42:02'!
+!testRun: #RESTInterfaceTest #test03addToCartReturnsSuccessCode stamp: 'grm 11/3/2022 20:30:30'!
 PASSED!
 
-!testRun: #CreditCardTest #test02cannotCreateCardWithNonStrictlyPositiveNumber stamp: 'grm 10/31/2022 21:42:04'!
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'grm 11/3/2022 20:30:30'!
 PASSED!
 
-!testRun: #CreditCardTest #test03cannotCreateCardWithInvalidDate stamp: 'grm 10/31/2022 21:42:05'!
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidParametersReturnsError stamp: 'grm 11/3/2022 20:30:30'!
 PASSED!
 
-!testRun: #CreditCardTest #test04cannotCreateCardWithOwnerNameOver30Characters stamp: 'grm 10/31/2022 21:42:07'!
-ERROR!
-
-!testRun: #CreditCardTest #test04cannotCreateCardWithOwnerNameOver30Characters stamp: 'grm 10/31/2022 21:42:07'!
-ERROR!
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:42:27' prior: 50568646!
-test04cannotCreateCardWithOwnerNameOver30Characters
-	| expiration |
-	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
-	self
-		should: [CreditCard withNumber: 11111111111 expirationDate: expiration owner: 'unNombreDeMasDeTreintaCharacters']
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error |
-			self assert: CreditCard invalidOwnerNameErrorDescription equals: error messageText]! !
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:48:05'!
-test04cardCanAnswerCorrectNumber
-	| number expiration card |
-	number _ 11111111111.
-	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
-	card _ CreditCard withNumber: number expirationDate: expiration owner: 'validName'.
-	
-	self assert: card number equals: number.! !
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:48:12'!
-test05cardCanAnswerCorrectNumber
-	| number expiration card |
-	number _ 11111111111.
-	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
-	card _ CreditCard withNumber: number expirationDate: expiration owner: 'validName'.
-	
-	self assert: card number equals: number.! !
-
-!methodRemoval: CreditCardTest #test04cardCanAnswerCorrectNumber stamp: 'grm 10/31/2022 21:48:12'!
-test04cardCanAnswerCorrectNumber
-	| number expiration card |
-	number _ 11111111111.
-	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
-	card _ CreditCard withNumber: number expirationDate: expiration owner: 'validName'.
-	
-	self assert: card number equals: number.!
-
-!testRun: #CreditCardTest #test05cardCanAnswerCorrectNumber stamp: 'grm 10/31/2022 21:48:21'!
-ERROR!
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:48:32'!
-number
-	self shouldBeImplemented.! !
-
-!classDefinition: 'CreditCard class' category: 'TusLibros' stamp: 'grm 10/31/2022 21:48:57'!
-CreditCard class
-	instanceVariableNames: 'number'!
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:48:52' prior: 50568844!
-number
-	^number copy! !
-
-!testRun: #CreditCardTest #test05cardCanAnswerCorrectNumber stamp: 'grm 10/31/2022 21:48:59'!
-FAILURE!
-!CreditCard class methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:49:43' prior: 50568738!
-withNumber: aCardNumber expirationDate: anExpirationDate owner: anOwnerName 
-	((aCardNumber isKindOf: SmallInteger) and: [aCardNumber strictlyPositive])
-		ifFalse: [self error: self invalidCardNumberErrorDescription ].
-	(anExpirationDate isKindOf: FixedGregorianDate)
-		ifFalse: [self error: self invalidExpirationDateErrorDescription ].
-	((anOwnerName isKindOf: String) and: [anOwnerName size <= 30])
-		ifFalse: [self error: self invalidOwnerNameErrorDescription ].
-		
-	^self new initializeWithNumber: aCardNumber expirationDate: anExpirationDate owner: anOwnerName.! !
-
-!classDefinition: #CreditCard category: 'TusLibros' stamp: 'grm 10/31/2022 21:50:45'!
-Object subclass: #CreditCard
-	instanceVariableNames: 'number'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros'!
-
-!classDefinition: #CreditCard category: 'TusLibros' stamp: 'grm 10/31/2022 21:50:46'!
-Object subclass: #CreditCard
-	instanceVariableNames: 'number expiration'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros'!
-
-!classDefinition: #CreditCard category: 'TusLibros' stamp: 'grm 10/31/2022 21:50:47'!
-Object subclass: #CreditCard
-	instanceVariableNames: 'number expiration owner'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros'!
-!CreditCard methodsFor: 'no messages' stamp: 'grm 10/31/2022 21:50:43'!
-initializeWithNumber: aCardNumber expirationDate: anExpirationDate owner: anOwnerName
-	number _ aCardNumber.
-	expiration _ anExpirationDate.
-	owner _ anOwnerName.! !
-
-!testRun: #CreditCardTest #test05cardCanAnswerCorrectNumber stamp: 'grm 10/31/2022 21:51:02'!
-ERROR!
-!CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:51:09'!
-number
-	self shouldBeImplemented.
-	^number! !
-!CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:51:16' prior: 50568914!
-number
-	^number copy! !
-
-!testRun: #CreditCardTest #test05cardCanAnswerCorrectNumber stamp: 'grm 10/31/2022 21:51:18'!
+!testRun: #RESTInterfaceTest #test03addToCartReturnsSuccessCode stamp: 'grm 11/3/2022 20:30:30'!
 PASSED!
 
-!testRun: #CreditCardTest #test01cannotCreateCardWithNonIntegerNumber stamp: 'grm 10/31/2022 21:51:18'!
-PASSED!
-
-!testRun: #CreditCardTest #test02cannotCreateCardWithNonStrictlyPositiveNumber stamp: 'grm 10/31/2022 21:51:18'!
-PASSED!
-
-!testRun: #CreditCardTest #test03cannotCreateCardWithInvalidDate stamp: 'grm 10/31/2022 21:51:18'!
-PASSED!
-
-!testRun: #CreditCardTest #test04cannotCreateCardWithOwnerNameOver30Characters stamp: 'grm 10/31/2022 21:51:18'!
-PASSED!
-
-!testRun: #CreditCardTest #test05cardCanAnswerCorrectNumber stamp: 'grm 10/31/2022 21:51:18'!
-PASSED!
-
-!methodRemoval: CreditCard class #number stamp: 'grm 10/31/2022 21:52:00'!
-number
-	^number copy!
-
-CreditCard class
-	instanceVariableNames: ''!
-
-!classDefinition: 'CreditCard class' category: 'TusLibros' stamp: 'grm 10/31/2022 21:52:05'!
-CreditCard class
-	instanceVariableNames: ''!
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:52:48'!
-test05cardCanAnswerCorrectExpirationDate
-	| expiration card |
-	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
-	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: 'validName'.
-	
-	self assert: card expiration equals: expiration.! !
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:52:54'!
-test06cardCanAnswerCorrectExpirationDate
-	| expiration card |
-	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
-	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: 'validName'.
-	
-	self assert: card expiration equals: expiration.! !
-
-!methodRemoval: CreditCardTest #test05cardCanAnswerCorrectExpirationDate stamp: 'grm 10/31/2022 21:52:54'!
-test05cardCanAnswerCorrectExpirationDate
-	| expiration card |
-	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
-	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: 'validName'.
-	
-	self assert: card expiration equals: expiration.!
-
-!testRun: #CreditCardTest #test06cardCanAnswerCorrectExpirationDate stamp: 'grm 10/31/2022 21:52:56'!
-ERROR!
-
-!testRun: #CreditCardTest #test06cardCanAnswerCorrectExpirationDate stamp: 'grm 10/31/2022 21:52:56'!
-ERROR!
-!CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:53:03'!
-expiration
-	self shouldBeImplemented.
-	^expiration! !
-!CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:53:08' prior: 50568996!
-expiration
-	^expiration copy! !
-
-!testRun: #CreditCardTest #test06cardCanAnswerCorrectExpirationDate stamp: 'grm 10/31/2022 21:53:09'!
-PASSED!
-
-!testRun: #CreditCardTest #test06cardCanAnswerCorrectExpirationDate stamp: 'grm 10/31/2022 21:53:14'!
-PASSED!
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:53:51'!
-test07cardCanAnswerCorrectOwnerName
-	| expiration card owner |
-	owner _ 'validName'.
-	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
-	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: owner.
-	
-	self assert: card owner equals: owner.! !
-
-!testRun: #CreditCardTest #test07cardCanAnswerCorrectOwnerName stamp: 'grm 10/31/2022 21:53:55'!
-ERROR!
-
-!testRun: #CreditCardTest #test07cardCanAnswerCorrectOwnerName stamp: 'grm 10/31/2022 21:53:55'!
-ERROR!
-!CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:53:59'!
-owner
-	self shouldBeImplemented.
-	^owner! !
-!CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 10/31/2022 21:54:04' prior: 50569031!
-owner
-	^owner copy! !
-
-!testRun: #CreditCardTest #test07cardCanAnswerCorrectOwnerName stamp: 'grm 10/31/2022 21:54:05'!
-PASSED!
-
-!testRun: #CreditCardTest #test07cardCanAnswerCorrectOwnerName stamp: 'grm 10/31/2022 21:54:07'!
-PASSED!
-
-----SNAPSHOT----(31 October 2022 21:54:27) CuisUniversity-5481.image priorSource: 7526373!
-
-----STARTUP---- (2 November 2022 17:18:28) as /mnt/Data/Universidad/Ingenieria I/linux64/CuisUniversity-5481.image!
-
-
-----End fileIn of /mnt/Data/Universidad/Ingenieria I/linux64/TusLibros.st----!
-!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:27:14' prior: 50552393!
-test01cannotCheckoutEmptyCart
-	| cart cashier expiration card owner |
-	owner _ 'validName'.
-	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
-	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: owner.
-	
-	cart _ self createCart.
-	cashier _ Cashier new.
-	
-	self
-		should: [cashier checkout: cart withCreditCard: card]
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error | 
-			self assert: Cashier cannotCheckoutEmptyCartErrorDescription equals: error messageText. ]! !
-!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:28:17'!
-validCreditCard
-	| expiration |
-	expiration _ FixedGregorianDate yearNumber: 2023 monthNumber: 8 dayNumber: 1.
-	^CreditCard withNumber: 11111111111 expirationDate: expiration owner: 'validName'.! !
-!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:29:09' prior: 50552707!
-test01cannotCheckoutEmptyCart
-	| cart cashier card |
-	
-	cart _ self createCart.
-	cashier _ Cashier new.
-	card _ self validCreditCard.
-	
-	self
-		should: [cashier checkout: cart withCreditCard: card]
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error | 
-			self assert: Cashier cannotCheckoutEmptyCartErrorDescription equals: error messageText. ]! !
-
-!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 11/2/2022 17:29:11'!
-PASSED!
-
-!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 11/2/2022 17:29:11'!
-PASSED!
-!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:32:06'!
-test02cannotCheckoutWithExpiredCard
-	| cart cashier card |
-	
-	cart _ self createCart.
-	cart add: 'validbook'.
-	cashier _ Cashier new.
-	card _ self expiredCreditCard.
-	
-	self
-		should: [cashier checkout: cart withCreditCard: card]
-		raise: Error - MessageNotUnderstood 
-		withExceptionDo: [:error | 
-			self assert: Cashier cannotCheckoutWithExpiredCardErrorDescription equals: error messageText. ]! !
-
-!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 17:32:10'!
-ERROR!
-!CashierTest methodsFor: 'support' stamp: 'grm 11/2/2022 17:32:40'!
-expiredCreditCard
-	| expiration |
-	expiration _ FixedGregorianDate yearNumber: 2020 monthNumber: 8 dayNumber: 1.
-	^CreditCard withNumber: 11111111111 expirationDate: expiration owner: 'validName'.! !
-
-!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 17:33:16'!
-FAILURE!
-
-!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 17:33:22'!
-FAILURE!
-!Cashier methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:34:23' prior: 50552607!
-checkout: aCart withCreditCard: aCard
-	aCart isEmpty ifTrue: [self error: self class cannotCheckoutEmptyCartErrorDescription ].
-	aCard isExpired ifTrue: [self error: self class cannotCheckoutWithExpiredCardErrorDescription].! !
-!Cashier class methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:35:00'!
-cannotCheckoutWithExpiredCardErrorDescription
-	^'Card must not be expired'! !
-
-!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 17:35:14'!
-ERROR!
-!CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:35:21'!
-isExpired
-	self shouldBeImplemented.! !
-!CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:39:10' prior: 50552808!
-isExpired
-	^self < self class today! !
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:40:02'!
-test08expiredCreditCardKnowsItIsExpired
-	| expiration card owner |
-	owner _ 'validName'.
-	expiration _ FixedGregorianDate yearNumber: 2020 monthNumber: 8 dayNumber: 1.
-	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: owner.
-	
-	self assert: card isExpired.! !
-
-!testRun: #CreditCardTest #test08expiredCreditCardKnowsItIsExpired stamp: 'grm 11/2/2022 17:40:04'!
-ERROR!
-!CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:40:25' prior: 50552813!
-isExpired
-	^self expiration < expiration class today! !
-!CreditCard methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:40:34' prior: 50552833!
-isExpired
-	^expiration < expiration class today! !
-
-!testRun: #CreditCardTest #test08expiredCreditCardKnowsItIsExpired stamp: 'grm 11/2/2022 17:40:37'!
-PASSED!
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:40:55'!
-test08validCreditCardKnowsItIsNotExpired
-	| expiration card owner |
-	owner _ 'validName'.
-	expiration _ FixedGregorianDate yearNumber: 2024 monthNumber: 8 dayNumber: 1.
-	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: owner.
-	
-	self deny: card isExpired.! !
-
-!testRun: #CreditCardTest #test08validCreditCardKnowsItIsNotExpired stamp: 'grm 11/2/2022 17:40:56'!
-PASSED!
-
-!testRun: #CreditCardTest #test01cannotCreateCardWithNonIntegerNumber stamp: 'grm 11/2/2022 17:40:56'!
-PASSED!
-
-!testRun: #CreditCardTest #test02cannotCreateCardWithNonStrictlyPositiveNumber stamp: 'grm 11/2/2022 17:40:56'!
-PASSED!
-
-!testRun: #CreditCardTest #test03cannotCreateCardWithInvalidDate stamp: 'grm 11/2/2022 17:40:56'!
-PASSED!
-
-!testRun: #CreditCardTest #test04cannotCreateCardWithOwnerNameOver30Characters stamp: 'grm 11/2/2022 17:40:56'!
-PASSED!
-
-!testRun: #CreditCardTest #test05cardCanAnswerCorrectNumber stamp: 'grm 11/2/2022 17:40:56'!
-PASSED!
-
-!testRun: #CreditCardTest #test06cardCanAnswerCorrectExpirationDate stamp: 'grm 11/2/2022 17:40:56'!
-PASSED!
-
-!testRun: #CreditCardTest #test07cardCanAnswerCorrectOwnerName stamp: 'grm 11/2/2022 17:40:56'!
-PASSED!
-
-!testRun: #CreditCardTest #test08expiredCreditCardKnowsItIsExpired stamp: 'grm 11/2/2022 17:40:56'!
-PASSED!
-
-!testRun: #CreditCardTest #test08validCreditCardKnowsItIsNotExpired stamp: 'grm 11/2/2022 17:40:56'!
-PASSED!
-!CreditCardTest methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:41:03'!
-test09validCreditCardKnowsItIsNotExpired
-	| expiration card owner |
-	owner _ 'validName'.
-	expiration _ FixedGregorianDate yearNumber: 2024 monthNumber: 8 dayNumber: 1.
-	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: owner.
-	
-	self deny: card isExpired.! !
-
-!methodRemoval: CreditCardTest #test08validCreditCardKnowsItIsNotExpired stamp: 'grm 11/2/2022 17:41:03'!
-test08validCreditCardKnowsItIsNotExpired
-	| expiration card owner |
-	owner _ 'validName'.
-	expiration _ FixedGregorianDate yearNumber: 2024 monthNumber: 8 dayNumber: 1.
-	card _ CreditCard withNumber: 11111111111 expirationDate: expiration owner: owner.
-	
-	self deny: card isExpired.!
-
-!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 17:41:29'!
-PASSED!
-
-!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 11/2/2022 17:41:29'!
-PASSED!
-
-!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 17:41:29'!
-PASSED!
-!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:45:51'!
-test02canCheckoutCartWithOneBook
-	| cart cashier card |
-	
-	cart _ self createCart.
-	cart add: 'validbook'.
-	cashier _ Cashier new.
-	card _ self validCreditCard.
-	
-	cashier checkout: cart withCreditCard: card.
-	
-	self assert: cart isEmpty.! !
-!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:45:56'!
-test03canCheckoutCartWithOneBook
-	| cart cashier card |
-	
-	cart _ self createCart.
-	cart add: 'validbook'.
-	cashier _ Cashier new.
-	card _ self validCreditCard.
-	
-	cashier checkout: cart withCreditCard: card.
-	
-	self assert: cart isEmpty.! !
-
-!methodRemoval: CashierTest #test02canCheckoutCartWithOneBook stamp: 'grm 11/2/2022 17:45:56'!
-test02canCheckoutCartWithOneBook
-	| cart cashier card |
-	
-	cart _ self createCart.
-	cart add: 'validbook'.
-	cashier _ Cashier new.
-	card _ self validCreditCard.
-	
-	cashier checkout: cart withCreditCard: card.
-	
-	self assert: cart isEmpty.!
-!CashierTest methodsFor: 'support' stamp: 'grm 11/2/2022 17:46:50'!
-cartWithOneBook
-	| cart |
-	cart _ self createCart.
-	cart add: 'validbook'.
-	^cart! !
-!CashierTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:46:58' prior: 50552936!
-test03canCheckoutCartWithOneBook
-	| cart cashier card |
-	
-	cart _ self cartWithOneBook.
-	cashier _ Cashier new.
-	card _ self validCreditCard.
-	
-	cashier checkout: cart withCreditCard: card.
-	
-	self assert: cart isEmpty.! !
-
-!testRun: #CashierTest #test03canCheckoutCartWithOneBook stamp: 'grm 11/2/2022 17:47:00'!
-FAILURE!
-!Cashier methodsFor: 'as yet unclassified' stamp: 'grm 11/2/2022 17:47:38' prior: 50552789!
-checkout: aCart withCreditCard: aCard
-	aCart isEmpty ifTrue: [self error: self class cannotCheckoutEmptyCartErrorDescription ].
-	aCard isExpired ifTrue: [self error: self class cannotCheckoutWithExpiredCardErrorDescription].
-	
-	aCart emptyBooks.! !
-!Cart methodsFor: 'testing' stamp: 'grm 11/2/2022 17:48:25'!
-emptyBooks
-	
-	items _ OrderedCollection new.! !
-
-!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 11/2/2022 17:49:21'!
-PASSED!
-
-!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 17:49:21'!
-PASSED!
-
-!testRun: #CashierTest #test03canCheckoutCartWithOneBook stamp: 'grm 11/2/2022 17:49:21'!
-PASSED!
-!CartTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:52:53'!
-test08CartKnowsRunningPrice
-
-	| cart |
-	
-	cart := self createCart.
-	
-	cart add: 2 of: self itemSellByTheStore.
-	self assert: 40 equals: cart runningPrice.! !
-!CartTest methodsFor: 'tests' stamp: 'grm 11/2/2022 17:53:01'!
-test09CartKnowsRunningPrice
-
-	| cart |
-	
-	cart := self createCart.
-	
-	cart add: 2 of: self itemSellByTheStore.
-	self assert: 40 equals: cart runningPrice.! !
-
-!methodRemoval: CartTest #test08CartKnowsRunningPrice stamp: 'grm 11/2/2022 17:53:01'!
-test08CartKnowsRunningPrice
-
-	| cart |
-	
-	cart := self createCart.
-	
-	cart add: 2 of: self itemSellByTheStore.
-	self assert: 40 equals: cart runningPrice.!
-!Cart methodsFor: 'queries' stamp: 'grm 11/2/2022 17:59:42'!
-runningPrice
-	^items inject: 0 into: [:priceTotal :item | priceTotal + (catalog at: item) ]! !
-
-!testRun: #CartTest #test09CartKnowsRunningPrice stamp: 'grm 11/2/2022 18:00:48'!
-ERROR!
-!CartTest methodsFor: 'support' stamp: 'grm 11/2/2022 18:01:43' prior: 50552364!
-defaultCatalog
-	|catalog|
-	catalog _ Dictionary new.
-	catalog at: self itemSellByTheStore put: 40.
-	^catalog.! !
-
-!testRun: #CartTest #test09CartKnowsRunningPrice stamp: 'grm 11/2/2022 18:01:48'!
-ERROR!
-
-!testRun: #CartTest #test09CartKnowsRunningPrice stamp: 'grm 11/2/2022 18:01:48'!
-ERROR!
-!Cart methodsFor: 'assertions' stamp: 'grm 11/2/2022 18:02:27' prior: 50552541!
-assertIsValidItem: anItem
-
-	(catalog includesKey: anItem) ifFalse: [ self error: self invalidItemErrorMessage ]! !
-
-!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'grm 11/2/2022 18:02:31'!
-PASSED!
-
-!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'grm 11/2/2022 18:02:31'!
-PASSED!
-
-!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'grm 11/2/2022 18:02:31'!
-PASSED!
-
-!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'grm 11/2/2022 18:02:31'!
-PASSED!
-
-!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'grm 11/2/2022 18:02:31'!
-PASSED!
-
-!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'grm 11/2/2022 18:02:31'!
-PASSED!
-
-!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'grm 11/2/2022 18:02:31'!
-PASSED!
-
-!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'grm 11/2/2022 18:02:31'!
-PASSED!
-
-!testRun: #CartTest #test09CartKnowsRunningPrice stamp: 'grm 11/2/2022 18:02:31'!
-FAILURE!
-
-!testRun: #CartTest #test09CartKnowsRunningPrice stamp: 'grm 11/2/2022 18:02:31'!
-FAILURE!
-!CartTest methodsFor: 'support' stamp: 'grm 11/2/2022 18:02:42' prior: 50553030!
-defaultCatalog
-	|catalog|
-	catalog _ Dictionary new.
-	catalog at: self itemSellByTheStore put: 20.
-	^catalog.! !
-
-!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'grm 11/2/2022 18:02:45'!
-PASSED!
-
-!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'grm 11/2/2022 18:02:45'!
-PASSED!
-
-!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'grm 11/2/2022 18:02:45'!
-PASSED!
-
-!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'grm 11/2/2022 18:02:45'!
-PASSED!
-
-!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'grm 11/2/2022 18:02:45'!
-PASSED!
-
-!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'grm 11/2/2022 18:02:45'!
-PASSED!
-
-!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'grm 11/2/2022 18:02:45'!
-PASSED!
-
-!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'grm 11/2/2022 18:02:45'!
-PASSED!
-
-!testRun: #CartTest #test09CartKnowsRunningPrice stamp: 'grm 11/2/2022 18:02:45'!
-PASSED!
-!CashierTest methodsFor: 'support' stamp: 'grm 11/2/2022 18:04:04'!
-createCatalog
-	| catalog |
-	catalog _ Dictionary new.
-	catalog at: 'validbook' put: 20.
-	^catalog! !
-!CashierTest methodsFor: 'support' stamp: 'grm 11/2/2022 18:04:15' prior: 50552388!
-createCart
-
-	^ Cart acceptingItemsOf: self createCatalog! !
-
-!testRun: #CashierTest #test01cannotCheckoutEmptyCart stamp: 'grm 11/2/2022 18:04:17'!
-PASSED!
-
-!testRun: #CashierTest #test02cannotCheckoutWithExpiredCard stamp: 'grm 11/2/2022 18:04:17'!
-PASSED!
-
-!testRun: #CashierTest #test03canCheckoutCartWithOneBook stamp: 'grm 11/2/2022 18:04:17'!
-PASSED!
-
-----SNAPSHOT----(2 November 2022 18:04:43) CuisUniversity-5481.image priorSource: 7059698!
+----SNAPSHOT----(3 November 2022 20:50:42) CuisUniversity-5481.image priorSource: 7526373!
