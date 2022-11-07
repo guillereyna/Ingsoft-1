@@ -1,0 +1,1606 @@
+
+
+----QUIT----(22 August 2022 12:39:39) CuisUniversity-5466.image priorSource: 2778666!
+
+----STARTUP---- (22 August 2022 12:39:39) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-5466.image!
+
+
+----QUIT----(22 August 2022 12:39:39) CuisUniversity-5466.image priorSource: 7018121!
+
+----STARTUP---- (7 November 2022 00:27:07) as /home/marco/Desktop/linux64 (1)/CuisUniversity-5466.image!
+
+
+Object subclass: #RESTInterfaceTusLibros
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #RESTInterfaceTusLibros category: 'TusLibros' stamp: 'MSS 11/7/2022 00:34:58'!
+Object subclass: #RESTInterfaceTusLibros
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+----End fileIn of /home/marco/Desktop/Ingenieria de Software I/Ingsoft-1/09-TusLibros/TusLibros.st----!
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidParametersReturnsError stamp: 'MSS 11/7/2022 00:43:27'!
+PASSED!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 00:43:48' prior: 50551261!
+test02createCartWithInvalidParametersReturnsError
+	| api response |
+	api _ RESTInterface new.
+	
+	response _ api createCartFor: #Invalid password: 'pass'.
+	
+	self assert: ('1|' , api class invalidParameterErrorDescription) equals: response.! !
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidParametersReturnsError stamp: 'MSS 11/7/2022 00:43:49'!
+PASSED!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 00:44:00'!
+test02createCartWithInvalidUserReturnsError
+	| api response |
+	api _ RESTInterface new.
+	
+	response _ api createCartFor: #Invalid password: 'pass'.
+	
+	self assert: ('1|' , api class invalidParameterErrorDescription) equals: response.! !
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 00:44:27'!
+test03createCartWithInvalidPasswordReturnsError
+	| api response |
+	api _ RESTInterface new.
+	
+	response _ api createCartFor: #Invalid password: 'pass'.
+	
+	self assert: ('1|' , api class invalidParameterErrorDescription) equals: response.! !
+
+!methodRemoval: RESTInterfaceTest #test02createCartWithInvalidParametersReturnsError stamp: 'MSS 11/7/2022 00:44:27'!
+test02createCartWithInvalidParametersReturnsError
+	| api response |
+	api _ RESTInterface new.
+	
+	response _ api createCartFor: #Invalid password: 'pass'.
+	
+	self assert: ('1|' , api class invalidParameterErrorDescription) equals: response.!
+
+!testRun: #RESTInterfaceTest #test03createCartWithInvalidPasswordReturnsError stamp: 'MSS 11/7/2022 00:44:31'!
+PASSED!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 00:44:41'!
+test04addToCartReturnsSuccessCode
+	| api response |
+	api _ RESTInterface new.
+	
+	response _ api addToCart: 1 bookIsbn: 1 quantityOf: 1.
+	
+	self assert: '0|OK' equals: response.! !
+
+!methodRemoval: RESTInterfaceTest #test03addToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 00:44:41'!
+test03addToCartReturnsSuccessCode
+	| api response |
+	api _ RESTInterface new.
+	
+	response _ api addToCart: 1 bookIsbn: 1 quantityOf: 1.
+	
+	self assert: '0|OK' equals: response.!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 00:55:54'!
+test05addValidItemToCartIsRegisteredByCart
+	| api response |
+	api _ RESTInterface new.
+	
+	response _ api addToCart: 1 bookIsbn: 1 quantityOf: 1.
+	
+	self assert: '0|OK' equals: response.
+	
+	self assert:(api )! !
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 01:00:07' prior: 50551700!
+test05addValidItemToCartIsRegisteredByCart
+	| api response |
+	api _ RESTInterface new.
+	
+	response _ api addToCart: 1 bookIsbn: 1 quantityOf: 1.
+	
+	self assert: '0|OK' equals: response.
+	
+	"self assert:(api booksOf: cartId) has: 1" ! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 01:11:11' prior: 50551509!
+createCartFor: aClientId password: aPassword
+	|cartId|
+	(self acceptsId: aClientId withPassword: aPassword)
+		ifFalse: [^'1|' , self class invalidParameterErrorDescription ].
+	cartId := self addClientId: aClientId withPassword: aPassword
+	^'0|',cartId! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 01:12:06'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 01:12:06'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 01:12:57' prior: 50551252!
+test01createCartReturnsSuccessCodeAndCartId
+	| api response |
+	api _ RESTInterface new.
+	
+	response _ api createCartFor: 'userExample' password: 'passwordExample'.
+	
+	self assert: '0|1' equals: response.! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 01:13:11'!
+ERROR!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 01:13:29'!
+acceptsId: aString withPassword: aString2 
+	self shouldBeImplemented.! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 01:15:14' prior: 50551753!
+acceptsId: anId withPassword: aPassword 
+	self acceptsId: anId
+	self acceptsPassword: aPassword! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 01:15:26'!
+ERROR!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 01:16:07' prior: 50551759!
+acceptsId: anId withPassword: aPassword 
+	self acceptsId: anId.
+	self acceptsPassword: aPassword.! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 01:16:18'!
+ERROR!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 01:16:25'!
+acceptsId: aString 
+	self shouldBeImplemented.! !
+
+!classDefinition: #RESTInterface category: 'TusLibros' stamp: 'MSS 11/7/2022 01:23:42'!
+Object subclass: #RESTInterface
+	instanceVariableNames: 'idsAndPasswords'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 01:23:32' prior: 50551769!
+acceptsId: anId withPassword: aPassword 
+
+	(anId isKindOf: String) ifFalse:[self error: self class notAcceptedIdErrorDescription].
+	(aPassword isKindOf: String) ifFalse:[self error: self class notAcceptedPasswordErrorDescription].
+
+	(idsAndPasswords includesKey: anId) ifTrue:[self error: self class notAcceptedIdErrorDescription].
+	(idsAndPasswords includes: aPassword) ifTrue:[self error: self class notAcceptedPasswordErrorDescription].
+! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 01:23:49'!
+ERROR!
+!RESTInterface class methodsFor: 'error description' stamp: 'MSS 11/7/2022 01:24:40'!
+notAcceptedIdErrorDescription
+	^'Invalid client Id'! !
+!RESTInterface class methodsFor: 'error description' stamp: 'MSS 11/7/2022 01:24:48'!
+notAcceptedPasswordErrorDescription
+	^'Invalid password'! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 01:27:30'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 01:27:30'!
+ERROR!
+
+!methodRemoval: RESTInterface #acceptsId: stamp: 'MSS 11/7/2022 01:32:02'!
+acceptsId: aString 
+	self shouldBeImplemented.!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 01:33:02'!
+hasId: anId withPassword: aPassword 
+
+	(anId isKindOf: String) ifFalse:[self error: self class notAcceptedIdErrorDescription].
+	(aPassword isKindOf: String) ifFalse:[self error: self class notAcceptedPasswordErrorDescription].
+
+	(idsAndPasswords includesKey: anId) ifTrue:[self error: self class notAcceptedIdErrorDescription].
+	(idsAndPasswords includes: aPassword) ifTrue:[self error: self class notAcceptedPasswordErrorDescription].
+! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 01:33:02' prior: 50551721!
+createCartFor: aClientId password: aPassword
+	|cartId|
+	(self hasId: aClientId withPassword: aPassword)
+		ifFalse: [^'1|' , self class invalidParameterErrorDescription ].
+	cartId := self addClientId: aClientId withPassword: aPassword
+	^'0|',cartId! !
+
+!methodRemoval: RESTInterface #acceptsId:withPassword: stamp: 'MSS 11/7/2022 01:33:02'!
+acceptsId: anId withPassword: aPassword 
+
+	(anId isKindOf: String) ifFalse:[self error: self class notAcceptedIdErrorDescription].
+	(aPassword isKindOf: String) ifFalse:[self error: self class notAcceptedPasswordErrorDescription].
+
+	(idsAndPasswords includesKey: anId) ifTrue:[self error: self class notAcceptedIdErrorDescription].
+	(idsAndPasswords includes: aPassword) ifTrue:[self error: self class notAcceptedPasswordErrorDescription].
+!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 01:38:25' prior: 50551833!
+hasId: anId withPassword: aPassword 
+	|password|
+	password:= (idsAndPasswords at:anId) ifAbsent:[self error: self class wrongPasswordOrIdErrorDescription	].
+	password=aPassword ifFalse: [self error: self class wrongPasswordOrIdErrorDescription].
+! !
+!RESTInterface class methodsFor: 'error description' stamp: 'MSS 11/7/2022 01:39:19'!
+wrongPasswordOrIdErrorDescription
+	^'wrong password or Id'! !
+
+!classDefinition: #RESTInterface category: 'TusLibros' stamp: 'MSS 11/7/2022 01:51:54'!
+Object subclass: #RESTInterface
+	instanceVariableNames: 'idsAndPasswords catalog'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #RESTInterface category: 'TusLibros' stamp: 'MSS 11/7/2022 01:51:56'!
+Object subclass: #RESTInterface
+	instanceVariableNames: 'idsAndPasswords catalog salesHistory'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #RESTInterface category: 'TusLibros' stamp: 'MSS 11/7/2022 01:51:57'!
+Object subclass: #RESTInterface
+	instanceVariableNames: 'idsAndPasswords catalog salesHistory processor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #RESTInterface category: 'TusLibros' stamp: 'MSS 11/7/2022 01:51:58'!
+Object subclass: #RESTInterface
+	instanceVariableNames: 'idsAndPasswords catalog salesHistory processor clock'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 01:51:53'!
+initializeWithCatalog: aCatalog withHistoryOfSales: aSalesHistory processedBy: aMerchantProcessor timedby: aClock
+	idsAndPasswords = Dictionary new.
+	catalog := aCatalog.
+	salesHistory := aSalesHistory.
+	processor := aMerchantProcessor.
+	clock:= aClock.! !
+!RESTInterface class methodsFor: 'error description' stamp: 'MSS 11/7/2022 01:52:48'!
+createWithCatalog: aCatalog withHistoryOfSales: aSalesHistory processedBy: aMerchantProcessor timedby: aClock
+! !
+!RESTInterface class methodsFor: 'error description' stamp: 'MSS 11/7/2022 01:53:23' prior: 50551937!
+createWithCatalog: aCatalog withHistoryOfSales: aSalesHistory processedBy: aMerchantProcessor timedby: aClock
+	^self new initializeWithCatalog: aCatalog withHistoryOfSales: aSalesHistory  processedBy: aMerchantProcessor  timedby: aClock! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 01:54:17'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 02:07:25' prior: 50551740!
+test01createCartReturnsSuccessCodeAndCartId
+	| api response |
+	api _ RESTInterface createWithCatalog: OrderedCollection new withHistoryOfSales: OrderedCollection new.
+	
+	response _ api createCartFor: 'userExample' password: 'passwordExample'.
+	
+	self assert: '0|1' equals: response.! !
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 02:08:41' prior: 50551959!
+test01createCartReturnsSuccessCodeAndCartId
+	| api response |
+	api _ RESTInterface createWithCatalog: OrderedCollection new withHistoryOfSales: OrderedCollection new.
+	
+	response _ api createCartFor: 'userExample' password: 'passwordExample'.
+	
+	self assert: '0|1' equals: response.! !
+
+!classDefinition: #RESTInterfaceTest category: 'TusLibros' stamp: 'MSS 11/7/2022 02:09:19'!
+TestCase subclass: #RESTInterfaceTest
+	instanceVariableNames: 'aMerchantProcessor'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #RESTInterfaceTest category: 'TusLibros' stamp: 'MSS 11/7/2022 02:09:20'!
+TestCase subclass: #RESTInterfaceTest
+	instanceVariableNames: 'aMerchantProcessor aClock'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 02:09:18' prior: 50551972!
+test01createCartReturnsSuccessCodeAndCartId
+	| api response |
+	api _ RESTInterface createWithCatalog: OrderedCollection new withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock.
+	
+	response _ api createCartFor: 'userExample' password: 'passwordExample'.
+	
+	self assert: '0|1' equals: response.! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 02:09:35'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 02:10:26'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 02:10:26'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 02:13:26'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 02:13:50' prior: 50552000!
+test01createCartReturnsSuccessCodeAndCartId
+	| api response |
+	api _ RESTInterface createWithCatalog: OrderedCollection new withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock.
+	
+	response _ api createCartFor: 1 password: 'passwordExample'.
+	
+	self assert: '0|1' equals: response.! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 02:13:53'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 02:15:13'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 02:15:34'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 02:16:15' prior: 50552028!
+test01createCartReturnsSuccessCodeAndCartId
+	| api response |
+	api _ RESTInterface createWithCatalog: OrderedCollection new withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock.
+	
+	response _ api createCartFor: #a password: 'passwordExample'.
+	
+	self assert: '0|1' equals: response.! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 02:16:17'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 02:13:50' prior: 50552053!
+test01createCartReturnsSuccessCodeAndCartId
+	| api response |
+	api _ RESTInterface createWithCatalog: OrderedCollection new withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock.
+	
+	response _ api createCartFor: 1 password: 'passwordExample'.
+	
+	self assert: '0|1' equals: response.! !
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 02:16:43' prior: 50552070!
+test01createCartReturnsSuccessCodeAndCartId
+	| api response |
+	api _ RESTInterface createWithCatalog: OrderedCollection new withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock.
+	
+	response _ api createCartFor: 1 password: 'passwordExample'.
+	
+	self assert: '0|1' equals: response.! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 02:16:44'!
+ERROR!
+
+----STARTUP---- (7 November 2022 13:23:13) as /home/clinux01/Escritorio/linux64/CuisUniversity-5510.image!
+
+
+----End fileIn of /home/clinux01/Escritorio/linux64/TusLibros.st----!
+
+!classRemoval: #RESTInterfaceTusLibros stamp: 'MSS 11/7/2022 13:25:06'!
+Object subclass: #RESTInterfaceTusLibros
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:25:11'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:25:11'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:25:57'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:25:57'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:26:34' prior: 50555517!
+test01createCartReturnsSuccessCodeAndCartId
+	| api response |
+	api := RESTInterface createWithCatalog: OrderedCollection new withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock.
+	
+	response _ api createCartFor: 1 password: 'passwordExample'.
+	
+	self assert: '0|1' equals: response.! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:27:10' prior: 50555825!
+initializeWithCatalog: aCatalog withHistoryOfSales: aSalesHistory processedBy: aMerchantProcessor timedby: aClock
+	idsAndPasswords := Dictionary new.
+	catalog := aCatalog.
+	salesHistory := aSalesHistory.
+	processor := aMerchantProcessor.
+	clock:= aClock.! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:27:11'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:27:18'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:28:13'!
+ERROR!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:29:33' prior: 50555814!
+hasId: anId withPassword: aPassword 
+	|password|
+	password:= idsAndPasswords at:anId ifAbsent:[self error: self class wrongPasswordOrIdErrorDescription	].
+	password=aPassword ifFalse: [self error: self class wrongPasswordOrIdErrorDescription].
+! !
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:29:53' prior: 50556002!
+test01createCartReturnsSuccessCodeAndCartId
+	| api response |
+	api := RESTInterface createWithCatalog: OrderedCollection new withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock.
+	
+	response := api createCartFor: 1 password: 'passwordExample'.
+	
+	self assert: '0|1' equals: response.! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:30:25'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:31:51' prior: 50556049!
+test01createCartReturnsSuccessCodeAndCartId
+	| api response |
+	api := RESTInterface createWithCatalog: OrderedCollection new withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock.
+	
+	response := api createCartFor: 1 password: 'passwordExample'.
+	
+	self assert: '0|1' equals: response.! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:31:54'!
+ERROR!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:33:19'!
+initializeWithCatalog: aCatalog withHistoryOfSales: aSalesHistory processedBy: aMerchantProcessor timedby: aClock aDictionaryOfUsersAndPasswords: withUsersAndPasswords 
+	idsAndPasswords := Dictionary new.
+	catalog := aCatalog.
+	salesHistory := aSalesHistory.
+	processor := aMerchantProcessor.
+	clock:= aClock.! !
+!RESTInterface class methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:33:19' prior: 50555844!
+createWithCatalog: aCatalog withHistoryOfSales: aSalesHistory processedBy: aMerchantProcessor timedby: aClock
+	^self new initializeWithCatalog: aCatalog withHistoryOfSales: aSalesHistory  processedBy: aMerchantProcessor  timedby: aClock aDictionaryOfUsersAndPasswords: aDictionaryOfUsersAndPasswords! !
+
+!methodRemoval: RESTInterface #initializeWithCatalog:withHistoryOfSales:processedBy:timedby: stamp: 'MSS 11/7/2022 13:33:19'!
+initializeWithCatalog: aCatalog withHistoryOfSales: aSalesHistory processedBy: aMerchantProcessor timedby: aClock
+	idsAndPasswords := Dictionary new.
+	catalog := aCatalog.
+	salesHistory := aSalesHistory.
+	processor := aMerchantProcessor.
+	clock:= aClock.!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:33:47'!
+initializeWithCatalog: aCatalog withHistoryOfSales: aSalesHistory processedBy: aMerchantProcessor timedby: aClock withUsersAndPasswords:aDictionaryOfUsersAndPasswords  
+	idsAndPasswords := aDictionaryOfUsersAndPasswords.
+	catalog := aCatalog.
+	salesHistory := aSalesHistory.
+	processor := aMerchantProcessor.
+	clock:= aClock.! !
+
+!methodRemoval: RESTInterface #initializeWithCatalog:withHistoryOfSales:processedBy:timedby:aDictionaryOfUsersAndPasswords: stamp: 'MSS 11/7/2022 13:34:01'!
+initializeWithCatalog: aCatalog withHistoryOfSales: aSalesHistory processedBy: aMerchantProcessor timedby: aClock aDictionaryOfUsersAndPasswords: withUsersAndPasswords 
+	idsAndPasswords := Dictionary new.
+	catalog := aCatalog.
+	salesHistory := aSalesHistory.
+	processor := aMerchantProcessor.
+	clock:= aClock.!
+!RESTInterface class methodsFor: 'error description' stamp: 'MSS 11/7/2022 13:34:57'!
+createWithCatalog: aCatalog withHistoryOfSales: aSalesHistory processedBy: aMerchantProcessor timedby: aClock withUsersAndPasswords: aDictionaryOfUsersAndPasswords
+	^self new initializeWithCatalog: aCatalog withHistoryOfSales: aSalesHistory  processedBy: aMerchantProcessor  timedby: aClock withUsersAndPasswords: aDictionaryOfUsersAndPasswords! !
+
+!methodRemoval: RESTInterface class #createWithCatalog:withHistoryOfSales:processedBy:timedby: stamp: 'MSS 11/7/2022 13:35:06'!
+createWithCatalog: aCatalog withHistoryOfSales: aSalesHistory processedBy: aMerchantProcessor timedby: aClock
+	^self new initializeWithCatalog: aCatalog withHistoryOfSales: aSalesHistory  processedBy: aMerchantProcessor  timedby: aClock aDictionaryOfUsersAndPasswords: aDictionaryOfUsersAndPasswords!
+
+!classDefinition: #RESTInterfaceTest category: 'TusLibros' stamp: 'MSS 11/7/2022 13:36:29'!
+TestCase subclass: #RESTInterfaceTest
+	instanceVariableNames: 'aMerchantProcessor aClock usersAndPasswords1'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:36:27' prior: 50556066!
+test01createCartReturnsSuccessCodeAndCartId
+	| api response |
+	api := RESTInterface createWithCatalog: OrderedCollection new withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock withUsersAndPasswords: usersAndPasswords1.
+	
+	response := api createCartFor: 1 password: 'passwordExample'.
+	
+	self assert: '0|1' equals: response.! !
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:37:59' overrides: 16961394!
+setUp
+	
+	usersAndPasswords1 = Dictionary new add: 1->'password1'.
+	
+	! !
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:38:13' prior: 50556185!
+test01createCartReturnsSuccessCodeAndCartId
+	| api response |
+	api := RESTInterface createWithCatalog: OrderedCollection new withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock withUsersAndPasswords: usersAndPasswords1.
+	
+	response := api createCartFor: 1 password: 'password1'.
+	
+	self assert: '0|1' equals: response.! !
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:38:39' prior: 50556200 overrides: 16961394!
+setUp
+	
+	usersAndPasswords1 = (Dictionary new) add: 1->'password1'.
+	
+	! !
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:39:43' prior: 50556222 overrides: 16961394!
+setUp
+	
+	usersAndPasswords1 = (Dictionary new) add: 1->'password1';yourself .
+	
+	! !
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:39:52' prior: 50556229 overrides: 16961394!
+setUp
+	
+	usersAndPasswords1 := (Dictionary new) add: 1->'password1';yourself .
+	
+	! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:39:55'!
+ERROR!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:40:18' prior: 50556038!
+hasId: anId withPassword: aPassword 
+	|password|
+	password:= idsAndPasswords at:anId ifAbsent:[self error: self class wrongPasswordOrIdErrorDescription	].
+	password=aPassword ifFalse: [self error: self class wrongPasswordOrIdErrorDescription].
+	^true.
+! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:40:23' prior: 50556246!
+hasId: anId withPassword: aPassword 
+	|password|
+	password:= idsAndPasswords at:anId ifAbsent:[self error: self class wrongPasswordOrIdErrorDescription	].
+	password=aPassword ifFalse: [self error: self class wrongPasswordOrIdErrorDescription].
+	
+	^true.
+! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:40:26' prior: 50556258!
+hasId: anId withPassword: aPassword 
+	|password|
+	password:= idsAndPasswords at:anId ifAbsent:[self error: self class wrongPasswordOrIdErrorDescription	].
+	password:=aPassword ifFalse: [self error: self class wrongPasswordOrIdErrorDescription].
+	
+	^true.
+! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:40:34' prior: 50556270!
+hasId: anId withPassword: aPassword 
+	|password|
+	password:= idsAndPasswords at:anId ifAbsent:[self error: self class wrongPasswordOrIdErrorDescription	].
+	password=aPassword ifFalse: [self error: self class wrongPasswordOrIdErrorDescription].
+	
+	^true.
+! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:40:40' prior: 50556282!
+hasId: anId withPassword: aPassword 
+	|password|
+	password:= idsAndPasswords at:anId ifAbsent:[self error: self class wrongPasswordOrIdErrorDescription	].
+	(password=aPassword) ifFalse: [self error: self class wrongPasswordOrIdErrorDescription].
+	
+	^true.
+! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:40:44'!
+ERROR!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:40:58' prior: 50555803!
+createCartFor: aClientId password: aPassword
+	|cartId|
+	(self hasId: aClientId withPassword: aPassword)
+		ifFalse: [^'1|' , self class invalidParameterErrorDescription ].
+	cartId := self addClientId: aClientId withPassword: aPassword
+	^('0|',cartId).! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:41:06'!
+ERROR!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:41:44' prior: 50556309!
+createCartFor: aClientId password: aPassword
+	|cartId|
+	(self hasId: aClientId withPassword: aPassword)
+		ifFalse: [^'1|' , self class invalidParameterErrorDescription ].
+	cartId := self addClientId: aClientId withPassword: aPassword.
+	^('0|',cartId).! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:42:01'!
+ERROR!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:43:37' prior: 50556324!
+createCartFor: aClientId password: aPassword
+	|cartId|
+	(self hasId: aClientId withPassword: aPassword)
+		ifFalse: [^'1|' , self class invalidParameterErrorDescription ].
+	cartId := self addCartForClientId: aClientId.
+	^('0|',cartId).! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:43:42'!
+ERROR!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:43:48'!
+addCartForClientId: aClientId 
+	self shouldBeImplemented.! !
+
+Object subclass: #RESTInterface
+	instanceVariableNames: 'idsAndPasswords catalog salesHistory processor clock cartsByUser'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #RESTInterface category: 'TusLibros' stamp: 'MSS 11/7/2022 13:44:14'!
+Object subclass: #RESTInterface
+	instanceVariableNames: 'idsAndPasswords catalog salesHistory processor clock cartsByUser'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:44:48' prior: 50556121!
+initializeWithCatalog: aCatalog withHistoryOfSales: aSalesHistory processedBy: aMerchantProcessor timedby: aClock withUsersAndPasswords:aDictionaryOfUsersAndPasswords  
+	idsAndPasswords := aDictionaryOfUsersAndPasswords.
+	catalog := aCatalog.
+	salesHistory := aSalesHistory.
+	processor := aMerchantProcessor.
+	clock:= aClock.
+	cartsByUser := Dictionary new.! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:46:13' prior: 50556353!
+addCartForClientId: aClientId 
+	cartsByUser add: aClientId-> (Cart acceptingItemsOf: catalog).! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:46:17'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:46:24'!
+ERROR!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:48:15' prior: 50556388!
+addCartForClientId: aClientId 
+	cartsByUser add: aClientId-> (Cart acceptingItemsOf: catalog).
+	^ cartsByUser size.! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:48:18'!
+ERROR!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:49:29' prior: 50556402!
+addCartForClientId: aClientId 
+	cartsByUser add: aClientId-> (Cart acceptingItemsOf: catalog).
+	^ (cartsByUser size printString) .! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:49:31'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:49:38'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 13:49:40'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 13:49:40'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:50:14' prior: 50555530!
+test02createCartWithInvalidUserReturnsError
+	| api response |
+	api _ RESTInterface new.
+	
+	response _ api createCartFor: #Invalid password: 'pass'.
+	
+	self assert: ('1|' , api class notAcceptedPasswordErrorDescription) equals: response.! !
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 13:50:15'!
+ERROR!
+
+!classDefinition: #RESTInterfaceTest category: 'TusLibros' stamp: 'MSS 11/7/2022 13:51:15'!
+TestCase subclass: #RESTInterfaceTest
+	instanceVariableNames: 'aMerchantProcessor aClock usersAndPasswords1 api1'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:51:13' prior: 50556206!
+test01createCartReturnsSuccessCodeAndCartId
+	|  response |
+	
+	
+	response := api1 createCartFor: 1 password: 'password1'.
+	
+	self assert: '0|1' equals: response.! !
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:51:23' prior: 50556236 overrides: 16961394!
+setUp
+	
+	usersAndPasswords1 := (Dictionary new) add: 1->'password1';yourself .
+	
+	api1 := RESTInterface createWithCatalog: OrderedCollection new withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock withUsersAndPasswords: usersAndPasswords1.
+	
+	! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:51:24'!
+PASSED!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:51:37' prior: 50556435!
+test02createCartWithInvalidUserReturnsError
+	| response |
+	
+	
+	response _ api1 createCartFor: #Invalid password: 'pass'.
+	
+	self assert: ('1|' , api1 class notAcceptedPasswordErrorDescription) equals: response.! !
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 13:51:38'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:52:00' prior: 50556483!
+test02createCartWithInvalidUserReturnsError
+	| response |
+	
+	
+	response _ api1 createCartFor: #Invalid password: 'pass'.
+	
+	self assert: ('1|' , api1 class wrongPasswordOrIdErrorDescription) equals: response.! !
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 13:52:03'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 13:52:03'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:56:03' prior: 50556497!
+test02createCartWithInvalidUserReturnsError
+	
+	self 
+	should: [api1 createCartFor: #Invalid password: 'pass'.]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: (api1 class wrongPasswordOrIdErrorDescription) equals: anError messageText.]! !
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 13:56:05'!
+PASSED!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:56:37' prior: 50555541!
+test03createCartWithInvalidPasswordReturnsError
+	
+	self 
+	should: [api1 createCartFor: 1 password: #invalid]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: (api1 class wrongPasswordOrIdErrorDescription) equals: anError messageText.]! !
+
+!testRun: #RESTInterfaceTest #test03createCartWithInvalidPasswordReturnsError stamp: 'MSS 11/7/2022 13:56:39'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:56:39'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 13:56:39'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test03createCartWithInvalidPasswordReturnsError stamp: 'MSS 11/7/2022 13:56:39'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test04addToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 13:56:39'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test05addValidItemToCartIsRegisteredByCart stamp: 'MSS 11/7/2022 13:56:39'!
+PASSED!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:57:04' prior: 50555552!
+test04addToCartReturnsSuccessCode
+	| response |
+	
+	response _ api1 addToCart: 1 bookIsbn: 1 quantityOf: 1.
+	
+	self assert: '0|OK' equals: response.! !
+
+!testRun: #RESTInterfaceTest #test04addToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 13:57:05'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 13:57:05'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 13:57:05'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test03createCartWithInvalidPasswordReturnsError stamp: 'MSS 11/7/2022 13:57:05'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test04addToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 13:57:05'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test05addValidItemToCartIsRegisteredByCart stamp: 'MSS 11/7/2022 13:57:05'!
+PASSED!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 13:59:34' prior: 50556564!
+test04addToCartReturnsSuccessCode
+	| response |
+	api1 createCartFor: 1 password: 'password1'. 
+	response := api1 addToCart: 1 bookIsbn: 1 quantityOf: 1.
+	
+	self assert: '0|OK' equals: response.! !
+
+!testRun: #RESTInterfaceTest #test04addToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 13:59:41'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test04addToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 13:59:50'!
+PASSED!
+
+Object subclass: #RESTInterface
+	instanceVariableNames: 'idsAndPasswords catalog salesHistory processor clock cartsByUser carts'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #RESTInterface category: 'TusLibros' stamp: 'MSS 11/7/2022 14:03:26'!
+Object subclass: #RESTInterface
+	instanceVariableNames: 'idsAndPasswords catalog salesHistory processor clock cartsByUser carts'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:04:31' prior: 50556413!
+addCartForClientId: aClientId 
+	cartsByUser add: aClientId-> cartsByUser size.
+	carts add: Cart acceptingItemsOf: catalog.
+	^ (cartsByUser size printString) .! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:04:50' prior: 50556373!
+initializeWithCatalog: aCatalog withHistoryOfSales: aSalesHistory processedBy: aMerchantProcessor timedby: aClock withUsersAndPasswords:aDictionaryOfUsersAndPasswords  
+	idsAndPasswords := aDictionaryOfUsersAndPasswords.
+	catalog := aCatalog.
+	salesHistory := aSalesHistory.
+	processor := aMerchantProcessor.
+	clock:= aClock.
+	cartsByUser := Dictionary new.
+	carts := OrderedCollection new.! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 14:04:53'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 14:04:53'!
+ERROR!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:05:04' prior: 50556626!
+addCartForClientId: aClientId 
+	cartsByUser add: aClientId-> cartsByUser size.
+	carts add: (Cart acceptingItemsOf: catalog).
+	^ (cartsByUser size printString) .! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 14:05:07'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 14:05:09'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 14:05:09'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 14:05:09'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test03createCartWithInvalidPasswordReturnsError stamp: 'MSS 11/7/2022 14:05:09'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test04addToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 14:05:09'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test05addValidItemToCartIsRegisteredByCart stamp: 'MSS 11/7/2022 14:05:09'!
+PASSED!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:10:05' prior: 50555797!
+addToCart: cartId bookIsbn: bookId quantityOf: quantity 
+	|cart|
+	cart := carts at: cartId.
+	cart add: quantity of: bookId.! !
+
+!testRun: #RESTInterfaceTest #test04addToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 14:10:12'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:12:07' prior: 50556467 overrides: 16961394!
+setUp
+	
+	usersAndPasswords1 := (Dictionary new) add: 1->'password1';yourself .
+	
+	api1 := RESTInterface createWithCatalog: Dictionary new withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock withUsersAndPasswords: usersAndPasswords1.
+	
+	! !
+
+!classDefinition: #RESTInterfaceTest category: 'TusLibros' stamp: 'MSS 11/7/2022 14:13:10'!
+TestCase subclass: #RESTInterfaceTest
+	instanceVariableNames: 'aMerchantProcessor aClock usersAndPasswords1 api1 catalog1'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:13:08' prior: 50556704 overrides: 16961394!
+setUp
+	
+	usersAndPasswords1 := (Dictionary new) add: 1->'password1';yourself .
+	catalog1:= Dictionary new.
+	catalog1 add: 1->10.
+	api1 := RESTInterface createWithCatalog: catalog1 withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock withUsersAndPasswords: usersAndPasswords1.
+	
+	! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 14:13:14'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 14:13:16'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test03createCartWithInvalidPasswordReturnsError stamp: 'MSS 11/7/2022 14:13:17'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test04addToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 14:13:19'!
+FAILURE!
+
+!testRun: #RESTInterfaceTest #test04addToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 14:13:19'!
+FAILURE!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:14:09' prior: 50556692!
+addToCart: cartId bookIsbn: bookId quantityOf: quantity 
+	|cart|
+	cart := carts at: cartId.
+	cart add: quantity of: bookId.
+	^'0|OK'.! !
+
+!testRun: #RESTInterfaceTest #test04addToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 14:14:13'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test04addToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 14:14:16'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test05addValidItemToCartIsRegisteredByCart stamp: 'MSS 11/7/2022 14:14:34'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test05addValidItemToCartIsRegisteredByCart stamp: 'MSS 11/7/2022 14:14:34'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:15:04' prior: 50555561!
+test05addValidItemToCartIsRegisteredByCart
+	| response |
+	
+	response _ api1 addToCart: 1 bookIsbn: 1 quantityOf: 1.
+	
+	self assert: '0|OK' equals: response.
+	
+	! !
+
+!testRun: #RESTInterfaceTest #test05addValidItemToCartIsRegisteredByCart stamp: 'MSS 11/7/2022 14:15:05'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:15:48' prior: 50556779!
+test05addValidItemToCartIsRegisteredByCart
+	| response |
+	api1 createCartFor: 1 password: 'password1'. 
+	response _ api1 addToCart: 1 bookIsbn: 1 quantityOf: 1.
+	
+	self assert: '0|OK' equals: response.
+	
+	! !
+
+!testRun: #RESTInterfaceTest #test05addValidItemToCartIsRegisteredByCart stamp: 'MSS 11/7/2022 14:15:58'!
+PASSED!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:16:17' prior: 50556791!
+test05addValidItemToCartIsRegisteredByCart
+	| response |
+	api1 createCartFor: 1 password: 'password1'. 
+	
+	response _ api1 addToCart: 1 bookIsbn: 1 quantityOf: 1.
+	
+	self assert: '0|OK' equals: response.
+	
+	! !
+
+!testRun: #RESTInterfaceTest #test04addToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 14:16:22'!
+PASSED!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:17:23'!
+test04addValidItemToCartReturnsSuccessCode
+	| response |
+	api1 createCartFor: 1 password: 'password1'. 
+	response := api1 addToCart: 1 bookIsbn: 1 quantityOf: 1.
+	
+	self assert: '0|OK' equals: response.! !
+
+!methodRemoval: RESTInterfaceTest #test04addToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 14:17:23'!
+test04addToCartReturnsSuccessCode
+	| response |
+	api1 createCartFor: 1 password: 'password1'. 
+	response := api1 addToCart: 1 bookIsbn: 1 quantityOf: 1.
+	
+	self assert: '0|OK' equals: response.!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:17:51'!
+test05addInvalidItemToCartRaisesError
+	| response |
+	api1 createCartFor: 1 password: 'password1'. 
+	
+	response _ api1 addToCart: 1 bookIsbn: 1 quantityOf: 1.
+	
+	self assert: '0|OK' equals: response.
+	
+	! !
+
+!methodRemoval: RESTInterfaceTest #test05addValidItemToCartIsRegisteredByCart stamp: 'MSS 11/7/2022 14:17:51'!
+test05addValidItemToCartIsRegisteredByCart
+	| response |
+	api1 createCartFor: 1 password: 'password1'. 
+	
+	response _ api1 addToCart: 1 bookIsbn: 1 quantityOf: 1.
+	
+	self assert: '0|OK' equals: response.
+	
+	!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:17:58' prior: 50556837!
+test05addInvalidItemToCartRaisesError
+	| response |
+	
+	api1 createCartFor: 1 password: 'password1'. 
+	
+	response _ api1 addToCart: 1 bookIsbn: 1 quantityOf: 1.
+	
+	self assert: '0|OK' equals: response.
+	
+	! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:21:08'!
+getCarts
+	^carts copy.! !
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:21:40' prior: 50556857!
+test05addInvalidItemToCartRaisesError
+	
+	
+	api1 createCartFor: 1 password: 'password1'. 
+	
+	
+	self 
+	should: [api1 addToCart: 1 bookIsbn: 1000 quantityOf: 1.]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: ((api1 getCarts at:1) invalidItemErrorMessage) 
+		equals: anError messageText.]! !
+
+!testRun: #RESTInterfaceTest #test05addInvalidItemToCartRaisesError stamp: 'MSS 11/7/2022 14:21:45'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 14:21:45'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 14:21:45'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test03createCartWithInvalidPasswordReturnsError stamp: 'MSS 11/7/2022 14:21:45'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test04addValidItemToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 14:21:45'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test05addInvalidItemToCartRaisesError stamp: 'MSS 11/7/2022 14:21:45'!
+PASSED!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:30:41'!
+test06validCartListCartReturnsCorrectOutput
+	
+	
+	
+	api1 createCartFor: 1 password: 'password1'. 
+	api1 addToCart: 1 bookIsbn: 1 quantityOf: 2.
+	api1 addToCart: 1 bookIsbn: 2 quantityOf: 1.
+	
+	self assert: (api1 listCartWithId: 1) equals: '0|1|2|2|1'.
+	! !
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:31:08'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:32:05' prior: 50556726 overrides: 16961394!
+setUp
+	
+	usersAndPasswords1 := (Dictionary new) add: 1->'password1';yourself .
+	usersAndPasswords1 add: 2->'password2';yourself .
+	catalog1:= Dictionary new.
+	catalog1 add: 1->10.
+	api1 := RESTInterface createWithCatalog: catalog1 withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock withUsersAndPasswords: usersAndPasswords1.
+	
+	! !
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:32:09'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:32:09'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:32:54' prior: 50556922 overrides: 16961394!
+setUp
+	
+	usersAndPasswords1 := (Dictionary new) add: 1->'password1';yourself .
+	usersAndPasswords1 add: 2->'password2';yourself .
+	catalog1:= Dictionary new.
+	catalog1 add: 1->10; add: 2->15;yourself.
+	api1 := RESTInterface createWithCatalog: catalog1 withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock withUsersAndPasswords: usersAndPasswords1.
+	
+	! !
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:32:56'!
+ERROR!
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:32:56'!
+ERROR!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:33:05'!
+listCartWithId: aString 
+	self shouldBeImplemented.! !
+!Cart methodsFor: 'adding' stamp: 'MSS 11/7/2022 14:35:43'!
+list
+	^items.! !
+!Cart methodsFor: 'queries' stamp: 'MSS 11/7/2022 14:36:39' prior: 50556971!
+list
+	^items copy.! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:40:04' prior: 50556967!
+listCartWithId: aString 
+	|cart bookIds response|
+	cart := carts at: (aString asInteger).
+	
+	bookIds := cart list asSet.
+	
+	response := '0|'.! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:44:16' prior: 50556978!
+listCartWithId: aString 
+	|cart bookIds response list|
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0|'.
+	
+	bookIds do: [:id| response := response,id printString , ((list occurrencesOf: id) printString) ].
+	
+	^response.! !
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:44:20'!
+FAILURE!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:45:17' prior: 50556986!
+listCartWithId: aString 
+	|cart bookIds response list|
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0|'.
+	
+	bookIds do: [:id| response := response,'|',id printString,'|' , ((list occurrencesOf: id) printString),'|' ].
+	
+	^response.! !
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:45:18'!
+FAILURE!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:45:41' prior: 50557003!
+listCartWithId: aString 
+	|cart bookIds response list|
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0'.
+	
+	bookIds do: [:id| response := response,'|',id printString,'|' , ((list occurrencesOf: id) printString),'|' ].
+	
+	^response.! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:45:44' prior: 50557020!
+listCartWithId: aString 
+	|cart bookIds response list|
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0|'.
+	
+	bookIds do: [:id| response := response,'|',id printString,'|' , ((list occurrencesOf: id) printString),'|' ].
+	
+	^response.! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:45:55' prior: 50557033!
+listCartWithId: aString 
+	|cart bookIds response list|
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0|'.
+	
+	bookIds do: [:id| response := response,id printString,'|' , ((list occurrencesOf: id) printString),'|' ].
+	
+	^response.! !
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:45:59'!
+FAILURE!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:44:16' prior: 50557046!
+listCartWithId: aString 
+	|cart bookIds response list|
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0|'.
+	
+	bookIds do: [:id| response := response,id printString , ((list occurrencesOf: id) printString) ].
+	
+	^response.! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:44:16' prior: 50557063!
+listCartWithId: aString 
+	|cart bookIds response list|
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0|'.
+	
+	bookIds do: [:id| response := response,id printString , ((list occurrencesOf: id) printString) ].
+	
+	^response.! !
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:48:15'!
+FAILURE!
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:48:15'!
+FAILURE!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:49:12' prior: 50557076!
+listCartWithId: aString 
+	|cart bookIds response list|
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0|'.
+	
+	bookIds do: [:id| response := response,'|',id printString,'|' , ((list occurrencesOf: id) printString) ].
+	
+	^response.! !
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:49:16'!
+FAILURE!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:50:21' prior: 50557096!
+listCartWithId: aString 
+	|cart bookIds response list|
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0|'.
+	
+	bookIds do: [:id| response := response,'|',(id printString),'|' , (((list occurrencesOf: id) printString)) ].
+	
+	^response.! !
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:50:25'!
+FAILURE!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:51:00' prior: 50557113!
+listCartWithId: aString 
+	|cart bookIds response list|
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0|'.
+	
+	bookIds do: [:id| response := response,'|',(id storeString),'|' , (((list occurrencesOf: id) storeString)) ].
+	
+	^response.! !
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:51:03'!
+FAILURE!
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:52:05'!
+FAILURE!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:53:44' prior: 50557130!
+listCartWithId: aString 
+	|cart bookIds response list|
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0|'.
+	
+	bookIds do: [:id| response := response,(id storeString),'|' , (((list occurrencesOf: id) storeString)),'|' ].
+	
+	^response.! !
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:53:47'!
+FAILURE!
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:54:02'!
+FAILURE!
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:54:02'!
+FAILURE!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:54:31' prior: 50556906!
+test06validCartListCartReturnsCorrectOutput
+	
+	
+	
+	api1 createCartFor: 1 password: 'password1'. 
+	api1 addToCart: 1 bookIsbn: 1 quantityOf: 2.
+	api1 addToCart: 1 bookIsbn: 2 quantityOf: 1.
+	
+	self assert: '0|1|2|2|1' equals: (api1 listCartWithId: 1).
+	! !
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:54:57' prior: 50557151!
+listCartWithId: aString 
+	|cart bookIds response list|
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0'.
+	
+	bookIds do: [:id| response := response,'|' ,(id storeString),'|' , (((list occurrencesOf: id) storeString))].
+	
+	^response.! !
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:54:59'!
+FAILURE!
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:55:05'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 14:55:05'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 14:55:05'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test03createCartWithInvalidPasswordReturnsError stamp: 'MSS 11/7/2022 14:55:05'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test04addValidItemToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 14:55:05'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test05addInvalidItemToCartRaisesError stamp: 'MSS 11/7/2022 14:55:05'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 14:55:05'!
+PASSED!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:56:28'!
+test07invalidCartIdListRaisesException
+	
+	
+	api1 createCartFor: 1 password: 'password1'. 
+
+	self assert: '0|1|2|2|1' equals: (api1 listCartWithId: 1).
+	! !
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 14:57:12' prior: 50557229!
+test07invalidCartIdListRaisesException
+	
+	
+	api1 createCartFor: 1 password: 'password1'. 
+
+	
+	self 
+	should: [api1 listCartWithId: 3]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: ((api1 getCarts at:1) invalidItemErrorMessage) 
+		equals: anError messageText.]! !
+
+!testRun: #RESTInterfaceTest #test07invalidCartIdListRaisesException stamp: 'MSS 11/7/2022 14:57:13'!
+FAILURE!
+
+!testRun: #RESTInterfaceTest #test07invalidCartIdListRaisesException stamp: 'MSS 11/7/2022 14:57:44'!
+FAILURE!
+
+!testRun: #RESTInterfaceTest #test07invalidCartIdListRaisesException stamp: 'MSS 11/7/2022 14:58:15'!
+FAILURE!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 15:02:08' prior: 50557187!
+listCartWithId: aString 
+	|cart bookIds response list|
+	((carts size) > (aString asInteger)) ifTrue: [self error: self class cartNotCreatedErrorDescription].
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0'.
+	
+	bookIds do: [:id| response := response,'|' ,(id storeString),'|' , (((list occurrencesOf: id) storeString))].
+	
+	^response.! !
+
+!testRun: #RESTInterfaceTest #test07invalidCartIdListRaisesException stamp: 'MSS 11/7/2022 15:02:14'!
+FAILURE!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 15:02:41' prior: 50557238!
+test07invalidCartIdListRaisesException
+	
+	
+	api1 createCartFor: 1 password: 'password1'. 
+
+	
+	self 
+	should: [api1 listCartWithId: 3]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: ((api1 getCarts at:1) cartNotCreatedErrorDescription) 
+		equals: anError messageText.]! !
+
+!testRun: #RESTInterfaceTest #test07invalidCartIdListRaisesException stamp: 'MSS 11/7/2022 15:02:45'!
+ERROR!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 15:03:15' prior: 50557281!
+test07invalidCartIdListRaisesException
+	
+	
+	api1 createCartFor: 1 password: 'password1'. 
+
+	
+	self 
+	should: [api1 listCartWithId: 3]
+	raise: Error - MessageNotUnderstood
+	withExceptionDo: [:anError | self assert: ((api1 class) cartNotCreatedErrorDescription) 
+		equals: anError messageText.]! !
+
+!testRun: #RESTInterfaceTest #test07invalidCartIdListRaisesException stamp: 'MSS 11/7/2022 15:03:18'!
+FAILURE!
+!RESTInterface class methodsFor: 'error description' stamp: 'MSS 11/7/2022 15:03:48'!
+cartNotCreatedErrorDescription
+	^'This cart was not created'! !
+
+!methodRemoval: RESTInterface class #notAcceptedIdErrorDescription stamp: 'MSS 11/7/2022 15:03:56'!
+notAcceptedIdErrorDescription
+	^'Invalid client Id'!
+
+!methodRemoval: RESTInterface class #notAcceptedPasswordErrorDescription stamp: 'MSS 11/7/2022 15:03:58'!
+notAcceptedPasswordErrorDescription
+	^'Invalid password'!
+
+!testRun: #RESTInterfaceTest #test07invalidCartIdListRaisesException stamp: 'MSS 11/7/2022 15:04:13'!
+FAILURE!
+
+!testRun: #RESTInterfaceTest #test07invalidCartIdListRaisesException stamp: 'MSS 11/7/2022 15:04:13'!
+FAILURE!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 15:04:59' prior: 50557261!
+listCartWithId: aString 
+	|cart bookIds response list|
+	((carts size) < (aString asInteger)) ifTrue: [self error: self class cartNotCreatedErrorDescription].
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0'.
+	
+	bookIds do: [:id| response := response,'|' ,(id storeString),'|' , (((list occurrencesOf: id) storeString))].
+	
+	^response.! !
+
+!testRun: #RESTInterfaceTest #test07invalidCartIdListRaisesException stamp: 'MSS 11/7/2022 15:05:01'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test07invalidCartIdListRaisesException stamp: 'MSS 11/7/2022 15:05:03'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 15:05:03'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 15:05:03'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test03createCartWithInvalidPasswordReturnsError stamp: 'MSS 11/7/2022 15:05:03'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test04addValidItemToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 15:05:03'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test05addInvalidItemToCartRaisesError stamp: 'MSS 11/7/2022 15:05:03'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 15:05:03'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test07invalidCartIdListRaisesException stamp: 'MSS 11/7/2022 15:05:03'!
+PASSED!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 15:06:20'!
+test08emptyCartListCartReturnsCorrectOutput
+	
+	
+	
+	api1 createCartFor: 1 password: 'password1'. 
+	
+	self assert: '0|' equals: (api1 listCartWithId: 1).
+	! !
+
+!testRun: #RESTInterfaceTest #test08emptyCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 15:06:22'!
+FAILURE!
+
+!testRun: #RESTInterfaceTest #test08emptyCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 15:06:22'!
+FAILURE!
+
+!testRun: #RESTInterfaceTest #test08emptyCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 15:06:40'!
+FAILURE!
+
+!testRun: #RESTInterfaceTest #test08emptyCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 15:06:40'!
+FAILURE!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 15:07:36' prior: 50557337!
+listCartWithId: aString 
+	|cart bookIds response list|
+	((carts size) < (aString asInteger)) ifTrue: [self error: self class cartNotCreatedErrorDescription].
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0|'.
+	
+	bookIds do: [:id| response := response ,(id storeString),'|' , (((list occurrencesOf: id) storeString))].
+	
+	^response.! !
+
+!testRun: #RESTInterfaceTest #test08emptyCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 15:07:38'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 15:07:42'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 15:07:42'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test03createCartWithInvalidPasswordReturnsError stamp: 'MSS 11/7/2022 15:07:42'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test04addValidItemToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 15:07:42'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test05addInvalidItemToCartRaisesError stamp: 'MSS 11/7/2022 15:07:42'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 15:07:42'!
+FAILURE!
+
+!testRun: #RESTInterfaceTest #test07invalidCartIdListRaisesException stamp: 'MSS 11/7/2022 15:07:42'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test08emptyCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 15:07:42'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 15:07:42'!
+FAILURE!
+!RESTInterface methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 15:08:04' prior: 50557408!
+listCartWithId: aString 
+	|cart bookIds response list|
+	((carts size) < (aString asInteger)) ifTrue: [self error: self class cartNotCreatedErrorDescription].
+	cart := carts at: (aString asInteger).
+	
+	list:=cart list.
+	bookIds := cart list asSet asSortedCollection.
+	
+	response := '0'.
+	
+	bookIds do: [:id| response := response,'|' ,(id storeString),'|' , (((list occurrencesOf: id) storeString))].
+	
+	^response.! !
+
+!testRun: #RESTInterfaceTest #test08emptyCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 15:08:05'!
+FAILURE!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 15:08:10' prior: 50557385!
+test08emptyCartListCartReturnsCorrectOutput
+	
+	
+	
+	api1 createCartFor: 1 password: 'password1'. 
+	
+	self assert: '0' equals: (api1 listCartWithId: 1).
+	! !
+
+!testRun: #RESTInterfaceTest #test01createCartReturnsSuccessCodeAndCartId stamp: 'MSS 11/7/2022 15:08:14'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test02createCartWithInvalidUserReturnsError stamp: 'MSS 11/7/2022 15:08:14'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test03createCartWithInvalidPasswordReturnsError stamp: 'MSS 11/7/2022 15:08:14'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test04addValidItemToCartReturnsSuccessCode stamp: 'MSS 11/7/2022 15:08:14'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test05addInvalidItemToCartRaisesError stamp: 'MSS 11/7/2022 15:08:14'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test06validCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 15:08:14'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test07invalidCartIdListRaisesException stamp: 'MSS 11/7/2022 15:08:14'!
+PASSED!
+
+!testRun: #RESTInterfaceTest #test08emptyCartListCartReturnsCorrectOutput stamp: 'MSS 11/7/2022 15:08:14'!
+PASSED!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 15:29:14'!
+test09checkoutWithValidCreditCardReturnsCorrectTransactionId
+	
+	
+	
+	api1 createCartFor: 1 password: 'password1'. 
+	
+	self assert: '0' equals: (api1 listCartWithId: 1).
+	! !
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 15:31:09' prior: 50557518!
+test09checkoutWithValidCreditCardReturnsCorrectTransactionId
+	
+		
+	api1 createCartFor: 1 password: 'password1'. 
+	api1 addToCart: 1 bookIsbn: 1 quantityOf: 2.
+	api1 addToCart: 1 bookIsbn: 2 quantityOf: 1.
+	
+	
+	api1 checkOutCartWithId: 1 ccn: 1 cced: 1 cco: 'asd'.! !
+
+!classDefinition: #RESTInterfaceTest category: 'TusLibros' stamp: 'MSS 11/7/2022 15:33:08'!
+TestCase subclass: #RESTInterfaceTest
+	instanceVariableNames: 'aMerchantProcessor aClock usersAndPasswords1 api1 catalog1 creditCard1'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!RESTInterfaceTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/7/2022 15:33:05' prior: 50556945 overrides: 16961394!
+setUp
+	
+	usersAndPasswords1 := (Dictionary new) add: 1->'password1';yourself .
+	usersAndPasswords1 add: 2->'password2';yourself .
+	catalog1:= Dictionary new.
+	catalog1 add: 1->10; add: 2->15;yourself.
+	api1 := RESTInterface createWithCatalog: catalog1 withHistoryOfSales: OrderedCollection new processedBy: aMerchantProcessor timedby: aClock withUsersAndPasswords: usersAndPasswords1.
+	
+	creditCard1 := CreditCard initializeExpiringOn: 2. 
+	! !
