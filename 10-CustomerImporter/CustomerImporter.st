@@ -1,14 +1,75 @@
 !classDefinition: #ImportTest category: 'CustomerImporter'!
 TestCase subclass: #ImportTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'session1'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!ImportTest methodsFor: 'as yet unclassified' stamp: 'HAW 5/22/2022 00:23:41'!
-test01Import
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/10/2022 20:25:39'!
+test01ImportImportsCorrectCustomers
+	| pepe juan |
+	self importCustomers: (self inputFilestream: 'input.txt'). 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+	self assertCustomer: pepe idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	
+	self assertAddress: pepe addresses first hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	self assertAddress: pepe addresses second hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	self assertCustomer: juan idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+	self assertAddress: juan addresses first hasStreetname: 'Alem' hasStreetnumber: 1122 hasTown: 'CABA' hasZipCode: 1001 hasProvince: 'CABA' .
+! !
 
-	Customer importCustomers ! !
+
+!ImportTest methodsFor: 'setUp' stamp: 'MSS 11/10/2022 17:53:51'!
+setUp
+
+	session1 := DataBaseSession for: (Array with: Address with: Customer).
+	session1 beginTransaction! !
+
+
+!ImportTest methodsFor: 'support' stamp: 'MSS 11/10/2022 19:03:44'!
+getCustomerNamed: aCustomerName withLastName: aCustomerLastName
+
+	|customers customer|
+	
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	customer := customers detect:[:aCustomer| aCustomer firstName = aCustomerName and: [aCustomer lastName = aCustomerLastName]].
+	^customer.! !
+
+!ImportTest methodsFor: 'support' stamp: 'MSS 11/10/2022 19:59:00'!
+importCustomers: anInputStream
+	(CustomerImporter onDbSession: session1 fromInputStream: anInputStream) value! !
+
+!ImportTest methodsFor: 'support' stamp: 'MSS 11/10/2022 19:51:26'!
+inputFilestream: aFilename
+
+	^ StandardFileStream new open: aFilename forWrite: false! !
+
+
+!ImportTest methodsFor: 'assert' stamp: 'MSS 11/10/2022 19:37:50'!
+assertAddress: firstAddress hasStreetname: aStreetname hasStreetnumber: aStreetNumber hasTown: aTownName hasZipCode: aZipCode hasProvince: aProvinceName     
+
+	self assert: aStreetname equals: firstAddress streetName .
+	self assert: aStreetNumber equals: firstAddress streetNumber.
+	self assert: aTownName equals: firstAddress town.
+	self assert: aZipCode equals: firstAddress zipCode.
+	self assert: aProvinceName equals: firstAddress province.
+	^true! !
+
+!ImportTest methodsFor: 'assert' stamp: 'MSS 11/10/2022 20:25:39'!
+assertCustomer: aCustomer idTypeShouldBe: anIdType idNumberShouldBe: anIdNumber 
+	
+	self assert: anIdType  equals: aCustomer identificationType.
+
+	self assert: anIdNumber asString equals: aCustomer identificationNumber! !
 
 
 !classDefinition: #Address category: 'CustomerImporter'!
@@ -140,23 +201,25 @@ initialize
 	super initialize.
 	addresses := OrderedCollection new.! !
 
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: #CustomerImporter category: 'CustomerImporter'!
+Object subclass: #CustomerImporter
+	instanceVariableNames: 'session stream'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
 
-!classDefinition: 'Customer class' category: 'CustomerImporter'!
-Customer class
-	instanceVariableNames: ''!
+!CustomerImporter methodsFor: 'initialization' stamp: 'MSS 11/10/2022 20:18:02'!
+initializeOnDbSession: aDbSession fromInputStream: anAnInputStream
+	session := aDbSession.
+	stream := anAnInputStream.! !
 
-!Customer class methodsFor: 'importing' stamp: 'HAW 5/22/2022 00:25:18'!
-importCustomers
 
-	"
-	self importCustomers
-	"
-	| inputStream session newCustomer line |
+!CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/10/2022 19:59:00'!
+value
 
-	inputStream := StandardFileStream new open: 'input.txt' forWrite: false.
-	session := DataBaseSession for: (Array with: Address with: Customer).
-	session beginTransaction.
+	| inputStream newCustomer line |
+	inputStream := stream.
 
 	line := inputStream nextLine.
 	[ line notNil ] whileTrue: [
@@ -166,7 +229,7 @@ importCustomers
 			newCustomer firstName: customerData second.
 			newCustomer lastName: customerData third.
 			newCustomer identificationType: customerData fourth.
-			newCustomer identificationNumber: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
 			session persist: newCustomer ].
 
 		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
@@ -177,15 +240,22 @@ importCustomers
 			newAddress streetNumber: addressData third asNumber .
 			newAddress town: addressData fourth.
 			newAddress zipCode: addressData fifth asNumber .
-			newAddress province: addressData fourth ].
+			newAddress province: addressData sixth ].
 
 		line := inputStream nextLine. ].
-
 	session commit.
 	session close.
+	inputStream close! !
 
-	inputStream close.
-	! !
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'CustomerImporter class' category: 'CustomerImporter'!
+CustomerImporter class
+	instanceVariableNames: ''!
+
+!CustomerImporter class methodsFor: 'instance creation' stamp: 'MSS 11/10/2022 19:59:00'!
+onDbSession: aDbSession fromInputStream: anAnInputStream
+	^self new initializeOnDbSession: aDbSession fromInputStream: anAnInputStream! !
 
 
 !classDefinition: #DataBaseSession category: 'CustomerImporter'!

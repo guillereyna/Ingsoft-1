@@ -1,0 +1,1991 @@
+
+
+----QUIT----(26 October 2022 08:07:27) CuisUniversity-5510.image priorSource: 2900072!
+
+----STARTUP---- (26 October 2022 08:07:28) as /Users/hernan/Documents/Cuis/5.0-64Bits/Cuis-University-Installer/CuisUniversity-5510.image!
+
+
+----QUIT----(26 October 2022 08:07:28) CuisUniversity-5510.image priorSource: 7154921!
+
+----STARTUP---- (10 November 2022 17:31:03) as /home/clinux01/Escritorio/linux64/CuisUniversity-5510.image!
+
+
+----End fileIn of /home/clinux01/Escritorio/CustomerImporter.st----!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 17:48:47'!
+test01ImportImportsCorrectAmountOfCustomers
+
+	Customer importCustomers 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 17:49:36' prior: 50555526!
+test01ImportImportsCorrectAmountOfCustomers
+
+	| inputStream session newCustomer line |
+	inputStream := StandardFileStream new open: 'input.txt' forWrite: false.
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction.
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+	session commit.
+	session close.
+inputStream close. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 17:50:22'!
+importCustomers
+
+	| inputStream session newCustomer line |
+	inputStream := StandardFileStream new open: 'input.txt' forWrite: false.
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction.
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+	session commit.
+	session close.
+inputStream close! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 17:50:22' prior: 50555540!
+test01ImportImportsCorrectAmountOfCustomers
+
+	self importCustomers. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 17:51:16'!
+test01ImportImportsCorrectCustomers
+
+	self importCustomers. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"! !
+
+!methodRemoval: ImportTest #test01ImportImportsCorrectAmountOfCustomers stamp: 'MSS 11/10/2022 17:51:19'!
+test01ImportImportsCorrectAmountOfCustomers
+
+	self importCustomers. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"!
+
+!classDefinition: #ImportTest category: 'CustomerImporter' stamp: 'MSS 11/10/2022 17:53:37'!
+TestCase subclass: #ImportTest
+	instanceVariableNames: 'session1'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 17:53:36' prior: 50555588!
+importCustomers
+
+	| inputStream newCustomer line |
+	inputStream := StandardFileStream new open: 'input.txt' forWrite: false.
+	session1 := DataBaseSession for: (Array with: Address with: Customer).
+	session1 beginTransaction.
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session1 persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+	session1 commit.
+	session1 close.
+inputStream close! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 17:53:51' overrides: 16961394!
+setUp
+
+	session1 := DataBaseSession for: (Array with: Address with: Customer).
+	session1 beginTransaction! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 17:53:51' prior: 50555676!
+importCustomers
+
+	| inputStream newCustomer line |
+	inputStream := StandardFileStream new open: 'input.txt' forWrite: false.
+	self setUp.
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session1 persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+	session1 commit.
+	session1 close.
+inputStream close! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 17:54:02' prior: 50555723!
+importCustomers
+
+	| inputStream newCustomer line |
+	inputStream := StandardFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session1 persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+	session1 commit.
+	session1 close.
+inputStream close! !
+
+----End fileIn of /home/clinux01/Escritorio/linux64/Packages/TerseGuide.pck.st----!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:10:15' prior: 50555760!
+importCustomers
+
+	| inputStream newCustomer line |
+	inputStream := StandardFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session1 persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+	
+inputStream close! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:10:26' prior: 50558716!
+importCustomers
+
+	| inputStream newCustomer line |
+	inputStream := StandardFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session1 persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:10:42' prior: 50558751!
+importCustomers
+
+	| inputStream newCustomer line |
+	inputStream := StandardFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session1 persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+	session1 commit.
+	session1 close.
+	inputStream close! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:21:46' prior: 50555641!
+test01ImportImportsCorrectCustomers
+
+	self importCustomers. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	"session1 select:  ofType:"! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:30:14' prior: 50558823!
+test01ImportImportsCorrectCustomers
+	|customers|
+	self importCustomers. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	customers := session1 selectAllOfType: Customer.
+	! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:32:44'!
+ERROR!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:33:39'!
+ERROR!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:33:39'!
+ERROR!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:42:26' prior: 50558837!
+test01ImportImportsCorrectCustomers
+	|customers|
+	self importCustomers. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	self assert: (customers detect:[:aCustomer| aCustomer firstName = 'Pepe' and: [aCustomer lastName = 'Sanchez']])! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:42:29'!
+ERROR!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:43:13' prior: 50558862!
+test01ImportImportsCorrectCustomers
+	|customers|
+	self importCustomers. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	self assert: (customers anySatisfy:[:aCustomer| aCustomer firstName = 'Pepe' and: [aCustomer lastName = 'Sanchez']])! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:43:17'!
+PASSED!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:43:20'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'MSS 11/10/2022 18:43:21'!
+PASSED!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:43:22'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:46:29' prior: 50558884!
+test01ImportImportsCorrectCustomers
+	|customers ps|
+	self importCustomers. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	ps := customers detect:[:aCustomer| aCustomer firstName = 'Pepe' and: [aCustomer lastName = 'Sanchez']].
+	
+	self assert: (ps identificationType = 'D').
+
+	! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:46:32'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'MSS 11/10/2022 18:46:33'!
+PASSED!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:46:33'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:46:55' prior: 50558915!
+test01ImportImportsCorrectCustomers
+	|customers ps|
+	self importCustomers. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	ps := customers detect:[:aCustomer| aCustomer firstName = 'Pepe' and: [aCustomer lastName = 'Sanchez']].
+	
+	self assert: (ps identificationType = 'D').
+
+	self assert: (ps identificationNumber = 22333444).! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:46:57'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:47:25' prior: 50558944!
+test01ImportImportsCorrectCustomers
+	|customers ps|
+	self importCustomers. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	ps := customers detect:[:aCustomer| aCustomer firstName = 'Pepe' and: [aCustomer lastName = 'Sanchez']].
+	
+	self assert: (ps identificationType = 'D').
+
+	self assert: ps identificationNumber equals: 22333444.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:47:32' prior: 50558969!
+test01ImportImportsCorrectCustomers
+	|customers ps|
+	self importCustomers. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	ps := customers detect:[:aCustomer| aCustomer firstName = 'Pepe' and: [aCustomer lastName = 'Sanchez']].
+	
+	self assert: ps identificationType equals: 'D'.
+
+	self assert: ps identificationNumber equals: 22333444.! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:47:34'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:48:26' prior: 50558991!
+test01ImportImportsCorrectCustomers
+	|customers ps|
+	self importCustomers. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	ps := customers detect:[:aCustomer| aCustomer firstName = 'Pepe' and: [aCustomer lastName = 'Sanchez']].
+	
+	self assert: 'D'  equals: ps identificationType.
+
+	self assert: 22333444 equals: ps identificationNumber.! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:48:43'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:49:09' prior: 50558786!
+importCustomers
+
+	| inputStream newCustomer line |
+	inputStream := StandardFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session1 persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+	session1 commit.
+	session1 close.
+	inputStream close! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:49:18'!
+FAILURE!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:49:22'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:49:33' prior: 50559017!
+test01ImportImportsCorrectCustomers
+	|customers ps|
+	self importCustomers. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	ps := customers detect:[:aCustomer| aCustomer firstName = 'Pepe' and: [aCustomer lastName = 'Sanchez']].
+	
+	self assert: 'D'  equals: ps identificationType.
+
+	self assert: 22333444 asString equals: ps identificationNumber.! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:49:37'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:51:41' prior: 50559086!
+test01ImportImportsCorrectCustomers
+	|customers ps|
+	self importCustomers. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	ps := customers detect:[:aCustomer| aCustomer firstName = 'Pepe' and: [aCustomer lastName = 'Sanchez']].
+	
+	self assert: 'D'  equals: ps identificationType.
+
+	self assert: 22333444 asString equals: ps identificationNumber.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:52:18'!
+checkIdCustomerNamed
+
+	|customers ps|
+	self importCustomers. 
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	ps := customers detect:[:aCustomer| aCustomer firstName = 'Pepe' and: [aCustomer lastName = 'Sanchez']].
+	
+	self assert: 'D'  equals: ps identificationType.
+
+	self assert: 22333444 asString equals: ps identificationNumber! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:52:18' prior: 50559112!
+test01ImportImportsCorrectCustomers
+	self checkIdCustomerNamed.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:52:27' prior: 50559134!
+checkIdCustomerNamed
+
+	|customers ps|
+	
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	ps := customers detect:[:aCustomer| aCustomer firstName = 'Pepe' and: [aCustomer lastName = 'Sanchez']].
+	
+	self assert: 'D'  equals: ps identificationType.
+
+	self assert: 22333444 asString equals: ps identificationNumber! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:52:38' prior: 50559156!
+test01ImportImportsCorrectCustomers
+
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:53:23'!
+checkIdCustomerNamed: aCustomerName withLastName: aCustomerLastName
+
+	|customers ps|
+	
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	ps := customers detect:[:aCustomer| aCustomer firstName = aCustomerName and: [aCustomer lastName = aCustomerLastName]].
+	
+	self assert: 'D'  equals: ps identificationType.
+
+	self assert: 22333444 asString equals: ps identificationNumber! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:54:34'!
+checkIdCustomerNamed: aCustomerName withLastName: aCustomerLastName
+idTypeShouldBe: anIdType idNumberShouldBe: anIdNumber 
+	|customers ps|
+	
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	ps := customers detect:[:aCustomer| aCustomer firstName = aCustomerName and: [aCustomer lastName = aCustomerLastName]].
+	
+	self assert: anIdType  equals: ps identificationType.
+
+	self assert: anIdNumber asString equals: ps identificationNumber! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:55:38' prior: 50559184!
+test01ImportImportsCorrectCustomers
+
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 ! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:55:40'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:57:27' prior: 50559238!
+test01ImportImportsCorrectCustomers
+
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ .! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:57:29'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'MSS 11/10/2022 18:57:30'!
+PASSED!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 18:57:30'!
+PASSED!
+
+!methodRemoval: ImportTest #checkIdCustomerNamed stamp: 'MSS 11/10/2022 18:57:40'!
+checkIdCustomerNamed
+
+	|customers ps|
+	
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	ps := customers detect:[:aCustomer| aCustomer firstName = 'Pepe' and: [aCustomer lastName = 'Sanchez']].
+	
+	self assert: 'D'  equals: ps identificationType.
+
+	self assert: 22333444 asString equals: ps identificationNumber!
+
+!methodRemoval: ImportTest #checkIdCustomerNamed:withLastName: stamp: 'MSS 11/10/2022 18:57:44'!
+checkIdCustomerNamed: aCustomerName withLastName: aCustomerLastName
+
+	|customers ps|
+	
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	ps := customers detect:[:aCustomer| aCustomer firstName = aCustomerName and: [aCustomer lastName = aCustomerLastName]].
+	
+	self assert: 'D'  equals: ps identificationType.
+
+	self assert: 22333444 asString equals: ps identificationNumber!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:58:04' prior: 50559250!
+test01ImportImportsCorrectCustomers
+
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ .
+
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:58:07' prior: 50559315!
+test01ImportImportsCorrectCustomers
+
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+
+	! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 18:59:47' prior: 50559328!
+test01ImportImportsCorrectCustomers
+	
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+
+	"session1 selectAllOfType: Customer."! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:00:45' prior: 50559213!
+checkIdCustomerNamed: aCustomerName withLastName: aCustomerLastName
+idTypeShouldBe: anIdType idNumberShouldBe: anIdNumber 
+	|customers customer|
+	
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	customer := customers detect:[:aCustomer| aCustomer firstName = aCustomerName and: [aCustomer lastName = aCustomerLastName]].
+	
+	self assert: anIdType  equals: customer identificationType.
+
+	self assert: anIdNumber asString equals: customer identificationNumber! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:01:19' prior: 50559355!
+checkIdCustomerNamed: aCustomerName withLastName: aCustomerLastName
+idTypeShouldBe: anIdType idNumberShouldBe: anIdNumber 
+	|customers customer|
+	
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	customers detect:[:aCustomer| aCustomer firstName = aCustomerName and: [aCustomer lastName = aCustomerLastName]].
+	
+	self assert: anIdType  equals: customer identificationType.
+
+	self assert: anIdNumber asString equals: customer identificationNumber! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:01:52' prior: 50559381!
+checkIdCustomerNamed: aCustomerName withLastName: aCustomerLastName
+idTypeShouldBe: anIdType idNumberShouldBe: anIdNumber 
+	|customers customer customerin|
+	
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	customerin := customers detect:[:aCustomer| aCustomer firstName = aCustomerName and: [aCustomer lastName = aCustomerLastName]].
+	
+	self assert: anIdType  equals: customer identificationType.
+
+	self assert: anIdNumber asString equals: customer identificationNumber! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:02:37' prior: 50559407!
+checkIdCustomerNamed: aCustomerName withLastName: aCustomerLastName
+idTypeShouldBe: anIdType idNumberShouldBe: anIdNumber 
+	|customers customer|
+	
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	customer := customers detect:[:aCustomer| aCustomer firstName = aCustomerName and: [aCustomer lastName = aCustomerLastName]].
+	
+	"self assert: anIdType  equals: customer identificationType.
+
+	self assert: anIdNumber asString equals: customer identificationNumber"! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:03:06'!
+getCustomerNamed: aCustomerName withLastName: aCustomerLastName
+
+	|customers customer|
+	
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	customer := customers detect:[:aCustomer| aCustomer firstName = aCustomerName and: [aCustomer lastName = aCustomerLastName]]! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:03:06' prior: 50559434!
+checkIdCustomerNamed: aCustomerName withLastName: aCustomerLastName
+idTypeShouldBe: anIdType idNumberShouldBe: anIdNumber 
+	self getCustomerNamed: aCustomerName withLastName: aCustomerLastName.
+	
+	"self assert: anIdType  equals: customer identificationType.
+
+	self assert: anIdNumber asString equals: customer identificationNumber"! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:03:31' prior: 50559480!
+checkIdCustomerNamed: aCustomerName withLastName: aCustomerLastName
+idTypeShouldBe: anIdType idNumberShouldBe: anIdNumber 
+	|customer|
+	customer := self getCustomerNamed: aCustomerName withLastName: aCustomerLastName.
+	
+	self assert: anIdType  equals: customer identificationType.
+
+	self assert: anIdNumber asString equals: customer identificationNumber! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:03:44' prior: 50559460!
+getCustomerNamed: aCustomerName withLastName: aCustomerLastName
+
+	|customers customer|
+	
+	"^hago que se pueda hacer con self (inline method - extract a self)
+	puedo usar lo anterior para guardar variables internas de importCustomers como variables de instancia de self y poder testearlas
+	pongo la inicializacion de la sesion con la DB en setUp
+	"
+	
+	customers := session1 selectAllOfType: Customer.
+	customer := customers detect:[:aCustomer| aCustomer firstName = aCustomerName and: [aCustomer lastName = aCustomerLastName]].
+	^customer.! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:03:48'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:05:10' prior: 50559341!
+test01ImportImportsCorrectCustomers
+	|pepe a|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	pepe 
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:06:19' prior: 50559533!
+test01ImportImportsCorrectCustomers
+	|pepe addresses|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	
+	self checkAddressesOf: pepe 
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:16:46' prior: 50559548!
+test01ImportImportsCorrectCustomers
+	|pepe addresses firstAddress|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	addresses := pepe addresses.
+	
+	firstAddress  := addresses first. 
+	self assert: firstAddress streetName equals: 'San Martin'.
+		
+	
+! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:16:49'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:16:55' prior: 50559564!
+test01ImportImportsCorrectCustomers
+	|pepe addresses firstAddress|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	addresses := pepe addresses.
+	
+	firstAddress  := addresses first. 
+	self assert: firstAddress streetName equals: 'San Martin'.
+	self assert: firstAddress streetNumber equals: 3322 asString.
+	
+! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:16:59'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:18:18' prior: 50559587!
+test01ImportImportsCorrectCustomers
+	|pepe addresses firstAddress|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	addresses := pepe addresses.
+	
+	firstAddress  := addresses first. 
+	self assert: 'San Martin' equals: firstAddress streetName .
+	self assert: 3322 equals: firstAddress streetNumber.
+	
+! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:18:22'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:19:10' prior: 50559612!
+test01ImportImportsCorrectCustomers
+	|pepe addresses firstAddress|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	addresses := pepe addresses.
+	
+	firstAddress  := addresses first. 
+	self assert: 'San Martin' equals: firstAddress streetName .
+	self assert: 3322 equals: firstAddress streetNumber.
+	self assert: 'Olivos' equals: firstAddress town.
+	
+! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:19:16'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:19:51' prior: 50559637!
+test01ImportImportsCorrectCustomers
+	|pepe addresses firstAddress|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	addresses := pepe addresses.
+	
+	firstAddress  := addresses first. 
+	self assert: 'San Martin' equals: firstAddress streetName .
+	self assert: 3322 equals: firstAddress streetNumber.
+	self assert: 'Olivos' equals: firstAddress town.
+	self assert: 1636 equals: firstAddress zipCode.
+	
+! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:19:54'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:20:34' prior: 50559663!
+test01ImportImportsCorrectCustomers
+	|pepe addresses firstAddress|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	addresses := pepe addresses.
+	
+	firstAddress  := addresses first. 
+	self assert: 'San Martin' equals: firstAddress streetName .
+	self assert: 3322 equals: firstAddress streetNumber.
+	self assert: 'Olivos' equals: firstAddress town.
+	self assert: 1636 equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province .
+	
+! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:20:38'!
+FAILURE!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:21:11' prior: 50559043!
+importCustomers
+
+	| inputStream newCustomer line |
+	inputStream := StandardFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session1 persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData sixth ].
+
+		line := inputStream nextLine. ].
+	session1 commit.
+	session1 close.
+	inputStream close! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:21:17'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'MSS 11/10/2022 19:21:18'!
+PASSED!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:21:19'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:23:57'!
+assertAddress: firstAddress
+
+	self assert: 'San Martin' equals: firstAddress streetName .
+	self assert: 3322 equals: firstAddress streetNumber.
+	self assert: 'Olivos' equals: firstAddress town.
+	self assert: 1636 equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:23:57' prior: 50559691!
+test01ImportImportsCorrectCustomers
+	|pepe addresses firstAddress|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	addresses := pepe addresses.
+	
+	firstAddress  := addresses first. 
+	self assertAddress: firstAddress .
+	
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:24:37'!
+assertAddress: firstAddress hasStreetname: hasStreetname 
+
+	self assert: 'San Martin' equals: firstAddress streetName .
+	self assert: 3322 equals: firstAddress streetNumber.
+	self assert: 'Olivos' equals: firstAddress town.
+	self assert: 1636 equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:24:37' prior: 50559778!
+test01ImportImportsCorrectCustomers
+	|pepe addresses firstAddress|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	addresses := pepe addresses.
+	
+	firstAddress  := addresses first. 
+	self assertAddress: firstAddress hasStreetname: 'San Martin' .
+	
+! !
+
+!methodRemoval: ImportTest #assertAddress: stamp: 'MSS 11/10/2022 19:24:37'!
+assertAddress: firstAddress
+
+	self assert: 'San Martin' equals: firstAddress streetName .
+	self assert: 3322 equals: firstAddress streetNumber.
+	self assert: 'Olivos' equals: firstAddress town.
+	self assert: 1636 equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:24:37' prior: 50559796!
+assertAddress: firstAddress hasStreetname: hasStreetname 
+
+	self assert: hasStreetname equals: firstAddress streetName .
+	self assert: 3322 equals: firstAddress streetNumber.
+	self assert: 'Olivos' equals: firstAddress town.
+	self assert: 1636 equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:24:50' prior: 50559841!
+assertAddress: firstAddress hasStreetname: aStreetname 
+
+	self assert: aStreetname equals: firstAddress streetName .
+	self assert: 3322 equals: firstAddress streetNumber.
+	self assert: 'Olivos' equals: firstAddress town.
+	self assert: 1636 equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:25:45'!
+assertAddress: firstAddress hasStreetname: aStreetname hasStreetnumber: aStreetNumber  
+
+	self assert: aStreetname equals: firstAddress streetName .
+	self assert: 3322 equals: firstAddress streetNumber.
+	self assert: 'Olivos' equals: firstAddress town.
+	self assert: 1636 equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:25:45' prior: 50559810!
+test01ImportImportsCorrectCustomers
+	|pepe addresses firstAddress|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	addresses := pepe addresses.
+	
+	firstAddress  := addresses first. 
+	self assertAddress: firstAddress hasStreetname: 'San Martin' hasStreetnumber: 3322 .
+	
+! !
+
+!methodRemoval: ImportTest #assertAddress:hasStreetname: stamp: 'MSS 11/10/2022 19:25:45'!
+assertAddress: firstAddress hasStreetname: aStreetname 
+
+	self assert: aStreetname equals: firstAddress streetName .
+	self assert: 3322 equals: firstAddress streetNumber.
+	self assert: 'Olivos' equals: firstAddress town.
+	self assert: 1636 equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:25:45' prior: 50559868!
+assertAddress: firstAddress hasStreetname: aStreetname hasStreetnumber: aStreetNumber  
+
+	self assert: aStreetname equals: firstAddress streetName .
+	self assert: aStreetNumber equals: firstAddress streetNumber.
+	self assert: 'Olivos' equals: firstAddress town.
+	self assert: 1636 equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:26:19'!
+assertAddress: firstAddress hasStreetname: aStreetname hasStreetnumber: aStreetNumber hasTown: aTownName   
+
+	self assert: aStreetname equals: firstAddress streetName .
+	self assert: aStreetNumber equals: firstAddress streetNumber.
+	self assert: 'Olivos' equals: firstAddress town.
+	self assert: 1636 equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:26:19' prior: 50559883!
+test01ImportImportsCorrectCustomers
+	|pepe addresses firstAddress|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	addresses := pepe addresses.
+	
+	firstAddress  := addresses first. 
+	self assertAddress: firstAddress hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' .
+	
+! !
+
+!methodRemoval: ImportTest #assertAddress:hasStreetname:hasStreetnumber: stamp: 'MSS 11/10/2022 19:26:19'!
+assertAddress: firstAddress hasStreetname: aStreetname hasStreetnumber: aStreetNumber  
+
+	self assert: aStreetname equals: firstAddress streetName .
+	self assert: aStreetNumber equals: firstAddress streetNumber.
+	self assert: 'Olivos' equals: firstAddress town.
+	self assert: 1636 equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:26:19' prior: 50559930!
+assertAddress: firstAddress hasStreetname: aStreetname hasStreetnumber: aStreetNumber hasTown: aTownName   
+
+	self assert: aStreetname equals: firstAddress streetName .
+	self assert: aStreetNumber equals: firstAddress streetNumber.
+	self assert: aTownName equals: firstAddress town.
+	self assert: 1636 equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:26:50'!
+assertAddress: firstAddress hasStreetname: aStreetname hasStreetnumber: aStreetNumber hasTown: aTownName hasZipCode: aZipCode    
+
+	self assert: aStreetname equals: firstAddress streetName .
+	self assert: aStreetNumber equals: firstAddress streetNumber.
+	self assert: aTownName equals: firstAddress town.
+	self assert: 1636 equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:26:50' prior: 50559946!
+test01ImportImportsCorrectCustomers
+	|pepe addresses firstAddress|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	addresses := pepe addresses.
+	
+	firstAddress  := addresses first. 
+	self assertAddress: firstAddress hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 .
+	
+! !
+
+!methodRemoval: ImportTest #assertAddress:hasStreetname:hasStreetnumber:hasTown: stamp: 'MSS 11/10/2022 19:26:50'!
+assertAddress: firstAddress hasStreetname: aStreetname hasStreetnumber: aStreetNumber hasTown: aTownName   
+
+	self assert: aStreetname equals: firstAddress streetName .
+	self assert: aStreetNumber equals: firstAddress streetNumber.
+	self assert: aTownName equals: firstAddress town.
+	self assert: 1636 equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:26:50' prior: 50559997!
+assertAddress: firstAddress hasStreetname: aStreetname hasStreetnumber: aStreetNumber hasTown: aTownName hasZipCode: aZipCode    
+
+	self assert: aStreetname equals: firstAddress streetName .
+	self assert: aStreetNumber equals: firstAddress streetNumber.
+	self assert: aTownName equals: firstAddress town.
+	self assert: aZipCode equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:27:22'!
+assertAddress: firstAddress hasStreetname: aStreetname hasStreetnumber: aStreetNumber hasTown: aTownName hasZipCode: aZipCode hasProvince: aProvinceName     
+
+	self assert: aStreetname equals: firstAddress streetName .
+	self assert: aStreetNumber equals: firstAddress streetNumber.
+	self assert: aTownName equals: firstAddress town.
+	self assert: aZipCode equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:27:22' prior: 50560013!
+test01ImportImportsCorrectCustomers
+	|pepe addresses firstAddress|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	addresses := pepe addresses.
+	
+	firstAddress  := addresses first. 
+	self assertAddress: firstAddress hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	
+! !
+
+!methodRemoval: ImportTest #assertAddress:hasStreetname:hasStreetnumber:hasTown:hasZipCode: stamp: 'MSS 11/10/2022 19:27:22'!
+assertAddress: firstAddress hasStreetname: aStreetname hasStreetnumber: aStreetNumber hasTown: aTownName hasZipCode: aZipCode    
+
+	self assert: aStreetname equals: firstAddress streetName .
+	self assert: aStreetNumber equals: firstAddress streetNumber.
+	self assert: aTownName equals: firstAddress town.
+	self assert: aZipCode equals: firstAddress zipCode.
+	self assert: 'BsAs' equals: firstAddress province!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:27:22' prior: 50560066!
+assertAddress: firstAddress hasStreetname: aStreetname hasStreetnumber: aStreetNumber hasTown: aTownName hasZipCode: aZipCode hasProvince: aProvinceName     
+
+	self assert: aStreetname equals: firstAddress streetName .
+	self assert: aStreetNumber equals: firstAddress streetNumber.
+	self assert: aTownName equals: firstAddress town.
+	self assert: aZipCode equals: firstAddress zipCode.
+	self assert: aProvinceName equals: firstAddress province! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:28:00' prior: 50560083!
+test01ImportImportsCorrectCustomers
+	|pepe addresses firstAddress|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	addresses := pepe addresses.
+	
+	firstAddress  := addresses first. 
+	self assertAddress: firstAddress hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:28:36' prior: 50560139!
+test01ImportImportsCorrectCustomers
+	|pepe addresses firstAddress secondAddress|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	addresses := pepe addresses.
+	
+	firstAddress  := addresses first. 
+	self assertAddress: firstAddress hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:29:46' prior: 50560161!
+test01ImportImportsCorrectCustomers
+	|pepe addresses firstAddress secondAddress|
+	self importCustomers. 
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	addresses := pepe addresses.
+	
+	firstAddress  := addresses first. 
+	self assertAddress: firstAddress hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	
+	secondAddress := addresses second.
+	self assertAddress: secondAddress hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:29:48'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'MSS 11/10/2022 19:29:48'!
+PASSED!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:29:49'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:32:21' prior: 50560184!
+test01ImportImportsCorrectCustomers
+	|pepe firstAddress secondAddress juan|
+	self importCustomers. 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	
+	
+	firstAddress  := pepe addresses first. 
+	self assertAddress: firstAddress hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	
+	secondAddress := pepe addresses second.
+	self assertAddress: secondAddress hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:36:42' prior: 50560221!
+test01ImportImportsCorrectCustomers
+	|pepe firstAddress secondAddress juan|
+	self importCustomers. 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	"self assert: (pepe addresses anySatisfy: [:address| self checkAddress: address hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .]) "
+	
+	firstAddress  := pepe addresses first. 
+	self assertAddress: firstAddress hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	
+	secondAddress := pepe addresses second.
+	self assertAddress: secondAddress hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:37:50' prior: 50560122!
+assertAddress: firstAddress hasStreetname: aStreetname hasStreetnumber: aStreetNumber hasTown: aTownName hasZipCode: aZipCode hasProvince: aProvinceName     
+
+	self assert: aStreetname equals: firstAddress streetName .
+	self assert: aStreetNumber equals: firstAddress streetNumber.
+	self assert: aTownName equals: firstAddress town.
+	self assert: aZipCode equals: firstAddress zipCode.
+	self assert: aProvinceName equals: firstAddress province.
+	^true! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:42:30' prior: 50560251!
+test01ImportImportsCorrectCustomers
+	|pepe juan|
+	self importCustomers. 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	"self assert: (pepe addresses anySatisfy: [:address| self assertAddress: address hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .])."
+	
+	self assertAddress: pepe addresses first hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	
+	self assertAddress: pepe addresses second hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:43:19' prior: 50560305!
+test01ImportImportsCorrectCustomers
+	|pepe juan|
+	self importCustomers. 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	"self assert: (pepe addresses anySatisfy: [:address| self assertAddress: address hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .])."
+	
+	self assertAddress: pepe addresses first hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	self assertAddress: pepe addresses second hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	self assertAddress: juan addresses first hasStreetname: 'Alem' hasStreetnumber: 1122 hasTown: 'CABA' hasZipCode: 1001 hasProvince: 'CABA' .
+	
+! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:43:21'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'MSS 11/10/2022 19:43:21'!
+PASSED!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:43:22'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:43:31' prior: 50560338!
+test01ImportImportsCorrectCustomers
+	|pepe juan|
+	self importCustomers. 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+	
+	self checkIdCustomerNamed: 'Pepe' withLastName: 'Sanchez'
+idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkIdCustomerNamed: 'Juan' withLastName: 'Perez'
+idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	
+	self assertAddress: pepe addresses first hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	self assertAddress: pepe addresses second hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	self assertAddress: juan addresses first hasStreetname: 'Alem' hasStreetnumber: 1122 hasTown: 'CABA' hasZipCode: 1001 hasProvince: 'CABA' .
+	
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:44:17' prior: 50560384!
+test01ImportImportsCorrectCustomers
+	|pepe juan|
+	self importCustomers. 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+	
+	self checkCustomer: pepe idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkCustomer: juan idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+ 
+	
+	self assertAddress: pepe addresses first hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	self assertAddress: pepe addresses second hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	self assertAddress: juan addresses first hasStreetname: 'Alem' hasStreetnumber: 1122 hasTown: 'CABA' hasZipCode: 1001 hasProvince: 'CABA' .
+	
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:44:51'!
+checkCustomer: aCustomer idTypeShouldBe: anIdType idNumberShouldBe: anIdNumber 
+	
+	self assert: anIdType  equals: aCustomer identificationType.
+
+	self assert: anIdNumber asString equals: aCustomer identificationNumber! !
+
+!methodRemoval: ImportTest #checkIdCustomerNamed:withLastName:idTypeShouldBe:idNumberShouldBe: stamp: 'MSS 11/10/2022 19:44:56'!
+checkIdCustomerNamed: aCustomerName withLastName: aCustomerLastName
+idTypeShouldBe: anIdType idNumberShouldBe: anIdNumber 
+	|customer|
+	customer := self getCustomerNamed: aCustomerName withLastName: aCustomerLastName.
+	
+	self assert: anIdType  equals: customer identificationType.
+
+	self assert: anIdNumber asString equals: customer identificationNumber!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:44:59'!
+PASSED!
+
+!methodRemoval: ImportTest #test01Import stamp: 'MSS 11/10/2022 19:45:04'!
+test01Import
+
+	Customer importCustomers !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:45:13' prior: 50560415!
+test01ImportImportsCorrectCustomers
+	|pepe juan|
+	self importCustomers. 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+	self checkCustomer: pepe idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	self checkCustomer: juan idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+	
+	self assertAddress: pepe addresses first hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	self assertAddress: pepe addresses second hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	self assertAddress: juan addresses first hasStreetname: 'Alem' hasStreetnumber: 1122 hasTown: 'CABA' hasZipCode: 1001 hasProvince: 'CABA' .
+	
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:45:25' prior: 50560476!
+test01ImportImportsCorrectCustomers
+	|pepe juan|
+	self importCustomers. 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+	self checkCustomer: pepe idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	
+	self assertAddress: pepe addresses first hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	self assertAddress: pepe addresses second hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	self checkCustomer: juan idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+	self assertAddress: juan addresses first hasStreetname: 'Alem' hasStreetnumber: 1122 hasTown: 'CABA' hasZipCode: 1001 hasProvince: 'CABA' .
+	
+! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:45:29'!
+PASSED!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:45:30'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:45:38' prior: 50560505!
+test01ImportImportsCorrectCustomers
+	| pepe juan |
+	self importCustomers. 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+	self checkCustomer: pepe idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	
+	self assertAddress: pepe addresses first hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	self assertAddress: pepe addresses second hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	self checkCustomer: juan idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+	self assertAddress: juan addresses first hasStreetname: 'Alem' hasStreetnumber: 1122 hasTown: 'CABA' hasZipCode: 1001 hasProvince: 'CABA' .
+	
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:45:51' prior: 50560540!
+test01ImportImportsCorrectCustomers
+	| pepe juan |
+	self importCustomers. 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+	self checkCustomer: pepe idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	
+	self assertAddress: pepe addresses first hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	self assertAddress: pepe addresses second hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	self checkCustomer: juan idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+	self assertAddress: juan addresses first hasStreetname: 'Alem' hasStreetnumber: 1122 hasTown: 'CABA' hasZipCode: 1001 hasProvince: 'CABA' .
+! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:45:53'!
+PASSED!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:45:54'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:48:00'!
+importCustomers: anInputStream
+
+	| inputStream newCustomer line |
+	inputStream := StandardFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session1 persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData sixth ].
+
+		line := inputStream nextLine. ].
+	session1 commit.
+	session1 close.
+	inputStream close! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:48:01' prior: 50560569!
+test01ImportImportsCorrectCustomers
+	| pepe juan |
+	self importCustomers: (StandardFileStream new open: 'input.txt' forWrite: false). 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+	self checkCustomer: pepe idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	
+	self assertAddress: pepe addresses first hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	self assertAddress: pepe addresses second hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	self checkCustomer: juan idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+	self assertAddress: juan addresses first hasStreetname: 'Alem' hasStreetnumber: 1122 hasTown: 'CABA' hasZipCode: 1001 hasProvince: 'CABA' .
+! !
+
+!methodRemoval: ImportTest #importCustomers stamp: 'MSS 11/10/2022 19:48:01'!
+importCustomers
+
+	| inputStream newCustomer line |
+	inputStream := StandardFileStream new open: 'input.txt' forWrite: false.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session1 persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData sixth ].
+
+		line := inputStream nextLine. ].
+	session1 commit.
+	session1 close.
+	inputStream close!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:48:01' prior: 50560604!
+importCustomers: anInputStream
+
+	| inputStream newCustomer line |
+	inputStream := anInputStream.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session1 persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData sixth ].
+
+		line := inputStream nextLine. ].
+	session1 commit.
+	session1 close.
+	inputStream close! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:48:12'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:50:05'!
+inputFilestream
+
+	^ StandardFileStream new open: 'input.txt' forWrite: false! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:50:05' prior: 50560641!
+test01ImportImportsCorrectCustomers
+	| pepe juan |
+	self importCustomers: (self inputFilestream). 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+	self checkCustomer: pepe idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	
+	self assertAddress: pepe addresses first hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	self assertAddress: pepe addresses second hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	self checkCustomer: juan idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+	self assertAddress: juan addresses first hasStreetname: 'Alem' hasStreetnumber: 1122 hasTown: 'CABA' hasZipCode: 1001 hasProvince: 'CABA' .
+! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:50:09' prior: 50560751!
+test01ImportImportsCorrectCustomers
+	| pepe juan |
+	self importCustomers: self inputFilestream. 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+	self checkCustomer: pepe idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	
+	self assertAddress: pepe addresses first hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	self assertAddress: pepe addresses second hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	self checkCustomer: juan idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+	self assertAddress: juan addresses first hasStreetname: 'Alem' hasStreetnumber: 1122 hasTown: 'CABA' hasZipCode: 1001 hasProvince: 'CABA' .
+! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:50:11'!
+PASSED!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:50:12'!
+PASSED!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:51:26'!
+inputFilestream: aFilename
+
+	^ StandardFileStream new open: 'input.txt' forWrite: false! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:51:26' prior: 50560781!
+test01ImportImportsCorrectCustomers
+	| pepe juan |
+	self importCustomers: self inputFilestream: 'input.txt'. 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+	self checkCustomer: pepe idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	
+	self assertAddress: pepe addresses first hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	self assertAddress: pepe addresses second hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	self checkCustomer: juan idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+	self assertAddress: juan addresses first hasStreetname: 'Alem' hasStreetnumber: 1122 hasTown: 'CABA' hasZipCode: 1001 hasProvince: 'CABA' .
+! !
+
+!methodRemoval: ImportTest #inputFilestream stamp: 'MSS 11/10/2022 19:51:26'!
+inputFilestream
+
+	^ StandardFileStream new open: 'input.txt' forWrite: false!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:51:26' prior: 50560816!
+inputFilestream: aFilename
+
+	^ StandardFileStream new open: aFilename forWrite: false! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:51:33'!
+ERROR!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:51:33'!
+ERROR!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:51:47' prior: 50560822!
+test01ImportImportsCorrectCustomers
+	| pepe juan |
+	self importCustomers: (self inputFilestream: 'input.txt'). 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+	self checkCustomer: pepe idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	
+	self assertAddress: pepe addresses first hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	self assertAddress: pepe addresses second hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	self checkCustomer: juan idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+	self assertAddress: juan addresses first hasStreetname: 'Alem' hasStreetnumber: 1122 hasTown: 'CABA' hasZipCode: 1001 hasProvince: 'CABA' .
+! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:51:48'!
+PASSED!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:51:49'!
+PASSED!
+
+!classDefinition: #CustomerImporter category: 'CustomerImporter' stamp: 'MSS 11/10/2022 19:59:00'!
+Object subclass: #CustomerImporter
+	instanceVariableNames: 'session stream'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+!CustomerImporter class methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:59:00'!
+onDbSession: aDbSession fromInputStream: anAnInputStream
+	^self new initializeOnDbSession: aDbSession fromInputStream: anAnInputStream! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:59:00'!
+initializeOnDbSession: aDbSession fromInputStream: anAnInputStream
+	session := aDbSession.
+	stream := anAnInputStream.! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:59:00' overrides: 16902254!
+value
+
+	| inputStream newCustomer line |
+	inputStream := stream.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fifth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData sixth ].
+
+		line := inputStream nextLine. ].
+	session commit.
+	session close.
+	inputStream close! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 19:59:00' prior: 50560707!
+importCustomers: anInputStream
+	(CustomerImporter onDbSession: session1 fromInputStream: anInputStream) value! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 19:59:10'!
+PASSED!
+!Customer class methodsFor: 'importing' stamp: 'MSS 11/10/2022 20:04:45'!
+importCustomers: anInputStream
+	ImportTest new importCustomers: 'input.txt'! !
+!Customer class methodsFor: 'importing' stamp: 'MSS 11/10/2022 20:06:46' prior: 50560974!
+importCustomers: anInputStream
+	ImportTest new importCustomers: (ImportTest new inputFilestream: 'input.txt')! !
+!Customer class methodsFor: 'importing' stamp: 'MSS 11/10/2022 20:08:49' prior: 50560980!
+importCustomers: anInputStream
+	| session |
+	
+	(CustomerImporter onDbSession: session fromInputStream: anInputStream) value! !
+!Customer class methodsFor: 'importing' stamp: 'MSS 11/10/2022 20:09:05' prior: 50560987!
+importCustomers: anInputStream
+	| session |
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	(CustomerImporter onDbSession: session fromInputStream: anInputStream) value! !
+!Customer class methodsFor: 'importing' stamp: 'MSS 11/10/2022 20:10:00' prior: 50560994!
+importCustomers: anInputStream
+	| session |
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction.
+	(CustomerImporter onDbSession: session fromInputStream: anInputStream) value! !
+!Customer class methodsFor: 'importing' stamp: 'MSS 11/10/2022 20:13:06'!
+importCustomers: anInputStream onSession: aDbSession
+	(CustomerImporter onDbSession: aDbSession fromInputStream: anInputStream) value! !
+
+!methodRemoval: Customer class #importCustomers stamp: 'MSS 11/10/2022 20:16:15'!
+importCustomers
+
+	"
+	self importCustomers
+	"
+	| inputStream session newCustomer line |
+
+	inputStream := StandardFileStream new open: 'input.txt' forWrite: false.
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction.
+
+	line := inputStream nextLine.
+	[ line notNil ] whileTrue: [
+		(line beginsWith: 'C') ifTrue: [ | customerData |
+			customerData := line findTokens: $,.
+			newCustomer := Customer new.
+			newCustomer firstName: customerData second.
+			newCustomer lastName: customerData third.
+			newCustomer identificationType: customerData fourth.
+			newCustomer identificationNumber: customerData fourth.
+			session persist: newCustomer ].
+
+		(line beginsWith: 'A') ifTrue: [ | addressData newAddress |
+			addressData := line findTokens: $,.
+			newAddress := Address new.
+			newCustomer addAddress: newAddress.
+			newAddress streetName: addressData second.
+			newAddress streetNumber: addressData third asNumber .
+			newAddress town: addressData fourth.
+			newAddress zipCode: addressData fifth asNumber .
+			newAddress province: addressData fourth ].
+
+		line := inputStream nextLine. ].
+
+	session commit.
+	session close.
+
+	inputStream close.
+	!
+
+!methodRemoval: Customer class #importCustomers: stamp: 'MSS 11/10/2022 20:16:18'!
+importCustomers: anInputStream
+	| session |
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction.
+	(CustomerImporter onDbSession: session fromInputStream: anInputStream) value!
+
+!methodRemoval: Customer class #importCustomers:onSession: stamp: 'MSS 11/10/2022 20:16:19'!
+importCustomers: anInputStream onSession: aDbSession
+	(CustomerImporter onDbSession: aDbSession fromInputStream: anInputStream) value!
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 20:17:19'!
+PASSED!
+!CustomerImporter methodsFor: 'initialization' stamp: 'MSS 11/10/2022 20:18:02' prior: 50560921!
+initializeOnDbSession: aDbSession fromInputStream: anAnInputStream
+	session := aDbSession.
+	stream := anAnInputStream.! !
+!CustomerImporter class methodsFor: 'instance creation' stamp: 'MSS 11/10/2022 20:19:41' prior: 50560914!
+onDbSession: aDbSession fromInputStream: anAnInputStream
+	^(self new initializeOnDbSession: aDbSession fromInputStream: anAnInputStream) value! !
+!CustomerImporter class methodsFor: 'instance creation' stamp: 'MSS 11/10/2022 20:19:48' prior: 50561089!
+onDbSession: aDbSession fromInputStream: anAnInputStream
+	(self new initializeOnDbSession: aDbSession fromInputStream: anAnInputStream) value! !
+!CustomerImporter class methodsFor: 'instance creation' stamp: 'MSS 11/10/2022 19:59:00' prior: 50561097!
+onDbSession: aDbSession fromInputStream: anAnInputStream
+	^self new initializeOnDbSession: aDbSession fromInputStream: anAnInputStream! !
+
+!testRun: #ImportTest #test01ImportImportsCorrectCustomers stamp: 'MSS 11/10/2022 20:20:40'!
+PASSED!
+!ImportTest methodsFor: 'support' stamp: 'MSS 11/10/2022 20:25:39'!
+assertCustomer: aCustomer idTypeShouldBe: anIdType idNumberShouldBe: anIdNumber 
+	
+	self assert: anIdType  equals: aCustomer identificationType.
+
+	self assert: anIdNumber asString equals: aCustomer identificationNumber! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/10/2022 20:25:39' prior: 50560870!
+test01ImportImportsCorrectCustomers
+	| pepe juan |
+	self importCustomers: (self inputFilestream: 'input.txt'). 
+	
+	pepe := self getCustomerNamed: 'Pepe' withLastName: 'Sanchez'.
+	juan := self getCustomerNamed: 'Juan' withLastName: 'Perez'.
+	
+	self assertCustomer: pepe idTypeShouldBe: 'D' idNumberShouldBe: 22333444 .
+	
+	self assertAddress: pepe addresses first hasStreetname: 'San Martin' hasStreetnumber: 3322 hasTown: 'Olivos' hasZipCode: 1636 hasProvince: 'BsAs' .
+	self assertAddress: pepe addresses second hasStreetname: 'Maipu' hasStreetnumber: 888 hasTown: 'Florida' hasZipCode: 1122 hasProvince: 'Buenos Aires' .
+	
+	self assertCustomer: juan idTypeShouldBe: 'C' idNumberShouldBe: '23-25666777-9'. 
+	self assertAddress: juan addresses first hasStreetname: 'Alem' hasStreetnumber: 1122 hasTown: 'CABA' hasZipCode: 1001 hasProvince: 'CABA' .
+! !
+
+!methodRemoval: ImportTest #checkCustomer:idTypeShouldBe:idNumberShouldBe: stamp: 'MSS 11/10/2022 20:25:39'!
+checkCustomer: aCustomer idTypeShouldBe: anIdType idNumberShouldBe: anIdNumber 
+	
+	self assert: anIdType  equals: aCustomer identificationType.
+
+	self assert: anIdNumber asString equals: aCustomer identificationNumber!
+
+----SNAPSHOT----(10 November 2022 20:28:27) CuisUniversity-5510.image priorSource: 7155150!
