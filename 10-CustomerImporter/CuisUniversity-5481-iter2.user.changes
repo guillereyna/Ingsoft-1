@@ -2057,3 +2057,499 @@ valueFrom: aReadStream into: aSession
 PASSED!
 
 ----SNAPSHOT----(14 November 2022 19:31:16) CuisUniversity-5481.image priorSource: 7059698!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 19:43:11'!
+test02ImportInvalidLineType
+
+	CustomerImporter valueFrom: self invalidLineTypeData into: session..
+
+	self assertImportedRightNumberOfCustomers.
+	self assertPepeSanchezWasImportedCorrecty.
+	self assertJuanPerezWasImportedCorrectly ! !
+
+!testRun: #ImportTest #test02ImportInvalidLineType stamp: 'MSS 11/14/2022 19:43:30'!
+ERROR!
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/14/2022 19:43:43'!
+invalidLineTypeData
+	self shouldBeImplemented.! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/14/2022 19:44:00' prior: 50556889!
+invalidLineTypeData
+		^ ReadStream on:
+'C,Pepe,Sanchez,D,22333444
+A,San Martin,3322,Olivos,1636,BsAs
+D,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 19:46:58' prior: 50556876!
+test02ImportInvalidLineType
+
+	
+
+	self should:[CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error| self assert: self class InvalidLineTypeErrorMessage equals: error messageText].! !
+
+!testRun: #ImportTest #test02ImportInvalidLineType stamp: 'MSS 11/14/2022 19:47:04'!
+FAILURE!
+!CustomerImporter class methodsFor: 'importing' stamp: 'MSS 11/14/2022 19:48:45'!
+InvalidLineTypeErrorMessage
+	^'This line type is not supported by CustomerImporter'! !
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 19:49:06' prior: 50556904!
+test02ImportInvalidLineType
+
+	
+
+	self should:[CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error| self assert: CustomerImporter InvalidLineTypeErrorMessage equals: error messageText].! !
+
+!testRun: #ImportTest #test02ImportInvalidLineType stamp: 'MSS 11/14/2022 19:49:08'!
+FAILURE!
+
+!testRun: #ImportTest #test02ImportInvalidLineType stamp: 'MSS 11/14/2022 19:51:29'!
+FAILURE!
+
+!testRun: #ImportTest #test02ImportInvalidLineType stamp: 'MSS 11/14/2022 19:51:51'!
+FAILURE!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 19:49:06' prior: 50556924!
+test02ImportInvalidLineType
+
+	
+
+	self should:[CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error| self assert: CustomerImporter InvalidLineTypeErrorMessage equals: error messageText].! !
+
+----SNAPSHOT----(14 November 2022 19:53:24) CuisUniversity-5481.image priorSource: 7207131!
+
+!testRun: #ImportTest #test02ImportInvalidLineType stamp: 'MSS 11/14/2022 19:53:43'!
+FAILURE!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/14/2022 19:55:19' prior: 50556742 overrides: 50556841!
+importLine
+	record := line findTokens: $,.
+	self processIfClientLine.
+	self processIfAddressLine.
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/14/2022 19:55:37' prior: 50556962 overrides: 50556841!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self initializeCustomer.
+		session persist: newCustomer ].
+	self processIfAddressLine.
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/14/2022 19:56:17' prior: 50556969 overrides: 50556841!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self initializeCustomer.
+		session persist: newCustomer ].
+	 (line beginsWith: 'A') ifTrue: [ self initializeAddress ].
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/14/2022 19:57:10' prior: 50556978 overrides: 50556841!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self initializeCustomer.
+		session persist: newCustomer. ^self].
+	 (line beginsWith: 'A') ifTrue: [ self initializeAddress. ^self].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+
+!testRun: #ImportTest #test02ImportInvalidLineType stamp: 'MSS 11/14/2022 19:57:13'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'MSS 11/14/2022 19:57:14'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineType stamp: 'MSS 11/14/2022 19:57:14'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineType stamp: 'MSS 11/14/2022 19:57:20'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'MSS 11/14/2022 19:57:20'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineType stamp: 'MSS 11/14/2022 19:57:21'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 19:58:28'!
+test02ImportInvalidLineTypeRaisesError
+
+	
+
+	self should:[CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error| self assert: CustomerImporter InvalidLineTypeErrorMessage equals: error messageText].! !
+
+!methodRemoval: ImportTest #test02ImportInvalidLineType stamp: 'MSS 11/14/2022 19:58:28'!
+test02ImportInvalidLineType
+
+	
+
+	self should:[CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error| self assert: CustomerImporter InvalidLineTypeErrorMessage equals: error messageText].!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 19:58:57'!
+test03ImportInvalidLineTypeSOFE
+
+	
+
+	self should:[CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error| self assert: CustomerImporter InvalidLineTypeErrorMessage equals: error messageText].! !
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:00:34' prior: 50557038!
+test03ImportInvalidLineTypeSOFE
+
+	
+	|importer|
+	self should:[importer := CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [self assert: importer ].! !
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:01:48' prior: 50557050!
+test03ImportInvalidLineTypeSOFE
+
+	
+	|importer|
+	self should:[importer := CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [self assert: session  ].! !
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:03:14' prior: 50557060!
+test03ImportInvalidLineTypeSOFE
+
+	
+	|importer|
+	self should:[importer := CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assert:   session].! !
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:05:06' prior: 50557070!
+test03ImportInvalidLineTypeSOFE
+
+	
+	|importer|
+	self should:[importer := CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assert:  1 equals: (session selectAllOfType: Address) size.
+				    self assert: session ].! !
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:05:22' prior: 50557082!
+test03ImportInvalidLineTypeSOFE
+
+	
+	
+	self should:[ CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assert:  1 equals: (session selectAllOfType: Address) size.
+				    self assert: session ].! !
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/14/2022 20:05:58' prior: 50556894!
+invalidLineTypeData
+		^ ReadStream on:
+'C,Pepe,Sanchez,D,22333444
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+D,San Martin,3322,Olivos,1636,BsAs
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:06:19' prior: 50557097!
+test03ImportInvalidLineTypeSOFE
+
+	
+	
+	self should:[ CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assert:  1 equals: (session selectAllOfType: Address) size.
+				    self assert: self assertPepeSanchezWasImportedCorrecty ].! !
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:06:22'!
+ERROR!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:06:49' prior: 50557121!
+test03ImportInvalidLineTypeSOFE
+
+	
+	
+	self should:[ CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error|self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assert:  1 equals: (session selectAllOfType: Address) size.
+				    self assert: self assertPepeSanchezWasImportedCorrecty ].! !
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:06:51'!
+FAILURE!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:07:10' prior: 50557139!
+test03ImportInvalidLineTypeSOFE
+
+	
+	
+	self should:[ CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error|self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assert:  2 equals: (session selectAllOfType: Address) size.
+				    self assert: self assertPepeSanchezWasImportedCorrecty ].! !
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:07:12'!
+FAILURE!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:07:36' prior: 50557157!
+test03ImportInvalidLineTypeSOFE
+
+	
+	
+	self should:[ CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error|self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assert: 2 equals: (session selectAllOfType: Address) size.
+				    self assert: self assertPepeSanchezWasImportedCorrecty ].! !
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:07:38'!
+FAILURE!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:07:50'!
+FAILURE!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:08:30'!
+FAILURE!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:08:46'!
+FAILURE!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:08:57'!
+FAILURE!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:10:26' prior: 50557175!
+test03ImportInvalidLineTypeSOFE
+
+	
+	
+	self should:[ CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error|self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assert: self assertPepeSanchezWasImportedCorrecty ].! !
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:10:30'!
+ERROR!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:10:41' prior: 50557206!
+test03ImportInvalidLineTypeSOFE
+
+	
+	
+	self should:[ CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error|self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assertPepeSanchezWasImportedCorrecty ].! !
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:10:43'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'MSS 11/14/2022 20:10:43'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'MSS 11/14/2022 20:10:44'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:10:44'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:11:01'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'MSS 11/14/2022 20:11:01'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'MSS 11/14/2022 20:11:02'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:11:02'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:32:58' prior: 50557222!
+test03ImportInvalidLineTypeSOFE
+
+	
+	
+	CustomerImporter valueFrom: '' into: session.! !
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:33:02'!
+ERROR!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:10:41' prior: 50557258!
+test03ImportInvalidLineTypeSOFE
+
+	
+	
+	self should:[ CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error|self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assertPepeSanchezWasImportedCorrecty ].! !
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:34:24'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'MSS 11/14/2022 20:34:25'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'MSS 11/14/2022 20:34:25'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:34:26'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:34:40'!
+test04
+
+	
+	
+	self should:[ CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error|self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assertPepeSanchezWasImportedCorrecty ].! !
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/14/2022 20:35:53'!
+emptyLineInMiddleOfData
+
+	^ ReadStream on:
+'C,Pepe,Sanchez,D,22333444
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:36:13' prior: 50557291!
+test04
+
+CustomerImporter valueFrom: self emptyLineInMiddleOfData into: session.! !
+
+!testRun: #ImportTest #test04 stamp: 'MSS 11/14/2022 20:36:14'!
+ERROR!
+
+!methodRemoval: ImportTest #test04 stamp: 'MSS 11/14/2022 20:38:44'!
+test04
+
+CustomerImporter valueFrom: self emptyLineInMiddleOfData into: session.!
+
+----SNAPSHOT----(14 November 2022 20:39:00) CuisUniversity-5481.image priorSource: 7209739!
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/14/2022 20:43:07'!
+invalidImportDataBecauseOfMissingParameter
+
+	^ ReadStream on:
+'C,Pepe,Sanchez,,22333444
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:43:41'!
+test04MissingParameter
+
+CustomerImporter valueFrom: self invalidImportDataBecauseOfMissingParameter into: session.! !
+
+!testRun: #ImportTest #test04MissingParameter stamp: 'MSS 11/14/2022 20:43:42'!
+ERROR!
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/14/2022 20:44:13' prior: 50557326!
+invalidImportDataBecauseOfMissingParameter
+
+	^ ReadStream on:
+'C,Pepe,Sanchez, ,22333444
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+
+!testRun: #ImportTest #test01Import stamp: 'MSS 11/14/2022 20:44:21'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'MSS 11/14/2022 20:44:21'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:44:21'!
+PASSED!
+
+!testRun: #ImportTest #test04MissingParameter stamp: 'MSS 11/14/2022 20:44:22'!
+PASSED!
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/14/2022 20:44:56' prior: 50557345!
+invalidImportDataBecauseOfMissingParameter
+
+	^ ReadStream on:
+'C,Pepe,Sanchez,D
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+
+!testRun: #ImportTest #test01Import stamp: 'MSS 11/14/2022 20:45:02'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'MSS 11/14/2022 20:45:02'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/14/2022 20:45:03'!
+PASSED!
+
+!testRun: #ImportTest #test04MissingParameter stamp: 'MSS 11/14/2022 20:45:03'!
+ERROR!
+
+!testRun: #ImportTest #test04MissingParameter stamp: 'MSS 11/14/2022 20:45:03'!
+ERROR!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:45:27'!
+test04MissingParameterAtEnd
+
+CustomerImporter valueFrom: self invalidImportDataBecauseOfMissingParameter into: session.! !
+
+!methodRemoval: ImportTest #test04MissingParameter stamp: 'MSS 11/14/2022 20:45:30'!
+test04MissingParameter
+
+CustomerImporter valueFrom: self invalidImportDataBecauseOfMissingParameter into: session.!
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/14/2022 20:46:12'!
+invalidImportDataBecauseOfMissingClientParameter
+
+	^ ReadStream on:
+'C,Pepe,Sanchez,D
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+
+!methodRemoval: ImportTest #invalidImportDataBecauseOfMissingParameter stamp: 'MSS 11/14/2022 20:46:18'!
+invalidImportDataBecauseOfMissingParameter
+
+	^ ReadStream on:
+'C,Pepe,Sanchez,D
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:46:23' prior: 50557391!
+test04MissingParameterAtEnd
+
+CustomerImporter valueFrom: self invalidImportDataBecauseOfMissingClientParameter into: session.! !
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:47:29' prior: 50557424!
+test04MissingParameterAtEnd
+
+
+self should:[ CustomerImporter valueFrom: self invalidImportDataBecauseOfMissingClientParameter into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error|self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assertPepeSanchezWasImportedCorrecty ].! !
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:47:56' prior: 50557431!
+test04MissingParameterAtEnd
+
+
+self should:[ CustomerImporter valueFrom: self invalidImportDataBecauseOfMissingClientParameter into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo:  [:error| self assert: CustomerImporter missingParameterErrorMessage equals: error messageText].! !
+
+!testRun: #ImportTest #test04MissingParameterAtEnd stamp: 'MSS 11/14/2022 20:48:00'!
+ERROR!
+!CustomerImporter class methodsFor: 'as yet unclassified' stamp: 'MSS 11/14/2022 20:48:49'!
+missingParameterErrorMessage
+	self shouldBeImplemented.! !
+!CustomerImporter class methodsFor: 'as yet unclassified' stamp: 'MSS 11/14/2022 20:49:16' prior: 50557460!
+missingParameterErrorMessage
+	^'CSV line has missing parameters'! !
+!CustomerImporter class methodsFor: 'as yet unclassified' stamp: 'MSS 11/14/2022 20:49:20' prior: 50557466!
+missingParameterErrorMessage
+	^'CSV line lacks parameters'! !
+
+!testRun: #ImportTest #test04MissingParameterAtEnd stamp: 'MSS 11/14/2022 20:49:24'!
+FAILURE!
+
+!testRun: #ImportTest #test04MissingParameterAtEnd stamp: 'MSS 11/14/2022 20:49:53'!
+FAILURE!
+
+!testRun: #ImportTest #test04MissingParameterAtEnd stamp: 'MSS 11/14/2022 20:52:28'!
+ERROR!

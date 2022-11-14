@@ -14,6 +14,33 @@ test01Import
 	self assertPepeSanchezWasImportedCorrecty.
 	self assertJuanPerezWasImportedCorrectly ! !
 
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 19:58:28'!
+test02ImportInvalidLineTypeRaisesError
+
+	
+
+	self should:[CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error| self assert: CustomerImporter InvalidLineTypeErrorMessage equals: error messageText].! !
+
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:10:41'!
+test03ImportInvalidLineTypeSOFE
+
+	
+	
+	self should:[ CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo: [:error|self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assertPepeSanchezWasImportedCorrecty ].! !
+
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:47:56'!
+test04MissingParameterAtEnd
+
+
+self should:[ CustomerImporter valueFrom: self invalidImportDataBecauseOfMissingClientParameter into: session.]
+	raise:Error - MessageNotUnderstood 
+	withExceptionDo:  [:error| self assert: CustomerImporter missingParameterErrorMessage equals: error messageText].! !
+
 
 !ImportTest methodsFor: 'assertions' stamp: 'HAW 5/22/2022 18:22:05'!
 assertAddressOf: importedCustomer at: aStreetName hasNumber: aNumber town: aTown zipCode: aZipCode province: aProvince
@@ -94,6 +121,37 @@ customerWithIdentificationType: anIdType number: anIdNumber
 		select: [ :aCustomer | aCustomer identificationType = anIdType and: [ aCustomer identificationNumber = anIdNumber ]]
 		ofType: Customer) anyOne! !
 
+
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/14/2022 20:35:53'!
+emptyLineInMiddleOfData
+
+	^ ReadStream on:
+'C,Pepe,Sanchez,D,22333444
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/14/2022 20:46:12'!
+invalidImportDataBecauseOfMissingClientParameter
+
+	^ ReadStream on:
+'C,Pepe,Sanchez,D
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/14/2022 20:05:58'!
+invalidLineTypeData
+		^ ReadStream on:
+'C,Pepe,Sanchez,D,22333444
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+D,San Martin,3322,Olivos,1636,BsAs
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
 
 !ImportTest methodsFor: 'test data' stamp: 'HAW 5/22/2022 18:08:08'!
 validImportData
@@ -222,11 +280,15 @@ CSVImporter subclass: #CustomerImporter
 	category: 'CustomerImporter'!
 
 
-!CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/14/2022 19:22:37'!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/14/2022 19:57:10'!
 importLine
 	record := line findTokens: $,.
-	self processIfClientLine.
-	self processIfAddressLine! !
+	 (line beginsWith: 'C') ifTrue: [ 
+		self initializeCustomer.
+		session persist: newCustomer. ^self].
+	 (line beginsWith: 'A') ifTrue: [ self initializeAddress. ^self].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
 
 !CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/14/2022 19:22:26'!
 initializeAddress
@@ -257,6 +319,22 @@ processIfClientLine
 	^ (line beginsWith: 'C') ifTrue: [ 
 		self initializeCustomer.
 		session persist: newCustomer ]! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'CustomerImporter class' category: 'CustomerImporter'!
+CustomerImporter class
+	instanceVariableNames: ''!
+
+
+!CustomerImporter class methodsFor: 'importing' stamp: 'MSS 11/14/2022 19:48:45'!
+InvalidLineTypeErrorMessage
+	^'This line type is not supported by CustomerImporter'! !
+
+
+!CustomerImporter class methodsFor: 'as yet unclassified' stamp: 'MSS 11/14/2022 20:49:20'!
+missingParameterErrorMessage
+	^'CSV line lacks parameters'! !
 
 
 !classDefinition: #Customer category: 'CustomerImporter'!
