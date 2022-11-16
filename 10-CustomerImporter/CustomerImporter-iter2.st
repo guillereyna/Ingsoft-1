@@ -14,14 +14,11 @@ test01Import
 	self assertPepeSanchezWasImportedCorrecty.
 	self assertJuanPerezWasImportedCorrectly ! !
 
-!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 19:58:28'!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/16/2022 20:45:10'!
 test02ImportInvalidLineTypeRaisesError
 
-	
-
-	self should:[CustomerImporter valueFrom: self invalidLineTypeData into: session.]
-	raise:Error - MessageNotUnderstood 
-	withExceptionDo: [:error| self assert: CustomerImporter InvalidLineTypeErrorMessage equals: error messageText].! !
+	self importing: self invalidLineTypeData shouldRaise: CustomerImporter InvalidLineTypeErrorMessage.
+! !
 
 !ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:10:41'!
 test03ImportInvalidLineTypeSOFE
@@ -33,13 +30,11 @@ test03ImportInvalidLineTypeSOFE
 	withExceptionDo: [:error|self assert: 1 equals: (session selectAllOfType: Customer) size.
 				    self assertPepeSanchezWasImportedCorrecty ].! !
 
-!ImportTest methodsFor: 'tests' stamp: 'MSS 11/15/2022 20:40:42'!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/16/2022 20:44:28'!
 test04firstLineIsAnAddressRaisesError
 	
-	
-	self should:[ CustomerImporter valueFrom: self firstLineIsAnAddress into: session.]
-		raise:Error - MessageNotUnderstood 
-		withExceptionDo:  [:error| self assert: CustomerImporter addressWithNoClientError equals: error messageText].! !
+	self importing: self firstLineIsAnAddress shouldRaise: CustomerImporter addressWithNoClientError.
+! !
 
 !ImportTest methodsFor: 'tests' stamp: 'MSS 11/15/2022 20:46:53'!
 test05firstLineIsAnAddressShouldNotImportNothing
@@ -49,13 +44,12 @@ test05firstLineIsAnAddressShouldNotImportNothing
 		raise:Error - MessageNotUnderstood 
 		withExceptionDo:  [:error| self assert: 0  equals:(session selectAllOfType: Address) size].! !
 
-!ImportTest methodsFor: 'tests' stamp: 'MSS 11/15/2022 21:11:30'!
-test06missingClientParameterRaisesError
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/16/2022 20:43:42'!
+test06missingParameterRaisesError
 	
-	
-	self should:[ CustomerImporter valueFrom: self dataWithMissingCustomerParameter into: session.]
-		raise:Error - MessageNotUnderstood 
-		withExceptionDo:  [:error| self assert: CustomerImporter missingParameterErrorMessage equals: error messageText].! !
+	self importing: self dataWithMissingCustomerParameter shouldRaise: CustomerImporter missingParameterErrorMessage.
+	self importing: self dataWithStreetNumberWithChars shouldRaise: CustomerImporter numericalInputDataCannotHaveNonNumericalCharacters.
+	! !
 
 !ImportTest methodsFor: 'tests' stamp: 'MSS 11/15/2022 21:12:37'!
 test07missingCustomerParameterDoesNotImportCustomer
@@ -65,21 +59,12 @@ test07missingCustomerParameterDoesNotImportCustomer
 		raise:Error - MessageNotUnderstood 
 		withExceptionDo:  [:error| self assert: 0 equals: (session selectAllOfType: Customer) size].! !
 
-!ImportTest methodsFor: 'tests' stamp: 'MSS 11/15/2022 21:13:22'!
-test08missingAddressParameterRaisesError
-	
-	
-	self should:[ CustomerImporter valueFrom: self dataWithMissingAddressParameter into: session.]
-		raise:Error - MessageNotUnderstood 
-		withExceptionDo:  [:error| self assert: CustomerImporter missingParameterErrorMessage equals: error messageText].! !
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/16/2022 20:42:35'!
+test08streetNumberAndZipCodeCannotBeNonNumericalValues	
 
-!ImportTest methodsFor: 'tests' stamp: 'MSS 11/15/2022 21:06:40'!
-testXXXdoubleCommaShouldRaiseError
-	
-	
-	self should:[ CustomerImporter valueFrom: self doubleCommaData into: session.]
-		raise:Error - MessageNotUnderstood 
-		withExceptionDo:  [:error| self assert: CustomerImporter doubleCommaNotSupported equals: error messageText ].! !
+	self importing: self dataWithStreetNumberWithChars shouldRaise: CustomerImporter numericalInputDataCannotHaveNonNumericalCharacters.
+	self importing: self dataWithPostalCodeWithChars shouldRaise: CustomerImporter numericalInputDataCannotHaveNonNumericalCharacters.
+	! !
 
 
 !ImportTest methodsFor: 'assertions' stamp: 'HAW 5/22/2022 18:22:05'!
@@ -182,6 +167,26 @@ A,Maipu,888,Florida,1122,Buenos Aires
 C,Juan,Perez,C,23-25666777-9
 A,Alem,1122,CABA,1001,CABA'! !
 
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/16/2022 20:34:23'!
+dataWithPostalCodeWithChars
+
+	^ ReadStream on:
+'C,Pepe,Sanchez,D,22333444
+A,San Martin,3322,Olivos,HolaEstoEstaMal,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/16/2022 20:34:33'!
+dataWithStreetNumberWithChars
+
+	^ ReadStream on:
+'C,Pepe,Sanchez,D,22333444
+A,San Martin,HolaEstoEstaMal,Olivos,123,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+
 !ImportTest methodsFor: 'test data' stamp: 'MSS 11/15/2022 20:53:00'!
 doubleCommaData
 
@@ -241,6 +246,13 @@ A,San Martin,3322,Olivos,1636,BsAs
 A,Maipu,888,Florida,1122,Buenos Aires
 C,Juan,Perez,C,23-25666777-9
 A,Alem,1122,CABA,1001,CABA'! !
+
+
+!ImportTest methodsFor: 'as yet unclassified' stamp: 'MSS 11/16/2022 20:39:37'!
+importing: aStringData shouldRaise: anErrorMessage
+	self should:[ CustomerImporter valueFrom: aStringData into: session.]
+		raise:Error - MessageNotUnderstood 
+		withExceptionDo:  [:error| self assert: anErrorMessage equals: error messageText].! !
 
 
 !classDefinition: #Address category: 'CustomerImporter'!
@@ -372,15 +384,15 @@ importLine
 	self error: self class InvalidLineTypeErrorMessage .
 	! !
 
-!CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/15/2022 20:38:41'!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/16/2022 20:32:51'!
 initializeAddress
 	newCustomer ifNil:[self error: self class addressWithNoClientError].
 	newAddress := Address new.
 	newCustomer addAddress: newAddress.
 		newAddress streetName: record second.
-		newAddress streetNumber: record third asNumber .
+		[newAddress streetNumber: record third asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ] .
 		newAddress town: record fourth.
-		newAddress zipCode: record fifth asNumber .
+		[newAddress zipCode: record fifth asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ].
 		newAddress province: record sixth.! !
 
 !CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/14/2022 19:22:30'!
@@ -425,6 +437,10 @@ doubleCommaNotSupportedErrorMessage
 !CustomerImporter class methodsFor: 'as yet unclassified' stamp: 'MSS 11/14/2022 20:49:20'!
 missingParameterErrorMessage
 	^'CSV line lacks parameters'! !
+
+!CustomerImporter class methodsFor: 'as yet unclassified' stamp: 'MSS 11/16/2022 20:26:12'!
+numericalInputDataCannotHaveNonNumericalCharacters
+	^'Cannot have non-numerical values in numerical value fields'! !
 
 
 !classDefinition: #Customer category: 'CustomerImporter'!
