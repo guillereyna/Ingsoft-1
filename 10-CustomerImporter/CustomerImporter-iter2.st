@@ -33,13 +33,53 @@ test03ImportInvalidLineTypeSOFE
 	withExceptionDo: [:error|self assert: 1 equals: (session selectAllOfType: Customer) size.
 				    self assertPepeSanchezWasImportedCorrecty ].! !
 
-!ImportTest methodsFor: 'tests' stamp: 'MSS 11/14/2022 20:47:56'!
-test04MissingParameterAtEnd
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/15/2022 20:40:42'!
+test04firstLineIsAnAddressRaisesError
+	
+	
+	self should:[ CustomerImporter valueFrom: self firstLineIsAnAddress into: session.]
+		raise:Error - MessageNotUnderstood 
+		withExceptionDo:  [:error| self assert: CustomerImporter addressWithNoClientError equals: error messageText].! !
 
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/15/2022 20:46:53'!
+test05firstLineIsAnAddressShouldNotImportNothing
+	
+	
+	self should:[ CustomerImporter valueFrom: self firstLineIsAnAddress into: session.]
+		raise:Error - MessageNotUnderstood 
+		withExceptionDo:  [:error| self assert: 0  equals:(session selectAllOfType: Address) size].! !
 
-self should:[ CustomerImporter valueFrom: self invalidImportDataBecauseOfMissingClientParameter into: session.]
-	raise:Error - MessageNotUnderstood 
-	withExceptionDo:  [:error| self assert: CustomerImporter missingParameterErrorMessage equals: error messageText].! !
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/15/2022 21:11:30'!
+test06missingClientParameterRaisesError
+	
+	
+	self should:[ CustomerImporter valueFrom: self dataWithMissingCustomerParameter into: session.]
+		raise:Error - MessageNotUnderstood 
+		withExceptionDo:  [:error| self assert: CustomerImporter missingParameterErrorMessage equals: error messageText].! !
+
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/15/2022 21:12:37'!
+test07missingCustomerParameterDoesNotImportCustomer
+	
+	
+	self should:[ CustomerImporter valueFrom: self dataWithMissingCustomerParameter into: session.]
+		raise:Error - MessageNotUnderstood 
+		withExceptionDo:  [:error| self assert: 0 equals: (session selectAllOfType: Customer) size].! !
+
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/15/2022 21:13:22'!
+test08missingAddressParameterRaisesError
+	
+	
+	self should:[ CustomerImporter valueFrom: self dataWithMissingAddressParameter into: session.]
+		raise:Error - MessageNotUnderstood 
+		withExceptionDo:  [:error| self assert: CustomerImporter missingParameterErrorMessage equals: error messageText].! !
+
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/15/2022 21:06:40'!
+testXXXdoubleCommaShouldRaiseError
+	
+	
+	self should:[ CustomerImporter valueFrom: self doubleCommaData into: session.]
+		raise:Error - MessageNotUnderstood 
+		withExceptionDo:  [:error| self assert: CustomerImporter doubleCommaNotSupported equals: error messageText ].! !
 
 
 !ImportTest methodsFor: 'assertions' stamp: 'HAW 5/22/2022 18:22:05'!
@@ -122,6 +162,36 @@ customerWithIdentificationType: anIdType number: anIdNumber
 		ofType: Customer) anyOne! !
 
 
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/15/2022 21:01:07'!
+dataWithMissingAddressParameter
+
+	^ ReadStream on:
+'C,Pepe,Sanchez,D,2500
+A,San Martin,3322,Olivos,1636,
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/15/2022 21:11:21'!
+dataWithMissingCustomerParameter
+
+	^ ReadStream on:
+'C,Pepe,Sanchez,D
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/15/2022 20:53:00'!
+doubleCommaData
+
+	^ ReadStream on:
+'C, ,Pepe,Sanchez,D,22333444
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+
 !ImportTest methodsFor: 'test data' stamp: 'MSS 11/14/2022 20:35:53'!
 emptyLineInMiddleOfData
 
@@ -133,17 +203,26 @@ A,Maipu,888,Florida,1122,Buenos Aires
 C,Juan,Perez,C,23-25666777-9
 A,Alem,1122,CABA,1001,CABA'! !
 
-!ImportTest methodsFor: 'test data' stamp: 'MSS 11/14/2022 20:46:12'!
-invalidImportDataBecauseOfMissingClientParameter
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/15/2022 20:27:49'!
+emptyString
 
 	^ ReadStream on:
-'C,Pepe,Sanchez,D
-A,San Martin,3322,Olivos,1636,BsAs
+'
+
+
+'! !
+
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/15/2022 20:32:57'!
+firstLineIsAnAddress
+
+	^ ReadStream on:
+'A,San Martin,3322,Olivos,1636,BsAs
+C,Pepe,Sanchez,D,22333444
 A,Maipu,888,Florida,1122,Buenos Aires
 C,Juan,Perez,C,23-25666777-9
 A,Alem,1122,CABA,1001,CABA'! !
 
-!ImportTest methodsFor: 'test data' stamp: 'MSS 11/14/2022 20:05:58'!
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/15/2022 20:16:38'!
 invalidLineTypeData
 		^ ReadStream on:
 'C,Pepe,Sanchez,D,22333444
@@ -279,19 +358,23 @@ CSVImporter subclass: #CustomerImporter
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-
-!CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/14/2022 19:57:10'!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/15/2022 21:13:52'!
 importLine
 	record := line findTokens: $,.
 	 (line beginsWith: 'C') ifTrue: [ 
+		(record size = 5) ifFalse: [self error: self class missingParameterErrorMessage .].
 		self initializeCustomer.
 		session persist: newCustomer. ^self].
-	 (line beginsWith: 'A') ifTrue: [ self initializeAddress. ^self].
+	 (line beginsWith: 'A') ifTrue: [ 
+		(record size = 6) ifFalse: [self error: self class missingParameterErrorMessage .].
+		self initializeAddress. ^self
+		].
 	self error: self class InvalidLineTypeErrorMessage .
 	! !
 
-!CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/14/2022 19:22:26'!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/15/2022 20:38:41'!
 initializeAddress
+	newCustomer ifNil:[self error: self class addressWithNoClientError].
 	newAddress := Address new.
 	newCustomer addAddress: newAddress.
 		newAddress streetName: record second.
@@ -326,10 +409,17 @@ processIfClientLine
 CustomerImporter class
 	instanceVariableNames: ''!
 
-
 !CustomerImporter class methodsFor: 'importing' stamp: 'MSS 11/14/2022 19:48:45'!
 InvalidLineTypeErrorMessage
 	^'This line type is not supported by CustomerImporter'! !
+
+!CustomerImporter class methodsFor: 'importing' stamp: 'MSS 11/15/2022 20:37:05'!
+addressWithNoClientError
+	^'There is no client for this address'! !
+
+!CustomerImporter class methodsFor: 'importing' stamp: 'MSS 11/15/2022 20:49:06'!
+doubleCommaNotSupportedErrorMessage
+	^'Cannot have empty parameters'! !
 
 
 !CustomerImporter class methodsFor: 'as yet unclassified' stamp: 'MSS 11/14/2022 20:49:20'!
