@@ -1,3 +1,397 @@
 
 
 ----QUIT----(16 November 2022 20:48:43) CuisUniversity-5510.image priorSource: 7219440!
+
+----STARTUP---- (16 November 2022 21:06:21) as /mnt/Data/Universidad/Ingenieria I/linux64/CuisUniversity-5510.image!
+
+
+----End fileIn of /mnt/Data/Universidad/Ingenieria I/Ingsoft-1/10-CustomerImporter/CustomerImporter.st----!
+
+----STARTUP---- (16 November 2022 21:06:58) as /mnt/Data/Universidad/Ingenieria I/linux64/CuisUniversity-5510.image!
+
+
+----End fileIn of /mnt/Data/Universidad/Ingenieria I/Ingsoft-1/10-CustomerImporter/CustomerImporter-iter2.st----!
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:07:48' prior: 50555283!
+test03ImportInvalidLineTypeSOFE
+	self should:[ CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+		raise:Error - MessageNotUnderstood 
+		withExceptionDo: [:error|self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assertPepeSanchezWasImportedCorrecty ].! !
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:08:54' prior: 50555923!
+test03ImportInvalidLineTypeSOFE
+	self importing: self invalidLineTypeData
+		assert: [self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assertPepeSanchezWasImportedCorrecty].
+	"
+	self should:[ CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+		raise:Error - MessageNotUnderstood 
+		withExceptionDo: [:error|self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assertPepeSanchezWasImportedCorrecty ]."! !
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:09:51'!
+importing: aStringData assert: anAssertBlock
+	self should:[ CustomerImporter valueFrom: aStringData into: session.]
+		raise:Error - MessageNotUnderstood 
+		withExceptionDo: [:error| anAssertBlock value ].! !
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:10:05' prior: 50555935!
+test03ImportInvalidLineTypeSOFE
+	self importing: self invalidLineTypeData
+		assert: [self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assertPepeSanchezWasImportedCorrecty].! !
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'grm 11/16/2022 21:10:06'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'grm 11/16/2022 21:10:07'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'grm 11/16/2022 21:10:07'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'grm 11/16/2022 21:10:08'!
+PASSED!
+
+!testRun: #ImportTest #test04firstLineIsAnAddressRaisesError stamp: 'grm 11/16/2022 21:10:08'!
+PASSED!
+
+!testRun: #ImportTest #test05firstLineIsAnAddressShouldNotImportNothing stamp: 'grm 11/16/2022 21:10:08'!
+PASSED!
+
+!testRun: #ImportTest #test06missingParameterRaisesError stamp: 'grm 11/16/2022 21:10:08'!
+PASSED!
+
+!testRun: #ImportTest #test07missingCustomerParameterDoesNotImportCustomer stamp: 'grm 11/16/2022 21:10:08'!
+PASSED!
+
+!testRun: #ImportTest #test08streetNumberAndZipCodeCannotBeNonNumericalValues stamp: 'grm 11/16/2022 21:10:09'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:10:44' prior: 50555302!
+test05firstLineIsAnAddressShouldNotImportNothing
+	self importing: self firstLineIsAnAddress assert: [self assert: 0  equals:(session selectAllOfType: Address) size].! !
+
+!testRun: #ImportTest #test05firstLineIsAnAddressShouldNotImportNothing stamp: 'grm 11/16/2022 21:10:50'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'grm 11/16/2022 21:10:51'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'grm 11/16/2022 21:10:51'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'grm 11/16/2022 21:10:52'!
+PASSED!
+
+!testRun: #ImportTest #test04firstLineIsAnAddressRaisesError stamp: 'grm 11/16/2022 21:10:52'!
+PASSED!
+
+!testRun: #ImportTest #test05firstLineIsAnAddressShouldNotImportNothing stamp: 'grm 11/16/2022 21:10:52'!
+PASSED!
+
+!testRun: #ImportTest #test06missingParameterRaisesError stamp: 'grm 11/16/2022 21:10:52'!
+PASSED!
+
+!testRun: #ImportTest #test07missingCustomerParameterDoesNotImportCustomer stamp: 'grm 11/16/2022 21:10:52'!
+PASSED!
+
+!testRun: #ImportTest #test08streetNumberAndZipCodeCannotBeNonNumericalValues stamp: 'grm 11/16/2022 21:10:53'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:11:25' prior: 50555325!
+test07missingCustomerParameterDoesNotImportCustomer
+	self importing: self dataWithMissingCustomerParameter assert: [self assert: 0 equals: (session selectAllOfType: Customer) size].! !
+
+!testRun: #ImportTest #test07missingCustomerParameterDoesNotImportCustomer stamp: 'grm 11/16/2022 21:11:26'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'grm 11/16/2022 21:11:27'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'grm 11/16/2022 21:11:27'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'grm 11/16/2022 21:11:28'!
+PASSED!
+
+!testRun: #ImportTest #test04firstLineIsAnAddressRaisesError stamp: 'grm 11/16/2022 21:11:28'!
+PASSED!
+
+!testRun: #ImportTest #test05firstLineIsAnAddressShouldNotImportNothing stamp: 'grm 11/16/2022 21:11:28'!
+PASSED!
+
+!testRun: #ImportTest #test06missingParameterRaisesError stamp: 'grm 11/16/2022 21:11:28'!
+PASSED!
+
+!testRun: #ImportTest #test07missingCustomerParameterDoesNotImportCustomer stamp: 'grm 11/16/2022 21:11:28'!
+PASSED!
+
+!testRun: #ImportTest #test08streetNumberAndZipCodeCannotBeNonNumericalValues stamp: 'grm 11/16/2022 21:11:28'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:11:40' prior: 50555295!
+test04firstLineIsAnAddressRaisesError
+	self importing: self firstLineIsAnAddress shouldRaise: CustomerImporter addressWithNoClientError.
+! !
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:11:47' prior: 50555276!
+test02ImportInvalidLineTypeRaisesError
+	self importing: self invalidLineTypeData shouldRaise: CustomerImporter InvalidLineTypeErrorMessage.
+! !
+
+!methodRemoval: CustomerImporter #processIfAddressLine stamp: 'grm 11/16/2022 21:11:56'!
+processIfAddressLine
+
+	^ (line beginsWith: 'A') ifTrue: [ self initializeAddress ]!
+
+!methodRemoval: CustomerImporter #processIfClientLine stamp: 'grm 11/16/2022 21:11:57'!
+processIfClientLine
+
+	^ (line beginsWith: 'C') ifTrue: [ 
+		self initializeCustomer.
+		session persist: newCustomer ]!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:12:56'!
+record
+
+	^ (record size = 5) ifFalse: [self error: self class missingParameterErrorMessage .]! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:12:56' prior: 50555658 overrides: 50555607!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self record.
+		self initializeCustomer.
+		session persist: newCustomer. ^self].
+	 (line beginsWith: 'A') ifTrue: [ 
+		(record size = 6) ifFalse: [self error: self class missingParameterErrorMessage .].
+		self initializeAddress. ^self
+		].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:13:29'!
+record: recordSize
+
+	^ (record size = 5) ifFalse: [self error: self class missingParameterErrorMessage .]! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'grm 11/16/2022 21:13:29' prior: 50556111 overrides: 50555607!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self record: 5.
+		self initializeCustomer.
+		session persist: newCustomer. ^self].
+	 (line beginsWith: 'A') ifTrue: [ 
+		(record size = 6) ifFalse: [self error: self class missingParameterErrorMessage .].
+		self initializeAddress. ^self
+		].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+
+!methodRemoval: CustomerImporter #record stamp: 'grm 11/16/2022 21:13:29'!
+record
+
+	^ (record size = 5) ifFalse: [self error: self class missingParameterErrorMessage .]!
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'grm 11/16/2022 21:13:29' prior: 50556126!
+record: recordSize
+
+	^ (record size = recordSize) ifFalse: [self error: self class missingParameterErrorMessage .]! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:13:56'!
+checkRecordIsOfSize: recordSize
+
+	^ (record size = recordSize) ifFalse: [self error: self class missingParameterErrorMessage .]! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'grm 11/16/2022 21:13:56' prior: 50556134 overrides: 50555607!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self checkRecordIsOfSize: 5.
+		self initializeCustomer.
+		session persist: newCustomer. ^self].
+	 (line beginsWith: 'A') ifTrue: [ 
+		(record size = 6) ifFalse: [self error: self class missingParameterErrorMessage .].
+		self initializeAddress. ^self
+		].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+
+!methodRemoval: CustomerImporter #record: stamp: 'grm 11/16/2022 21:13:56'!
+record: recordSize
+
+	^ (record size = recordSize) ifFalse: [self error: self class missingParameterErrorMessage .]!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:14:12' prior: 50556170 overrides: 50555607!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self checkRecordIsOfSize: 5.
+		self initializeCustomer.
+		session persist: newCustomer. ^self].
+	 (line beginsWith: 'A') ifTrue: [ 
+		self checkRecordIsOfSize: 6.
+		self initializeAddress. ^self
+		].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:14:25' prior: 50555695!
+initializeCustomer
+	self checkRecordIsOfSize: 5.
+	newCustomer := Customer new.
+		newCustomer firstName: record second.
+		newCustomer lastName: record third.
+		newCustomer identificationType: record fourth.
+		newCustomer identificationNumber: record fifth! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:14:32' prior: 50556192 overrides: 50555607!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self initializeCustomer.
+		session persist: newCustomer. ^self].
+	 (line beginsWith: 'A') ifTrue: [ 
+		self checkRecordIsOfSize: 6.
+		self initializeAddress. ^self
+		].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:14:39' prior: 50556218 overrides: 50555607!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self initializeCustomer.
+		session persist: newCustomer. ^self].
+	 (line beginsWith: 'A') ifTrue: [ 
+		self initializeAddress. ^self
+		].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:14:57' prior: 50555675!
+initializeAddress
+	newCustomer ifNil:[self error: self class addressWithNoClientError].
+	self checkRecordIsOfSize: 6.
+	newAddress := Address new.
+	newCustomer addAddress: newAddress.
+		newAddress streetName: record second.
+		[newAddress streetNumber: record third asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ] .
+		newAddress town: record fourth.
+		[newAddress zipCode: record fifth asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ].
+		newAddress province: record sixth.! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:15:20' prior: 50556232 overrides: 50555607!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self initializeCustomer.
+		^session persist: newCustomer.].
+	 (line beginsWith: 'A') ifTrue: [^self initializeAddress.].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+
+!testRun: #ImportTest #test01Import stamp: 'grm 11/16/2022 21:15:23'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'grm 11/16/2022 21:15:23'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'grm 11/16/2022 21:15:24'!
+PASSED!
+
+!testRun: #ImportTest #test04firstLineIsAnAddressRaisesError stamp: 'grm 11/16/2022 21:15:24'!
+PASSED!
+
+!testRun: #ImportTest #test05firstLineIsAnAddressShouldNotImportNothing stamp: 'grm 11/16/2022 21:15:24'!
+PASSED!
+
+!testRun: #ImportTest #test06missingParameterRaisesError stamp: 'grm 11/16/2022 21:15:24'!
+PASSED!
+
+!testRun: #ImportTest #test07missingCustomerParameterDoesNotImportCustomer stamp: 'grm 11/16/2022 21:15:24'!
+PASSED!
+
+!testRun: #ImportTest #test08streetNumberAndZipCodeCannotBeNonNumericalValues stamp: 'grm 11/16/2022 21:15:24'!
+PASSED!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:18:26'!
+raiseErrorIfNotNumber
+
+	^ [newAddress streetNumber: record third asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ]! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:18:26' prior: 50556244!
+initializeAddress
+	newCustomer ifNil:[self error: self class addressWithNoClientError].
+	self checkRecordIsOfSize: 6.
+	newAddress := Address new.
+	newCustomer addAddress: newAddress.
+		newAddress streetName: record second.
+		self raiseErrorIfNotNumber .
+		newAddress town: record fourth.
+		[newAddress zipCode: record fifth asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ].
+		newAddress province: record sixth.! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:19:12'!
+raiseErrorIfNotNumber: aNewAddressClosure
+
+	^ [newAddress streetNumber: record third asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ]! !
+
+!methodRemoval: CustomerImporter #raiseErrorIfNotNumber: stamp: 'grm 11/16/2022 21:19:36'!
+raiseErrorIfNotNumber: aNewAddressClosure
+
+	^ [newAddress streetNumber: record third asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ]!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:20:46'!
+raiseErrorIfNotNumber: aNewAddressClosure
+
+	^ aNewAddressClosure on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ]! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:21:31' prior: 50556312!
+initializeAddress
+	newCustomer ifNil:[self error: self class addressWithNoClientError].
+	self checkRecordIsOfSize: 6.
+	newAddress := Address new.
+	newCustomer addAddress: newAddress.
+		newAddress streetName: record second.
+		self raiseErrorIfNotNumber: [newAddress streetNumber: record third asNumber].
+		newAddress town: record fourth.
+		self raiseErrorIfNotNumber: [newAddress zipCode: record fifth asNumber].
+		newAddress province: record sixth.! !
+
+!methodRemoval: CustomerImporter #raiseErrorIfNotNumber stamp: 'grm 11/16/2022 21:21:34'!
+raiseErrorIfNotNumber
+
+	^ [newAddress streetNumber: record third asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ]!
+
+!testRun: #ImportTest #test01Import stamp: 'grm 11/16/2022 21:21:37'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'grm 11/16/2022 21:21:38'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'grm 11/16/2022 21:21:38'!
+PASSED!
+
+!testRun: #ImportTest #test04firstLineIsAnAddressRaisesError stamp: 'grm 11/16/2022 21:21:38'!
+PASSED!
+
+!testRun: #ImportTest #test05firstLineIsAnAddressShouldNotImportNothing stamp: 'grm 11/16/2022 21:21:38'!
+PASSED!
+
+!testRun: #ImportTest #test06missingParameterRaisesError stamp: 'grm 11/16/2022 21:21:38'!
+PASSED!
+
+!testRun: #ImportTest #test07missingCustomerParameterDoesNotImportCustomer stamp: 'grm 11/16/2022 21:21:39'!
+PASSED!
+
+!testRun: #ImportTest #test08streetNumberAndZipCodeCannotBeNonNumericalValues stamp: 'grm 11/16/2022 21:21:39'!
+PASSED!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:21:55' prior: 50556347!
+raiseErrorIfNotNumber: aNewAddressClosure
+
+	^ aNewAddressClosure on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ]! !
+
+!testRun: #ImportTest #test01Import stamp: 'grm 11/16/2022 21:21:57'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'grm 11/16/2022 21:21:58'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'grm 11/16/2022 21:21:58'!
+PASSED!
+
+!testRun: #ImportTest #test04firstLineIsAnAddressRaisesError stamp: 'grm 11/16/2022 21:21:58'!
+PASSED!
+
+!testRun: #ImportTest #test05firstLineIsAnAddressShouldNotImportNothing stamp: 'grm 11/16/2022 21:21:59'!
+PASSED!
+
+!testRun: #ImportTest #test06missingParameterRaisesError stamp: 'grm 11/16/2022 21:21:59'!
+PASSED!
+
+!testRun: #ImportTest #test07missingCustomerParameterDoesNotImportCustomer stamp: 'grm 11/16/2022 21:21:59'!
+PASSED!
+
+!testRun: #ImportTest #test08streetNumberAndZipCodeCannotBeNonNumericalValues stamp: 'grm 11/16/2022 21:21:59'!
+PASSED!
+
+----SNAPSHOT----(16 November 2022 21:23:50) CuisUniversity-5510.image priorSource: 7155150!
