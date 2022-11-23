@@ -201,9 +201,8 @@ addressRecordWithLessThanSixFields
 	^ReadStream on: 'C,Pepe,Sanchez,D,22333444
 A,San Martin,3322,Olivos,1636'! !
 
-!ImportTest methodsFor: 'test data' stamp: 'HAW 5/22/2022 19:51:35'!
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/22/2022 21:03:37'!
 addressRecordWithMoreThanSixFields
-
 	^ReadStream on: 'C,Pepe,Sanchez,D,22333444
 A,San Martin,3322,Olivos,1636,BsAs,x'! !
 
@@ -569,7 +568,6 @@ tearDown
 initialize
 	self subclassResponsibility ! !
 
-
 
 !classDefinition: #PersistentCustomerSystem category: 'CustomerImporter'!
 CustomerSystem subclass: #PersistentCustomerSystem
@@ -590,10 +588,11 @@ tearDown
 	! !
 
 
-!PersistentCustomerSystem methodsFor: 'initialization' stamp: 'MSS 11/21/2022 23:06:43'!
+!PersistentCustomerSystem methodsFor: 'initialization' stamp: 'MSS 11/22/2022 21:08:44'!
 initialize
 	session := DataBaseSession for: (Array with: Address with: Customer).
-	session beginTransaction.! !
+	session beginTransaction.
+	^self.! !
 
 
 !PersistentCustomerSystem methodsFor: 'customers' stamp: 'MSS 11/21/2022 23:06:16'!
@@ -608,8 +607,7 @@ numberOfCustomers
 
 	^ (self session selectAllOfType: Customer) size! !
 
-
-!PersistentCustomerSystem methodsFor: 'as yet unclassified' stamp: 'MSS 11/21/2022 23:11:24'!
+!PersistentCustomerSystem methodsFor: 'customers' stamp: 'MSS 11/21/2022 23:11:24'!
 persist: aCustomer
 	session persist: aCustomer! !
 
@@ -656,7 +654,6 @@ persist: aCustomer
 !TransientCustomerSystem methodsFor: 'initialization' stamp: 'MSS 11/21/2022 23:34:49'!
 tearDown
 	! !
-
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -767,3 +764,58 @@ DataBaseSession class
 for: aConfiguration
 
 	^self new initializeFor: aConfiguration! !
+
+
+!classDefinition: #Environment category: 'CustomerImporter'!
+Object subclass: #Environment
+	instanceVariableNames: 'system'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Environment class' category: 'CustomerImporter'!
+Environment class
+	instanceVariableNames: ''!
+
+!Environment class methodsFor: 'error messages' stamp: 'MSS 11/22/2022 20:50:43'!
+invalidEnvironmentTypeErrorMessage
+	^'Environment type must be #DEV or #INTG'! !
+
+
+!Environment class methodsFor: 'initialization' stamp: 'MSS 11/22/2022 21:09:56'!
+initialize
+	^(self new) initialize .! !
+
+!Environment class methodsFor: 'initialization' stamp: 'MSS 11/22/2022 20:50:12'!
+ofType: anEnvironmentType
+	anEnvironmentType = #DEV ifTrue:[^DevelopmentEnvironment initialize].
+	anEnvironmentType = #INTG ifTrue:[^IntegrationEnvironment initialize].
+	self error: self class invalidEnvironmentTypeErrorMessage.! !
+
+
+!classDefinition: #DevelopmentEnvironment category: 'CustomerImporter'!
+Environment subclass: #DevelopmentEnvironment
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!DevelopmentEnvironment methodsFor: 'as yet unclassified' stamp: 'MSS 11/22/2022 21:10:31'!
+initialize
+	system := TransientCustomerSystem start.! !
+
+
+!classDefinition: #IntegrationEnvironment category: 'CustomerImporter'!
+Environment subclass: #IntegrationEnvironment
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!IntegrationEnvironment methodsFor: 'as yet unclassified' stamp: 'MSS 11/22/2022 21:10:57'!
+initialize
+	system := PersistentCustomerSystem start.! !
+
+Environment initialize!
