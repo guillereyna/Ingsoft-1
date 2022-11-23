@@ -183,9 +183,10 @@ shouldFailImporting: aReadStream messageText: anErrorMessageText asserting: anAs
 session
 	^system session.! !
 
-!ImportTest methodsFor: 'setUp/tearDown' stamp: 'MSS 11/21/2022 23:47:05'!
+!ImportTest methodsFor: 'setUp/tearDown' stamp: 'MSS 11/23/2022 15:23:49'!
 setUp
-	system := TransientCustomerSystem start.
+	system := Environment current createSystem.
+	system start.
 	system beginTransaction.
 ! !
 
@@ -611,13 +612,8 @@ numberOfCustomers
 persist: aCustomer
 	session persist: aCustomer! !
 
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'PersistentCustomerSystem class' category: 'CustomerImporter'!
-PersistentCustomerSystem class
-	instanceVariableNames: ''!
-
-!PersistentCustomerSystem class methodsFor: 'as yet unclassified' stamp: 'MSS 11/21/2022 23:32:51'!
+!PersistentCustomerSystem methodsFor: 'as yet unclassified' stamp: 'MSS 11/23/2022 15:31:33'!
 start
 
 	^(PersistentCustomerSystem new) initialize.! !
@@ -655,13 +651,8 @@ persist: aCustomer
 tearDown
 	! !
 
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'TransientCustomerSystem class' category: 'CustomerImporter'!
-TransientCustomerSystem class
-	instanceVariableNames: ''!
-
-!TransientCustomerSystem class methodsFor: 'as yet unclassified' stamp: 'MSS 11/21/2022 23:32:35'!
+!TransientCustomerSystem methodsFor: 'as yet unclassified' stamp: 'MSS 11/23/2022 15:31:41'!
 start
 	^(TransientCustomerSystem new) initialize.! !
 
@@ -768,7 +759,7 @@ for: aConfiguration
 
 !classDefinition: #Environment category: 'CustomerImporter'!
 Object subclass: #Environment
-	instanceVariableNames: 'system'
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
@@ -784,15 +775,15 @@ invalidEnvironmentTypeErrorMessage
 	^'Environment type must be #DEV or #INTG'! !
 
 
-!Environment class methodsFor: 'initialization' stamp: 'MSS 11/22/2022 21:09:56'!
-initialize
-	^(self new) initialize .! !
+!Environment class methodsFor: 'initialization' stamp: 'MSS 11/23/2022 15:06:45'!
+createSystem
+	self subclassResponsibility.! !
 
-!Environment class methodsFor: 'initialization' stamp: 'MSS 11/22/2022 20:50:12'!
-ofType: anEnvironmentType
-	anEnvironmentType = #DEV ifTrue:[^DevelopmentEnvironment initialize].
-	anEnvironmentType = #INTG ifTrue:[^IntegrationEnvironment initialize].
-	self error: self class invalidEnvironmentTypeErrorMessage.! !
+!Environment class methodsFor: 'initialization' stamp: 'MSS 11/23/2022 15:06:17'!
+current
+	(Smalltalk at: #ENV) = #DEV ifTrue:[^DevelopmentEnvironment ].
+	(Smalltalk at: #ENV) = #INTG ifTrue: [^IntegrationEnvironment].
+	self error: self invalidEnvironmentTypeErrorMessage .! !
 
 
 !classDefinition: #DevelopmentEnvironment category: 'CustomerImporter'!
@@ -802,9 +793,15 @@ Environment subclass: #DevelopmentEnvironment
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!DevelopmentEnvironment methodsFor: 'as yet unclassified' stamp: 'MSS 11/22/2022 21:10:31'!
-initialize
-	system := TransientCustomerSystem start.! !
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'DevelopmentEnvironment class' category: 'CustomerImporter'!
+DevelopmentEnvironment class
+	instanceVariableNames: ''!
+
+!DevelopmentEnvironment class methodsFor: 'as yet unclassified' stamp: 'MSS 11/23/2022 15:27:56'!
+createSystem
+	^TransientCustomerSystem new.! !
 
 
 !classDefinition: #IntegrationEnvironment category: 'CustomerImporter'!
@@ -814,8 +811,12 @@ Environment subclass: #IntegrationEnvironment
 	poolDictionaries: ''
 	category: 'CustomerImporter'!
 
-!IntegrationEnvironment methodsFor: 'as yet unclassified' stamp: 'MSS 11/22/2022 21:10:57'!
-initialize
-	system := PersistentCustomerSystem start.! !
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-Environment initialize!
+!classDefinition: 'IntegrationEnvironment class' category: 'CustomerImporter'!
+IntegrationEnvironment class
+	instanceVariableNames: ''!
+
+!IntegrationEnvironment class methodsFor: 'as yet unclassified' stamp: 'MSS 11/23/2022 15:32:35'!
+createSystem
+	^PersistentCustomerSystem new.! !

@@ -1,0 +1,1242 @@
+
+
+----QUIT----(16 November 2022 20:48:43) CuisUniversity-5510.image priorSource: 7219440!
+
+----STARTUP---- (16 November 2022 21:06:21) as /mnt/Data/Universidad/Ingenieria I/linux64/CuisUniversity-5510.image!
+
+
+----End fileIn of /mnt/Data/Universidad/Ingenieria I/Ingsoft-1/10-CustomerImporter/CustomerImporter.st----!
+
+----STARTUP---- (16 November 2022 21:06:58) as /mnt/Data/Universidad/Ingenieria I/linux64/CuisUniversity-5510.image!
+
+
+----End fileIn of /mnt/Data/Universidad/Ingenieria I/Ingsoft-1/10-CustomerImporter/CustomerImporter-iter2.st----!
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:07:48' prior: 50555283!
+test03ImportInvalidLineTypeSOFE
+	self should:[ CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+		raise:Error - MessageNotUnderstood 
+		withExceptionDo: [:error|self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assertPepeSanchezWasImportedCorrecty ].! !
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:08:54' prior: 50555923!
+test03ImportInvalidLineTypeSOFE
+	self importing: self invalidLineTypeData
+		assert: [self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assertPepeSanchezWasImportedCorrecty].
+	"
+	self should:[ CustomerImporter valueFrom: self invalidLineTypeData into: session.]
+		raise:Error - MessageNotUnderstood 
+		withExceptionDo: [:error|self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assertPepeSanchezWasImportedCorrecty ]."! !
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:09:51'!
+importing: aStringData assert: anAssertBlock
+	self should:[ CustomerImporter valueFrom: aStringData into: session.]
+		raise:Error - MessageNotUnderstood 
+		withExceptionDo: [:error| anAssertBlock value ].! !
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:10:05' prior: 50555935!
+test03ImportInvalidLineTypeSOFE
+	self importing: self invalidLineTypeData
+		assert: [self assert: 1 equals: (session selectAllOfType: Customer) size.
+				    self assertPepeSanchezWasImportedCorrecty].! !
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'grm 11/16/2022 21:10:06'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'grm 11/16/2022 21:10:07'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'grm 11/16/2022 21:10:07'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'grm 11/16/2022 21:10:08'!
+PASSED!
+
+!testRun: #ImportTest #test04firstLineIsAnAddressRaisesError stamp: 'grm 11/16/2022 21:10:08'!
+PASSED!
+
+!testRun: #ImportTest #test05firstLineIsAnAddressShouldNotImportNothing stamp: 'grm 11/16/2022 21:10:08'!
+PASSED!
+
+!testRun: #ImportTest #test06missingParameterRaisesError stamp: 'grm 11/16/2022 21:10:08'!
+PASSED!
+
+!testRun: #ImportTest #test07missingCustomerParameterDoesNotImportCustomer stamp: 'grm 11/16/2022 21:10:08'!
+PASSED!
+
+!testRun: #ImportTest #test08streetNumberAndZipCodeCannotBeNonNumericalValues stamp: 'grm 11/16/2022 21:10:09'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:10:44' prior: 50555302!
+test05firstLineIsAnAddressShouldNotImportNothing
+	self importing: self firstLineIsAnAddress assert: [self assert: 0  equals:(session selectAllOfType: Address) size].! !
+
+!testRun: #ImportTest #test05firstLineIsAnAddressShouldNotImportNothing stamp: 'grm 11/16/2022 21:10:50'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'grm 11/16/2022 21:10:51'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'grm 11/16/2022 21:10:51'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'grm 11/16/2022 21:10:52'!
+PASSED!
+
+!testRun: #ImportTest #test04firstLineIsAnAddressRaisesError stamp: 'grm 11/16/2022 21:10:52'!
+PASSED!
+
+!testRun: #ImportTest #test05firstLineIsAnAddressShouldNotImportNothing stamp: 'grm 11/16/2022 21:10:52'!
+PASSED!
+
+!testRun: #ImportTest #test06missingParameterRaisesError stamp: 'grm 11/16/2022 21:10:52'!
+PASSED!
+
+!testRun: #ImportTest #test07missingCustomerParameterDoesNotImportCustomer stamp: 'grm 11/16/2022 21:10:52'!
+PASSED!
+
+!testRun: #ImportTest #test08streetNumberAndZipCodeCannotBeNonNumericalValues stamp: 'grm 11/16/2022 21:10:53'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:11:25' prior: 50555325!
+test07missingCustomerParameterDoesNotImportCustomer
+	self importing: self dataWithMissingCustomerParameter assert: [self assert: 0 equals: (session selectAllOfType: Customer) size].! !
+
+!testRun: #ImportTest #test07missingCustomerParameterDoesNotImportCustomer stamp: 'grm 11/16/2022 21:11:26'!
+PASSED!
+
+!testRun: #ImportTest #test01Import stamp: 'grm 11/16/2022 21:11:27'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'grm 11/16/2022 21:11:27'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'grm 11/16/2022 21:11:28'!
+PASSED!
+
+!testRun: #ImportTest #test04firstLineIsAnAddressRaisesError stamp: 'grm 11/16/2022 21:11:28'!
+PASSED!
+
+!testRun: #ImportTest #test05firstLineIsAnAddressShouldNotImportNothing stamp: 'grm 11/16/2022 21:11:28'!
+PASSED!
+
+!testRun: #ImportTest #test06missingParameterRaisesError stamp: 'grm 11/16/2022 21:11:28'!
+PASSED!
+
+!testRun: #ImportTest #test07missingCustomerParameterDoesNotImportCustomer stamp: 'grm 11/16/2022 21:11:28'!
+PASSED!
+
+!testRun: #ImportTest #test08streetNumberAndZipCodeCannotBeNonNumericalValues stamp: 'grm 11/16/2022 21:11:28'!
+PASSED!
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:11:40' prior: 50555295!
+test04firstLineIsAnAddressRaisesError
+	self importing: self firstLineIsAnAddress shouldRaise: CustomerImporter addressWithNoClientError.
+! !
+!ImportTest methodsFor: 'tests' stamp: 'grm 11/16/2022 21:11:47' prior: 50555276!
+test02ImportInvalidLineTypeRaisesError
+	self importing: self invalidLineTypeData shouldRaise: CustomerImporter InvalidLineTypeErrorMessage.
+! !
+
+!methodRemoval: CustomerImporter #processIfAddressLine stamp: 'grm 11/16/2022 21:11:56'!
+processIfAddressLine
+
+	^ (line beginsWith: 'A') ifTrue: [ self initializeAddress ]!
+
+!methodRemoval: CustomerImporter #processIfClientLine stamp: 'grm 11/16/2022 21:11:57'!
+processIfClientLine
+
+	^ (line beginsWith: 'C') ifTrue: [ 
+		self initializeCustomer.
+		session persist: newCustomer ]!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:12:56'!
+record
+
+	^ (record size = 5) ifFalse: [self error: self class missingParameterErrorMessage .]! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:12:56' prior: 50555658 overrides: 50555607!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self record.
+		self initializeCustomer.
+		session persist: newCustomer. ^self].
+	 (line beginsWith: 'A') ifTrue: [ 
+		(record size = 6) ifFalse: [self error: self class missingParameterErrorMessage .].
+		self initializeAddress. ^self
+		].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:13:29'!
+record: recordSize
+
+	^ (record size = 5) ifFalse: [self error: self class missingParameterErrorMessage .]! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'grm 11/16/2022 21:13:29' prior: 50556111 overrides: 50555607!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self record: 5.
+		self initializeCustomer.
+		session persist: newCustomer. ^self].
+	 (line beginsWith: 'A') ifTrue: [ 
+		(record size = 6) ifFalse: [self error: self class missingParameterErrorMessage .].
+		self initializeAddress. ^self
+		].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+
+!methodRemoval: CustomerImporter #record stamp: 'grm 11/16/2022 21:13:29'!
+record
+
+	^ (record size = 5) ifFalse: [self error: self class missingParameterErrorMessage .]!
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'grm 11/16/2022 21:13:29' prior: 50556126!
+record: recordSize
+
+	^ (record size = recordSize) ifFalse: [self error: self class missingParameterErrorMessage .]! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:13:56'!
+checkRecordIsOfSize: recordSize
+
+	^ (record size = recordSize) ifFalse: [self error: self class missingParameterErrorMessage .]! !
+!CustomerImporter methodsFor: 'as yet unclassified' stamp: 'grm 11/16/2022 21:13:56' prior: 50556134 overrides: 50555607!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self checkRecordIsOfSize: 5.
+		self initializeCustomer.
+		session persist: newCustomer. ^self].
+	 (line beginsWith: 'A') ifTrue: [ 
+		(record size = 6) ifFalse: [self error: self class missingParameterErrorMessage .].
+		self initializeAddress. ^self
+		].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+
+!methodRemoval: CustomerImporter #record: stamp: 'grm 11/16/2022 21:13:56'!
+record: recordSize
+
+	^ (record size = recordSize) ifFalse: [self error: self class missingParameterErrorMessage .]!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:14:12' prior: 50556170 overrides: 50555607!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self checkRecordIsOfSize: 5.
+		self initializeCustomer.
+		session persist: newCustomer. ^self].
+	 (line beginsWith: 'A') ifTrue: [ 
+		self checkRecordIsOfSize: 6.
+		self initializeAddress. ^self
+		].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:14:25' prior: 50555695!
+initializeCustomer
+	self checkRecordIsOfSize: 5.
+	newCustomer := Customer new.
+		newCustomer firstName: record second.
+		newCustomer lastName: record third.
+		newCustomer identificationType: record fourth.
+		newCustomer identificationNumber: record fifth! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:14:32' prior: 50556192 overrides: 50555607!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self initializeCustomer.
+		session persist: newCustomer. ^self].
+	 (line beginsWith: 'A') ifTrue: [ 
+		self checkRecordIsOfSize: 6.
+		self initializeAddress. ^self
+		].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:14:39' prior: 50556218 overrides: 50555607!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self initializeCustomer.
+		session persist: newCustomer. ^self].
+	 (line beginsWith: 'A') ifTrue: [ 
+		self initializeAddress. ^self
+		].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:14:57' prior: 50555675!
+initializeAddress
+	newCustomer ifNil:[self error: self class addressWithNoClientError].
+	self checkRecordIsOfSize: 6.
+	newAddress := Address new.
+	newCustomer addAddress: newAddress.
+		newAddress streetName: record second.
+		[newAddress streetNumber: record third asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ] .
+		newAddress town: record fourth.
+		[newAddress zipCode: record fifth asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ].
+		newAddress province: record sixth.! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:15:20' prior: 50556232 overrides: 50555607!
+importLine
+	record := line findTokens: $,.
+	 (line beginsWith: 'C') ifTrue: [ 
+		self initializeCustomer.
+		^session persist: newCustomer.].
+	 (line beginsWith: 'A') ifTrue: [^self initializeAddress.].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+
+!testRun: #ImportTest #test01Import stamp: 'grm 11/16/2022 21:15:23'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'grm 11/16/2022 21:15:23'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'grm 11/16/2022 21:15:24'!
+PASSED!
+
+!testRun: #ImportTest #test04firstLineIsAnAddressRaisesError stamp: 'grm 11/16/2022 21:15:24'!
+PASSED!
+
+!testRun: #ImportTest #test05firstLineIsAnAddressShouldNotImportNothing stamp: 'grm 11/16/2022 21:15:24'!
+PASSED!
+
+!testRun: #ImportTest #test06missingParameterRaisesError stamp: 'grm 11/16/2022 21:15:24'!
+PASSED!
+
+!testRun: #ImportTest #test07missingCustomerParameterDoesNotImportCustomer stamp: 'grm 11/16/2022 21:15:24'!
+PASSED!
+
+!testRun: #ImportTest #test08streetNumberAndZipCodeCannotBeNonNumericalValues stamp: 'grm 11/16/2022 21:15:24'!
+PASSED!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:18:26'!
+raiseErrorIfNotNumber
+
+	^ [newAddress streetNumber: record third asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ]! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:18:26' prior: 50556244!
+initializeAddress
+	newCustomer ifNil:[self error: self class addressWithNoClientError].
+	self checkRecordIsOfSize: 6.
+	newAddress := Address new.
+	newCustomer addAddress: newAddress.
+		newAddress streetName: record second.
+		self raiseErrorIfNotNumber .
+		newAddress town: record fourth.
+		[newAddress zipCode: record fifth asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ].
+		newAddress province: record sixth.! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:19:12'!
+raiseErrorIfNotNumber: aNewAddressClosure
+
+	^ [newAddress streetNumber: record third asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ]! !
+
+!methodRemoval: CustomerImporter #raiseErrorIfNotNumber: stamp: 'grm 11/16/2022 21:19:36'!
+raiseErrorIfNotNumber: aNewAddressClosure
+
+	^ [newAddress streetNumber: record third asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ]!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:20:46'!
+raiseErrorIfNotNumber: aNewAddressClosure
+
+	^ aNewAddressClosure on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ]! !
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:21:31' prior: 50556312!
+initializeAddress
+	newCustomer ifNil:[self error: self class addressWithNoClientError].
+	self checkRecordIsOfSize: 6.
+	newAddress := Address new.
+	newCustomer addAddress: newAddress.
+		newAddress streetName: record second.
+		self raiseErrorIfNotNumber: [newAddress streetNumber: record third asNumber].
+		newAddress town: record fourth.
+		self raiseErrorIfNotNumber: [newAddress zipCode: record fifth asNumber].
+		newAddress province: record sixth.! !
+
+!methodRemoval: CustomerImporter #raiseErrorIfNotNumber stamp: 'grm 11/16/2022 21:21:34'!
+raiseErrorIfNotNumber
+
+	^ [newAddress streetNumber: record third asNumber] on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ]!
+
+!testRun: #ImportTest #test01Import stamp: 'grm 11/16/2022 21:21:37'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'grm 11/16/2022 21:21:38'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'grm 11/16/2022 21:21:38'!
+PASSED!
+
+!testRun: #ImportTest #test04firstLineIsAnAddressRaisesError stamp: 'grm 11/16/2022 21:21:38'!
+PASSED!
+
+!testRun: #ImportTest #test05firstLineIsAnAddressShouldNotImportNothing stamp: 'grm 11/16/2022 21:21:38'!
+PASSED!
+
+!testRun: #ImportTest #test06missingParameterRaisesError stamp: 'grm 11/16/2022 21:21:38'!
+PASSED!
+
+!testRun: #ImportTest #test07missingCustomerParameterDoesNotImportCustomer stamp: 'grm 11/16/2022 21:21:39'!
+PASSED!
+
+!testRun: #ImportTest #test08streetNumberAndZipCodeCannotBeNonNumericalValues stamp: 'grm 11/16/2022 21:21:39'!
+PASSED!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'grm 11/16/2022 21:21:55' prior: 50556347!
+raiseErrorIfNotNumber: aNewAddressClosure
+
+	^ aNewAddressClosure on: Error do: [self error: self class numericalInputDataCannotHaveNonNumericalCharacters ]! !
+
+!testRun: #ImportTest #test01Import stamp: 'grm 11/16/2022 21:21:57'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'grm 11/16/2022 21:21:58'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'grm 11/16/2022 21:21:58'!
+PASSED!
+
+!testRun: #ImportTest #test04firstLineIsAnAddressRaisesError stamp: 'grm 11/16/2022 21:21:58'!
+PASSED!
+
+!testRun: #ImportTest #test05firstLineIsAnAddressShouldNotImportNothing stamp: 'grm 11/16/2022 21:21:59'!
+PASSED!
+
+!testRun: #ImportTest #test06missingParameterRaisesError stamp: 'grm 11/16/2022 21:21:59'!
+PASSED!
+
+!testRun: #ImportTest #test07missingCustomerParameterDoesNotImportCustomer stamp: 'grm 11/16/2022 21:21:59'!
+PASSED!
+
+!testRun: #ImportTest #test08streetNumberAndZipCodeCannotBeNonNumericalValues stamp: 'grm 11/16/2022 21:21:59'!
+PASSED!
+
+----SNAPSHOT----(16 November 2022 21:23:50) CuisUniversity-5510.image priorSource: 7155150!
+
+----STARTUP---- (17 November 2022 16:42:55) as /home/marco/Desktop/linux64/CuisUniversity-5510.image!
+
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/17/2022 16:46:14'!
+test09emptyValuesRaisesError
+
+	self importing: self dataWithSpacesAsParameter shouldRaise: CustomerImporter cannotHaveSpacesInParameter.! !
+!CustomerImporter class methodsFor: 'as yet unclassified' stamp: 'MSS 11/17/2022 16:46:38'!
+cannotHaveSpacesInParameter
+	^'Values cannot include spaces'! !
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/17/2022 16:48:12'!
+dataWithSpacesAsParameter
+
+	^ ReadStream on:
+'C,Pepe,  ,D,22333444
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/17/2022 16:48:19'!
+dataWithSpacesAsClientParameter
+
+	^ ReadStream on:
+'C,Pepe,  ,D,22333444
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'! !
+
+!methodRemoval: ImportTest #dataWithSpacesAsParameter stamp: 'MSS 11/17/2022 16:48:23'!
+dataWithSpacesAsParameter
+
+	^ ReadStream on:
+'C,Pepe,  ,D,22333444
+A,San Martin,3322,Olivos,1636,BsAs
+A,Maipu,888,Florida,1122,Buenos Aires
+C,Juan,Perez,C,23-25666777-9
+A,Alem,1122,CABA,1001,CABA'!
+!ImportTest methodsFor: 'tests' stamp: 'MSS 11/17/2022 16:48:36' prior: 50557267!
+test09emptyValuesRaisesError
+
+	self importing: self dataWithSpacesAsClientParameter shouldRaise: CustomerImporter cannotHaveSpacesInParameter.! !
+
+!testRun: #ImportTest #test09emptyValuesRaisesError stamp: 'MSS 11/17/2022 16:48:37'!
+FAILURE!
+!CustomerImporter methodsFor: 'evaluating' stamp: 'MSS 11/17/2022 16:50:52' prior: 50556597 overrides: 50555509!
+importLine
+	record := line findTokens: $,.
+	self checkRecordHasNoSpaces.
+	 (line beginsWith: 'C') ifTrue: [ 
+		(record size = 5) ifFalse: [self error: self class missingParameterErrorMessage .].
+		self initializeCustomer.
+		session persist: newCustomer. ^self].
+	 (line beginsWith: 'A') ifTrue: [ 
+		(record size = 6) ifFalse: [self error: self class missingParameterErrorMessage .].
+		self initializeAddress. ^self
+		].
+	self error: self class InvalidLineTypeErrorMessage .
+	! !
+
+!testRun: #ImportTest #test09emptyValuesRaisesError stamp: 'MSS 11/17/2022 16:51:03'!
+ERROR!
+!CustomerImporter methodsFor: 'error handling' stamp: 'MSS 11/17/2022 16:51:33'!
+checkRecordHasNoSpaces
+	self shouldBeImplemented.! !
+
+----End fileIn of /home/marco/Desktop/linux64/Packages/TerseGuide.pck.st----!
+
+' ' class!
+
+' ' asCharacterSet !
+
+----STARTUP---- (22 November 2022 20:39:58) as /home/marco/Desktop/linux64/CuisUniversity-5510.image!
+
+
+!classRemoval: #DataBaseSession stamp: 'MSS 11/22/2022 20:40:05'!
+Object subclass: #DataBaseSession
+	instanceVariableNames: 'configuration tables id'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #Customer stamp: 'MSS 11/22/2022 20:40:06'!
+Object subclass: #Customer
+	instanceVariableNames: 'id firstName lastName identificationType identificationNumber addresses'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #CustomerImporter stamp: 'MSS 11/22/2022 20:40:06'!
+CSVImporter subclass: #CustomerImporter
+	instanceVariableNames: 'newAddress record'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #CSVImporter stamp: 'MSS 11/22/2022 20:40:07'!
+Object subclass: #CSVImporter
+	instanceVariableNames: 'session readStream line newCustomer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #Address stamp: 'MSS 11/22/2022 20:40:07'!
+Object subclass: #Address
+	instanceVariableNames: 'id streetName streetNumber town zipCode province'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #ImportTest stamp: 'MSS 11/22/2022 20:40:08'!
+TestCase subclass: #ImportTest
+	instanceVariableNames: 'session'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+----STARTUP---- (22 November 2022 20:41:06) as /home/marco/Desktop/linux64/CuisUniversity-5510.image!
+
+
+----End fileIn of /home/marco/Desktop/Ingsoft-1/10-CustomerImporter/solucion Step 3/CustomerImporter.st----!
+
+!testRun: #ImportTest #test01Import stamp: 'MSS 11/22/2022 20:41:20'!
+ERROR!
+
+!testRun: #ImportTest #test01ValidDataIsImportedCorrectly stamp: 'MSS 11/22/2022 20:41:20'!
+PASSED!
+
+!testRun: #ImportTest #test02CanNotImportAddressWithoutCustomer stamp: 'MSS 11/22/2022 20:41:20'!
+PASSED!
+
+!testRun: #ImportTest #test02ImportInvalidLineTypeRaisesError stamp: 'MSS 11/22/2022 20:41:20'!
+ERROR!
+
+!testRun: #ImportTest #test03DoesNotImportRecordsStartingWithCButMoreCharacters stamp: 'MSS 11/22/2022 20:41:20'!
+PASSED!
+
+!testRun: #ImportTest #test03ImportInvalidLineTypeSOFE stamp: 'MSS 11/22/2022 20:41:20'!
+ERROR!
+
+!testRun: #ImportTest #test04DoesNotImportRecordsStartingWithAButMoreCharacters stamp: 'MSS 11/22/2022 20:41:20'!
+PASSED!
+
+!testRun: #ImportTest #test04firstLineIsAnAddressRaisesError stamp: 'MSS 11/22/2022 20:41:20'!
+ERROR!
+
+!testRun: #ImportTest #test05CanNotImportAddressRecordWithLessThanSixFields stamp: 'MSS 11/22/2022 20:41:20'!
+PASSED!
+
+!testRun: #ImportTest #test05firstLineIsAnAddressShouldNotImportNothing stamp: 'MSS 11/22/2022 20:41:20'!
+ERROR!
+
+!testRun: #ImportTest #test06CanNotImportAddressRecordWithMoreThanSixFields stamp: 'MSS 11/22/2022 20:41:20'!
+PASSED!
+
+!testRun: #ImportTest #test06missingParameterRaisesError stamp: 'MSS 11/22/2022 20:41:20'!
+ERROR!
+
+!testRun: #ImportTest #test07CanNotImportCustomerRecordWithLessThanFiveFields stamp: 'MSS 11/22/2022 20:41:20'!
+PASSED!
+
+!testRun: #ImportTest #test07missingCustomerParameterDoesNotImportCustomer stamp: 'MSS 11/22/2022 20:41:20'!
+ERROR!
+
+!testRun: #ImportTest #test08CanNotImportCustomerRecordWithMoreThanFiveFields stamp: 'MSS 11/22/2022 20:41:20'!
+PASSED!
+
+!testRun: #ImportTest #test08streetNumberAndZipCodeCannotBeNonNumericalValues stamp: 'MSS 11/22/2022 20:41:20'!
+ERROR!
+
+!testRun: #ImportTest #test09CannotImportEmptyLine stamp: 'MSS 11/22/2022 20:41:20'!
+PASSED!
+
+!classRemoval: #DataBaseSession stamp: 'MSS 11/22/2022 20:41:31'!
+Object subclass: #DataBaseSession
+	instanceVariableNames: 'configuration tables id'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #TransientCustomerSystem stamp: 'MSS 11/22/2022 20:41:32'!
+CustomerSystem subclass: #TransientCustomerSystem
+	instanceVariableNames: 'customers'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #PersistentCustomerSystem stamp: 'MSS 11/22/2022 20:41:32'!
+CustomerSystem subclass: #PersistentCustomerSystem
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #CustomerSystem stamp: 'MSS 11/22/2022 20:41:32'!
+Object subclass: #CustomerSystem
+	instanceVariableNames: 'session'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #CustomerImporter stamp: 'MSS 11/22/2022 20:41:33'!
+Object subclass: #CustomerImporter
+	instanceVariableNames: 'readStream newCustomer line record system'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #Customer stamp: 'MSS 11/22/2022 20:41:33'!
+Object subclass: #Customer
+	instanceVariableNames: 'id firstName lastName identificationType identificationNumber addresses'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #CSVImporter stamp: 'MSS 11/22/2022 20:41:34'!
+Object subclass: #CSVImporter
+	instanceVariableNames: 'session readStream line newCustomer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #Address stamp: 'MSS 11/22/2022 20:41:34'!
+Object subclass: #Address
+	instanceVariableNames: 'id streetName streetNumber town zipCode province'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #ImportTest stamp: 'MSS 11/22/2022 20:41:35'!
+TestCase subclass: #ImportTest
+	instanceVariableNames: 'system'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+----End fileIn of /home/marco/Desktop/Ingsoft-1/10-CustomerImporter/solucion Step 3/CustomerImporter.st----!
+
+!testRun: #ImportTest #test01ValidDataIsImportedCorrectly stamp: 'MSS 11/22/2022 20:41:46'!
+PASSED!
+
+!testRun: #ImportTest #test02CanNotImportAddressWithoutCustomer stamp: 'MSS 11/22/2022 20:41:46'!
+PASSED!
+
+!testRun: #ImportTest #test03DoesNotImportRecordsStartingWithCButMoreCharacters stamp: 'MSS 11/22/2022 20:41:46'!
+PASSED!
+
+!testRun: #ImportTest #test04DoesNotImportRecordsStartingWithAButMoreCharacters stamp: 'MSS 11/22/2022 20:41:46'!
+PASSED!
+
+!testRun: #ImportTest #test05CanNotImportAddressRecordWithLessThanSixFields stamp: 'MSS 11/22/2022 20:41:46'!
+PASSED!
+
+!testRun: #ImportTest #test06CanNotImportAddressRecordWithMoreThanSixFields stamp: 'MSS 11/22/2022 20:41:46'!
+PASSED!
+
+!testRun: #ImportTest #test07CanNotImportCustomerRecordWithLessThanFiveFields stamp: 'MSS 11/22/2022 20:41:46'!
+PASSED!
+
+!testRun: #ImportTest #test08CanNotImportCustomerRecordWithMoreThanFiveFields stamp: 'MSS 11/22/2022 20:41:46'!
+PASSED!
+
+!testRun: #ImportTest #test09CannotImportEmptyLine stamp: 'MSS 11/22/2022 20:41:46'!
+PASSED!
+
+Object subclass: #Environment
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classDefinition: #Environment category: 'CustomerImporter' stamp: 'MSS 11/22/2022 20:43:43'!
+Object subclass: #Environment
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+Environment subclass: #DevelopmentEnvironment
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classDefinition: #DevelopmentEnvironment category: 'CustomerImporter' stamp: 'MSS 11/22/2022 20:44:06'!
+Environment subclass: #DevelopmentEnvironment
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+Object subclass: #Environment
+	instanceVariableNames: 'system'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classDefinition: #Environment category: 'CustomerImporter' stamp: 'MSS 11/22/2022 20:45:15'!
+Object subclass: #Environment
+	instanceVariableNames: 'system'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+Environment subclass: #ProductionEnvironment
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classDefinition: #ProductionEnvironment category: 'CustomerImporter' stamp: 'MSS 11/22/2022 20:45:27'!
+Environment subclass: #ProductionEnvironment
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+!Environment class methodsFor: 'no messages' stamp: 'MSS 11/22/2022 20:48:37'!
+ofType: anEnvironmentType
+	anEnvironmentType = #DEV ifTrue:[^DevelopmentEnvironment initialize].
+	anEnvironmentType = #DEV! !
+
+!classRenamed: #ProductionEnvironment as: #IntegrationEnvironment stamp: 'MSS 11/22/2022 20:48:49'!
+Smalltalk renameClassNamed: #ProductionEnvironment as: #IntegrationEnvironment!
+!Environment class methodsFor: 'as yet unclassified' stamp: 'MSS 11/22/2022 20:50:12' prior: 50559107!
+ofType: anEnvironmentType
+	anEnvironmentType = #DEV ifTrue:[^DevelopmentEnvironment initialize].
+	anEnvironmentType = #INTG ifTrue:[^IntegrationEnvironment initialize].
+	self error: self class invalidEnvironmentTypeErrorMessage.! !
+!Environment class methodsFor: 'as yet unclassified' stamp: 'MSS 11/22/2022 20:50:43'!
+invalidEnvironmentTypeErrorMessage
+	^'Environment type must be #DEV or #INTG'! !
+!Environment class methodsFor: 'initialization' stamp: 'MSS 11/22/2022 20:52:14' overrides: 16904184!
+initialize
+	self subclassResponsibility .! !
+!DevelopmentEnvironment class methodsFor: 'no messages' stamp: 'MSS 11/22/2022 20:54:49' overrides: 50559136!
+initialize
+	"^(self new) setImportSystem: "! !
+
+Smalltalk at: #ENV!
+
+Smalltalk !
+
+Smalltalk at: #ENV!
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/22/2022 21:03:27' prior: 50558446!
+addressRecordWithMoreThanSixFields
+	Smalltalk at: #ENV.
+	^ReadStream on: 'C,Pepe,Sanchez,D,22333444
+A,San Martin,3322,Olivos,1636,BsAs,x'! !
+
+!testRun: #ImportTest #test01ValidDataIsImportedCorrectly stamp: 'MSS 11/22/2022 21:03:28'!
+PASSED!
+
+!testRun: #ImportTest #test02CanNotImportAddressWithoutCustomer stamp: 'MSS 11/22/2022 21:03:28'!
+PASSED!
+
+!testRun: #ImportTest #test03DoesNotImportRecordsStartingWithCButMoreCharacters stamp: 'MSS 11/22/2022 21:03:28'!
+PASSED!
+
+!testRun: #ImportTest #test04DoesNotImportRecordsStartingWithAButMoreCharacters stamp: 'MSS 11/22/2022 21:03:28'!
+PASSED!
+
+!testRun: #ImportTest #test05CanNotImportAddressRecordWithLessThanSixFields stamp: 'MSS 11/22/2022 21:03:28'!
+PASSED!
+
+!testRun: #ImportTest #test06CanNotImportAddressRecordWithMoreThanSixFields stamp: 'MSS 11/22/2022 21:03:28'!
+ERROR!
+
+!testRun: #ImportTest #test07CanNotImportCustomerRecordWithLessThanFiveFields stamp: 'MSS 11/22/2022 21:03:28'!
+PASSED!
+
+!testRun: #ImportTest #test08CanNotImportCustomerRecordWithMoreThanFiveFields stamp: 'MSS 11/22/2022 21:03:28'!
+PASSED!
+
+!testRun: #ImportTest #test09CannotImportEmptyLine stamp: 'MSS 11/22/2022 21:03:28'!
+PASSED!
+
+!testRun: #ImportTest #test06CanNotImportAddressRecordWithMoreThanSixFields stamp: 'MSS 11/22/2022 21:03:28'!
+ERROR!
+!ImportTest methodsFor: 'test data' stamp: 'MSS 11/22/2022 21:03:37' prior: 50559147!
+addressRecordWithMoreThanSixFields
+	^ReadStream on: 'C,Pepe,Sanchez,D,22333444
+A,San Martin,3322,Olivos,1636,BsAs,x'! !
+
+Smalltalk at: #ENV put: 'DEV'!
+
+Smalltalk at: #ENV put: 'DEV' .!
+
+Smalltalk at: #ENV.!
+!PersistentCustomerSystem methodsFor: 'initialization' stamp: 'MSS 11/22/2022 21:08:44' prior: 50558828 overrides: 50558801!
+initialize
+	session := DataBaseSession for: (Array with: Address with: Customer).
+	session beginTransaction.
+	^self.! !
+
+!testRun: #ImportTest #test01ValidDataIsImportedCorrectly stamp: 'MSS 11/22/2022 21:08:46'!
+PASSED!
+
+!testRun: #ImportTest #test02CanNotImportAddressWithoutCustomer stamp: 'MSS 11/22/2022 21:08:46'!
+PASSED!
+
+!testRun: #ImportTest #test03DoesNotImportRecordsStartingWithCButMoreCharacters stamp: 'MSS 11/22/2022 21:08:46'!
+PASSED!
+
+!testRun: #ImportTest #test04DoesNotImportRecordsStartingWithAButMoreCharacters stamp: 'MSS 11/22/2022 21:08:46'!
+PASSED!
+
+!testRun: #ImportTest #test05CanNotImportAddressRecordWithLessThanSixFields stamp: 'MSS 11/22/2022 21:08:46'!
+PASSED!
+
+!testRun: #ImportTest #test06CanNotImportAddressRecordWithMoreThanSixFields stamp: 'MSS 11/22/2022 21:08:46'!
+PASSED!
+
+!testRun: #ImportTest #test07CanNotImportCustomerRecordWithLessThanFiveFields stamp: 'MSS 11/22/2022 21:08:46'!
+PASSED!
+
+!testRun: #ImportTest #test08CanNotImportCustomerRecordWithMoreThanFiveFields stamp: 'MSS 11/22/2022 21:08:46'!
+PASSED!
+
+!testRun: #ImportTest #test09CannotImportEmptyLine stamp: 'MSS 11/22/2022 21:08:46'!
+PASSED!
+!DevelopmentEnvironment class methodsFor: 'as yet unclassified' stamp: 'MSS 11/22/2022 21:09:31' prior: 50559141 overrides: 50559136!
+initialize
+	^(self new) initialize.! !
+!Environment class methodsFor: 'initialization' stamp: 'MSS 11/22/2022 21:09:56' prior: 50559136 overrides: 16904184!
+initialize
+	^(self new) initialize .! !
+
+!methodRemoval: DevelopmentEnvironment class #initialize stamp: 'MSS 11/22/2022 21:10:03'!
+initialize
+	^(self new) initialize.!
+!DevelopmentEnvironment methodsFor: 'no messages' stamp: 'MSS 11/22/2022 21:10:31' overrides: 16920235!
+initialize
+	system := TransientCustomerSystem start.! !
+!IntegrationEnvironment methodsFor: 'no messages' stamp: 'MSS 11/22/2022 21:10:57' overrides: 16920235!
+initialize
+	system := PersistentCustomerSystem start.! !
+
+----STARTUP---- (23 November 2022 14:55:03) as /home/marco/Desktop/linux64/CuisUniversity-5510.image!
+
+
+!classRemoval: #DataBaseSession stamp: 'MSS 11/23/2022 14:55:21'!
+Object subclass: #DataBaseSession
+	instanceVariableNames: 'configuration tables id'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #Customer stamp: 'MSS 11/23/2022 14:55:21'!
+Object subclass: #Customer
+	instanceVariableNames: 'id firstName lastName identificationType identificationNumber addresses'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #CustomerImporter stamp: 'MSS 11/23/2022 14:55:21'!
+CSVImporter subclass: #CustomerImporter
+	instanceVariableNames: 'newAddress record'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #CSVImporter stamp: 'MSS 11/23/2022 14:55:22'!
+Object subclass: #CSVImporter
+	instanceVariableNames: 'session readStream line newCustomer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #Address stamp: 'MSS 11/23/2022 14:55:22'!
+Object subclass: #Address
+	instanceVariableNames: 'id streetName streetNumber town zipCode province'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #ImportTest stamp: 'MSS 11/23/2022 14:55:23'!
+TestCase subclass: #ImportTest
+	instanceVariableNames: 'session'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+----STARTUP---- (23 November 2022 14:57:36) as /home/marco/Desktop/linux64/CuisUniversity-5510.image!
+
+
+----End fileIn of /home/marco/Desktop/Ingsoft-1/10-CustomerImporter/solucion Step 3/CustomerImporter.st----!
+
+!classRemoval: #IntegrationEnvironment stamp: 'MSS 11/23/2022 14:58:19'!
+Environment subclass: #IntegrationEnvironment
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #DevelopmentEnvironment stamp: 'MSS 11/23/2022 14:58:19'!
+Environment subclass: #DevelopmentEnvironment
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #Environment stamp: 'MSS 11/23/2022 14:58:20'!
+Object subclass: #Environment
+	instanceVariableNames: 'system'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #DataBaseSession stamp: 'MSS 11/23/2022 14:58:20'!
+Object subclass: #DataBaseSession
+	instanceVariableNames: 'configuration tables id'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #TransientCustomerSystem stamp: 'MSS 11/23/2022 14:58:20'!
+CustomerSystem subclass: #TransientCustomerSystem
+	instanceVariableNames: 'customers'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #PersistentCustomerSystem stamp: 'MSS 11/23/2022 14:58:21'!
+CustomerSystem subclass: #PersistentCustomerSystem
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #CustomerSystem stamp: 'MSS 11/23/2022 14:58:21'!
+Object subclass: #CustomerSystem
+	instanceVariableNames: 'session'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #CustomerImporter stamp: 'MSS 11/23/2022 14:58:22'!
+Object subclass: #CustomerImporter
+	instanceVariableNames: 'readStream newCustomer line record system'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #Customer stamp: 'MSS 11/23/2022 14:58:22'!
+Object subclass: #Customer
+	instanceVariableNames: 'id firstName lastName identificationType identificationNumber addresses'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #CSVImporter stamp: 'MSS 11/23/2022 14:58:23'!
+Object subclass: #CSVImporter
+	instanceVariableNames: 'session readStream line newCustomer'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #Address stamp: 'MSS 11/23/2022 14:58:23'!
+Object subclass: #Address
+	instanceVariableNames: 'id streetName streetNumber town zipCode province'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classRemoval: #ImportTest stamp: 'MSS 11/23/2022 14:58:24'!
+TestCase subclass: #ImportTest
+	instanceVariableNames: 'system'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+----End fileIn of /home/marco/Desktop/Ingsoft-1/10-CustomerImporter/solucion Step 3/CustomerImporter.st----!
+
+!testRun: #ImportTest #test01ValidDataIsImportedCorrectly stamp: 'MSS 11/23/2022 14:58:42'!
+PASSED!
+
+!testRun: #ImportTest #test02CanNotImportAddressWithoutCustomer stamp: 'MSS 11/23/2022 14:58:42'!
+PASSED!
+
+!testRun: #ImportTest #test03DoesNotImportRecordsStartingWithCButMoreCharacters stamp: 'MSS 11/23/2022 14:58:42'!
+PASSED!
+
+!testRun: #ImportTest #test04DoesNotImportRecordsStartingWithAButMoreCharacters stamp: 'MSS 11/23/2022 14:58:42'!
+PASSED!
+
+!testRun: #ImportTest #test05CanNotImportAddressRecordWithLessThanSixFields stamp: 'MSS 11/23/2022 14:58:42'!
+PASSED!
+
+!testRun: #ImportTest #test06CanNotImportAddressRecordWithMoreThanSixFields stamp: 'MSS 11/23/2022 14:58:42'!
+PASSED!
+
+!testRun: #ImportTest #test07CanNotImportCustomerRecordWithLessThanFiveFields stamp: 'MSS 11/23/2022 14:58:42'!
+PASSED!
+
+!testRun: #ImportTest #test08CanNotImportCustomerRecordWithMoreThanFiveFields stamp: 'MSS 11/23/2022 14:58:42'!
+PASSED!
+
+!testRun: #ImportTest #test09CannotImportEmptyLine stamp: 'MSS 11/23/2022 14:58:42'!
+PASSED!
+!ImportTest methodsFor: 'setUp/tearDown' stamp: 'MSS 11/23/2022 14:59:29' prior: 50558469 overrides: 16961394!
+setUp
+	system := Environment current createSystem.
+	system beginTransaction.
+! !
+!Environment class methodsFor: 'initialization' stamp: 'MSS 11/23/2022 15:00:20'!
+current
+	self subclassResponsibility.! !
+!Environment class methodsFor: 'initialization' stamp: 'MSS 11/23/2022 15:04:28' prior: 50559181!
+current
+	(Smalltalk at: #ENV) = #DEV ifTrue:[^DevelopmentEnvironment ].
+	(Smalltalk at: #ENV) = #INTG ifTrue: [^IntegrationEnvironment].
+	self error: self invalidEnvironmentTypeErrorMessage .! !
+!DevelopmentEnvironment class methodsFor: 'no messages' stamp: 'MSS 11/23/2022 15:05:25'!
+createSystem
+	^TransientCustomerSystem ! !
+!DevelopmentEnvironment class methodsFor: 'as yet unclassified' stamp: 'MSS 11/23/2022 15:05:51' prior: 50559195!
+createSystem
+	^TransientCustomerSystem start.! !
+
+!methodRemoval: Environment class #initialize stamp: 'MSS 11/23/2022 15:06:03'!
+initialize
+	^(self new) initialize .!
+
+!methodRemoval: Environment class #ofType: stamp: 'MSS 11/23/2022 15:06:09'!
+ofType: anEnvironmentType
+	anEnvironmentType = #DEV ifTrue:[^DevelopmentEnvironment initialize].
+	anEnvironmentType = #INTG ifTrue:[^IntegrationEnvironment initialize].
+	self error: self class invalidEnvironmentTypeErrorMessage.!
+!Environment class methodsFor: 'initialization' stamp: 'MSS 11/23/2022 15:06:17' prior: 50559186!
+current
+	(Smalltalk at: #ENV) = #DEV ifTrue:[^DevelopmentEnvironment ].
+	(Smalltalk at: #ENV) = #INTG ifTrue: [^IntegrationEnvironment].
+	self error: self invalidEnvironmentTypeErrorMessage .! !
+!Environment class methodsFor: 'initialization' stamp: 'MSS 11/23/2022 15:06:45'!
+createSystem
+	self subclassResponsibility.! !
+!IntegrationEnvironment class methodsFor: 'no messages' stamp: 'MSS 11/23/2022 15:06:59' overrides: 50559227!
+createSystem
+	^PersistentCustomerSystem start.! !
+
+Smalltalk at: #ENV!
+
+Environment current!
+
+Smalltalk at: #ENV put: #DEV.!
+
+Environment current!
+
+Smalltalk at: #ENV put: #INTG!
+
+Environment current  !
+
+!testRun: #ImportTest #test01ValidDataIsImportedCorrectly stamp: 'MSS 11/23/2022 15:13:36'!
+PASSED!
+
+!testRun: #ImportTest #test02CanNotImportAddressWithoutCustomer stamp: 'MSS 11/23/2022 15:13:36'!
+PASSED!
+
+!testRun: #ImportTest #test03DoesNotImportRecordsStartingWithCButMoreCharacters stamp: 'MSS 11/23/2022 15:13:36'!
+PASSED!
+
+!testRun: #ImportTest #test04DoesNotImportRecordsStartingWithAButMoreCharacters stamp: 'MSS 11/23/2022 15:13:36'!
+PASSED!
+
+!testRun: #ImportTest #test05CanNotImportAddressRecordWithLessThanSixFields stamp: 'MSS 11/23/2022 15:13:37'!
+PASSED!
+
+!testRun: #ImportTest #test06CanNotImportAddressRecordWithMoreThanSixFields stamp: 'MSS 11/23/2022 15:13:37'!
+PASSED!
+
+!testRun: #ImportTest #test07CanNotImportCustomerRecordWithLessThanFiveFields stamp: 'MSS 11/23/2022 15:13:37'!
+PASSED!
+
+!testRun: #ImportTest #test08CanNotImportCustomerRecordWithMoreThanFiveFields stamp: 'MSS 11/23/2022 15:13:37'!
+PASSED!
+
+!testRun: #ImportTest #test09CannotImportEmptyLine stamp: 'MSS 11/23/2022 15:13:37'!
+PASSED!
+
+Smalltalk at: #ENV put: #DEV!
+
+!testRun: #ImportTest #test01ValidDataIsImportedCorrectly stamp: 'MSS 11/23/2022 15:13:52'!
+PASSED!
+
+!testRun: #ImportTest #test02CanNotImportAddressWithoutCustomer stamp: 'MSS 11/23/2022 15:13:52'!
+PASSED!
+
+!testRun: #ImportTest #test03DoesNotImportRecordsStartingWithCButMoreCharacters stamp: 'MSS 11/23/2022 15:13:52'!
+PASSED!
+
+!testRun: #ImportTest #test04DoesNotImportRecordsStartingWithAButMoreCharacters stamp: 'MSS 11/23/2022 15:13:52'!
+PASSED!
+
+!testRun: #ImportTest #test05CanNotImportAddressRecordWithLessThanSixFields stamp: 'MSS 11/23/2022 15:13:52'!
+PASSED!
+
+!testRun: #ImportTest #test06CanNotImportAddressRecordWithMoreThanSixFields stamp: 'MSS 11/23/2022 15:13:52'!
+PASSED!
+
+!testRun: #ImportTest #test07CanNotImportCustomerRecordWithLessThanFiveFields stamp: 'MSS 11/23/2022 15:13:52'!
+PASSED!
+
+!testRun: #ImportTest #test08CanNotImportCustomerRecordWithMoreThanFiveFields stamp: 'MSS 11/23/2022 15:13:52'!
+PASSED!
+
+!testRun: #ImportTest #test09CannotImportEmptyLine stamp: 'MSS 11/23/2022 15:13:52'!
+PASSED!
+!DevelopmentEnvironment class methodsFor: 'as yet unclassified' stamp: 'MSS 11/23/2022 15:23:27' prior: 50559200 overrides: 50559227!
+createSystem
+	^TransientCustomerSystem.! !
+!IntegrationEnvironment class methodsFor: 'as yet unclassified' stamp: 'MSS 11/23/2022 15:23:31' prior: 50559232 overrides: 50559227!
+createSystem
+	^PersistentCustomerSystem.! !
+!ImportTest methodsFor: 'setUp/tearDown' stamp: 'MSS 11/23/2022 15:23:49' prior: 50559175 overrides: 16961394!
+setUp
+	system := Environment current createSystem.
+	system start.
+	system beginTransaction.
+! !
+
+!methodRemoval: IntegrationEnvironment #initialize stamp: 'MSS 11/23/2022 15:24:59'!
+initialize
+	system := PersistentCustomerSystem start.!
+
+!methodRemoval: DevelopmentEnvironment #initialize stamp: 'MSS 11/23/2022 15:25:05'!
+initialize
+	system := TransientCustomerSystem start.!
+
+Object subclass: #Environment
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+
+!classDefinition: #Environment category: 'CustomerImporter' stamp: 'MSS 11/23/2022 15:25:10'!
+Object subclass: #Environment
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'CustomerImporter'!
+!DevelopmentEnvironment class methodsFor: 'as yet unclassified' stamp: 'MSS 11/23/2022 15:27:56' prior: 50559308 overrides: 50559227!
+createSystem
+	^TransientCustomerSystem new.! !
+!PersistentCustomerSystem methodsFor: 'as yet unclassified' stamp: 'MSS 11/23/2022 15:31:33'!
+start
+
+	^(PersistentCustomerSystem new) initialize.! !
+
+!methodRemoval: PersistentCustomerSystem class #start stamp: 'MSS 11/23/2022 15:31:33'!
+start
+
+	^(PersistentCustomerSystem new) initialize.!
+!TransientCustomerSystem methodsFor: 'as yet unclassified' stamp: 'MSS 11/23/2022 15:31:41'!
+start
+	^(TransientCustomerSystem new) initialize.! !
+
+!methodRemoval: TransientCustomerSystem class #start stamp: 'MSS 11/23/2022 15:31:41'!
+start
+	^(TransientCustomerSystem new) initialize.!
+
+!testRun: #ImportTest #test01ValidDataIsImportedCorrectly stamp: 'MSS 11/23/2022 15:31:49'!
+PASSED!
+
+!testRun: #ImportTest #test02CanNotImportAddressWithoutCustomer stamp: 'MSS 11/23/2022 15:31:49'!
+PASSED!
+
+!testRun: #ImportTest #test03DoesNotImportRecordsStartingWithCButMoreCharacters stamp: 'MSS 11/23/2022 15:31:50'!
+PASSED!
+
+!testRun: #ImportTest #test04DoesNotImportRecordsStartingWithAButMoreCharacters stamp: 'MSS 11/23/2022 15:31:50'!
+PASSED!
+
+!testRun: #ImportTest #test05CanNotImportAddressRecordWithLessThanSixFields stamp: 'MSS 11/23/2022 15:31:51'!
+PASSED!
+
+!testRun: #ImportTest #test06CanNotImportAddressRecordWithMoreThanSixFields stamp: 'MSS 11/23/2022 15:31:51'!
+PASSED!
+
+!testRun: #ImportTest #test07CanNotImportCustomerRecordWithLessThanFiveFields stamp: 'MSS 11/23/2022 15:31:52'!
+PASSED!
+
+!testRun: #ImportTest #test08CanNotImportCustomerRecordWithMoreThanFiveFields stamp: 'MSS 11/23/2022 15:31:52'!
+PASSED!
+
+!testRun: #ImportTest #test09CannotImportEmptyLine stamp: 'MSS 11/23/2022 15:31:52'!
+PASSED!
+
+!testRun: #ImportTest #test01ValidDataIsImportedCorrectly stamp: 'MSS 11/23/2022 15:31:59'!
+PASSED!
+
+!testRun: #ImportTest #test02CanNotImportAddressWithoutCustomer stamp: 'MSS 11/23/2022 15:31:59'!
+PASSED!
+
+!testRun: #ImportTest #test03DoesNotImportRecordsStartingWithCButMoreCharacters stamp: 'MSS 11/23/2022 15:31:59'!
+PASSED!
+
+!testRun: #ImportTest #test04DoesNotImportRecordsStartingWithAButMoreCharacters stamp: 'MSS 11/23/2022 15:31:59'!
+PASSED!
+
+!testRun: #ImportTest #test05CanNotImportAddressRecordWithLessThanSixFields stamp: 'MSS 11/23/2022 15:31:59'!
+PASSED!
+
+!testRun: #ImportTest #test06CanNotImportAddressRecordWithMoreThanSixFields stamp: 'MSS 11/23/2022 15:31:59'!
+PASSED!
+
+!testRun: #ImportTest #test07CanNotImportCustomerRecordWithLessThanFiveFields stamp: 'MSS 11/23/2022 15:31:59'!
+PASSED!
+
+!testRun: #ImportTest #test08CanNotImportCustomerRecordWithMoreThanFiveFields stamp: 'MSS 11/23/2022 15:31:59'!
+PASSED!
+
+!testRun: #ImportTest #test09CannotImportEmptyLine stamp: 'MSS 11/23/2022 15:31:59'!
+PASSED!
+
+Smalltalk at: #ENV put: #INTG!
+!IntegrationEnvironment class methodsFor: 'as yet unclassified' stamp: 'MSS 11/23/2022 15:32:35' prior: 50559314 overrides: 50559227!
+createSystem
+	^PersistentCustomerSystem new.! !
+
+!testRun: #ImportTest #test01ValidDataIsImportedCorrectly stamp: 'MSS 11/23/2022 15:32:40'!
+PASSED!
+
+!testRun: #ImportTest #test02CanNotImportAddressWithoutCustomer stamp: 'MSS 11/23/2022 15:32:42'!
+PASSED!
+
+!testRun: #ImportTest #test03DoesNotImportRecordsStartingWithCButMoreCharacters stamp: 'MSS 11/23/2022 15:32:43'!
+PASSED!
+
+!testRun: #ImportTest #test04DoesNotImportRecordsStartingWithAButMoreCharacters stamp: 'MSS 11/23/2022 15:32:43'!
+PASSED!
+
+!testRun: #ImportTest #test05CanNotImportAddressRecordWithLessThanSixFields stamp: 'MSS 11/23/2022 15:32:44'!
+PASSED!
+
+!testRun: #ImportTest #test06CanNotImportAddressRecordWithMoreThanSixFields stamp: 'MSS 11/23/2022 15:32:44'!
+PASSED!
+
+!testRun: #ImportTest #test07CanNotImportCustomerRecordWithLessThanFiveFields stamp: 'MSS 11/23/2022 15:32:44'!
+PASSED!
+
+!testRun: #ImportTest #test08CanNotImportCustomerRecordWithMoreThanFiveFields stamp: 'MSS 11/23/2022 15:32:45'!
+PASSED!
+
+!testRun: #ImportTest #test09CannotImportEmptyLine stamp: 'MSS 11/23/2022 15:32:45'!
+PASSED!

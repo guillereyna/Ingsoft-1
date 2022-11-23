@@ -1,0 +1,6 @@
+Buenas! Tuvimos un problema con el .user.changes...
+La primera fue que hicimos el ejercicio pero se nos rompio Cuis el dia de clase y tuvimos que rehacer todo...
+La segunda es que cuando lo hicimos por segunda vez por alguna razon el .user.changes (5466) nos quedo vacio, realmente no entendemos por que. Luego introducimos mas cambios a la solucion que teniamos que quedaron en el user.changes 5510.
+
+Espero sepan comprender
+Saludos
