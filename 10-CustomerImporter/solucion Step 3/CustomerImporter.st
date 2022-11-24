@@ -779,11 +779,10 @@ invalidEnvironmentTypeErrorMessage
 createSystem
 	self subclassResponsibility.! !
 
-!Environment class methodsFor: 'initialization' stamp: 'MSS 11/23/2022 15:06:17'!
+!Environment class methodsFor: 'initialization' stamp: 'MSS 11/24/2022 13:58:44'!
 current
-	(Smalltalk at: #ENV) = #DEV ifTrue:[^DevelopmentEnvironment ].
-	(Smalltalk at: #ENV) = #INTG ifTrue: [^IntegrationEnvironment].
-	self error: self invalidEnvironmentTypeErrorMessage .! !
+	^Smalltalk at: #ENV.
+	! !
 
 
 !classDefinition: #DevelopmentEnvironment category: 'CustomerImporter'!
